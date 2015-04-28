@@ -151,7 +151,12 @@ body
 }
 .menu-wrap a:hover, .menu-wrap .active a
 {
-    color: #337ab7;
+    color: #fff;
+}
+.nav>li>a:focus, .nav>li>a:hover
+{
+  background: none;
+  opacity: 0.65;
 }
 .main-zone
 {
