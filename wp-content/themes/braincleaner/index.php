@@ -87,10 +87,10 @@
         <div class="row footer-wrap">
           <div class="container">
             <div class="pull-left">
-              <a href="#">Defra</a> 2015
+              <a href="/">Braincleaner</a> 2015
             </div>
             <div class="pull-right">
-              <a href="mailto:info@defra.ru">info@defra.ru</a>
+              <a href="mailto:info@defra.ru">info@braincleaner.ru</a>
             </div>
           </div>
         </div>
@@ -264,7 +264,7 @@
       <div class="row footer-wrap">
         <div class="container">
           <div class="pull-left">
-            <a href="#">Braincleaner</a> 2015
+            <a href="/">Braincleaner</a> 2015
           </div>
           <div class="pull-right">
             <a href="mailto:info@defra.ru">info@braincleaner.ru</a>
