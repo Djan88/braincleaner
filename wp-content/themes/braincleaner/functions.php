@@ -18,6 +18,6 @@ add_filter('login_redirect', 'users_redirect');
 }
 /* Отключаем админ панель для всех, кроме администраторов. */
 if (!current_user_can('administrator')):
-  add_filter( 'show_admin_bar', '__return_false' );
+  show_admin_bar(false);
 endif;
 /* DON'T DELETE THIS CLOSING TAG */ ?>
