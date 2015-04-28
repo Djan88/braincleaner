@@ -72,9 +72,7 @@
                   <label for="inputPassword3" class="col-sm-2 control-label">Пароль</label>
                   <div class="input-group input-group-lg">
                     <span class="input-group-addon">*</span>
-                    <label for="user_pass"><br />
-                      <input type="password" name="pwd" id="user_pass" class="input form-control" value="" size="20" />
-                    </label>
+                    <input type="password" name="pwd" id="user_pass" class="input form-control" value="" size="20" />
                   </div>
                 </div>
                 <div class="form-group">
