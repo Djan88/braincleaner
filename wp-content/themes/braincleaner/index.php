@@ -57,9 +57,7 @@
                   <label for="inputEmail3" class="col-sm-2 control-label">Логин</label>
                   <div class="input-group input-group-lg">
                     <span class="input-group-addon">@</span>
-                    <label for="user_login"><br />
-                      <input type="text" name="log" id="user_login" class="input form-control" value="<?php echo esc_attr($user_login); ?>" size="20" />
-                    </label>
+                    <input type="text" name="log" id="user_login" class="input form-control" value="<?php echo esc_attr($user_login); ?>" size="20" />
                   </div>
                 </div>
                 <?php
