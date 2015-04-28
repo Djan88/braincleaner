@@ -115,10 +115,6 @@ body
     /*background-position-x: center;*/
     min-height: 100vh;
 }
-.navbar-toggle
-{
-  border-color: #fff;
-}
 .inside
 {
     background: url(img/point-bgr.png);
@@ -148,7 +144,7 @@ body
 }
 .navbar-toggle .icon-bar 
 {
-    background: #555;
+    background: #fff;
 }
 .menu-wrap a
 {
