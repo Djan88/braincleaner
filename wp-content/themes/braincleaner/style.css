@@ -127,7 +127,7 @@ body
     border-bottom: 1px solid #ccc;
     color: #fff;
     background: rgba(0,0,0,0.6);
-    z-index: 1;
+    z-index: 999;
     /*-webkit-box-shadow: 0 1px 8px #d3cec7;
     -moz-box-shadow: 0 1px 8px #d3cec7;
     -ms-box-shadow: 0 1px 8px #d3cec7;
