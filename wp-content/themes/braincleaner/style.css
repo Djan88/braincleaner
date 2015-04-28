@@ -120,9 +120,13 @@ body
 }
 .menu-wrap
 {
-    position: relative;
-    background: #fff;
+    position: fixed;
+    left: 0;
+    right: 0;
     border-bottom: 1px solid #ccc;
+    color: #fff;
+    background: rgba(0,0,0,0.6);
+    z-index: 1;
     /*-webkit-box-shadow: 0 1px 8px #d3cec7;
     -moz-box-shadow: 0 1px 8px #d3cec7;
     -ms-box-shadow: 0 1px 8px #d3cec7;
@@ -157,6 +161,7 @@ body
     -ms-box-shadow: 0 0 8px #d3cec7;
     -o-box-shadow: 0 0 8px #d3cec7;
     box-shadow: 0 0 8px #d3cec7;
+    padding-top: 40px;
 }
 .main-zone .panel h4
 {
