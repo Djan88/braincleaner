@@ -44,7 +44,7 @@ body
 }
 .gear_1
 {
-    background: url(../img/s-1.png) 0 0/100% no-repeat;
+    background: url(img/s-1.png) 0 0/100% no-repeat;
     width: 104px;
     height: 104px;
     left: 70px;
@@ -58,7 +58,7 @@ body
 }
 .gear_2, .gear_1_1
 {
-    background: url(../img/s-2.png) 0 0/100% no-repeat;
+    background: url(img/s-2.png) 0 0/100% no-repeat;
     width: 125px;
     height: 125px;
     left: 60px;
@@ -72,7 +72,7 @@ body
 }
 .gear_3
 {
-    background: url(../img/s-3.png) 0 0/100% no-repeat;
+    background: url(img/s-3.png) 0 0/100% no-repeat;
     width: 124px;
     height: 124px;
     left: 36px;
@@ -80,7 +80,7 @@ body
 }
 .gear_4
 {
-    background: url(../img/s-4.png) 0 0/100% no-repeat;
+    background: url(img/s-4.png) 0 0/100% no-repeat;
     width: 55px;
     height: 55px;
     left: 116px;
@@ -88,7 +88,7 @@ body
 }
 .gear_5
 {
-    background: url(../img/s-5.png) 0 0/100% no-repeat;
+    background: url(img/s-5.png) 0 0/100% no-repeat;
     width: 100px;
     height: 100px;
     left: 0;
@@ -97,7 +97,7 @@ body
 }
 .gear_6
 {
-    background: url(../img/s-3.png) 0 0/100% no-repeat;
+    background: url(img/s-3.png) 0 0/100% no-repeat;
     width: 100px;
     height: 100px;
     left: 242px;
@@ -109,14 +109,14 @@ body
 }
 .home, .inside
 {
-    background: #fff url(../img/main-2.png) 0 top/1000px no-repeat;
+    background: #fff url(img/main-2.png) 0 top/1000px no-repeat;
     /*background-size: cover;*/
     /*background-position-x: center;*/
     min-height: 100vh;
 }
 .inside
 {
-    background: url(../img/point-bgr.png);
+    background: url(img/point-bgr.png);
 }
 .menu-wrap
 {
