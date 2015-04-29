@@ -15,13 +15,13 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <?php wp_nav_menu(array('menu' => 'Меню в шапке', 'container' => false, menu_class => 'nav navbar-nav' )); ?>
-              <ul class="nav navbar-nav">
+              <!-- <ul class="nav navbar-nav">
                 <li class="active"><a href="index.html"><span class="glyphicon glyphicon-film"></span> Видео материалы</a></li>
                 <li><a href="index.html"><span class="glyphicon glyphicon-book"></span> Статьи и книги</a></li>
-                <!-- <li><a href="index.html"><span class="glyphicon glyphicon-pencil"></span> Запись на прием</a></li> -->
+                <li><a href="index.html"><span class="glyphicon glyphicon-pencil"></span> Запись на прием</a></li>
                 <li><a href="index.html"><span class="glyphicon glyphicon-envelope"></span> Написать письмо</a></li>
                 <li><a href="/wp-login.php?action=logout&amp;_wpnonce=a6cad512ba"><span class="glyphicon glyphicon-log-out"></span> Выход</a></li>
-              </ul>
+              </ul> -->
               <div class="pull-right" style="width: 31.5%;margin-top: 7px;">
                 <div class="input-group">
                   <input type="text" class="form-control">

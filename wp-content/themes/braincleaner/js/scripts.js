@@ -48,6 +48,7 @@ $(document).ready(function() {
     jQuery('#menu-item-13').find('a').prepend('<span class="glyphicon glyphicon-film"></span>');
     jQuery('#menu-item-14').find('a').prepend('<span class="glyphicon glyphicon-book"></span>');
     jQuery('#menu-item-12').find('a').prepend('<span class="glyphicon glyphicon-envelope"></span>');
+    jQuery('#menu-item-15').find('a').prepend('<span class="glyphicon glyphicon-log-out"></span>');
 
     // var count_animation_let = 0;
     // var cur_let;
