@@ -35,7 +35,7 @@ add_filter('login_redirect', 'users_redirect');
         'description' => __('Виджеты в сайдбар'),
         'before_widget' => '<div class="list-group-item">',
         'after_widget' => '</div>',
-        'before_title' => '<h3><a href="#">',
-        'after_title' => '</a></h3>',
+        'before_title' => '<h4 class="list-group-item-heading"><a href="#">',
+        'after_title' => '</a></h4>',
     ));
 /* DON'T DELETE THIS CLOSING TAG */ ?>
