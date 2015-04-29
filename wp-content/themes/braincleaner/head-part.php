@@ -13,12 +13,10 @@
       <?php wp_nav_menu(array('menu' => 'Меню в шапке', 'container' => false, menu_class => 'nav navbar-nav' )); ?>
       <div class="pull-right" style="width: 31.5%;margin-top: 7px;">
         <div class="input-group">
-          <form method="get" name="searchform" id="searchform" action="<?php bloginfo('siteurl')?>">
               <input type="text" name="s" id="s" placeholder="Что искать?" class="search-input form-control" required="true"/>
               <span class="input-group-btn">
-                <button class="btn btn-default search" type="button">Поиск</button>
+                <input id="btnSearch" type="submit" name="submit" value="<?php _e('Поиск'); ?>" class="search-button btn btn-default search"/>
               </span>
-          </form>
         </div><!-- /input-group -->
       </div>
     </div>
