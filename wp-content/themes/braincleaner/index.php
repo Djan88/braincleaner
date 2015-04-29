@@ -30,11 +30,7 @@
           <div class="container main-zone">
             <div class="col-md-8">
               <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-                <?php if(is_single()) { ?>
                   <h2><?php the_title(); ?></h2>
-                <? } else { ?>
-                  <h2><a href="<?php the_permalink(); ?>" style="color:#f1c353;"><?php the_title(); ?></a></h2>
-                <?php } ?>
                 <div class="content-wrap">
                   <?php
                   the_content(__('(more...)'));
