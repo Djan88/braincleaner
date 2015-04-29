@@ -14,6 +14,7 @@
               <a class="navbar-brand" href="#">Меню</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <?php wp_nav_menu(array('menu' => 'Меню в шапке', 'container' => false, menu_class => 'nav navbar-nav' )); ?>
               <ul class="nav navbar-nav">
                 <li class="active"><a href="index.html"><span class="glyphicon glyphicon-film"></span> Видео материалы</a></li>
                 <li><a href="index.html"><span class="glyphicon glyphicon-book"></span> Статьи и книги</a></li>
