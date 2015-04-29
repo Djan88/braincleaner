@@ -151,12 +151,12 @@ body
 {
     color: #fff;
 }
-.menu-wrap a:hover, .menu-wrap .active a, .current-menu-item a
+.menu-wrap a:hover, .menu-wrap .active a, .current-menu-item a, .current-menu-parent a
 {
     color: #fff;
     opacity: 0.65;
 }
-.nav>li>a:focus, .nav>li>a:hover, .current-menu-item a
+.nav>li>a:focus, .nav>li>a:hover, .current-menu-item a, .current-menu-parent a
 {
   background: none;
   opacity: 0.65;
