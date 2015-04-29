@@ -233,7 +233,7 @@
               <div class="list-group-item active">
                 <h4 class="list-group-item-heading">Ближайшие семинары</h4>
               </div>
-              <?php if (!dynamic_sidebar("header-widget-area") ) : ?>
+              <?php if (!dynamic_sidebar("arhive-widget-area") ) : ?>
               <!-- Код который будет выводиться если в вашей области не добавлено --> 
               <!-- <div style="float:right;width:500px;height:60px; margin-bottom:20px;margin-top:20px;"><img src="/img/banner.png" /></div>  -->
               <!-- ни одного виджета -->
