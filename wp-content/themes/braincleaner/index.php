@@ -60,20 +60,10 @@
             <div class="col-md-4 sidebar-zone">
               <div class="list-group">
                 <div class="list-group-item active">
-                  <h4 class="list-group-item-heading">Ближайшие семинары</h4>
+                  <h4 class="list-group-item-heading">Важная информация</h4>
                 </div>
-                <div class="list-group-item">
-                  <a href="#"><h4 class="list-group-item-heading">Заголовок пункта списка группы 1</h4></a>
-                  <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                </div>
-                <div class="list-group-item">
-                  <a href="#"><h4 class="list-group-item-heading">Заголовок пункта списка группы 2</h4></a>
-                  <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                </div>
-                <div class="list-group-item">
-                  <a href="#"><h4 class="list-group-item-heading">Заголовок пункта списка группы 3</h4></a>
-                  <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                </div>
+                <?php if (!dynamic_sidebar("arhive-widget-area") ) : ?>
+                <?php endif; ?>
               </div>
             </div>
           </div>
@@ -231,25 +221,10 @@
           <div class="col-md-4 sidebar-zone">
             <div class="list-group">
               <div class="list-group-item active">
-                <h4 class="list-group-item-heading">Ближайшие семинары</h4>
+                <h4 class="list-group-item-heading">Важная информация</h4>
               </div>
               <?php if (!dynamic_sidebar("arhive-widget-area") ) : ?>
-              <!-- Код который будет выводиться если в вашей области не добавлено --> 
-              <!-- <div style="float:right;width:500px;height:60px; margin-bottom:20px;margin-top:20px;"><img src="/img/banner.png" /></div>  -->
-              <!-- ни одного виджета -->
               <?php endif; ?>
-              <div class="list-group-item">
-                <a href="#"><h4 class="list-group-item-heading">Заголовок пункта списка группы 1</h4></a>
-                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-              </div>
-              <div class="list-group-item">
-                <a href="#"><h4 class="list-group-item-heading">Заголовок пункта списка группы 2</h4></a>
-                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-              </div>
-              <div class="list-group-item">
-                <a href="#"><h4 class="list-group-item-heading">Заголовок пункта списка группы 3</h4></a>
-                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-              </div>
             </div>
           </div>
         </div>
