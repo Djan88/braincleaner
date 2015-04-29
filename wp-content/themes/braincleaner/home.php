@@ -8,11 +8,13 @@
               <h2><?php the_title(); ?></h2>
             <div class="content-wrap">
               <div class="panel panel-default main_heading">
-                <?php
-                the_content(__('(more...)'));
-                wp_link_pages();
-                edit_post_link(__('Edit This'));
-                ?>
+                <div class="panel-body">
+                  <?php
+                  the_content(__('(more...)'));
+                  wp_link_pages();
+                  edit_post_link(__('Edit This'));
+                  ?>
+                </div>
               </div>
             </div>
           <?php endwhile; else: ?>
