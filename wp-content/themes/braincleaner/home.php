@@ -5,7 +5,7 @@
       <div class="container main-zone">
         <div class="col-md-8">
           <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-              <h2><?php the_title(); ?></h2>
+              <h3><?php the_title(); ?></h3>
             <div class="content-wrap">
               <div class="panel panel-default main_heading">
                 <div class="panel-body">
