@@ -1,26 +1,55 @@
 <?php if(is_user_logged_in()){ ?>
   <div class="container-fluid inside animsition">
-    <?php include(TEMPLATEPATH . '/head-part.php'); ?>
+    <div class="row menu-wrap">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+          <a class="navbar-brand" href="#">Меню</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <?php wp_nav_menu(array('menu' => 'Меню в шапке', 'container' => false, menu_class => 'nav navbar-nav' )); ?>
+          <div class="pull-right" style="width: 31.5%;margin-top: 7px;">
+            <div class="input-group">
+              <input type="text" class="form-control">
+              <span class="input-group-btn">
+                <button class="btn btn-default search" type="button">Поиск</button>
+              </span>
+            </div><!-- /input-group -->
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="container main-zone">
         <div class="col-md-8">
-          <div class="panel panel-primary">
-            <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-                <h2><?php the_title(); ?></h2>
-              <div class="content-wrap">
-                <?php
-                the_content(__('(more...)'));
-                wp_link_pages();
-                edit_post_link(__('Edit This'));
-                ?>
-              </div>
-            <?php endwhile; else: ?>
-              <?php _e('Sorry, no posts matched your criteria.'); ?>
+          <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+              <h2><?php the_title(); ?></h2>
+            <div class="content-wrap">
+              <?php
+              the_content(__('(more...)'));
+              wp_link_pages();
+              edit_post_link(__('Edit This'));
+              ?>
+            </div>
+          <?php endwhile; else: ?>
+            <?php _e('Sorry, no posts matched your criteria.'); ?>
+          <?php endif; ?>
+          <?php posts_nav_link(' &#8212; ', __('&laquo; Более новые '), __('Более старые &raquo;')); ?>
+        </div>
+        <div class="col-md-4 sidebar-zone">
+          <div class="list-group">
+            <div class="list-group-item active">
+              <h4 class="list-group-item-heading">Важная информация</h4>
+            </div>
+            <?php if (!dynamic_sidebar("arhive-widget-area") ) : ?>
             <?php endif; ?>
-            <?php posts_nav_link(' &#8212; ', __('&laquo; Более новые '), __('Более старые &raquo;')); ?>
           </div>
         </div>
-        <?php include(TEMPLATEPATH . '/sidebar.php'); ?>
       </div>
     </div>
     <div class="row footer-wrap">
