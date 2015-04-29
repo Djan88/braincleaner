@@ -7,6 +7,9 @@
       <div class="row">
         <div class="container main-zone">
           <div class="col-md-8">
+          <?php if(is_archive()) { ?>
+            <?php include(TEMPLATEPATH . '/archive.php'); ?>
+          <?php } else { ?>
             <h3>Видео материалы</h3>
             <div class="content-wrap">
               <div class="panel panel-default main_heading">
