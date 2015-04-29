@@ -46,6 +46,8 @@ $(document).ready(function() {
     });
 
     jQuery('#menu-item-13').find('a').prepend('<span class="glyphicon glyphicon-film"></span>');
+    jQuery('#menu-item-14').find('a').prepend('<span class="glyphicon glyphicon-book"></span>');
+    jQuery('#menu-item-12').find('a').prepend('<span class="glyphicon glyphicon-envelope"></span>');
 
     // var count_animation_let = 0;
     // var cur_let;

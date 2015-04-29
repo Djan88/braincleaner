@@ -20,16 +20,16 @@
                 <li><a href="index.html"><span class="glyphicon glyphicon-book"></span> Статьи и книги</a></li>
                 <!-- <li><a href="index.html"><span class="glyphicon glyphicon-pencil"></span> Запись на прием</a></li> -->
                 <li><a href="index.html"><span class="glyphicon glyphicon-envelope"></span> Написать письмо</a></li>
-                <li><a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Выход</a></li>
-                <li class="pull-right" style="width: 31.5%;margin-top: 7px;">
-                  <div class="input-group">
-                    <input type="text" class="form-control">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default search" type="button">Поиск</button>
-                    </span>
-                  </div><!-- /input-group -->
-                </li>
+                <li><a href="/wp-login.php?action=logout&amp;_wpnonce=a6cad512ba"><span class="glyphicon glyphicon-log-out"></span> Выход</a></li>
               </ul>
+              <div class="pull-right" style="width: 31.5%;margin-top: 7px;">
+                <div class="input-group">
+                  <input type="text" class="form-control">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default search" type="button">Поиск</button>
+                  </span>
+                </div><!-- /input-group -->
+              </div>
             </div>
           </div>
         </div>

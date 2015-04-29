@@ -223,11 +223,15 @@ body
 }
 .login-form
 {
-    margin-top: 400px;
-    margin-left: 900px;
-    width: 500px;
-    /*border: 1px solid #555;
-    padding: 10px;
-    border-radius: 10px;
-    background: #ddd;*/
+  margin-top: 400px;
+  margin-left: 900px;
+  width: 500px;
+  /*border: 1px solid #555;
+  padding: 10px;
+  border-radius: 10px;
+  background: #ddd;*/
+}
+.menu-item .glyphicon 
+{
+  padding-right: 5px;
 }
