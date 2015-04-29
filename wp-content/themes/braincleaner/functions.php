@@ -12,6 +12,12 @@ if (!current_user_can('administrator')):
   add_filter('show_admin_bar', '__return_false');
 endif;
 
+add_theme_support('post-thumbnails');
+
+if (function_exists('add_theme_support')) {
+ add_theme_support('menus');
+}
+
 function users_redirect(){
 wp_redirect(site_url('/'));
 die();
