@@ -4,7 +4,7 @@
     <div class="panel panel-default main_heading">
       <h4 class="panel-heading">
         <span class="glyphicon glyphicon-film"></span> 
-        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> <span class="pull-right date-block"><?php the_time('j F Y'); ?></span>
+        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> <span class="pull-right date-block"><?php the_time('j f Y'); ?></span>
       </h4>
       <div class="panel-body">
         <?php
