@@ -29,21 +29,19 @@
         <div class="row">
           <div class="container main-zone">
             <div class="col-md-8">
-              <div class="panel panel-primary">
-                <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-                    <h2><?php the_title(); ?></h2>
-                  <div class="content-wrap">
-                    <?php
-                    the_content(__('(more...)'));
-                    wp_link_pages();
-                    edit_post_link(__('Edit This'));
-                    ?>
-                  </div>
-                <?php endwhile; else: ?>
-                  <?php _e('Sorry, no posts matched your criteria.'); ?>
-                <?php endif; ?>
-                <?php posts_nav_link(' &#8212; ', __('&laquo; Более новые '), __('Более старые &raquo;')); ?>
-              </div>
+              <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+                  <h2><?php the_title(); ?></h2>
+                <div class="content-wrap">
+                  <?php
+                  the_content(__('(more...)'));
+                  wp_link_pages();
+                  edit_post_link(__('Edit This'));
+                  ?>
+                </div>
+              <?php endwhile; else: ?>
+                <?php _e('Sorry, no posts matched your criteria.'); ?>
+              <?php endif; ?>
+              <?php posts_nav_link(' &#8212; ', __('&laquo; Более новые '), __('Более старые &raquo;')); ?>
             </div>
             <div class="col-md-4 sidebar-zone">
               <div class="list-group">
@@ -149,7 +147,7 @@
         </div>
         </div>
     <?php } ?>
-  <?php } else if(is_category()) { ?>
+  <?php } else { ?>
     <div class="container-fluid inside animsition">
       <div class="row menu-wrap">
         <div class="container">
@@ -224,6 +222,13 @@
           </div>
           <div class="pull-right">
             <a href="mailto:info@defra.ru">info@braincleaner.ru</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php } ?>
+<?php get_footer(); ?>
+@braincleaner.ru</a>
           </div>
         </div>
       </div>
