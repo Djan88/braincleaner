@@ -15,7 +15,9 @@
         <div class="input-group">
           <form method="get" name="searchform" id="searchform" action="<?php bloginfo('siteurl')?>">
               <input type="text" name="s" id="s" placeholder="Поиск" class="search-input form-control" required="true"/>
-              <input id="btnSearch" type="submit" name="submit" value="<?php _e('Поиск'); ?>" class="search-button btn btn-default search"/>
+              <span class="input-group-btn">
+                <input id="btnSearch" type="submit" name="submit" value="<?php _e('Поиск'); ?>" class="search-button btn btn-default search"/>
+              </span>
           </form>
         </div><!-- /input-group -->
       </div>
