@@ -256,34 +256,6 @@
       </div>
       <div class="row">
         <div class="container main-zone">
-          <div class="col-md-8">
-            <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-              <div class="content-wrap">
-                <div class="panel panel-default main_heading">
-                  <?php if(is_single()) { ?>
-                    <h3><?php the_title(); ?></h3>
-                  <? } else { ?>
-                    <h3><a href="<?php the_permalink(); ?>" style="color:#f1c353;"><?php the_title(); ?></a></h2>
-                  <?php } ?>
-                </div>
-                <div class="panel-body">
-                  <?php
-                  the_content(__('(more...)'));
-                  wp_link_pages();
-                  edit_post_link(__('Edit This'));
-                  ?>
-                </div>
-              </div>
-            <?php endwhile; else: ?>
-                <section>
-                  <div class="container">
-                    <div class="row">
-                      <?php _e('Sorry, no posts matched your criteria.'); ?>
-                    </div>
-                  </div>
-                </section> 
-            <?php endif; ?>
-            <?php posts_nav_link(' &#8212; ', __('&laquo; Более новые '), __('Более старые &raquo;')); ?>
             <div class="content-wrap">
               <div class="panel panel-default main_heading">
                 <h4 class="panel-heading"><span class="glyphicon glyphicon-film"></span> <a href="/">Биологическое центрирование, базовые уровни в клинике Чикурова</a> <span class="pull-right date-block">01.04.2015</span></h4>
