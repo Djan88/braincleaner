@@ -181,7 +181,7 @@ body
 .date-block
 {
     font-style: italic;
-    color: #ccc;
+    color: #555;
     font-size: 12px;
     padding-top: 5px;
 }
@@ -234,4 +234,8 @@ body
 .menu-item .glyphicon 
 {
   padding-right: 5px;
+}
+.panel-default>.panel-heading
+{
+  background: rgba(194,194,194,.35);
 }
