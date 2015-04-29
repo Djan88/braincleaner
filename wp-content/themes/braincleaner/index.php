@@ -37,6 +37,7 @@
                 </div>
               </div>
             </div>
+          <?php } ?>
           </div>
           <?php include(TEMPLATEPATH . '/sidebar.php'); ?>
         </div>
