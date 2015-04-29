@@ -22,9 +22,20 @@ function users_redirect(){
 wp_redirect(site_url('/'));
 die();
 }
+
 if(!current_user_can('manage_options')){
 add_action('admin_init','users_redirect');
 add_filter('login_redirect', 'users_redirect');
 }
 
+// Область виджетов на странице
+    register_sidebar(array(
+        'name' => __('Боковая панель'),
+        'id' => 'arhive-widget-area',
+        'description' => __('Виджеты в сайдбар'),
+        'before_widget' => '<div class="list-group-item">',
+        'after_widget' => '</div>',
+        'before_title' => '<h3><a href="#">',
+        'after_title' => '</a></h3>',
+    ));
 /* DON'T DELETE THIS CLOSING TAG */ ?>
