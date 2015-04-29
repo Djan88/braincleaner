@@ -45,7 +45,7 @@ $(document).ready(function() {
 
     });
 
-    jQuery('#menu-item-13').find('a').append('<span class="glyphicon glyphicon-film"></span>');
+    jQuery('#menu-item-13').find('a').prepend('<span class="glyphicon glyphicon-film"></span>');
 
     // var count_animation_let = 0;
     // var cur_let;
