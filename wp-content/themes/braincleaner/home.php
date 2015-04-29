@@ -1,40 +1,19 @@
 <?php if(is_user_logged_in()){ ?>
   <div class="container-fluid inside animsition">
-    <div class="row menu-wrap">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-          <a class="navbar-brand" href="#">Меню</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <?php wp_nav_menu(array('menu' => 'Меню в шапке', 'container' => false, menu_class => 'nav navbar-nav' )); ?>
-          <div class="pull-right" style="width: 31.5%;margin-top: 7px;">
-            <div class="input-group">
-              <input type="text" class="form-control">
-              <span class="input-group-btn">
-                <button class="btn btn-default search" type="button">Поиск</button>
-              </span>
-            </div><!-- /input-group -->
-          </div>
-        </div>
-      </div>
-    </div>
+    <?php include(TEMPLATEPATH . '/head-part.php'); ?>
     <div class="row">
       <div class="container main-zone">
         <div class="col-md-8">
           <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
               <h2><?php the_title(); ?></h2>
             <div class="content-wrap">
-              <?php
-              the_content(__('(more...)'));
-              wp_link_pages();
-              edit_post_link(__('Edit This'));
-              ?>
+              <div class="panel panel-default main_heading">
+                <?php
+                the_content(__('(more...)'));
+                wp_link_pages();
+                edit_post_link(__('Edit This'));
+                ?>
+              </div>
             </div>
           <?php endwhile; else: ?>
             <?php _e('Sorry, no posts matched your criteria.'); ?>

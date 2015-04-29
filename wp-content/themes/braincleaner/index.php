@@ -3,30 +3,7 @@
     <?php include(TEMPLATEPATH . '/home.php'); ?>
   <?php } else { ?>
     <div class="container-fluid inside animsition">
-      <div class="row menu-wrap">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-            <a class="navbar-brand" href="#">Меню</a>
-          </div>
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <?php wp_nav_menu(array('menu' => 'Меню в шапке', 'container' => false, menu_class => 'nav navbar-nav' )); ?>
-            <div class="pull-right" style="width: 31.5%;margin-top: 7px;">
-              <div class="input-group">
-                <input type="text" class="form-control">
-                <span class="input-group-btn">
-                  <button class="btn btn-default search" type="button">Поиск</button>
-                </span>
-              </div><!-- /input-group -->
-            </div>
-          </div>
-        </div>
-      </div>
+      <?php include(TEMPLATEPATH . '/head-part.php'); ?>
       <div class="row">
         <div class="container main-zone">
           <div class="col-md-8">
@@ -41,7 +18,7 @@
                 </div>
               </div>
               <div class="panel panel-default main_heading">
-                <h4 class="panel-heading"><span class="glyphicon glyphicon-film"></span> <a href="/">Закрытый доклад в клинике по материалам экспедиции в Центральную и Южную Америку</a> <span class="pull-right date-block">21.06.2014</span></h4>
+                <h4 class="panel-heading"><span class="glyphicon glyphicon-film"></span> <a href="/">Закрытыий доклад в клинике по материалам экспедиции в Центральную и Южную Америку</a> <span class="pull-right date-block">21.06.2014</span></h4>
                 <div class="panel-body">
                   <p>Небольшой блок для описания видео записи. Можно не заполнять</p>
                   <iframe width="560" height="315" src="https://www.youtube.com/embed/09sxmilzzBc" frameborder="0" allowfullscreen></iframe>
