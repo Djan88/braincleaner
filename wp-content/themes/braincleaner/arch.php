@@ -1,4 +1,4 @@
-<h3><?php the_title(); ?><?php single_cat_title(); ?></h3>
+<h3><?php single_cat_title(); ?></h3>
 <div class="content-wrap">
   <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
     <div class="panel panel-default main_heading">
