@@ -153,6 +153,7 @@ body
 .menu-wrap a:hover, .menu-wrap .active a
 {
     color: #fff;
+    opacity: 0.65;
 }
 .nav>li>a:focus, .nav>li>a:hover
 {

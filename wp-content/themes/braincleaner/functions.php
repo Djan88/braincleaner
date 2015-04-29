@@ -8,9 +8,10 @@ just edit things like thumbnail sizes, header images,
 sidebars, comments, ect.
 */
 /* Отключаем админ панель для всех, кроме администраторов. */
-if (!current_user_can('administrator')) { 
+if (!current_user_can('administrator')):
   show_admin_bar(false);
-}
+endif;
+
 function users_redirect(){
 wp_redirect(site_url('/'));
 die();
