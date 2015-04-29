@@ -1,3 +1,4 @@
+<?php get_header(); ?>
 <div class="container-fluid inside animsition">
   <?php include(TEMPLATEPATH . '/head-part.php'); ?>
   <div class="row">
