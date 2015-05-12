@@ -19,11 +19,36 @@
               <div class="content-wrap">
                 <div class="panel panel-default main_heading">
                   <div class="panel-body">
+                  <?php if(is_category(3)) { ?>
+                    <?php if( get_the_post_thumbnail()){ ?>
+                      <div class="col-md-6">
+                        <?php the_post_thumbnail( 'medium' ); ?>
+                      </div>
+                      <div class="col-md-6">
+                    <?php } else { ?>
+                      <div>
+                    <?php } ?>
+                      <?php if( get_field('knt')){ ?>
+                        <p>
+                          <?php
+                          the_content(__('(more...)'));
+                          wp_link_pages();
+                          edit_post_link(__('Edit This'));
+                          ?>
+                        </p>
+                        <a href="<?php the_field('knt')?>" class="down down_knt" data-toggle="tooltip" data-placement="right" title="Скачать в формате Microsoft PowerPoint"></a>
+                      <?php } ?>
+                      <?php if( get_field('ppt')){ ?>
+                        <a href="<?php the_field('ppt')?>" class="down down_ppt" data-toggle="tooltip" data-placement="right" title="Скачать в формате Apple Keynote"></a>
+                      <?php } ?>
+                    </div>
+                  <?php } else { ?>
                     <?php
                     the_content(__('(more...)'));
                     wp_link_pages();
                     edit_post_link(__('Edit This'));
                     ?>
+                  <?php } ?>
                   </div>
                 </div>
               </div>
