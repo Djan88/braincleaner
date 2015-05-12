@@ -18,10 +18,10 @@
         ?>
         <?php if(is_category(3)) { ?>
           <?php if( get_the_post_thumbnail()){ ?>
-            <div class="col-md-8">
+            <div class="col-md-6">
               <?php the_post_thumbnail( 'medium' ); ?>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6">
           <?php } else { ?>
             <div>
           <?php } ?>
