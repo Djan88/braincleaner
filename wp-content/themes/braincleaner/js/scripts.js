@@ -52,13 +52,7 @@ $(document).ready(function() {
     jQuery('#menu-item-18').find('a').prepend('<span class="glyphicon glyphicon-bell"></span>');
 
 
-    jQuery('.down').on('mouseover', function() {
-        jQuery(this).tooltip('show');
-    });
-
-    jQuery('.down').on('mouseout', function() {
-        jQuery(this).tooltip('hide');
-    });
+    jQuery('.down').tooltip();
 
     // var count_animation_let = 0;
     // var cur_let;
