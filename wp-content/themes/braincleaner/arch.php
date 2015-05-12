@@ -11,11 +11,6 @@
         <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> <span class="pull-right date-block"><?php the_time('j M Y'); ?></span>
       </h4>
       <div class="panel-body">
-        <?php
-        the_content(__('(more...)'));
-        wp_link_pages();
-        edit_post_link(__('Edit This'));
-        ?>
         <?php if(is_category(3)) { ?>
           <?php if( get_the_post_thumbnail()){ ?>
             <div class="col-md-6">
@@ -26,12 +21,25 @@
             <div>
           <?php } ?>
             <?php if( get_field('knt')){ ?>
+              <p>
+                <?php
+                the_content(__('(more...)'));
+                wp_link_pages();
+                edit_post_link(__('Edit This'));
+                ?>
+              </p>
               <a href="<?php the_field('knt')?>" class="down down_knt" data-toggle="tooltip" data-placement="right" title="Скачать в формате Microsoft PowerPoint"></a>
             <?php } ?>
             <?php if( get_field('ppt')){ ?>
               <a href="<?php the_field('ppt')?>" class="down down_ppt" data-toggle="tooltip" data-placement="right" title="Скачать в формате Apple Keynote"></a>
             <?php } ?>
           </div>
+        <?php } else { ?>
+          <?php
+          the_content(__('(more...)'));
+          wp_link_pages();
+          edit_post_link(__('Edit This'));
+          ?>
         <?php } ?>
       </div>
     </div>
