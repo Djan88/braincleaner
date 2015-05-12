@@ -240,3 +240,16 @@ body
 {
   background: rgba(194,194,194,.35);
 }
+.down_knt, .down_ppt
+{
+  background: url(img/knt.jpg);
+  display: block;
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  margin-right: 15px;
+}
+.down_ppt
+{
+  background: url(img/ppt.jpg);
+}
