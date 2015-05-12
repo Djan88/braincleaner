@@ -242,7 +242,7 @@ body
 }
 .down_knt, .down_ppt
 {
-  background: url(img/knt.jpg);
+  background: url(img/knt.jpg) 0 0/100% no-repeat;
   display: block!important;
   width: 50px!important;
   height: 50px!important;
@@ -251,5 +251,5 @@ body
 }
 .down_ppt
 {
-  background: url(img/ppt.jpg)!important;
+  background: url(img/mpt.jpg) 0 0/100% no-repeat!important;
 }
