@@ -26,10 +26,10 @@
             <div>
           <?php } ?>
             <?php if( get_field('knt')){ ?>
-              <a href="<?php the_field('knt')?>" class="down down_knt" data-toggle="tooltip" title="Скачать в формате Microsoft PowerPoint"></a>
+              <a href="<?php the_field('knt')?>" class="down down_knt" data-toggle="tooltip" data-placement="right" title="Скачать в формате Microsoft PowerPoint"></a>
             <?php } ?>
             <?php if( get_field('ppt')){ ?>
-              <a href="<?php the_field('ppt')?>" class="down down_ppt" data-toggle="tooltip" title="Скачать в формате Apple Keynote"></a>
+              <a href="<?php the_field('ppt')?>" class="down down_ppt" data-toggle="tooltip" data-placement="right" title="Скачать в формате Apple Keynote"></a>
             <?php } ?>
           </div>
         <?php } ?>
