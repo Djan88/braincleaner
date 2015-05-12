@@ -19,7 +19,7 @@
               <div class="content-wrap">
                 <div class="panel panel-default main_heading">
                   <div class="panel-body">
-                  <?php if(is_category(3)) { ?>
+                  <?php if(in_category(3)) { ?>
                     <?php if( get_the_post_thumbnail()){ ?>
                       <div class="col-md-6">
                         <?php the_post_thumbnail( 'medium' ); ?>
