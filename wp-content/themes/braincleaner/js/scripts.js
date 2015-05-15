@@ -50,6 +50,7 @@ $(document).ready(function() {
     jQuery('#menu-item-12').find('a').prepend('<span class="glyphicon glyphicon-envelope"></span>');
     jQuery('#menu-item-15').find('a').prepend('<span class="glyphicon glyphicon-log-out"></span>');
     jQuery('#menu-item-18').find('a').prepend('<span class="glyphicon glyphicon-bell"></span>');
+    jQuery('#menu-item-107').find('a').prepend('<span class="glyphicon glyphicon-certificate"></span>');
 
 
     jQuery('.down').tooltip();
