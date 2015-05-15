@@ -3,7 +3,7 @@
   <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
     <div class="panel panel-default main_heading">
       <h4 class="panel-heading">
-        <?php if(is_category(2)) { ?>
+        <?php if(is_category(2)||is_category(5)) { ?>
           <span class="glyphicon glyphicon-film"></span>
         <?php } else if(is_category(3)) { ?>
           <span class="glyphicon glyphicon-book"></span>
@@ -34,6 +34,15 @@
               <a href="<?php the_field('ppt')?>" class="down down_ppt" data-toggle="tooltip" data-placement="right" title="Скачать в формате Microsoft PowerPoint"></a>
             <?php } ?>
           </div>
+        <?php } else if(is_category(5)) { ?>
+          <p>
+            <?php
+            the_content(__('(more...)'));
+            wp_link_pages();
+            edit_post_link(__('Edit This'));
+            ?>
+          </p>
+          <div>test</div>
         <?php } else { ?>
           <?php
           the_content(__('(more...)'));
