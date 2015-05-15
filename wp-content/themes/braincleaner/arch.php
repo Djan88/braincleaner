@@ -3,15 +3,17 @@
   <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
     <div class="panel panel-default main_heading">
       <h4 class="panel-heading">
-        <?php if(is_category(2)||is_category(5)) { ?>
+        <?php if(is_category(2)) { ?>
           <span class="glyphicon glyphicon-film"></span>
         <?php } else if(is_category(3)) { ?>
           <span class="glyphicon glyphicon-book"></span>
+        <?php } else if(is_category(5)) { ?>
+          <span class="glyphicon glyphicon-certificate"></span>
         <?php } ?>
         <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> <span class="pull-right date-block"><?php the_time('j M Y'); ?></span>
       </h4>
       <div class="panel-body">
-        <?php if(is_category(3)) { ?>
+        <?php if(is_category(3)||is_category(5)) { ?>
           <?php if( get_the_post_thumbnail()){ ?>
             <div class="col-md-6">
               <?php the_post_thumbnail( 'medium' ); ?>
@@ -33,16 +35,10 @@
             <?php if( get_field('ppt')){ ?>
               <a href="<?php the_field('ppt')?>" class="down down_ppt" data-toggle="tooltip" data-placement="right" title="Скачать в формате Microsoft PowerPoint"></a>
             <?php } ?>
+            <?php if(is_category(5)) { ?>
+              <div>test</div>
+            <?php } ?>
           </div>
-        <?php } else if(is_category(5)) { ?>
-          <p>
-            <?php
-            the_content(__('(more...)'));
-            wp_link_pages();
-            edit_post_link(__('Edit This'));
-            ?>
-          </p>
-          <div>test</div>
         <?php } else { ?>
           <?php
           the_content(__('(more...)'));
