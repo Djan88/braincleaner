@@ -8,7 +8,7 @@
         <?php } else if(is_category(3)) { ?>
           <span class="glyphicon glyphicon-book"></span>
         <?php } else if(is_category(5)) { ?>
-          <span class="glyphicon glyphicon-certificate"></span>
+          <span class="glyphicon glyphicon-leaf"></span>
         <?php } ?>
         <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> <span class="pull-right date-block"><?php the_time('j M Y'); ?></span>
       </h4>
