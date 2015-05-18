@@ -43,6 +43,11 @@
                       <?php } ?>
                     </div>
                   <?php } else if(in_category(5)) { ?>
+                      <div class="b-popup hidden">
+                        <div class="b-popup-content" style="width: 874px; height: 530px;">
+                            
+                        </div>
+                      </div>
                     <?php if( get_the_post_thumbnail()){ ?>
                       <div class="col-md-6">
                         <?php the_post_thumbnail( 'medium' ); ?>
@@ -71,7 +76,7 @@
                         <button type="button" class="btn btn-default btn-status btn-manual" data-status="manual">Ручное управление</button>
                         </div>
                         <div class="btn-group">
-                        <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-leaf"></span> Старт процедуры</button>
+                        <button type="button" class="btn btn-warning btn-start"><span class="glyphicon glyphicon-leaf"></span> Старт процедуры</button>
                         </div>
                       </div>
                     </div>
