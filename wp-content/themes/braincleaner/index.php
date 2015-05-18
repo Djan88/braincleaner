@@ -47,11 +47,11 @@
                       <div class="col-md-6">
                         <?php the_post_thumbnail( 'medium' ); ?>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-6" style="text-align: justify;">
                     <?php } else { ?>
                       <div>
                     <?php } ?>
-                        <p style="text-align: justify;">
+                        <p>
                           <?php
                           the_content(__('(more...)'));
                           wp_link_pages();
