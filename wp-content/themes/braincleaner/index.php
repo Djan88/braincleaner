@@ -67,16 +67,16 @@
                     <div class="col-md-12">
                       <div class="btn-group btn-group-justified">
                         <div class="btn-group">
-                          <a href="/category/defragmentaciya/" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> Назад</a>
+                          <a href="/category/defragmentaciya/" class="btn btn-default btn-procedure" data-toggle="tooltip" title="К списку протоколов"><span class="glyphicon glyphicon-arrow-left"></span> Назад</a>
                         </div>
                         <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-status btn-auto active" data-status="auto">Авто режим</button>
+                        <button type="button" class="btn btn-default btn-status btn-auto active btn-procedure" data-status="auto" data-toggle="tooltip" title="Провести процедуру в автоматическом режиме">Авто режим</button>
                         </div>
                         <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-status btn-manual" data-status="manual">Ручное управление</button>
+                        <button type="button" class="btn btn-default btn-status btn-manual btn-procedure" data-status="manual" data-toggle="tooltip" title="Провести процедуру в режиме ручного управления">Ручное управление</button>
                         </div>
                         <div class="btn-group">
-                        <button type="button" class="btn btn-warning btn-start"><span class="glyphicon glyphicon-leaf"></span> Старт процедуры</button>
+                        <button type="button" class="btn btn-warning btn-start btn-procedure"><span class="glyphicon glyphicon-leaf" data-toggle="tooltip" title="Запуск процедуры"></span> Старт процедуры</button>
                         </div>
                       </div>
                     </div>

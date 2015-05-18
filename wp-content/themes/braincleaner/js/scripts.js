@@ -75,7 +75,7 @@ $(document).ready(function() {
     jQuery('#menu-item-107').find('a').prepend('<span class="glyphicon glyphicon-leaf"></span>');
 
 
-    jQuery('.down').tooltip();
+    jQuery('.down, .btn-procedure').tooltip();
 
     // var count_animation_let = 0;
     // var cur_let;
