@@ -191,6 +191,10 @@ body
     width: 80%;
     display: inline-block;
 }
+.main_heading a.btn
+{
+  display: block;
+}
 .main_heading .glyphicon 
 {
     vertical-align: top;
