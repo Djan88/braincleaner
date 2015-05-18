@@ -37,7 +37,8 @@ add_filter('login_redirect', 'users_redirect');
         'after_title' => '</a></h4>',
     ));
 
-if (!current_user_can('administrator')):
-  	show_admin_bar(false);
-endif;
+    function my_function_admin_bar($content) {
+    	return ( current_user_can("administrator") ) ? $content : false;
+    }
+    add_filter( 'show_admin_bar' , 'my_function_admin_bar');
 /* DON'T DELETE THIS CLOSING TAG */ ?>
