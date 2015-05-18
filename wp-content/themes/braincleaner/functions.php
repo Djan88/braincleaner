@@ -38,6 +38,7 @@ add_filter('login_redirect', 'users_redirect');
     ));
 
 if (!current_user_can('administrator')):
-  show_admin_bar(false);
+	show_admin_bar(false);
+	remove_action( 'wp_footer', 'wp_admin_bar_render', 1000 );
 endif;
 /* DON'T DELETE THIS CLOSING TAG */ ?>
