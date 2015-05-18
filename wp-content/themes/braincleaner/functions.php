@@ -37,22 +37,4 @@ add_filter('login_redirect', 'users_redirect');
         'after_title' => '</a></h4>',
     ));
 
-    function hide_admin_bar_settings() {
-    ?>
-    	<style type="text/css">
-    		.show-admin-bar {
-    			display: none;
-    		}
-    	</style>
-    <?php
-    }
-     
-    function disable_admin_bar() {
-       if ( !current_user_can("administrator") ) {
-          add_filter( 'show_admin_bar', '__return_false' );
-          add_action( 'admin_print_scripts-profile.php', 
-              'hide_admin_bar_settings' );
-       }
-    }
-    add_action( 'init', 'disable_admin_bar' , 9 );
 /* DON'T DELETE THIS CLOSING TAG */ ?>
