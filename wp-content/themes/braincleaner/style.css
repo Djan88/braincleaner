@@ -262,4 +262,5 @@ body
   height: 115px;
   overflow: scroll;
   margin-bottom: 15px;
+  text-align: justify;
 }
