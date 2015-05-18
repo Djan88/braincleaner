@@ -58,7 +58,7 @@
                           edit_post_link(__('Edit This'));
                           ?>
                         </p>
-                        <a href="/category/defragmentaciya/" class="btn btn-default pull-left"><span class="glyphicon glyphicon-arrow-left"></span> Назад</button>
+                        <a href="/category/defragmentaciya/" class="btn btn-default pull-left"><span class="glyphicon glyphicon-arrow-left"></span> Назад</a>
                         <div class="btn-group">
                           <button type="button" class="btn btn-default btn-status btn-auto">Автоматический режим</button>
                           <button type="button" class="btn btn-default btn-status btn-manual">Ручное управление</button>
