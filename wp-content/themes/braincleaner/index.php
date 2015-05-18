@@ -71,7 +71,7 @@
                         <button type="button" class="btn btn-default btn-status btn-manual">Ручное управление</button>
                         </div>
                         <div class="btn-group">
-                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-leaf"></span> Старт процедуры</button>
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-leaf"></span> Старт процедуры</button>
                         </div>
                       </div>
                     </div>
