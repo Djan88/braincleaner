@@ -60,12 +60,12 @@
                         </p>
                     </div>
                     <div class="col-md-12">
-                      <a href="/category/defragmentaciya/" class="btn btn-default pull-left" style="width: 85px;"><span class="glyphicon glyphicon-arrow-left"></span> Назад</a>
-                      <div class="btn-group">
+                      <div class="btn-group btn-group-justified">
+                        <a href="/category/defragmentaciya/" class="btn btn-default pull-left" style="width: 85px;"><span class="glyphicon glyphicon-arrow-left"></span> Назад</a>
                         <button type="button" class="btn btn-default btn-status btn-auto">Автоматический режим</button>
                         <button type="button" class="btn btn-default btn-status btn-manual">Ручное управление</button>
+                        <button type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-leaf"></span> Старт процедуры</button>
                       </div>
-                      <button type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-leaf"></span> Старт процедуры</button>
                     </div>
                   <?php } else { ?>
                     <?php
