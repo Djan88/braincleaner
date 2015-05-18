@@ -56,6 +56,7 @@ $(document).ready(function() {
     jQuery('.btn-status').on('click', function() {
         jQuery('.btn-status').removeClass('active');
         jQuery(this).addClass('active');
+        jQuery(this).attr('title', 'Нажмите кнопку "Старт процедуры"');;
         curStatus = jQuery(this).data('status');
         console.log(curStatus);
     });
