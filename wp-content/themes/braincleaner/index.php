@@ -64,7 +64,6 @@
                           <button type="button" class="btn btn-default btn-status btn-manual">Ручное управление</button>
                         </div>
                         <button type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-leaf"></span> Старт процедуры</button>
-                      <?php } ?>
                     </div>
                   <?php } else { ?>
                     <?php
