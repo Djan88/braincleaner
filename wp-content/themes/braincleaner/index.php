@@ -42,6 +42,30 @@
                         <a href="<?php the_field('ppt')?>" class="down down_ppt" data-toggle="tooltip" data-placement="right" title="Скачать в формате Microsoft PowerPoint"></a>
                       <?php } ?>
                     </div>
+                  <?php } else if(in_category(5)) { ?>
+                    <?php if( get_the_post_thumbnail()){ ?>
+                      <div class="col-md-6">
+                        <?php the_post_thumbnail( 'medium' ); ?>
+                      </div>
+                      <div class="col-md-6">
+                    <?php } else { ?>
+                      <div>
+                    <?php } ?>
+                        <p>
+                          <?php
+                          the_content(__('(more...)'));
+                          wp_link_pages();
+                          edit_post_link(__('Edit This'));
+                          ?>
+                        </p>
+                        <a href="/category/defragmentaciya/" class="btn btn-default pull-left"><span class="glyphicon glyphicon-arrow-left"></span> Назад</button>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-default btn-status btn-auto">Автоматический режим</button>
+                          <button type="button" class="btn btn-default btn-status btn-manual">Ручное управление</button>
+                        </div>
+                        <button type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-leaf"></span> Старт процедуры</button>
+                      <?php } ?>
+                    </div>
                   <?php } else { ?>
                     <?php
                     the_content(__('(more...)'));

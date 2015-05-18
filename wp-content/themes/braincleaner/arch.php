@@ -44,8 +44,7 @@
                 ?>
               </div>
               <div class="defra_btns">
-                <a href="<?php the_permalink(); ?>?proc=auto" class="btn btn-default btn-lg btn-block center-block">Автоматический режим</a>
-                <a href="<?php the_permalink(); ?>?proc=manual" class="btn btn-default btn-lg btn-block center-block">Ручное управление</a>
+                <a href="<?php the_permalink(); ?>" class="btn btn-default btn-lg btn-block center-block">Подробнее</a>
               </div>
             <?php } ?>
           </div>
