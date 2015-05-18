@@ -44,7 +44,7 @@
                     </div>
                   <?php } else if(in_category(5)) { ?>
                       <div class="b-popup hidden">
-                        <div class="b-popup-content" style="width: 874px; height: 530px;">
+                        <div class="b-popup-content" style="width: 80%;">
                             
                         </div>
                       </div>
