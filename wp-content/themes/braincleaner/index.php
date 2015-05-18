@@ -65,10 +65,10 @@
                           <a href="/category/defragmentaciya/" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> Назад</a>
                         </div>
                         <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-status btn-auto active">Авто режим</button>
+                        <button type="button" class="btn btn-default btn-status btn-auto active" data-status="auto">Авто режим</button>
                         </div>
                         <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-status btn-manual">Ручное управление</button>
+                        <button type="button" class="btn btn-default btn-status btn-manual" data-status="manual">Ручное управление</button>
                         </div>
                         <div class="btn-group">
                         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-leaf"></span> Старт процедуры</button>

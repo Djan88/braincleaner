@@ -1,5 +1,14 @@
 $(document).ready(function() {
 
+    var curStatus = 'auto',
+        supportsStorage = function(){
+            try {
+                return 'localStorage' in window && window['localStorage'] !== null;
+            } catch (e) {
+                return false;
+            }
+        };
+
     $(".animsition").animsition({
 
         inClass               :   'fade-in',
@@ -17,7 +26,6 @@ $(document).ready(function() {
                                 ],
         //"unSupportCss" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
         //The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
-
         overlay               :   false,
 
         overlayClass          :   'animsition-overlay-slide',
@@ -43,6 +51,13 @@ $(document).ready(function() {
         // jQuery('.login-form').removeClass('hidden');
         // jQuery('.login-form').addClass('animated bounceInRight');
 
+    });
+
+    jQuery('.btn-status').on('click', function() {
+        jQuery('.btn-status').removeClass('active');
+        jQuery(this).addClass('active');
+        curStatus = jQuery(this).data('status');
+        console.log(curStatus);
     });
 
     jQuery('#menu-item-13').find('a').prepend('<span class="glyphicon glyphicon-film"></span>');
