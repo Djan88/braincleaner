@@ -264,3 +264,7 @@ body
   margin-bottom: 15px;
   text-align: justify;
 }
+.btn, .btn:active, .btn:focus
+{
+  outline: none;
+}
