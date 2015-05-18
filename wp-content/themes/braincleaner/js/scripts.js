@@ -61,7 +61,10 @@ $(document).ready(function() {
     });
 
     jQuery('.btn-start').on('click', function() {
-        jQuery('.b-popup').removeClass('hidden');
+        jQuery('.b-popup')
+            .removeClass('hidden')
+            .addClass('animated')
+            .addClass('fadeIn');
     });
 
     jQuery('#menu-item-13').find('a').prepend('<span class="glyphicon glyphicon-film"></span>');
