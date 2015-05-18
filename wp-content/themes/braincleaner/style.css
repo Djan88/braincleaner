@@ -289,12 +289,12 @@ body
     z-index: 555;
 }
 .b-popup .b-popup-content{
-    margin:100px auto 0px auto;
+    margin: 0 auto 0px auto;
     width: 580px;
-    height: 335px;
-    padding:10px;
+    /* height: 335px; */
+    padding: 40px 10px 10px;
     background-color: #fff;
-    border-radius:5px;
+    border-radius: 5px;
     box-shadow: 0px 0px 10px #000;
     position: relative;
 }
