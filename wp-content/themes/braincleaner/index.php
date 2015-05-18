@@ -62,7 +62,7 @@
                     <div class="col-md-12">
                       <div class="btn-group btn-group-justified">
                         <div class="btn-group">
-                          <a href="/category/defragmentaciya/" class="btn btn-default" style="width: 85px;"><span class="glyphicon glyphicon-arrow-left"></span> Назад</a>
+                          <a href="/category/defragmentaciya/" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> Назад</a>
                         </div>
                         <div class="btn-group">
                         <button type="button" class="btn btn-default btn-status btn-auto">Автоматический режим</button>
