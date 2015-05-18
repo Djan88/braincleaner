@@ -36,7 +36,17 @@
               <a href="<?php the_field('ppt')?>" class="down down_ppt" data-toggle="tooltip" data-placement="right" title="Скачать в формате Microsoft PowerPoint"></a>
             <?php } ?>
             <?php if(is_category(5)) { ?>
-              <div>test</div>
+              <div class="defra_content">
+                <?php
+                the_content(__('(more...)'));
+                wp_link_pages();
+                edit_post_link(__('Edit This'));
+                ?>
+              </div>
+              <div class="defra_btns">
+                <a href="<?php the_permalink(); ?>?proc=auto" class="btn btn-default btn-lg btn-block">Автоматический режим</a>
+                <a href="<?php the_permalink(); ?>?proc=manual" class="btn btn-default btn-lg btn-block">Ручное управление</a>
+              </div>
             <?php } ?>
           </div>
         <?php } else { ?>
