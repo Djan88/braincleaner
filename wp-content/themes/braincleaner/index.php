@@ -51,7 +51,7 @@
                     <?php } else { ?>
                       <div>
                     <?php } ?>
-                        <p>
+                        <p style="text-align: justify;">
                           <?php
                           the_content(__('(more...)'));
                           wp_link_pages();
