@@ -43,7 +43,7 @@
                 edit_post_link(__('Edit This'));
                 ?>
               </div>
-              <div class="defra_btns well">
+              <div class="defra_btns center-block">
                 <a href="<?php the_permalink(); ?>?proc=auto" class="btn btn-default btn-lg btn-block">Автоматический режим</a>
                 <a href="<?php the_permalink(); ?>?proc=manual" class="btn btn-default btn-lg btn-block">Ручное управление</a>
               </div>
