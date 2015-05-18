@@ -253,3 +253,9 @@ body
 {
   background: url(img/mpt.jpg) 0 0/100% no-repeat!important;
 }
+.defra_content 
+{
+  height: 115px;
+  overflow: scroll;
+  margin-bottom: 15px;
+}
