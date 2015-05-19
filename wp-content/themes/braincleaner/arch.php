@@ -1,8 +1,8 @@
 <h3><?php single_cat_title(); ?></h3>
-<div class="col-md-12 clearfix">
+<div class="col-md-12 panel cat_description">
   <?php echo category_description( ); ?>
 </div>
-<div class="content-wrap">
+<div class="content-wrap clearfix">
   <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
     <div class="panel panel-default main_heading">
       <h4 class="panel-heading">
