@@ -263,6 +263,7 @@ body
   overflow: scroll;
   margin-bottom: 15px;
   text-align: justify;
+  cursor: ns-resize;
 }
 .btn, .btn:active, .btn:focus
 {
@@ -307,11 +308,12 @@ body
   height: 250px;
   overflow: scroll;
   padding: 15px;
-  padding-left: 35px;
+  /*padding-left: 35px;*/
   text-align: justify;
   position: relative;
+  cursor: ns-resize;
 }
-.cat_description .glyphicon-arrow-down 
+/*.cat_description .glyphicon-arrow-down 
 {
   position: fixed;
   left: 10px;
@@ -322,4 +324,4 @@ body
   position: fixed;
   left: 10px;
   top: 100px;
-}
+}*/
