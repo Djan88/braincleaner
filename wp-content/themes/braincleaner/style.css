@@ -312,7 +312,13 @@ body
 }
 .cat_description .glyphicon-arrow-down 
 {
-  position: absolute;
+  position: fixed;
   left: 10px;
-  top: 115px;
+  top: 125px;
+}
+.cat_description .glyphicon-arrow-up 
+{
+  position: fixed;
+  left: 10px;
+  top: 100px;
 }
