@@ -1,5 +1,5 @@
 <h3><?php single_cat_title(); ?></h3>
-<div class="col-md-12 panel cat_description">
+<div class="col-md-12 panel panel-default cat_description">
   <?php echo category_description( ); ?>
 </div>
 <div class="content-wrap clearfix">
