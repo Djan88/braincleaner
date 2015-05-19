@@ -307,5 +307,12 @@ body
   height: 250px;
   overflow: scroll;
   padding: 15px;
+  padding-left: 35px;
   text-align: justify;
+}
+.cat_description .glyphicon-arrow-down 
+{
+  position: absolute;
+  left: 10px;
+  top: 115px;
 }
