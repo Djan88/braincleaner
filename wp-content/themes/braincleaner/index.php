@@ -45,7 +45,13 @@
                   <?php } else if(in_category(5)) { ?>
                       <div class="b-popup hidden">
                         <div class="b-popup-content" style="width: 80%;">
-                            
+                            <?php if(get_field('inside_img')): ?>
+                              <?php while(has_sub_field('images')): ?>
+                                  <div class="col-md-3">
+                                    <?php the_sub_field('image') ?>
+                                  </div>
+                              <?php endwhile; ?>
+                            <?php endif; ?>
                         </div>
                       </div>
                     <?php if( get_the_post_thumbnail()){ ?>
