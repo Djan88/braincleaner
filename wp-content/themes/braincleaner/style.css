@@ -302,3 +302,10 @@ body
 {
   display: none;
 }
+.cat_description 
+{
+  height: 250px;
+  overflow: scroll;
+  padding: 15px;
+  text-align: justify;
+}
