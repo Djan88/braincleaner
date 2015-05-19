@@ -1,6 +1,6 @@
 <h3><?php single_cat_title(); ?></h3>
 <div class="col-md-12 panel panel-default cat_description">
-  <?php echo category_description( ); ?>
+  <span class="glyphicon glyphicon-resize-full"></span><?php echo category_description( ); ?>
 </div>
 <div class="content-wrap clearfix">
   <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
