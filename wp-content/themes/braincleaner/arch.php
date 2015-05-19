@@ -1,6 +1,6 @@
 <h3><?php single_cat_title(); ?></h3>
 <div class="content-wrap">
-  <div class="col-md-8">
+  <div class="col-md-12">
     <?php echo category_description( ); ?>
   </div>
   <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
