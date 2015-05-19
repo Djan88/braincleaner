@@ -48,7 +48,7 @@
                             <?php if(get_field('images')): ?>
                               <?php while(has_sub_field('images')): ?>
                                   <div class="col-md-3">
-                                    <?php the_sub_field('image') ?>
+                                    <img src="<?php the_sub_field('image') ?>" alt=""> 
                                   </div>
                               <?php endwhile; ?>
                             <?php endif; ?>
