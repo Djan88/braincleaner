@@ -309,6 +309,7 @@ body
   padding: 15px;
   padding-left: 35px;
   text-align: justify;
+  position: relative;
 }
 .cat_description .glyphicon-arrow-down 
 {
