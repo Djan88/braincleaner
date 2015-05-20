@@ -106,7 +106,7 @@ $(document).ready(function() {
         phases = setInterval(function(){
             if (defCount <= img_num){
                 jQuery('.popup-img-wrap').addClass('hidden');
-                jQuery('.b-popup').find(jQuery('.popup-img-wrap')).eq(count).removeClass('hidden');
+                jQuery('.b-popup').find(jQuery('.popup-img-wrap').eq(count)).removeClass('hidden');
                 defCount += 1;
                 console.log('test');
             } else {
