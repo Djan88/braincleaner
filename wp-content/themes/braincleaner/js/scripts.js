@@ -80,15 +80,16 @@ $(document).ready(function() {
     jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
     jQuery('.menu-toggle').on('click', function() {
         console.log(menu)
-        if(menu.hasClass('fadeOut')){
+        if(menu.hasClass('slideInDown')){
             jQuery(menu)
             .removeClass('hidden')
-            .removeClass('fadeOut')
+            .removeClass('slideInDown')
             .addClass('fadeIn');
         } else {
             jQuery(menu)
             .removeClass('fadeIn')
-            .addClass('fadeOut');
+            .addClass('slideInDown')
+            .addClass('hidden');
         }
     });
     // var count_animation_let = 0;
