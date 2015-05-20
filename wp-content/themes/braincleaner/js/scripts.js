@@ -101,10 +101,11 @@ $(document).ready(function() {
         img_num = jQuery('.popup-img-wrap').size();
         console.log(img_num);
         setInterval(function(){
-            if (count <= img_num){                                                                         //120
+            if (count <= img_num){
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap').eq(count+1).removeClass('hidden');
                 count = count + 1;
+                console.log(jQuery('.popup-img-wrap').eq(count+1));
             } else {
                 clearInterval();
                 jQuery('.popup-img-wrap').addClass('hidden');
