@@ -80,15 +80,15 @@ $(document).ready(function() {
     jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
     jQuery('.menu-toggle').on('click', function() {
         console.log(menu)
-        if(menu.hasClass('slideInDown')){
+        if(menu.hasClass('flipX')){
             jQuery(menu)
             .removeClass('hidden')
-            .removeClass('slideInDown')
+            .removeClass('flipX')
             .addClass('fadeIn');
         } else {
             jQuery(menu)
             .removeClass('fadeIn')
-            .addClass('slideInDown')
+            .addClass('flipX')
             .addClass('hidden');
         }
     });
