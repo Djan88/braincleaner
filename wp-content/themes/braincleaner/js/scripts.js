@@ -83,6 +83,7 @@ $(document).ready(function() {
         if(menu.hasClass('fadeOut')){
             jQuery(menu)
             .removeClass('hidden')
+            .removeClass('fadeOut')
             .addClass('fadeIn');
         } else {
             jQuery(menu)
