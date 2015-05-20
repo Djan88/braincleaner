@@ -104,8 +104,7 @@ $(document).ready(function() {
             if (count <= img_num){                                                                         //120
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap').eq(count+1).removeClass('hidden');
-                count += 1;
-                console.log(count);
+                count = count + 1;
             } else {
                 clearInterval();
                 jQuery('.popup-img-wrap').addClass('hidden');
