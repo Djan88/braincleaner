@@ -80,7 +80,7 @@ $(document).ready(function() {
     jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
     jQuery('.menu-toggle').on('click', function() {
         console.log(menu)
-        if(menu.hasClass('animated')){
+        if(menu.hasClass('fadeOut')){
             jQuery(menu)
             .removeClass('hidden')
             .addClass('fadeIn');
