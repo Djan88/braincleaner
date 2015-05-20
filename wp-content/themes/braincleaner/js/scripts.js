@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
     var curStatus = 'auto',
+        menu = jQuery('.controls').find('.btn-group'),
         supportsStorage = function(){
             try {
                 return 'localStorage' in window && window['localStorage'] !== null;
@@ -78,7 +79,17 @@ $(document).ready(function() {
     jQuery('.down, .btn-procedure').tooltip();
     jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
     jQuery('.menu-toggle').on('click', function() {
-        jQuery('.controls').find('.btn-group').slideToggle( "slow");
+        console.log(menu)
+        if(menu).hasClass('animated'){
+            jQuery(menu)
+            .removeClass('hidden')
+            .addClass('fadeIn');
+        } else {
+            jQuery(menu)
+            .removeClass('fadeIn')
+            .addClass('fadeOut')
+            .addClass('hidden');
+        }
     });
     // var count_animation_let = 0;
     // var cur_let;
