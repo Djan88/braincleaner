@@ -98,7 +98,7 @@ $(document).ready(function() {
     });
     protocol = function(){
         count=0;
-        img_num = jQuery('.b-popup').length();
+        img_num = jQuery('.b-popup').length;
         phase = setInterval(function(){
             if (count <= img_num){                                                                         //120
                 jQuery('.popup-img-wrap').addClass('hidden');
