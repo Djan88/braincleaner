@@ -86,7 +86,7 @@ $(document).ready(function() {
     jQuery('.down, .btn-procedure').tooltip();
     jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
     jQuery('.menu-toggle').on('click', function() {
-        console.log(menu)
+        // console.log(menu)
         if(menu.hasClass('slideInUp')){
             jQuery(menu)
             .removeClass('hidden')
@@ -100,14 +100,14 @@ $(document).ready(function() {
         }
     });
     protocol = function(){
-        defCount=0;
+        defCount=1;
         img_num = jQuery('.popup-img-wrap').size();
         console.log(img_num);
         console.log(defCount);
         phases = setInterval(function(){
             if (defCount <= img_num){
-                jQuery('.popup-img-wrap').addClass('hidden');
-                jQuery('.popup-img-wrap').eq(count+1).removeClass('hidden');
+                // jQuery('.popup-img-wrap').addClass('hidden');
+                jQuery('.popup-img-wrap').eq(+count).removeClass('hidden');
                 defCount += 1;
                 console.log('test');
             } else {
