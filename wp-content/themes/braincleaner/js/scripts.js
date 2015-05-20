@@ -103,11 +103,10 @@ $(document).ready(function() {
         defCount=1;
         img_num = jQuery('.popup-img-wrap').size();
         console.log(img_num);
-        console.log(defCount);
         phases = setInterval(function(){
             if (defCount <= img_num){
-                // jQuery('.popup-img-wrap').addClass('hidden');
-                jQuery('.popup-img-wrap').eq(count).removeClass('hidden');
+                jQuery('.popup-img-wrap').addClass('hidden');
+                jQuery('.b-popup').find(jQuery('.popup-img-wrap')).eq(count).removeClass('hidden');
                 defCount += 1;
                 console.log('test');
             } else {
