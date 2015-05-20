@@ -87,7 +87,7 @@ $(document).ready(function() {
             .addClass('flipX');
         } else {
             jQuery(menu)
-            .removeClass('fadeIn')
+            .removeClass('flipX')
             .addClass('slideInDown')
             .addClass('hidden');
         }
