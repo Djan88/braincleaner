@@ -110,7 +110,9 @@ $(document).ready(function() {
                 defCount += 1;
                 console.log('test');
                 jQuery('.protocol_stop').on('click', function() {
-                    return;
+                    clearInterval(phases);
+                    jQuery('.popup-img-wrap').addClass('hidden');
+                    jQuery('.popup-img-wrap[data-defNum='+defCount+']').removeClass('hidden');
                 });
             } else {
                 clearInterval(phases);
