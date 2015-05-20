@@ -1,6 +1,9 @@
 $(document).ready(function() {
 
     var curStatus = 'auto',
+        phase,
+        count,
+        img_num,
         menu = jQuery('.controls').find('.btn-group'),
         supportsStorage = function(){
             try {
@@ -58,7 +61,7 @@ $(document).ready(function() {
         jQuery('.btn-status').removeClass('active');
         jQuery(this).addClass('active');
         curStatus = jQuery(this).data('status');
-        console.log(curStatus);
+        // console.log(curStatus);
     });
 
     jQuery('.btn-start').on('click', function() {
@@ -113,5 +116,19 @@ $(document).ready(function() {
     //         count_animation++;
     //     }, 100);
     // });
+    if (jQuery('.b-popup')) {
+        count=0;
+        img_num = jQuery('.b-popup').length();
+        phase = setInterval(function(){
+            if (count <= img_num){                                                                         //120
+                jQuery('.popup-img-wrap').addClass('hidden');
+                jQuery('.popup-img-wrap').eq(count).removeClass('hidden');
+                count += 1;
+            } else {
+                clearInterval(phase);
+                jQuery('.popup-img-wrap').addClass('hidden');
+            }
+        }, 3000);
+    };
 
 });
