@@ -44,6 +44,14 @@
                     </div>
                   <?php } else if(in_category(5)) { ?>
                       <div class="b-popup hidden">
+                        <div class="controls">
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-default">Левая</button>
+                            <button type="button" class="btn btn-default">Средняя</button>
+                            <button type="button" class="btn btn-default">Правая</button>
+                          </div>
+                          <div class="toggle-menu"><span class="glyphicon glyphicon-align-justify"></span></div>
+                        </div>
                         <div class="b-popup-content clearfix">
                           <div class="row">
                             <?php if(get_field('images')): ?>
