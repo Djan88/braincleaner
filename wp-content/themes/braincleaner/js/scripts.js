@@ -2,8 +2,9 @@ $(document).ready(function() {
 
     var curStatus = 'auto',
         phase,
-        Defcount,
+        defCount,
         count,
+        phases,
         counter,
         protocol,
         img_num,
@@ -99,41 +100,20 @@ $(document).ready(function() {
         }
     });
     protocol = function(){
-        Defcount=0;
+        defCount=0;
         img_num = jQuery('.popup-img-wrap').size();
         console.log(img_num);
-        setInterval(function(){
-            if (Defcount <= img_num){
+        phases = setInterval(function(){
+            if (defCount <= img_num){
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap').eq(count+1).removeClass('hidden');
-                Defcount += 1;
+                defCount += 1;
             } else {
-                clearInterval();
+                clearInterval(phases);
                 jQuery('.popup-img-wrap').addClass('hidden');
             }
         }, 1000);
-    }
-    // var count_animation_let = 0;
-    // var cur_let;
-    // var letters = {
-    //     0: 'Б',
-    //     1: 'Т',
-    //     2: 'Н',
-    //     3: 'М',
-    //     4: 'Г',
-    //     5: 'Р',
-    //     6: 'В',
-    //     7: 'Х',
-    // };
-    // jQuery('.search').on('click', function() {
-    //     setInterval(function(){
-    //         if (count_animation_let <= 100){
-    //             cur_let = Math.round(Math.random() * (7 - 0))
-    //             console.log(letters[cur_let]);
-    //         }
-    //         count_animation++;
-    //     }, 100);
-    // });
+    };
     if (jQuery('.b-popup')) {
         jQuery('.protocol_start').on('click', function() {
             protocol();
