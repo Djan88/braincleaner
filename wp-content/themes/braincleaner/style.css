@@ -298,7 +298,7 @@ body
   height: 100vh;
   padding: 40px 10px 10px;
   background-color: #fff;
-  border-radius: 5px;
+  /*border-radius: 5px;*/
   box-shadow: 0px 0px 10px #000;
   position: relative;
 }
@@ -319,4 +319,11 @@ body
 .popup-img-wrap img
 {
   width: 100%;
+}
+.controls 
+{
+  position: fixed;
+  right: 50px;
+  top: 0;
+  z-index: 1;
 }

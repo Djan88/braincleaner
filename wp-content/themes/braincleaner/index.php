@@ -50,7 +50,7 @@
                             <button type="button" class="btn btn-default">Средняя</button>
                             <button type="button" class="btn btn-default">Правая</button>
                           </div>
-                          <div class="toggle-menu"><span class="glyphicon glyphicon-align-justify"></span></div>
+                            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-align-justify"></span></button>
                         </div>
                         <div class="b-popup-content clearfix">
                           <div class="row">
