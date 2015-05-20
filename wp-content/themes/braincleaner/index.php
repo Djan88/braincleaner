@@ -47,7 +47,7 @@
                         <div class="b-popup-content clearfix">
                             <?php if(get_field('images')): ?>
                               <?php while(has_sub_field('images')): ?>
-                                  <div class="col-md-12">
+                                  <div class="col-md-12 popup-img-wrap">
                                     <img src="<?php the_sub_field('image') ?>" alt=""> 
                                   </div>
                               <?php endwhile; ?>

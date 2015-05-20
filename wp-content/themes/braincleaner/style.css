@@ -316,4 +316,7 @@ body
   position: relative;
   cursor: ns-resize;
 }
-
+.popup-img-wrap img
+{
+  width: 100%;
+}
