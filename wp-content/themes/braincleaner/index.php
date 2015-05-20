@@ -48,7 +48,7 @@
                           <div class="btn-group animated hidden slideInUp">
                             <button type="button" class="btn btn-default">Левая</button>
                             <button type="button" class="btn btn-default">Средняя</button>
-                            <button type="button" class="btn btn-default">Правая</button>
+                            <button type="button" class="btn btn-default protocol_start">Старт</button>
                           </div>
                           <button type="button" class="btn btn-default menu-toggle"><span class="glyphicon glyphicon-align-justify"></span></button>
                         </div>
