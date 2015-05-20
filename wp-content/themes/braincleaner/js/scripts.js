@@ -99,6 +99,7 @@ $(document).ready(function() {
     protocol = function(){
         count=0;
         img_num = jQuery('.b-popup').length;
+        console.log(img_num);
         phase = setInterval(function(){
             if (count <= img_num){                                                                         //120
                 jQuery('.popup-img-wrap').addClass('hidden');
