@@ -109,6 +109,7 @@ $(document).ready(function() {
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap').eq(count+1).removeClass('hidden');
                 defCount += 1;
+                console.log('test');
             } else {
                 clearInterval(phases);
                 jQuery('.popup-img-wrap').addClass('hidden');
