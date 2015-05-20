@@ -76,6 +76,7 @@ $(document).ready(function() {
 
 
     jQuery('.down, .btn-procedure').tooltip();
+    jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
 
     // var count_animation_let = 0;
     // var cur_let;

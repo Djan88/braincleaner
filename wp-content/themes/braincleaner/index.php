@@ -48,7 +48,7 @@
                           <div class="row">
                             <?php if(get_field('images')): ?>
                               <?php while(has_sub_field('images')): ?>
-                                  <div class="col-md-6 col-md-offset-3 popup-img-wrap">
+                                  <div class="col-md-6 col-md-offset-3 popup-img-wrap hidden">
                                     <img src="<?php the_sub_field('image') ?>" alt=""> 
                                   </div>
                               <?php endwhile; ?>
