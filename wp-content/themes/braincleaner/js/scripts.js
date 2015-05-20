@@ -80,7 +80,7 @@ $(document).ready(function() {
     jQuery('.controls').find('.btn-group').slideToggle( "slow");
     jQuery('.menu-toggle').on('click', function() {
         jQuery('.controls').find('.btn-group').slideToggle( "slow");
-    }
+    });
     // var count_animation_let = 0;
     // var cur_let;
     // var letters = {
