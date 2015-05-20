@@ -112,7 +112,7 @@ $(document).ready(function() {
                 console.log('test');
             } else {
                 clearInterval(phases);
-                jQuery('.popup-img-wrap').addClass('hidden');
+                // jQuery('.popup-img-wrap').addClass('hidden');
             }
         }, 1000);
     };
