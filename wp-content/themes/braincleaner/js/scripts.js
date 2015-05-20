@@ -85,7 +85,7 @@ $(document).ready(function() {
         });
     }();
     jQuery('.menu-toggle').on('click', function() {
-        menuHidder();
+        menuHidder;
     });
     // var count_animation_let = 0;
     // var cur_let;
