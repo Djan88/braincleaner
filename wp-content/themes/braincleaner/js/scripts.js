@@ -84,9 +84,7 @@ $(document).ready(function() {
         //
         });
     }();
-    jQuery('.menu-toggle').on('click', function() {
-        menuHidder;
-    });
+    jQuery('.menu-toggle').on('click', menuHidder());
     // var count_animation_let = 0;
     // var cur_let;
     // var letters = {
