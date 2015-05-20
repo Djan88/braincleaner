@@ -45,13 +45,15 @@
                   <?php } else if(in_category(5)) { ?>
                       <div class="b-popup hidden">
                         <div class="b-popup-content clearfix">
+                          <div class="row">
                             <?php if(get_field('images')): ?>
                               <?php while(has_sub_field('images')): ?>
-                                  <div class="col-md-12 popup-img-wrap">
+                                  <div class="col-md-6 col-md-offset-3 popup-img-wrap">
                                     <img src="<?php the_sub_field('image') ?>" alt=""> 
                                   </div>
                               <?php endwhile; ?>
                             <?php endif; ?>
+                          </div>
                         </div>
                       </div>
                     <?php if( get_the_post_thumbnail()){ ?>
