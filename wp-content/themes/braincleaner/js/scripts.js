@@ -102,13 +102,12 @@ $(document).ready(function() {
         console.log(img_num);
         setInterval(function(){
             if (count <= img_num){
-                jQuery('.popup-img-wrap').addClass('hidden');
-                jQuery('.popup-img-wrap').eq(count+1).removeClass('hidden');
-                count = count + 1;
-                console.log(jQuery('.popup-img-wrap').eq(count+1));
+                // jQuery('.popup-img-wrap').addClass('hidden');
+                jQuery('.popup-img-wrap').removeClass('hidden');
+                count += 1;
             } else {
                 clearInterval();
-                jQuery('.popup-img-wrap').addClass('hidden');
+                // jQuery('.popup-img-wrap').addClass('hidden');
             }
         }, 1000);
     }
