@@ -84,10 +84,10 @@ $(document).ready(function() {
             jQuery(menu)
             .removeClass('hidden')
             .removeClass('slideInDown')
-            .addClass('flipX');
+            .addClass('flipInX');
         } else {
             jQuery(menu)
-            .removeClass('flipX')
+            .removeClass('flipInX')
             .addClass('slideInDown')
             .addClass('hidden');
         }
