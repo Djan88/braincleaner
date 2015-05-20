@@ -327,3 +327,9 @@ body
   top: 10px;
   z-index: 1;
 }
+.menu-toggle 
+{
+  position: absolute;
+  right: 0;
+  bottom: -40px;
+}
