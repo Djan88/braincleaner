@@ -80,11 +80,11 @@ $(document).ready(function() {
     jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
 
     menuHidder = function(){
-        jQuery('.controls').find('.btn-group').slideToggle( "slow", function() {
-        //
-        });
+        jQuery('.controls').find('.btn-group').slideToggle( "slow");
     }();
-    jQuery('.menu-toggle').on('click', menuHidder());
+    jQuery('.menu-toggle').on('click', function() {
+        menuHidder();
+    });
     // var count_animation_let = 0;
     // var cur_let;
     // var letters = {
