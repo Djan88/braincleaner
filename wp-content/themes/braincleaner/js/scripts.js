@@ -2,7 +2,9 @@ $(document).ready(function() {
 
     var curStatus = 'auto',
         phase,
+        Defcount,
         count,
+        counter,
         protocol,
         img_num,
         menu = jQuery('.controls').find('.btn-group'),
@@ -37,8 +39,8 @@ $(document).ready(function() {
         overlayParentElement  :   'body'
     });
     
-    var count = 0;
-    var counter = setInterval (function(){
+        count = 0;
+        counter = setInterval (function(){
         jQuery('.gear_1').css('transform', 'rotate('+count/2+'deg)');
         jQuery('.gear_2').css('transform', 'rotate(-'+count*2+'deg)');
         jQuery('.gear_3').css('transform', 'rotate('+count/2+'deg)');
@@ -97,17 +99,17 @@ $(document).ready(function() {
         }
     });
     protocol = function(){
-        count=0;
+        Defcount=0;
         img_num = jQuery('.popup-img-wrap').size();
         console.log(img_num);
         setInterval(function(){
-            if (count <= img_num){
-                // jQuery('.popup-img-wrap').addClass('hidden');
-                jQuery('.popup-img-wrap').removeClass('hidden');
-                count += 1;
+            if (Defcount <= img_num){
+                jQuery('.popup-img-wrap').addClass('hidden');
+                jQuery('.popup-img-wrap').eq(count+1).removeClass('hidden');
+                Defcount += 1;
             } else {
                 clearInterval();
-                // jQuery('.popup-img-wrap').addClass('hidden');
+                jQuery('.popup-img-wrap').addClass('hidden');
             }
         }, 1000);
     }
