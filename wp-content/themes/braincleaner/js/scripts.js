@@ -98,7 +98,7 @@ $(document).ready(function() {
     });
     protocol = function(){
         count=0;
-        img_num = jQuery('.popup-img-wrap').length;
+        img_num = jQuery('.popup-img-wrap').size();
         console.log(img_num);
         phase = setInterval(function(){
             if (count <= img_num){                                                                         //120
