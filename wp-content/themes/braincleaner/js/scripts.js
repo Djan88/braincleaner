@@ -88,8 +88,7 @@ $(document).ready(function() {
         } else {
             jQuery(menu)
             .removeClass('fadeIn')
-            .addClass('fadeOut')
-            .addClass('hidden');
+            .addClass('fadeOut');
         }
     });
     // var count_animation_let = 0;
