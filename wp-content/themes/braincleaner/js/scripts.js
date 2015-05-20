@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
     var curStatus = 'auto',
-        menuHidder,
         supportsStorage = function(){
             try {
                 return 'localStorage' in window && window['localStorage'] !== null;
@@ -78,12 +77,9 @@ $(document).ready(function() {
 
     jQuery('.down, .btn-procedure').tooltip();
     jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
-
-    menuHidder = function(){
-        jQuery('.controls').find('.btn-group').slideToggle( "slow");
-    }();
+    jQuery('.controls').find('.btn-group').slideToggle( "slow");
     jQuery('.menu-toggle').on('click', function() {
-        menuHidder();
+        jQuery('.controls').find('.btn-group').slideToggle( "slow"
     });
     // var count_animation_let = 0;
     // var cur_let;
