@@ -100,17 +100,17 @@ $(document).ready(function() {
         count=0;
         img_num = jQuery('.popup-img-wrap').size();
         console.log(img_num);
-        phase = setInterval(function(){
+        setInterval(function(){
             if (count <= img_num){                                                                         //120
                 jQuery('.popup-img-wrap').addClass('hidden');
-                jQuery('.popup-img-wrap').eq(count).removeClass('hidden');
+                jQuery('.popup-img-wrap').eq(count+1).removeClass('hidden');
                 count += 1;
                 console.log(count);
             } else {
-                clearInterval(phase);
+                clearInterval();
                 jQuery('.popup-img-wrap').addClass('hidden');
             }
-        }, 3000);
+        }, 1000);
     }
     // var count_animation_let = 0;
     // var cur_let;
