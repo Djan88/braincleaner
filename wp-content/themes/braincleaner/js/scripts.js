@@ -118,7 +118,7 @@ $(document).ready(function() {
                 jQuery('.protocol_stop, .protocol_close').on('click', function() {
                     clearInterval(phases);
                     jQuery('.popup-img-wrap').addClass('hidden');
-                    jQuery('.popup-img-wrap[data-defNum='+defCount+']').removeClass('hidden');
+                    jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').removeClass('hidden');
                 });
             } else {
                 clearInterval(phases);
