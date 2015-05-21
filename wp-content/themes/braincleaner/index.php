@@ -65,7 +65,7 @@
                             <?php endif; ?>
                           </div>
                           <div class="row">
-                            <div class="col-md-2 col-md-offset-6">
+                            <div class="col-md-4 col-md-offset-4">
                               <div class="btn-group">
                                 <button type="button" class="btn btn-default">Левая</button>
                                 <button type="button" class="btn btn-default protocol_stop">Стоп <span class="glyphicon glyphicon-minus-sign"></span></button>
