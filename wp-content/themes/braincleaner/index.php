@@ -64,7 +64,7 @@
                               <?php endwhile; ?>
                             <?php endif; ?>
                           </div>
-                          <div class="row">
+                          <div class="row" style="padding-top: 20px;">
                             <div class="col-md-4 col-md-offset-5">
                               <div class="btn-group">
                                 <button type="button" class="btn btn-default">Левая</button>
