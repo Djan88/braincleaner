@@ -47,8 +47,8 @@
                         <div class="controls">
                           <div class="btn-group animated hidden slideInUp">
                             <button type="button" class="btn btn-default">Левая</button>
-                            <button type="button" class="btn btn-default protocol_stop">Стоп</button>
-                            <button type="button" class="btn btn-default protocol_start">Старт</button>
+                            <button type="button" class="btn btn-default">Центр</button>
+                            <button type="button" class="btn btn-default protocol_close">Завершить <span class="glyphicon glyphicon-remove-circle"></span></button>
                           </div>
                           <button type="button" class="btn btn-default menu-toggle"><span class="glyphicon glyphicon-align-justify"></span></button>
                         </div>
@@ -63,6 +63,15 @@
                                   <?php $defNum += 1 ?>
                               <?php endwhile; ?>
                             <?php endif; ?>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4 col-md-offset-4">
+                              <div class="btn-group">
+                                <button type="button" class="btn btn-default">Левая</button>
+                                <button type="button" class="btn btn-default protocol_stop">Стоп <span class="glyphicon glyphicon-minus-sign"></span></button>
+                                <button type="button" class="btn btn-default protocol_start">Старт <span class="glyphicon glyphicon-record"></span></button>
+                              </div>
+                            </div> 
                           </div>
                         </div>
                       </div>

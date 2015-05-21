@@ -99,6 +99,12 @@ $(document).ready(function() {
             .addClass('hidden');
         }
     });
+
+    jQuery('.protocol_close').on('click', function() {
+        jQuery('.b-popup')
+            .addClass('hidden')
+            .removeClass('fadeIn');
+    });
     protocol = function(){
         defCount=1;
         img_num = jQuery('.popup-img-wrap').size();
@@ -109,7 +115,7 @@ $(document).ready(function() {
                 jQuery('.popup-img-wrap[data-defNum='+defCount+']').removeClass('hidden');
                 defCount += 1;
                 console.log('test');
-                jQuery('.protocol_stop').on('click', function() {
+                jQuery('.protocol_stop, .protocol_close').on('click', function() {
                     clearInterval(phases);
                     jQuery('.popup-img-wrap').addClass('hidden');
                     jQuery('.popup-img-wrap[data-defNum='+defCount+']').removeClass('hidden');
