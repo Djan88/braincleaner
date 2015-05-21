@@ -110,7 +110,7 @@ $(document).ready(function() {
         img_num = jQuery('.popup-img-wrap').size();
         console.log(img_num);
         phases = setInterval(function(){
-            if (defCount <= img_num){
+            if (defCount <= img_num-1){
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap[data-defNum='+defCount+']').removeClass('hidden');
                 defCount += 1;
