@@ -123,8 +123,9 @@ $(document).ready(function() {
             } else {
                 clearInterval(phases);
                 jQuery('.popup-img-wrap').addClass('hidden');
+                jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
             }
-        }, 1000);
+        }, 4000);
     };
     if (jQuery('.b-popup')) {
         jQuery('.protocol_start').on('click', function() {
