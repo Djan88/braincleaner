@@ -129,7 +129,7 @@ $(document).ready(function() {
                 jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
                 jQuery('.popup-img-wrap').removeAttr('checked');
             }
-        }, 2500);
+        }, 2000);
     };
     if (jQuery('.b-popup')) {
         jQuery('.protocol_start').on('click', function() {
