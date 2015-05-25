@@ -14,16 +14,16 @@
         <div class="col-md-9">
           <?php wp_nav_menu(array('menu' => 'Меню в шапке', 'container' => false, menu_class => 'nav navbar-nav' )); ?>
         </div>
-      </div>
-      <div class="col-md-3">
-          <form method="get" name="searchform" id="searchform" action="<?php bloginfo('siteurl')?>">
-            <div class="input-group">
-              <input type="text" name="s" id="s" placeholder="Что искать?" class="search-input form-control" required="true"/>
-              <span class="input-group-btn">
-                <input id="btnSearch" type="submit" name="submit" value="<?php _e('Поиск'); ?>" class="search-button btn btn-default search"/>
-              </span>
-            </div><!-- /input-group -->
-          </form>
+        <div class="col-md-3">
+            <form method="get" name="searchform" id="searchform" action="<?php bloginfo('siteurl')?>">
+              <div class="input-group">
+                <input type="text" name="s" id="s" placeholder="Что искать?" class="search-input form-control" required="true"/>
+                <span class="input-group-btn">
+                  <input id="btnSearch" type="submit" name="submit" value="<?php _e('Поиск'); ?>" class="search-button btn btn-default search"/>
+                </span>
+              </div><!-- /input-group -->
+            </form>
+        </div>
       </div>
     </div>
   </div>
