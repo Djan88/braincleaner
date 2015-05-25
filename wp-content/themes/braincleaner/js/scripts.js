@@ -116,7 +116,7 @@ $(document).ready(function() {
                 defCount += 1;
                 if(jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').data('formula')&& (!jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').data('checked'))){
                     defCount -= 1;
-                    jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').data('checked', '1');
+                    jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked');
                 }
                 console.log('test');
                 jQuery('.protocol_stop, .protocol_close').on('click', function() {
