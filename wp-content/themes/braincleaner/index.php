@@ -8,7 +8,7 @@
                   window.location.href = "/";
               </script>
           <?php } ?>
-    <?php } else { ?>
+    <?php } ?>
     <div class="container-fluid inside animsition">
       <?php include(TEMPLATEPATH . '/head-part.php'); ?>
       <div class="row">
