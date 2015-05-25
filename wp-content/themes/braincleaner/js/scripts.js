@@ -108,18 +108,16 @@ $(document).ready(function() {
     protocol = function(){
         defCount=1;
         img_num = jQuery('.popup-img-wrap').size();
-        console.log(img_num);
         phases = setInterval(function(){
             if (defCount <= img_num-1){
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap[data-defNum='+defCount+']').removeClass('hidden');
                 defCount += 1;
                 if(jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').data('formula')&& (!jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked'))){
-                    defCount -= 1;
                     jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked');
+                    defCount -= 1;
                     console.log('test'+defCount);
                 }
-                console.log('test');
                 jQuery('.protocol_stop, .protocol_close').on('click', function() {
                     clearInterval(phases);
                     jQuery('.popup-img-wrap').addClass('hidden');
