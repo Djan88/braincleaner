@@ -21,8 +21,8 @@
     <!-- custom files -->
     <script src="<?php bloginfo('template_url'); ?>/js/scripts.js"></script>
     <?php if(!is_user_logged_in()){ ?>
-        <script type="text/javascript">
-        window.location.href = "/";
+        <script>
+            window.location.href = "/";
         </script>
     <?php } ?>
 
