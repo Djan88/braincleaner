@@ -330,6 +330,14 @@ body
   width: 500px;
 }
 
+@media (max-width: 1500px) { 
+  .login-btn
+  {
+    margin-top: 400px;
+    margin-left: auto;
+    width: auto;
+  }
+}
 @media (max-width: 1200px) { 
     .navbar-nav li.pull-right
     {

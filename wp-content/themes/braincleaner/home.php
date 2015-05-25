@@ -111,7 +111,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xs-6 col-md-offset-3 login-btn">
+        <div class="col-xs-2 col-md-offset-5 login-btn">
           <div class="btn btn-default login-in">Войти на сайт</div>
         </div>
       </div>
