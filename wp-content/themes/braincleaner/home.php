@@ -53,7 +53,7 @@
         <!-- <div class="gear gear_6"></div> -->
       </div>
       <div class="row">
-        <div class="col-md-3 col-md-offset-4 login-form hidden">
+        <div class="col-xs-6 col-md-4 login-form hidden">
           <div class="panel panel-primary">
             <div class="panel-heading">
               <h3 class="panel-title">Вход на сайт</h3>
@@ -111,7 +111,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3 col-md-offset-4 login-btn">
+        <div class="col-xs-6 col-md-4 login-btn">
           <div class="btn btn-default login-in">Войти на сайт</div>
         </div>
       </div>
