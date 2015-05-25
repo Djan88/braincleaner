@@ -114,6 +114,9 @@ $(document).ready(function() {
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap[data-defNum='+defCount+']').removeClass('hidden');
                 defCount += 1;
+                if(jQuery('.popup-img-wrap[data-defNum='+defCount+']').data('formula')){
+                    defCount -= 1;
+                }
                 console.log('test');
                 jQuery('.protocol_stop, .protocol_close').on('click', function() {
                     clearInterval(phases);
