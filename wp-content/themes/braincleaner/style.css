@@ -197,7 +197,7 @@ body
 }
 .main_heading .glyphicon 
 {
-    vertical-align: top;
+    vertical-align: -1px;
 }
 .navbar-nav a
 {
