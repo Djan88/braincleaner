@@ -20,7 +20,7 @@
       <div class="panel-body">
         <?php if(is_category(3)||is_category(5)) { ?>
           <?php if( get_the_post_thumbnail()){ ?>
-            <div class="col-md-6">
+            <div class="col-md-6 thumb-wrap">
               <?php the_post_thumbnail( 'medium' ); ?>
             </div>
             <div class="col-md-6">
