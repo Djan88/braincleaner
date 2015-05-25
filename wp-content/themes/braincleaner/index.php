@@ -86,7 +86,7 @@
                       <div class="col-md-6" style="margin-bottom: 15px;">
                         <?php the_post_thumbnail( 'medium' ); ?>
                       </div>
-                      <div class="col-md-6" style="text-align: justify;">
+                      <div class="col-md-6" style="text-align: justify;st">
                     <?php } else { ?>
                       <div>
                     <?php } ?>
