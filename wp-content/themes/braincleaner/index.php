@@ -64,7 +64,7 @@
                             <?php $defNum = 0 ?>
                             <?php if(get_field('images')): ?>
                               <?php while(has_sub_field('images')): ?>
-                                  <div class="col-md-6 col-md-offset-3 popup-img-wrap hidden" data-defNum="<?php echo $defNum; ?>">
+                                  <div class="col-md-6 col-md-offset-3 popup-img-wrap hidden" data-defNum="<?php echo $defNum; ?>" <?php if(get_sub_field('formula')) { ?> data-formula="true" <?php } ?>>
                                     <img src="<?php the_sub_field('image') ?>" alt=""> 
                                   </div>
                                   <?php $defNum += 1 ?>
