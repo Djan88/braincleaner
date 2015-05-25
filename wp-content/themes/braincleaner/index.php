@@ -2,6 +2,13 @@
   <?php if(is_front_page()) { ?>
     <?php include(TEMPLATEPATH . '/home.php'); ?>
   <?php } else { ?>
+    <?php if(!is_front_page()) { ?>
+      <?php if(!is_user_logged_in()){ ?>
+              <script>
+                  window.location.href = "/";
+              </script>
+          <?php } ?>
+    <?php } else { ?>
     <div class="container-fluid inside animsition">
       <?php include(TEMPLATEPATH . '/head-part.php'); ?>
       <div class="row">
