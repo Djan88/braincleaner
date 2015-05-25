@@ -1,5 +1,4 @@
 <?php get_header(); ?>
-<?php if(is_user_logged_in()){ ?>
   <?php if(is_front_page()) { ?>
     <?php include(TEMPLATEPATH . '/home.php'); ?>
   <?php } else { ?>
@@ -139,7 +138,4 @@
       </div>
     </div>
   <?php } ?>
-<?php } else { ?>
-  <?php users_redirect(); ?>
-<?php } ?>
 <?php get_footer(); ?>
