@@ -113,8 +113,8 @@ $(document).ready(function() {
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap[data-defNum='+defCount+']').removeClass('hidden');
                 defCount += 1;
-                if(jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').data('formula')&& (!jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked'))){
-                    jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked');
+                if(jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').data('formula')&&(!jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked'))){
+                    jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked', 'true');;
                     defCount -= 1;
                     console.log('test'+defCount);
                 }
