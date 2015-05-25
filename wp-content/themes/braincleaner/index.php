@@ -28,7 +28,7 @@
                   <div class="panel-body">
                   <?php if(in_category(3)) { ?>
                     <?php if( get_the_post_thumbnail()){ ?>
-                      <div class="col-md-6" style="margin-bottom: 15px;">
+                      <div class="col-md-6">
                         <?php the_post_thumbnail( 'medium' ); ?>
                       </div>
                       <div class="col-md-6">
@@ -83,7 +83,7 @@
                         </div>
                       </div>
                     <?php if( get_the_post_thumbnail()){ ?>
-                      <div class="col-md-6">
+                      <div class="col-md-6" style="margin-bottom: 15px;">
                         <?php the_post_thumbnail( 'medium' ); ?>
                       </div>
                       <div class="col-md-6" style="text-align: justify;">
