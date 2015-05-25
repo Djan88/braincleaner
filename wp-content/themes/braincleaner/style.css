@@ -326,16 +326,14 @@ body
 .login-btn
 {
   margin-top: 400px;
-  margin-left: 900px;
-  width: 500px;
+  
 }
 
-@media (max-width: 1500px) { 
+@media (min-width: 1500px) { 
   .login-btn
   {
-    margin-top: 400px;
-    margin-left: auto;
-    width: auto;
+    margin-left: 900px;
+    width: 500px;
   }
 }
 @media (max-width: 1200px) { 
