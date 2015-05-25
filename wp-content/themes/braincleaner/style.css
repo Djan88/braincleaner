@@ -333,3 +333,8 @@ body
   right: 0;
   bottom: -40px;
 }
+.thumb-wrap img
+{
+  width: 100%;
+  height: auto;
+}
