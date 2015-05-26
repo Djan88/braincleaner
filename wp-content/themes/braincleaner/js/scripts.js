@@ -125,8 +125,8 @@ $(document).ready(function() {
                 });
             } else {
                 clearInterval(phases);
-                jQuery('.popup-img-wrap').addClass('hidden');
-                jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
+                // jQuery('.popup-img-wrap').addClass('hidden');
+                // jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
                 jQuery('.popup-img-wrap').removeAttr('checked');
             }
         }, 2000);

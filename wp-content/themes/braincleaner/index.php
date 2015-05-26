@@ -72,13 +72,11 @@
                             <?php endif; ?>
                           </div>
                           <div class="row" style="padding-top: 20px;">
-                            <div class="col-md-4 col-md-offset-5">
-                              <div class="btn-group">
-                                <button type="button" class="btn btn-default">Левая</button>
-                                <button type="button" class="btn btn-default protocol_stop">Стоп <span class="glyphicon glyphicon-minus-sign"></span></button>
-                                <button type="button" class="btn btn-default protocol_start">Старт <span class="glyphicon glyphicon-record"></span></button>
-                              </div>
-                            </div> 
+                            <div class="btn-group" style="width: 240px; margin: auto;">
+                              <button type="button" class="btn btn-default protocol_close"><span class="glyphicon glyphicon-arrow-left"></span> Назад</button>
+                              <button type="button" class="btn btn-default protocol_stop">Стоп <span class="glyphicon glyphicon-minus-sign"></span></button>
+                              <button type="button" class="btn btn-default protocol_start">Старт <span class="glyphicon glyphicon-record"></span></button>
+                            </div>
                           </div>
                         </div>
                       </div>
