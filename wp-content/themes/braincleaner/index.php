@@ -79,8 +79,8 @@
                             </div>
                             <div class="btn-group btn-manualic hidden" style="width: 245px; margin: auto; display: block;">
                               <button type="button" class="btn btn-default protocol_close"><span class="glyphicon glyphicon-arrow-left"></span> Назад</button>
-                              <button type="button" class="btn btn-default protocol_next disabled"><span class="glyphicon glyphicon-chevron-left"></span> Назад</button>
-                              <button type="button" class="btn btn-default protocol_prev">Вперед <span class="glyphicon chevron-right"></span></button>
+                              <button type="button" class="btn btn-default protocol_next disabled"><span class="glyphicon glyphicon-chevron-left"></span> Предыдущий</button>
+                              <button type="button" class="btn btn-default protocol_prev">Следующий <span class="glyphicon glyphicon-chevron-right"></span></button>
                             </div>
                           </div>
                         </div>
