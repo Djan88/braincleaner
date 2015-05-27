@@ -49,7 +49,7 @@
                 ?>
               </div>
               <div class="defra_btns">
-                <a href="<?php the_permalink(); ?>" class="btn btn-default btn-lg btn-block center-block">Нажмите что бы начать</a>
+                <a href="<?php the_permalink(); ?>" class="btn btn-default btn-lg btn-block center-block">Начать процедуру</a>
               </div>
             <?php } ?>
           </div>
