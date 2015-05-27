@@ -113,7 +113,7 @@
                         <button type="button" class="btn btn-default btn-status btn-manual btn-procedure" data-status="manual" data-toggle="tooltip" title="Провести процедуру в режиме ручного управления">Ручное управление</button>
                         </div>
                         <div class="btn-group">
-                        <button type="button" class="btn btn-warning btn-start btn-procedure" data-toggle="tooltip" title="Запуск процедуры">К процедуре <span class="glyphicon glyphicon-arrow-right"></span></button>
+                        <button type="button" class="btn btn-warning btn-start btn-procedure" data-toggle="tooltip" title="Запуск процедуры">Начать процедуру <span class="glyphicon glyphicon-arrow-right"></span></button>
                         </div>
                       </div>
                     </div>
