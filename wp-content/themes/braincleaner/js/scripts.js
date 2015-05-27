@@ -169,7 +169,7 @@ $(document).ready(function() {
         console.log(defCount+' '+img_num);
         if (defCount > 1){
             prevImg();
-            if(defCount > 1 && defCount < (img_num-2)){
+            if(defCount > 1 && defCount < (img_num-1)){
                 jQuery('.protocol_next').removeClass('disabled');
             } else {
                 jQuery('.protocol_next').addClass('disabled');
