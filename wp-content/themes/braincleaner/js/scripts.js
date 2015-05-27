@@ -2,12 +2,14 @@ $(document).ready(function() {
 
     var curStatus = 'auto',
         phase,
-        defCount,
+        defCount = 1,
         count,
         phases,
         counter,
+        nextImg,
+        prevImg,
         protocol,
-        img_num,
+        img_num = jQuery('.popup-img-wrap').size(),
         menu = jQuery('.controls').find('.btn-group'),
         supportsStorage = function(){
             try {
@@ -65,7 +67,14 @@ $(document).ready(function() {
         jQuery('.btn-status').removeClass('active');
         jQuery(this).addClass('active');
         curStatus = jQuery(this).data('status');
-        // console.log(curStatus);
+        if(curStatus == 'auto'){
+            jQuery('.btn-auto').addClass('hidden');
+            jQuery('.btn-manual').removeClass('hidden');
+        } else {
+            jQuery('.btn-auto').removeClass('hidden');
+            jQuery('.btn-manual').addClass('hidden');
+        }
+        console.log(curStatus);
     });
 
     jQuery('.btn-start').on('click', function() {
@@ -107,7 +116,6 @@ $(document).ready(function() {
     });
     protocol = function(){
         defCount=1;
-        img_num = jQuery('.popup-img-wrap').size();
         phases = setInterval(function(){
             if (defCount <= img_num-1){
                 jQuery('.popup-img-wrap').addClass('hidden');
@@ -131,6 +139,32 @@ $(document).ready(function() {
             }
         }, 2000);
     };
+    nextImg = function(){
+        defCount += 1;
+        jQuery('.popup-img-wrap').addClass('hidden');
+        jQuery('.popup-img-wrap[data-defNum='+defCount+']').removeClass('hidden');
+    }
+    prevImg = function(){
+        defCount -= 1;
+        jQuery('.popup-img-wrap').addClass('hidden');
+        jQuery('.popup-img-wrap[data-defNum='+defCount+']').removeClass('hidden');
+    }
+    jQuery('.protocol_next').on('click', function() {
+        if (!jQuery(this).hasClass('disabled')&& defCount <= img_num){
+            nextImg();
+        } else {
+            jQuery('.protocol_prev').removeClass('disabled');
+            jQuery(this).addClass('disabled');
+        }
+    });
+    jQuery('.protocol_prev').on('click', function() {
+        if (!jQuery(this).hasClass('disabled')&& defCount >= 1){
+            nextImg();
+        } else {
+            jQuery('.protocol_next').removeClass('disabled');
+            jQuery(this).addClass('disabled');
+        }
+    });
     if (jQuery('.b-popup')) {
         jQuery('.protocol_start').on('click', function() {
             protocol();
