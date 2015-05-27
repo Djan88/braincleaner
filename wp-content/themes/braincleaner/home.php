@@ -54,7 +54,7 @@
       </div>
       <div class="row">
         <div class="col-xs-4 col-md-offset-4 login-form hidden">
-          <div class="panel panel-primary" style="width: 300px;margin: auto;padding: 10px;">
+          <div class="panel panel-primary" style="width: 450px;padding: 10px;">
             <div class="panel-heading">
               <h3 class="panel-title">Вход на сайт</h3>
             </div>
