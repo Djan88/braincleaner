@@ -152,7 +152,7 @@ $(document).ready(function() {
 
     jQuery('.protocol_next').on('click', function() {
         console.log(defCount+' '+img_num);
-        if (defCount <= img_num){
+        if (defCount <= img_num-1){
             nextImg();
             if(defCount > 1){
                 jQuery('.protocol_prev').removeClass('disabled');
@@ -168,7 +168,7 @@ $(document).ready(function() {
     jQuery('.protocol_prev').on('click', function() {
         console.log(defCount+' '+img_num);
         if (!jQuery(this).hasClass('disabled')&& defCount >= 1){
-            nextImg();
+            prevImg();
         } else {
             jQuery('.protocol_next').removeClass('disabled');
             jQuery(this).addClass('disabled');
