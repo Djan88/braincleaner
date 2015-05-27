@@ -70,7 +70,7 @@ $(document).ready(function() {
         if(curStatus == 'auto'){
             jQuery('.btn-manual').addClass('hidden');
             jQuery('.btn-auto').removeClass('hidden');
-        } else {
+        } else if(curStatus == 'manual'){
             jQuery('.btn-manual').removeClass('hidden');
             jQuery('.btn-auto').addClass('hidden');
         }
