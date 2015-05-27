@@ -67,13 +67,6 @@ $(document).ready(function() {
         jQuery('.btn-status').removeClass('active');
         jQuery(this).addClass('active');
         curStatus = jQuery(this).data('status');
-        if(curStatus == 'auto'){
-            jQuery('.btn-auto').addClass('hidden');
-            jQuery('.btn-manual').removeClass('hidden');
-        } else {
-            jQuery('.btn-auto').removeClass('hidden');
-            jQuery('.btn-manual').addClass('hidden');
-        }
         console.log(curStatus);
     });
 
