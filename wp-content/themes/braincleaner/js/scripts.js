@@ -151,7 +151,7 @@ $(document).ready(function() {
     }
 
     jQuery('.protocol_next').on('click', function() {
-        if (!jQuery(this).hasClass('disabled') && defCount <= (img_num-1)){
+        if (defCount <= img_num){
             nextImg();
             if(defCount > 1){
                 jQuery('.protocol_prev').removeClass('disabled');
