@@ -65,6 +65,8 @@ $(document).ready(function() {
 
     jQuery('.btn-status').on('click', function() {
         defCount = 1;
+        jQuery('.popup-img-wrap').addClass('hidden');
+        jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
         jQuery('.btn-status').removeClass('active');
         jQuery(this).addClass('active');
         curStatus = jQuery(this).data('status');
