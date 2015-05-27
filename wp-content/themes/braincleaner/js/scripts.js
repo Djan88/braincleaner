@@ -149,14 +149,21 @@ $(document).ready(function() {
         jQuery('.popup-img-wrap').addClass('hidden');
         jQuery('.popup-img-wrap[data-defNum='+defCount+']').removeClass('hidden');
     }
+
     jQuery('.protocol_next').on('click', function() {
-        if (!jQuery(this).hasClass('disabled')&& defCount <= img_num){
+        if (!jQuery(this).hasClass('disabled') && defCount <= (img_num-1)){
             nextImg();
+            if(defCount > 1){
+                jQuery('.protocol_prev').removeClass('disabled');
+            } else {
+                jQuery('.protocol_prev').addClass('disabled');
+            }
         } else {
             jQuery('.protocol_prev').removeClass('disabled');
             jQuery(this).addClass('disabled');
         }
     });
+
     jQuery('.protocol_prev').on('click', function() {
         if (!jQuery(this).hasClass('disabled')&& defCount >= 1){
             nextImg();
