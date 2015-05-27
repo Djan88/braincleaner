@@ -167,8 +167,13 @@ $(document).ready(function() {
 
     jQuery('.protocol_prev').on('click', function() {
         console.log(defCount+' '+img_num);
-        if (!jQuery(this).hasClass('disabled')&& defCount >= 1){
+        if (defCount > 1){
             prevImg();
+            if(defCount > 1 && defCount < (img_num-2)){
+                jQuery('.protocol_next').removeClass('disabled');
+            } else {
+                jQuery('.protocol_next').addClass('disabled');
+            }
         } else {
             jQuery('.protocol_next').removeClass('disabled');
             jQuery(this).addClass('disabled');
