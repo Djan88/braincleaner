@@ -64,6 +64,7 @@ $(document).ready(function() {
     });
 
     jQuery('.btn-status').on('click', function() {
+        defCount = 1;
         jQuery('.btn-status').removeClass('active');
         jQuery(this).addClass('active');
         curStatus = jQuery(this).data('status');
