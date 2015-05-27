@@ -166,6 +166,7 @@ $(document).ready(function() {
     });
 
     jQuery('.protocol_prev').on('click', function() {
+        console.log(defCount+' '+img_num);
         if (!jQuery(this).hasClass('disabled')&& defCount >= 1){
             nextImg();
         } else {
