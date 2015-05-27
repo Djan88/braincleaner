@@ -55,7 +55,7 @@ $(document).ready(function() {
     jQuery('.login-in').on('click', function() {
         jQuery('.login-in').addClass('hidden');
         jQuery('.login-form').removeClass('hidden');
-        jQuery('.login-form').addClass('animated flipInX');
+        jQuery('.login-form').addClass('animated bounceInDown');
         // jQuery('.login-form').removeClass('hidden');
         // jQuery('.login-form').addClass('animated bounceInRight');
 
