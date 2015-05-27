@@ -68,11 +68,11 @@ $(document).ready(function() {
         jQuery(this).addClass('active');
         curStatus = jQuery(this).data('status');
         if(curStatus == 'auto'){
-            jQuery('.btn-manual').addClass('hidden');
-            jQuery('.btn-auto').removeClass('hidden');
+            jQuery('.btn-manualic').addClass('hidden');
+            jQuery('.btn-automatic').removeClass('hidden');
         } else if(curStatus == 'manual'){
-            jQuery('.btn-manual').removeClass('hidden');
-            jQuery('.btn-auto').addClass('hidden');
+            jQuery('.btn-manualic').removeClass('hidden');
+            jQuery('.btn-automatic').addClass('hidden');
         }
         console.log(curStatus);
     });
