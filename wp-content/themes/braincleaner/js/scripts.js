@@ -151,7 +151,7 @@ $(document).ready(function() {
     }
 
     jQuery('.protocol_next').on('click', function() {
-        console.log(defCount+' '+img_num);
+        console.log('test');
         if (defCount <= img_num){
             nextImg();
             if(defCount > 1){
