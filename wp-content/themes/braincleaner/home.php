@@ -66,7 +66,7 @@
                             <input type="hidden" name="customize-login" value="1" />
                     <?php   endif; ?>
                             <input type="hidden" name="testcookie" value="1" />
-                            <a class="btn btn-default" href="/defragmentation/" style="margin-left:10px;">Бесплатный доступ</a>
+                            <a class="btn btn-default" href="category/defragmentaciya/" style="margin-left:10px;">Бесплатный доступ</a>
                   </div>
                 </div>
               </form>

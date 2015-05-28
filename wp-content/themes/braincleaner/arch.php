@@ -96,7 +96,7 @@
       <?php } else { ?>
         <div class="not_logged">
           <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-            <?php if(get_sub_field('premium')) { ?> 
+            <?php if(get_field('premium')) { ?> 
               <div class="panel panel-default main_heading">
                 <h4 class="panel-heading">
                   <span class="glyphicon glyphicon-leaf"></span>
