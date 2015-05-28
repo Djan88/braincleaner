@@ -64,20 +64,24 @@ $(document).ready(function() {
     });
 
     jQuery('.btn-status').on('click', function() {
-        defCount = 1;
-        jQuery('.popup-img-wrap').addClass('hidden');
-        jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
-        jQuery('.btn-status').removeClass('active');
-        jQuery(this).addClass('active');
-        curStatus = jQuery(this).data('status');
-        if(curStatus == 'auto'){
-            jQuery('.btn-manualic').addClass('hidden');
-            jQuery('.btn-automatic').removeClass('hidden');
-        } else if(curStatus == 'manual'){
-            jQuery('.btn-manualic').removeClass('hidden');
-            jQuery('.btn-automatic').addClass('hidden');
+        if(jQuery(this).hasClass('disabled')){
+            //
+        } else {
+            defCount = 1;
+            jQuery('.popup-img-wrap').addClass('hidden');
+            jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
+            jQuery('.btn-status').removeClass('active');
+            jQuery(this).addClass('active');
+            curStatus = jQuery(this).data('status');
+            if(curStatus == 'auto'){
+                jQuery('.btn-manualic').addClass('hidden');
+                jQuery('.btn-automatic').removeClass('hidden');
+            } else if(curStatus == 'manual'){
+                jQuery('.btn-manualic').removeClass('hidden');
+                jQuery('.btn-automatic').addClass('hidden');
+            }
+            console.log(curStatus);
         }
-        console.log(curStatus);
     });
 
     jQuery('.btn-start').on('click', function() {

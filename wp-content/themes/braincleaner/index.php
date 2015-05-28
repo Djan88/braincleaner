@@ -110,7 +110,11 @@
                         <button type="button" class="btn btn-default btn-status btn-auto active btn-procedure" data-status="auto" data-toggle="tooltip" title="Провести процедуру в автоматическом режиме">Авто режим</button>
                         </div>
                         <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-status btn-manual btn-procedure" data-status="manual" data-toggle="tooltip" title="Провести процедуру в режиме ручного управления">Ручное управление</button>
+                        <?php if(get_field('premium')) { ?> 
+                          <button type="button" class="btn btn-default btn-status btn-manual btn-procedure" data-status="manual" data-toggle="tooltip" title="Провести процедуру в режиме ручного управления">Ручное управление</button>
+                        <?php } else { ?>
+                          <button type="button" class="btn btn-default disabled btn-status btn-manual btn-procedure" data-status="manual" data-toggle="tooltip" title="Доступно только сертифицированным пользователям">Ручное управление</button>
+                        <?php } ?>
                         </div>
                         <div class="btn-group">
                         <button type="button" class="btn btn-warning btn-start btn-procedure" data-toggle="tooltip" title="Запуск процедуры">Начать процедуру <span class="glyphicon glyphicon-arrow-right"></span></button>
