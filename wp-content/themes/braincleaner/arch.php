@@ -1,4 +1,3 @@
-<?php if(is_user_logged_in()){ ?>
 <h3><?php single_cat_title(); ?></h3>
 <div class="col-md-12 panel panel-default cat_description">
   <!-- <span class="glyphicon glyphicon-arrow-down"></span><span class="glyphicon glyphicon-arrow-up"> -->
@@ -104,4 +103,3 @@
   <?php endif; ?>
   <?php posts_nav_link(' &#8212; ', __('&laquo; Более новые '), __('Более старые &raquo;')); ?>
 </div>
-<?php } ?>
