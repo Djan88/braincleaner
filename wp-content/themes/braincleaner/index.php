@@ -48,10 +48,6 @@
                           <a href="<?php the_field('ppt')?>" class="down down_ppt" data-toggle="tooltip" data-placement="right" title="Скачать в формате Microsoft PowerPoint"></a>
                         <?php } ?>
                       </div>
-                      <?php endwhile; else: ?>
-                        <?php _e('Sorry, no posts matched your criteria.'); ?>
-                      <?php endif; ?>
-                      <?php posts_nav_link(' &#8212; ', __('&laquo; Более новые '), __('Более старые &raquo;')); ?>
                     <?php } else { ?>
                       <div class="not_logged">
                         Информация в этом разделе доступна только сертифицированным пользователям!
@@ -207,10 +203,6 @@
                             </div>
                           </div>
                         </div>
-                        <?php endwhile; else: ?>
-                          <?php _e('Sorry, no posts matched your criteria.'); ?>
-                        <?php endif; ?>
-                        <?php posts_nav_link(' &#8212; ', __('&laquo; Более новые '), __('Более старые &raquo;')); ?>
                       <?php } ?>
                     <?php } ?>
                   <?php } else { ?>
