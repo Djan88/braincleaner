@@ -90,7 +90,6 @@
             wp_link_pages();
             edit_post_link(__('Edit This'));
             ?>
-          <?php } ?>
         </div>
       </div>
     <?php } ?>
