@@ -289,7 +289,7 @@ body
 }
 .cat_description 
 {
-  height: 250px;
+  max-height: 250px;
   overflow: scroll;
   padding: 15px;
   /*padding-left: 35px;*/
