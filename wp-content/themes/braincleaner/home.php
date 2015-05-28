@@ -1,42 +1,3 @@
-<?php if(is_user_logged_in()){ ?>
-  <div class="container-fluid inside animsition">
-    <?php include(TEMPLATEPATH . '/head-part.php'); ?>
-    <div class="row">
-      <div class="container main-zone">
-        <div class="col-md-8">
-          <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-              <h3><?php the_title(); ?></h3>
-            <div class="content-wrap">
-              <div class="panel panel-default main_heading">
-                <div class="panel-body">
-                  <?php
-                  the_content(__('(more...)'));
-                  wp_link_pages();
-                  edit_post_link(__('Edit This'));
-                  ?>
-                </div>
-              </div>
-            </div>
-          <?php endwhile; else: ?>
-            <?php _e('Sorry, no posts matched your criteria.'); ?>
-          <?php endif; ?>
-          <?php posts_nav_link(' &#8212; ', __('&laquo; Более новые '), __('Более старые &raquo;')); ?>
-        </div>
-        <?php include(TEMPLATEPATH . '/sidebar.php'); ?>
-      </div>
-    </div>
-    <div class="row footer-wrap">
-      <div class="container">
-        <div class="pull-left">
-          <a href="/">Braincleaner</a> 2015
-        </div>
-        <div class="pull-right">
-          <a href="mailto:info@defra.ru">info@braincleaner.ru</a>
-        </div>
-      </div>
-    </div>
-  </div>
-<?php } else { ?>
     <div class="container-fluid home animsition">
       <div class="gear_wrap gear_wrap_1">
         <div class="gear gear_1"></div>
@@ -105,6 +66,7 @@
                             <input type="hidden" name="customize-login" value="1" />
                     <?php   endif; ?>
                             <input type="hidden" name="testcookie" value="1" />
+                            <a class="btn btn-default" href="/defragmentation/" style="margin-left:10px;">Бесплатный доступ</a>
                   </div>
                 </div>
               </form>
@@ -117,4 +79,3 @@
       </div>
     </div>
     </div>
-<?php } ?>
