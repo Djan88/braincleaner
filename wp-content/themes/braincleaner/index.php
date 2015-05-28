@@ -126,10 +126,6 @@
                           </div>
                         </div>
                       </div>
-                      <?php endwhile; else: ?>
-                        <?php _e('Sorry, no posts matched your criteria.'); ?>
-                      <?php endif; ?>
-                      <?php posts_nav_link(' &#8212; ', __('&laquo; Более новые '), __('Более старые &raquo;')); ?>
                     <?php } else { ?>
                       <?php if(get_field('premium')) { ?>
                           <div class="b-popup hidden">
