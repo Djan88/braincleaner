@@ -213,8 +213,9 @@ body
 }
 .login-form
 {
-  margin-top: 100px;
+  margin-top: 250px;
   z-index: 5;
+  position: relative;
   min-width: 100%;
 }
 .menu-item .glyphicon 
@@ -323,7 +324,9 @@ body
 {
   margin-top: 300px;
   width: 100%;
+  position: relative;
   text-align: center;
+  z-index: 5;
 }
 
 @media (min-width: 1500px) { 
