@@ -73,6 +73,10 @@ $(document).ready(function() {
 
     });
 
+    jQuery('.protocol_terapy').on('click', function(event) {
+
+    });
+
     jQuery('.btn-status').on('click', function() {
         if(jQuery(this).hasClass('disabled')){
             //
@@ -156,6 +160,11 @@ $(document).ready(function() {
             }
         }, 4000);
     };
+    jQuery('.protocol_terapy').on('click', function(event) {
+        clearInterval(phases);
+        jQuery('.popup-img-wrap').addClass('hidden');
+        jQuery('.popup-img-wrap[data-defNum='+(img_num-2)+']').removeClass('hidden');
+    });
     nextImg = function(){
         defCount += 1;
         jQuery('.popup-img-wrap').addClass('hidden');
