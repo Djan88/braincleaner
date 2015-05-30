@@ -378,9 +378,13 @@ iframe
 }
 .glyphicon:before
 {
-  transition: all 1s ease-in;
+  transition: all 0.5s ease-in;
 }
-.protocol_start:focus .glyphicon-off:before
+.protocol_start:focus .glyphicon:before
 {
-  color: #155A9B;
+  color: #1C8CDB;
+}
+.protocol_start:focus .glyphicon:before
+{
+  color: red;
 }
