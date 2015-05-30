@@ -129,7 +129,7 @@
                         </div>
                       </div>
                     <?php } else { ?>
-                      <?php if(get_field('premium')) { ?>
+                      <?php if(!get_field('premium')) { ?>
                           <div class="b-popup hidden">
                             <div class="controls">
                               <div class="btn-group animated hidden slideInUp">
