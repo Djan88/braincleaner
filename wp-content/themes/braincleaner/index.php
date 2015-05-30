@@ -81,7 +81,7 @@
                                 <button type="button" class="btn btn-default protocol_close"><span class="glyphicon glyphicon-arrow-left"></span> Назад</button>
                                 <button type="button" class="btn btn-default protocol_stop">Стоп <span class="glyphicon glyphicon-minus-sign"></span></button>
                                 <?php if(get_field('terapy')) { ?><button type="button" class="btn btn-default protocol_terapy">Терапия <span class="glyphicon glyphicon-plus"></span></button><?php } ?>
-                                <button type="button" class="btn btn-default protocol_start">Старт <span class="glyphicon glyphicon-record"></span></button>
+                                <button type="button" class="btn btn-default protocol_start">Старт <span class="glyphicon glyphicon-off"></span></button>
                               </div>
                               <div class="btn-group btn-manualic hidden" style="width: 350px;<?php if(get_field('terapy')) { ?>width: 450px;<?php } ?> margin: auto; display: block;">
                                 <button type="button" class="btn btn-default protocol_close"><span class="glyphicon glyphicon-arrow-left"></span> Назад</button>
