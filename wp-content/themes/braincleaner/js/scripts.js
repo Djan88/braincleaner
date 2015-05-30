@@ -147,6 +147,11 @@ $(document).ready(function() {
                     defCount -= 1;
                     console.log('test'+defCount);
                 }
+                jQuery('.protocol_terapy').on('click', function(event) {
+                    defCount = img_num-2;
+                    jQuery('.popup-img-wrap').addClass('hidden');
+                    jQuery('.popup-img-wrap[data-defNum='+(img_num-2)+']').removeClass('hidden');
+                });
                 jQuery('.protocol_stop, .protocol_close').on('click', function() {
                     clearInterval(phases);
                     jQuery('.popup-img-wrap').addClass('hidden');
@@ -160,11 +165,6 @@ $(document).ready(function() {
             }
         }, 4000);
     };
-    jQuery('.protocol_terapy').on('click', function(event) {
-        clearInterval(phases);
-        jQuery('.popup-img-wrap').addClass('hidden');
-        jQuery('.popup-img-wrap[data-defNum='+(img_num-2)+']').removeClass('hidden');
-    });
     nextImg = function(){
         defCount += 1;
         jQuery('.popup-img-wrap').addClass('hidden');
