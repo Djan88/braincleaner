@@ -180,7 +180,7 @@ $(document).ready(function() {
         console.log(defCount+' '+img_num);
         if (defCount < (img_num-1)){
             nextImg();
-            if(defCount > 1){
+            if(defCount >= 1){
                 jQuery('.protocol_prev').removeClass('disabled');
             } else {
                 jQuery('.protocol_prev').addClass('disabled');
@@ -195,7 +195,7 @@ $(document).ready(function() {
         console.log(defCount+' '+img_num);
         if (defCount > 1){
             prevImg();
-            if(defCount < (img_num-1)){
+            if(defCount <= (img_num-1)){
                 jQuery('.protocol_next').removeClass('disabled');
             } else {
                 jQuery('.protocol_next').addClass('disabled');
