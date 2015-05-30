@@ -384,7 +384,7 @@ iframe
 {
   color: #1C8CDB;
 }
-.protocol_start:focus .glyphicon:before
+.protocol_stop:focus .glyphicon:before
 {
   color: red;
 }
