@@ -376,3 +376,7 @@ iframe
   height: 1px;
   border-top: 1px solid #555;
 }
+.protocol_start:focus .glyphicon-off:before
+{
+  color: #155A9B;
+}
