@@ -33,7 +33,7 @@ add_filter('login_redirect', 'users_redirect');
         'description' => __('Виджеты в сайдбар'),
         'before_widget' => '<div class="list-group-item">',
         'after_widget' => '</div>',
-        'before_title' => '<h4 class="list-group-item-heading">',
+        'before_title' => '<h4 class="sidebar-heading list-group-item-heading">',
         'after_title' => '</h4>',
     ));
 
