@@ -151,7 +151,7 @@
                                   <?php endwhile; ?>
                                 <?php endif; ?>
                               </div>
-                              <div class="row" style="padding-top: 20px;">
+                              <div class="row" style="padding-top: 5px;">
                                 <div class="btn-group btn-automatic" style="width: 245px; margin: auto; display: block;">
                                   <button type="button" class="btn btn-default protocol_close"><span class="glyphicon glyphicon-arrow-left"></span> Назад</button>
                                   <button type="button" class="btn btn-default protocol_stop">Стоп <span class="glyphicon glyphicon-minus-sign"></span></button>
