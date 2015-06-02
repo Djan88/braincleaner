@@ -168,7 +168,7 @@ $(document).ready(function() {
     seconds = function(){
         defCount=1;
         phases = setInterval(function(){
-            if (defCount <= 4){
+            if (defCount <= 1){
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap[data-defNum='+0+']').removeClass('hidden');
                 defCount += 1;
@@ -177,7 +177,7 @@ $(document).ready(function() {
                     jQuery('.popup-img-wrap').addClass('hidden');
                     jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').removeClass('hidden');
                 });
-            } else if(defCount > 4 && defCount <= 37) {
+            } else if(defCount > 1 && defCount <= 34) {
                 mySound.play();
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap[data-defNum='+1+']').removeClass('hidden');
