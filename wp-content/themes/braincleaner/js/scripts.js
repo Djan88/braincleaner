@@ -161,7 +161,6 @@ $(document).ready(function() {
             }
         }, 4000);
     };
-    buzz.defaults.loop = true;
     var mySound = new buzz.sound( "/sounds/432", {
         formats: [ "ogg", "mp3" ]
     });
