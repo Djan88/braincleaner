@@ -184,8 +184,12 @@ $(document).ready(function() {
                 defCount += 1;
                 jQuery('.protocol_stop, .protocol_close').on('click', function() {
                     clearInterval(phases);
+                    mySound.stop();
                     jQuery('.popup-img-wrap').addClass('hidden');
                     jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').removeClass('hidden');
+                });
+                jQuery('.btn-procedure').on('click', function(event) {
+                    mySound.stop();
                 });
             } else {
                 clearInterval(phases);
