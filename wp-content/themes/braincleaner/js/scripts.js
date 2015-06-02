@@ -15,6 +15,7 @@ $(document).ready(function() {
         defCount = 1,
         count,
         phases,
+        seconds,
         counter,
         nextImg,
         prevImg,
@@ -161,6 +162,36 @@ $(document).ready(function() {
         }, 4000);
     };
 
+    seconds = function(){
+        defCount=1;
+        phases = setInterval(function(){
+            if (defCount <= 4){
+                jQuery('.popup-img-wrap').addClass('hidden');
+                jQuery('.popup-img-wrap[data-defNum='+0+']').removeClass('hidden');
+                defCount += 1;
+                jQuery('.protocol_stop, .protocol_close').on('click', function() {
+                    clearInterval(phases);
+                    jQuery('.popup-img-wrap').addClass('hidden');
+                    jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').removeClass('hidden');
+                });
+            } else if(defCount > 4 && defCount <= 37) {
+                jQuery('.popup-img-wrap').addClass('hidden');
+                jQuery('.popup-img-wrap[data-defNum='+1+']').removeClass('hidden');
+                defCount += 1;
+                jQuery('.protocol_stop, .protocol_close').on('click', function() {
+                    clearInterval(phases);
+                    jQuery('.popup-img-wrap').addClass('hidden');
+                    jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').removeClass('hidden');
+                });
+            } else {
+                clearInterval(phases);
+                jQuery('.popup-img-wrap').addClass('hidden');
+                jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
+                jQuery('.popup-img-wrap').removeAttr('checked');
+            }
+        }, 1000);
+    };
+
     jQuery('.protocol_terapy').on('click', function(event) {
         defCount = img_num-2;
         jQuery('.popup-img-wrap').addClass('hidden');
@@ -210,6 +241,9 @@ $(document).ready(function() {
     if (jQuery('.b-popup')) {
         jQuery('.protocol_start').on('click', function() {
             protocol();
+        });
+        jQuery('.protocol_33').on('click', function() {
+            seconds();
         });
     };
 
