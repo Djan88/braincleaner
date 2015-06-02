@@ -161,6 +161,10 @@ $(document).ready(function() {
             }
         }, 4000);
     };
+    buzz.defaults.loop = true;
+    var mySound = new buzz.sound( "/sounds/432", {
+        formats: [ "ogg", "mp3" ]
+    });
 
     seconds = function(){
         defCount=1;
@@ -175,6 +179,7 @@ $(document).ready(function() {
                     jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').removeClass('hidden');
                 });
             } else if(defCount > 4 && defCount <= 37) {
+                mySound.play();
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap[data-defNum='+1+']').removeClass('hidden');
                 defCount += 1;
@@ -185,6 +190,7 @@ $(document).ready(function() {
                 });
             } else {
                 clearInterval(phases);
+                mySound.stop();
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
                 jQuery('.popup-img-wrap').removeAttr('checked');
