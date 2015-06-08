@@ -237,7 +237,7 @@
       <div class="row footer-wrap">
         <div class="container">
           <div class="pull-left">
-            <a href="/">Braincleaner</a> 2015
+            <a href="/">Braincleaner</a> 2015 <a href="http://braincleaner.ru/wp-login.php?action=logout&_wpnonce=bc0c947e8d"><span class="glyphicon glyphicon-log-out"></span> Выход</a>
           </div>
           <div class="pull-right">
             <a href="mailto:info@defra.ru">info@braincleaner.ru</a>
