@@ -394,3 +394,7 @@ iframe
   font-weight: 500;
   color: #23527c;
 }
+.textwidget img 
+{
+  width: 100%;
+}
