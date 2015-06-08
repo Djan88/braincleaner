@@ -178,7 +178,7 @@ body
 .sidebar-zone
 {
     padding-top: 55px;
-    max-height: 100vh;
+    /*max-height: 100vh;*/
     overflow: scroll;
 }
 .date-block
