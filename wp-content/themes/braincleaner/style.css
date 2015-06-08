@@ -330,6 +330,10 @@ body
   text-align: center;
   z-index: 5;
 }
+.logout
+{
+  margin-left: 35%
+}
 
 @media (min-width: 1500px) { 
   .login-btn
@@ -351,10 +355,22 @@ body
         float: none!important;
     }
 }
+@media (min-width: 990px) { 
+    .logout
+    {
+      margin-left: 30%
+    }
+}
 @media (min-width: 768px) { 
     .navbar-brand
     {
         display: none;
+    }
+}
+@media (min-width: 400px) { 
+    .logout
+    {
+      margin-left: 9%
     }
 }
 iframe 

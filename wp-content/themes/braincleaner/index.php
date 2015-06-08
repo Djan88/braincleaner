@@ -239,7 +239,7 @@
           <div class="pull-left">
             <a href="/">Braincleaner</a> 2015
           </div>
-          <a style="" href="http://braincleaner.ru/wp-login.php?action=logout&_wpnonce=bc0c947e8d"><span class="glyphicon glyphicon-log-out"></span> Выход</a>
+          <a class="logout" href="http://braincleaner.ru/wp-login.php?action=logout&_wpnonce=bc0c947e8d"><span class="glyphicon glyphicon-log-out"></span> Выход</a>
           <div class="pull-right">
             <a href="mailto:info@defra.ru">info@braincleaner.ru</a>
           </div>
