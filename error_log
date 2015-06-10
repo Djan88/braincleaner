@@ -1,0 +1,20 @@
+[29-Apr-2015 11:39:35 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/braincleaner/public_html/wp-content/themes/braincleaner/index.php on line 236
+[29-Apr-2015 12:38:40 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/braincleaner/public_html/wp-content/themes/braincleaner/index.php on line 57
+[29-Apr-2015 12:38:50 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/braincleaner/public_html/wp-content/themes/braincleaner/index.php on line 57
+[29-Apr-2015 12:39:59 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/braincleaner/public_html/wp-content/themes/braincleaner/index.php on line 57
+[14-May-2015 02:55:01 Europe/Simferopol] PHP Warning:  require(ABSPATHwp-includes/load.php): failed to open stream: No such file or directory in /home/braincleaner/public_html/wp-settings.php on line 21
+[14-May-2015 02:55:01 Europe/Simferopol] PHP Warning:  require(ABSPATHwp-includes/load.php): failed to open stream: No such file or directory in /home/braincleaner/public_html/wp-settings.php on line 21
+[14-May-2015 02:55:01 Europe/Simferopol] PHP Fatal error:  require(): Failed opening required 'ABSPATHwp-includes/load.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/braincleaner/public_html/wp-settings.php on line 21
+[18-May-2015 09:02:49 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/braincleaner/public_html/wp-content/themes/braincleaner/index.php on line 69
+[18-May-2015 09:03:00 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/braincleaner/public_html/wp-content/themes/braincleaner/index.php on line 69
+[18-May-2015 09:03:05 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/braincleaner/public_html/wp-content/themes/braincleaner/index.php on line 69
+[25-May-2015 10:05:26 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/braincleaner/public_html/wp-content/themes/braincleaner/index.php on line 149
+[25-May-2015 10:05:47 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/braincleaner/public_html/wp-content/themes/braincleaner/index.php on line 149
+[25-May-2015 10:05:59 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/braincleaner/public_html/wp-content/themes/braincleaner/index.php on line 149
+[28-May-2015 08:52:54 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/braincleaner/public_html/wp-content/themes/braincleaner/arch.php on line 96
+[28-May-2015 09:34:35 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/braincleaner/public_html/wp-content/themes/braincleaner/arch.php on line 115
+[28-May-2015 09:35:38 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/braincleaner/public_html/wp-content/themes/braincleaner/arch.php on line 120
+[28-May-2015 09:36:08 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/braincleaner/public_html/wp-content/themes/braincleaner/arch.php on line 120
+[28-May-2015 09:36:10 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/braincleaner/public_html/wp-content/themes/braincleaner/arch.php on line 120
+[28-May-2015 12:50:53 UTC] PHP Parse error:  syntax error, unexpected 'endwhile' (T_ENDWHILE) in /home/braincleaner/public_html/wp-content/themes/braincleaner/index.php on line 51
+[28-May-2015 12:52:21 UTC] PHP Parse error:  syntax error, unexpected 'endwhile' (T_ENDWHILE) in /home/braincleaner/public_html/wp-content/themes/braincleaner/index.php on line 129
