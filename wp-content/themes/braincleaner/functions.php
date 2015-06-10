@@ -1635,4 +1635,261 @@ add_filter('login_redirect', 'users_redirect');
 
     add_action( 'wp_ajax_author_seminars', 'author_seminars' );
 
+    function insert_header_wp()
+    {
+        echo "<script src='".includes_url()."js/tinymce/tinymce.min.js?ver=4104-20140822'></script>";
+    }
+
+    add_action( 'in_admin_header', 'insert_header_wp' );
+
+    add_action( 'load-post.php', 'custom_options_reception_days_setup' );
+    add_action( 'load-post-new.php', 'custom_options_reception_days_setup' );
+
+    function custom_options_reception_days_setup(){
+        
+         add_action( 'add_meta_boxes', 'custom_options_reception_days' );
+        
+    }
+
+    function custom_options_reception_days() {
+
+        add_meta_box(
+          'custom-options-reception-days',      // Unique ID
+          'Расписание приемных дней',    // Title
+          'custom_options_reception_days_function',   // Callback function
+          'post',         // Admin page (or post type)
+          'side',         // Context
+          'default'         // Priority
+        );
+      }
+      
+    function custom_options_reception_days_function(){
+
+        wp_nonce_field( basename( __FILE__ ), 'options_post_class_nonce' ); ?>
+
+        <p class="custom-options-city">
+            <label for="city">Город</label>
+            <input type="text" name="city" class="city" value="">
+        </p>
+        
+        <p class="custom-options-type">
+            <label for="select_options_reception_days">Тип приемного дня</label>
+            <select name="select_options_reception_days" id="select-options-reception-days">
+                <option value="">Выберите тип</option>
+                <option value="all_weekly">Всю неделю</option>
+                <option value="weekly">Еженедельно</option>
+                <option value="monthly">Ежемесячно</option>
+                <option value="date">По дате</option>
+            </select>
+        </p>
+
+        <div class="custom-options-block">
+            
+            <div id="weekly" class="block-none">
+                <select name="weekly">
+                    <option value="1">Пн</option>
+                    <option value="2">Вт</option>
+                    <option value="3">Ср</option>
+                    <option value="4">Чт</option>
+                    <option value="5">Пт</option>
+                    <option value="6">Сб</option>
+                    <option value="0">Вс</option>
+                </select>
+            </div>
+            
+            <div id="monthly" class="block-none">
+                <input type="text" name="monthly" class="monthly" value="">
+            </div>
+            
+        </div>
+        
+    <?php }
+
+    function save_reception_day($post_id){
+        
+        if(isset($_POST['select_options_reception_days']) || isset($_POST['city'])){
+            
+            $status = $_POST['select_options_reception_days'];        
+            $value = $_POST[$status];
+            $city = $_POST['city'];
+            
+            update_post_meta($post_id, 'reception_city', $city);
+            update_post_meta($post_id, 'reception_status', $status);
+            update_post_meta($post_id, 'reception_value', $value);
+            
+        }
+        
+    }
+
+    add_action( 'save_post', 'save_reception_day', 10, 2 );
+
+    function get_template_bookmarks(){
+        
+        if(is_user_logged_in()){
+            
+            global $current_user;
+            get_currentuserinfo();
+            $html = '';
+            
+            $bookmarks = get_user_meta($current_user->ID, 'bookmarks', true);
+            
+            if(isset($_POST['bookmark_permalink']) && isset($_POST['bookmark_name'])){
+                           
+                if(!empty($bookmarks)){
+                    
+                    $bookmarks[$_POST['bookmark_name']] = $_POST['bookmark_permalink'];
+                    update_user_meta($current_user->ID, 'bookmarks', $bookmarks);
+                    
+                } else {
+                    
+                    $bookmarks[$_POST['bookmark_name']] = $_POST['bookmark_permalink'];
+                    add_user_meta($current_user->ID, 'bookmarks', $bookmarks);
+                  
+                }
+                
+                $html .= "<div class='add-bookmarks-block'>";
+                $html .= "<a href='#' class='add-bookmarks'>В закладках</a>";
+                $html .= "<input type='text' class='display-no' id='bookmark-id' name='' placeholder='Название закладки'>";
+                $html .= "</div><div class='get-bookmarks-block'>";
+                $html .= "<select name='bookmarks_select' id='bookmarks-select'><option value=''>Выбрать</option>";
+                            
+                foreach ($bookmarks as $key => $value){
+
+                        $html .= "<option value='$value'>$key</option>";
+
+                }
+                
+                $html .= "</select>"; 
+                
+                $html .= "</div>";
+                
+                die($html);
+                
+            } else {
+            
+                $html .= "<div class='add-bookmarks-block'>";
+                $html .= "<input type='text' class='display-no' id='bookmark-id' name='' placeholder='Название закладки'>";
+                $html .= "<a href='#' class='add-bookmarks'>Добавить в закладки</a>";
+                $html .= "</div><div class='get-bookmarks-block'>";
+                if(!empty($bookmarks)){
+                    $html .= "<select name='bookmarks_select' id='bookmarks-select'><option value=''>Выбрать</option>";
+
+                    foreach ($bookmarks as $key => $value){
+
+                        $html .= "<option value='$value'>$key</option>";
+
+                    }
+
+                    $html .= "</select>"; 
+                    
+                    $html .= "<a href='' class='bookmark-href'>Перейти</a>";
+                }
+                $html .= "</div>";
+
+                return $html;
+            
+            }
+            
+        }    
+        
+    }
+
+    add_action( 'wp_ajax_get_template_bookmarks', 'get_template_bookmarks' );
+
+    function get_citi_to_country(){
+        global $wpdb;
+        
+        if(isset($_POST['country'])){
+            
+            $country = $_POST['country'];
+            $country_id = $wpdb->get_results("SELECT id FROM net_country WHERE name_ru = '$country'");
+            
+            $cities = $wpdb->get_results("SELECT * FROM net_city WHERE country_id = '" . $country_id[0]->id . "' ORDER BY city");
+            
+            $html .= '<label for="field_17">Город</label>';
+            $html .= '<select name="field_17" id="field_17">';
+            $html .= '<option value="">Выбрать город</option>';
+            
+            foreach ($cities as $citi){ 
+                
+                $html .= '<option value="'.$citi->city.'">'.$citi->city.'</option>';
+                
+            }
+            
+            $html .= '</select>';
+            
+            die($html);
+            
+        }
+        
+    }
+
+    add_action( 'wp_ajax_get_citi_to_country', 'get_citi_to_country' );
+    add_action( 'wp_ajax_nopriv_get_citi_to_country', 'get_citi_to_country' );
+
+    function get_image_country($img_ru){  
+        global $wpdb;
+        
+        $img = $wpdb->get_results("SELECT name_en FROM net_country WHERE name_ru = '$img_ru'");
+        
+        return $img[0]->name_en;
+    }
+
+    if(isset($_POST['save']) && isset($_POST['group-field-one'])){
+        
+        global $wpdb;
+        
+        $last_activity = $_POST['group-field-one'];
+        $id = $_POST['group_id'];
+        
+        $wpdb->update( 'wp_bp_groups_groupmeta',
+    	array( 'meta_value' => $last_activity ),
+    	array( 'group_id' => $id,  'meta_key' => 'last_activity' ),
+    	array( '%s' ),
+    	array( '%s' )
+        );
+        
+    }
+
+    function mypo_parse_query_useronly( $wp_query ) {
+        if ( strpos( $_SERVER[ 'REQUEST_URI' ], '/wp-admin/edit.php' ) !== false ) {
+            if ( !current_user_can( 'level_10' ) ) {
+                global $current_user;
+                $wp_query->set( 'author', $current_user->id );
+            }
+        }
+    }
+
+    add_filter('parse_query', 'mypo_parse_query_useronly' );
+
+    add_action( 'show_user_profile', 'add_extra_status' );
+    add_action( 'edit_user_profile', 'add_extra_status' );
+
+    function add_extra_status( $user )
+    {
+        ?>
+            <h3>Дополнительные данные пользователя</h3>
+
+            <table class="form-table">
+                <tr>
+                    <th><label for="facebook_profile">Специалист Терапивтической Дефрагментации</label></th>
+                    <td><input type="checkbox" <?php if(get_the_author_meta( 'user_status_master', $user->ID ) == 1){ echo 'checked'; } ?> name="user_status_master" value="1" /></td>
+                </tr>  
+            </table>
+        <?php
+    }
+
+    add_action( 'personal_options_update', 'save_extra_status' );
+    add_action( 'edit_user_profile_update', 'save_extra_status' );
+
+    function save_extra_status( $user_id )
+    {
+        if(empty($_POST['user_status_master'])){
+            update_user_meta( $user_id,'user_status_master', 0 );
+        } elseif($_POST['user_status_master'] == 1) {
+            update_user_meta( $user_id,'user_status_master', 1 );
+        }
+        
+    }
+
 /* DON'T DELETE THIS CLOSING TAG */ ?>
