@@ -39,6 +39,24 @@ add_filter('login_redirect', 'users_redirect');
 
 
 // Функционал добавления пользователей
+    define( 'BP_DEFAULT_COMPONENT', 'profile' );
+
+    function bp_remove_profile_tabs(){
+        global $bp;
+        
+        bp_core_remove_nav_item('activity');
+        bp_core_remove_nav_item('friends');
+        bp_core_remove_nav_item('notifications');
+        bp_core_remove_nav_item('messages');
+        
+        bp_core_remove_subnav_item( 'groups', 'invites' );
+        
+    }
+
+    add_action( 'bp_setup_nav', 'bp_remove_profile_tabs', 15 );
+
+
+
     function get_countrys(){
         global $wpdb;
         
@@ -152,11 +170,547 @@ add_filter('login_redirect', 'users_redirect');
         }   
         
     }
+
+    function send_email($to, $from, $subject, $name, $phone){
+        
+        $headers = 'MIME-Version: 1.0' . "\n";
+        $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+        $headers .= "From: <$from>";
+        
+        mail($to, $subject, "$subject<br>$name<br>$from<br>$phone", $headers);
+        
+        $headers = 'MIME-Version: 1.0' . "\n";
+        $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+        $headers .= "From: Roman Paramonov( chikurov.com ) <info@bablosstudio.ru>";
+        
+        $message = "Добрый день! Спасибо за вашу заявку, наш специалист свяжется с вами в ближайшее время.";
+        
+        mail($from, $subject, $message, $headers);
+        
+    }
+
+    add_action( 'admin_menu', 'register_subscription_seminar' );
+
+    function register_subscription_seminar() {
+
+        //create new top-level menu
+        add_menu_page('Запись на семинар', 'Запись на семинар', 'administrator', 'subscription_seminar', 'subscription_seminar',plugins_url('/add.png'));
+    }
+
+
+    function subscription_seminar() {
+        global $wpdb;
+           
+        if ( isset ( $_POST['table_submit'] ) ){
+            
+            $ids = implode( ',', $_POST['select_checkbox'] );
+            if(!empty($ids)){
+                $query = 'DELETE FROM wp_subscription WHERE id IN ('.$ids.')';        
+                $wpdb->query($query);
+            }
+      
+        }
+        
+        if ( isset ( $_POST['add_row'] ) ){
+            
+            if(!empty($_POST['add_seminar_select'])){
+                
+                $seminar_id = $_POST['add_seminar_select'];
+            
+                $group = groups_get_group( array( 'group_id' => $seminar_id ) );
+                
+                $seminar_date = groups_get_groupmeta( $seminar_id, 'group_plus_header_fieldone');
+                $sity_seminar = groups_get_groupmeta( $seminar_id, 'group_plus_header_fieldthree');
+                $name = $_POST['add_name'];
+                $name_seminar = $wpdb->get_results("SELECT name FROM wp_bp_groups WHERE id = $seminar_id");
+                $email = $_POST['add_email'];
+                $phone = $_POST['add_phone'];
+                $date = date('Y-m-d');
+                $master_name = bp_core_get_user_displayname( $group->admins[0]->user_id );
+                if(!empty($group->mods[0]->user_id)){
+                    $assistant = bp_core_get_user_displayname( $group->mods[0]->user_id );
+                } else {
+                    $assistant = bp_core_get_user_displayname( $group->admins[0]->user_id );
+                }
+                
+                $status = $_POST['add_status'];
+                
+                $wpdb->insert(
+                        'wp_subscription',
+                        array( 'name_seminar' => $name_seminar[0]->name, 'seminar_master' => $master_name, 'seminar_assistant' => $assistant, 'sity_seminar' => $sity_seminar, 'date_seminar' => $seminar_date, 'name' => $name, 'email' => $email, 'phone' => $phone, 'date_registration' => $date, 'status' => $status ),
+                        array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d' )
+                );
+      
+            }
+        }
+        
+        $seminars = $wpdb->get_results("SELECT DISTINCT name_seminar, sity_seminar FROM wp_subscription");
+        $city = $wpdb->get_results("SELECT DISTINCT sity_seminar FROM wp_subscription");
+        $master = $wpdb->get_results("SELECT DISTINCT seminar_master FROM wp_subscription"); 
+        $assistant = $wpdb->get_results("SELECT DISTINCT seminar_assistant FROM wp_subscription");
+        
+        $all_masters = get_master_to_role('author');
+        $all_seminars = $wpdb->get_results("SELECT * FROM wp_bp_groups");
+        
+           
+    if(isset($_POST['select_submit']) && (isset($_POST['select_seminar']) || isset($_POST['select_city']) || isset($_POST['select_master']) || isset($_POST['select_assistant']))){
+            
+            $sql = "";
+            
+            if(!empty($_POST['select_seminar'])){           
+                $select_seminar = $_POST['select_seminar'];
+                $sql .= " AND name_seminar = '$select_seminar'";
+                if(!empty($_POST['select_city']) || !empty($_POST['select_master']) || !empty($_POST['select_assistant']) || (!empty($_POST['status']) && $_POST['status'] == 1)){
+                    $sql .= " ";
+                }
+            }
+            
+            if(!empty($_POST['select_city'])){           
+                $select_city = $_POST['select_city'];
+                $sql .= " AND sity_seminar = '$select_city'";
+                if(!empty($_POST['select_master']) || !empty($_POST['select_assistant']) || (!empty($_POST['status']) && $_POST['status'] == 1)){
+                    $sql .= " ";
+                }
+            }
+            
+            if(!empty($_POST['select_master'])){           
+                $select_master = $_POST['select_master'];
+                $sql .= " AND seminar_master = '$select_master'";
+                if(!empty($_POST['select_assistant']) || (!empty($_POST['status']) && $_POST['status'] == 1)){
+                    $sql .= " ";
+                }
+            }
+            
+            if(!empty($_POST['status']) && $_POST['status'] == 1){           
+                $status = 1;
+                $sql .= " AND status = 1";
+                if(!empty($_POST['select_assistant'])){
+                    $sql .= " ";
+                }
+            }
+            
+            if(!empty($_POST['select_assistant'])){           
+                $select_assistant = $_POST['select_assistant'];
+                $sql .= " AND seminar_assistant = '$select_assistant'";
+                
+            }
+                
+        }
+        
+        $subscriptions = $wpdb->get_results("SELECT * FROM wp_subscription WHERE date_seminar >= '".date("Y-m-d")."' $sql ORDER BY id DESC");
+
+    ?>
+    <div class="wrap search_clients">
+        
+        <form action="" name="select" method="post">
+            
+            <select name="select_seminar" style="width: 200px;">
+                <option value="">Семинары</option>
+                <?php foreach ($seminars as $seminar){ ?>
+                    <?php if(!empty($_POST['select_seminar']) && $_POST['select_seminar'] == $seminar->name_seminar){ 
+                        
+                        $selected = 'selected="selected"';
+                        
+                    } else { $selected = ''; } ?>
+                <option value="<?php echo $seminar->name_seminar; ?>" <?php echo $selected; ?>><?php echo $seminar->name_seminar. " (".$seminar->sity_seminar.")"; ?></option>
+                <?php } ?>
+            </select>
+            
+            <select name="select_master">
+                <option value="">Мастер</option>
+                <?php foreach ($master as $m){ ?>
+                    <?php if(!empty($_POST['select_master']) && $_POST['select_master'] == $m->seminar_master){ 
+                        
+                        $selected = 'selected="selected"';
+                        
+                    } else { $selected = ''; } ?>
+                        <option value="<?php echo $m->seminar_master; ?>" <?php echo $selected; ?>><?php echo $m->seminar_master; ?></option>
+                <?php } ?>
+            </select>
+            
+            <select name="select_assistant">
+                <option value="">Асистент</option>
+                <?php foreach ($assistant as $a){ ?>
+                    <?php if(!empty($_POST['select_assistant']) && $_POST['select_assistant'] == $a->seminar_assistant){ 
+                        
+                        $selected = 'selected="selected"';
+                        
+                    } else { $selected = ''; } ?>
+                        <option value="<?php echo $a->seminar_assistant; ?>" <?php echo $selected; ?>><?php echo $a->seminar_assistant; ?></option>
+                <?php } ?>
+            </select>
+            
+            <select name="select_city">
+                <option value="">Город</option>
+                <?php foreach ($city as $c){ ?>
+                    <?php if(!empty($_POST['select_city']) && $_POST['select_city'] == $c->sity_seminar){ 
+                        
+                        $selected = 'selected="selected"';
+                        
+                    } else { $selected = ''; } ?>
+                    <option value="<?php echo $c->sity_seminar; ?>" <?php echo $selected; ?>><?php echo $c->sity_seminar; ?></option>
+                <?php } ?>
+            </select>
+            
+            <?php 
+                if(!empty($_POST['status']) && $_POST['status'] == 1){
+                    $selected = 'selected="selected"';
+                } else {
+                    $selected = '';
+                }
+            ?>
+            
+            <input type="checkbox" name="status" class="select-checkbox" <?php echo $selected; ?> value="1"> Предоплата
+            <?php  
+    				$upload = wp_upload_dir();
+    				$upload_dir = $upload['baseurl'];
+            ?>
+            
+            <input type="submit" name="select_submit" class="select-submit" value="Фильтр">
+            
+            <a class="export-excel" href="<?php echo $upload_dir.'/excel/simple.xls'; ?>" download>Excel</a>
+            
+        </form>
+        
+        <form action="" method="post" name="form-table" class="form-table">
+            <h2>Записи на семинары <a href="#" name="add_row" id="add-row"><i class="icon-plus"></i>Добавить</a></h2>
+            
+            <div class="add-row-block">
+                
+                <h3>Информация о семинаре</h3>
+                
+                <select name="add_master_select" id="add-master-select">
+                    <option value="">Мастер</option>
+                    <?php foreach ($all_masters as $one_master){
+                        
+                                echo "<option value='".$one_master['id']."'>".$one_master['name']."</option>";
+                        
+                    } ?>
+                </select>
+                
+                
+                <select name="add_seminar_select" id="add-seminar-select">
+                    <option value="">Семинар</option>
+                    <?php foreach ($all_seminars as $one_seminar){
+                        
+                                echo "<option value='".$one_seminar->id."'>".$one_seminar->name."</option>";
+                        
+                    } ?>
+                </select>
+                
+                <div class="">
+                    
+                    <h3>Данные участника</h3>
+                    
+                    <input type="text" name="add_name" value="" placeholder="Имя">
+                    <input type="text" name="add_email" value="" placeholder="E-mail">
+                    <input type="text" name="add_phone" value="" placeholder="Телефон">
+                    
+                    
+                    <div class="">
+                        <h4>Залог</h4>
+                        <input type="radio" name="add_status" value="1"> Внесен
+                        <input type="radio" name="add_status" value="0"> Не внесен
+                    </div>
+                    
+                    <input type="submit" name="add_row" value="Сохранить">
+                    
+                </div>
+                
+            </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <td></td>
+                    <td>№ п/п</td>
+                    <td>Название семинара</td>
+                    <td>Мастер</td>
+                    <td>Дата семинара</td>
+                    <td>Город</td>
+                    <td>Имя</td>
+                    <td>E-mail</td>
+                    <td>Phone</td>
+                    <td>Дата</td>
+                    <td>Залог</td>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                
+                $upload = wp_upload_dir();
+    			$upload_dir = $upload['basedir'];
+    			$upload_dir = $upload_dir . '/excel';
+    			wp_mkdir_p( $upload_dir );
+      
+    			require_once 'Classes/PHPExcel.php';
+
+    			$objPHPExcel = new PHPExcel;
+
+    			$objPHPExcel->setActiveSheetIndex(0);
+
+    			$active_sheet = $objPHPExcel->getActiveSheet();
+
+    			$active_sheet->setTitle("Import Excel");
+
+    			$active_sheet ->getColumnDimension('A')->setWidth(7);
+
+    			$active_sheet ->getColumnDimension('B')->setWidth(80);
+    			
+    			$active_sheet ->getColumnDimension('C')->setWidth(15);
+    			
+    			$active_sheet ->getColumnDimension('D')->setWidth(14);
+    			
+    			$active_sheet ->getColumnDimension('E')->setWidth(20);
+    			
+    			$active_sheet ->getColumnDimension('F')->setWidth(17);
+    			
+    			$active_sheet ->getColumnDimension('G')->setWidth(23);
+    			
+    			$active_sheet ->getColumnDimension('H')->setWidth(25);
+    			
+    			$active_sheet ->getColumnDimension('I')->setWidth(10);
+               
+                $active_sheet ->getColumnDimension('J')->setWidth(10);
+                
+                $active_sheet->setCellValue('A1', '№ п/п');
+                $active_sheet->setCellValue('B1', 'Название семинара');
+                $active_sheet->setCellValue('C1', 'Мастер');
+                $active_sheet->setCellValue('D1', 'Дата семинара');
+                $active_sheet->setCellValue('E1', 'Имя');
+                $active_sheet->setCellValue('F1', 'Город');
+                $active_sheet->setCellValue('G1', 'E-mail');
+                $active_sheet->setCellValue('H1', 'Phone');
+                $active_sheet->setCellValue('I1', 'Дата');
+                $active_sheet->setCellValue('J1', 'Залог');
+                
+                $style = array( 'font' => array( 'bold' => true, 'name' => 'Arial', 'size' => 13 ) );
+                
+                $active_sheet->getStyle('A1:J1')->applyFromArray($style);
+
+    			$i = 2; foreach ($subscriptions as $subscription){ ?>
+                <tr>
+                    <td><input type="checkbox" name="select_checkbox[]" value="<?php echo $subscription->id; ?>"></td>
+                    <td><?php $active_sheet->setCellValue('A'.$i, $subscription->id);  echo $subscription->id; ?></td>
+                    <td><?php $active_sheet->setCellValue('B'.$i, $subscription->name_seminar); echo $subscription->name_seminar; ?></td>
+                    <td><?php $active_sheet->setCellValue('C'.$i, $subscription->seminar_master); echo $subscription->seminar_master; ?></td>
+                    <td><?php $active_sheet->setCellValue('D'.$i, $subscription->date_seminar); echo $subscription->date_seminar; ?></td>
+                    <td><?php $active_sheet->setCellValue('E'.$i, $subscription->sity_seminar); echo $subscription->sity_seminar; ?></td>
+                    <td><?php $active_sheet->setCellValue('F'.$i, $subscription->name); echo $subscription->name; ?></td>
+                    <td><?php $active_sheet->setCellValue('G'.$i, $subscription->email); echo $subscription->email; ?></td>
+                    <td><?php $active_sheet->setCellValue('H'.$i, $subscription->phone); echo $subscription->phone; ?></td>
+                    <td><?php $active_sheet->setCellValue('I'.$i, $subscription->date_registration); echo $subscription->date_registration; ?></td>
+                    <td>
+                        <?php if($subscription->status == 0){ ?>
+                        <select name="status_pledge" style="color:red;" class="status-pledge" id="<?php echo $subscription->id; ?>">
+                            
+                            <option value="0" selected="selected" >Не внесен</option>
+                            <option value="1" style="color:green">Вненсен</option>
+                        </select>
+                        <?php } else { ?>
+                        <select name="status_pledge" style="color:green" class="status-pledge" id="<?php echo $subscription->id; ?>">
+                            <option value="0" style="color:red;">Не внесен</option>
+                            <option value="1" selected="selected">Вненсен</option>
+                        </select>
+                        <?php } ?>
+                        
+                    </td>
+                </tr>
+                <?php $subscription->status == 0 ? $active_sheet->setCellValue('J'.$i, "Не внесён") : $active_sheet->setCellValue('J'.$i, "Внесён"); $i++; } 
+                
+            $obj_writer = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+
+            $obj_writer ->save($upload_dir.'/simple.xls');
+                
+                ?>
+            </tbody>
+        </table>
+        
+            <input type="submit" name="table_submit" value="Удалить выбранные">
+            
+        </form>
+    </div>
+    <?php }
+
+    add_action( 'admin_menu', 'delivery_email' );
+
+    function delivery_email() {
+
+        //create new top-level menu
+        add_menu_page('E-mail рассылка', 'E-mail рассылка', 'administrator', 'delivery_email_page', 'delivery_email_page',plugins_url('/add.png'));
+    }
+
+    function delivery_email_page(){
+        
+        if(isset($_POST['delivery_start'])){
+            
+            $headers[] = 'Content-type: text/html';
+            $headers[] = 'From: Чикуров Юрий Валентинович <info@bablosstudio.ru>';
+            
+            $subject = $_POST['delivery_subject'];
+            $message = $_POST['delivery_text'];
+            
+            if($_POST['delivery_select'] == 'all'){
+                // The Query
+                $user_query = new WP_User_Query( array( 'fields' => array( 'ID', 'display_name', 'user_login', 'user_nicename', 'user_email', 'user_url' ) ) );
+
+                // User Loop
+                if ( ! empty( $user_query->results ) ) {
+                    foreach ( $user_query->results as $user ) {
+                        
+                        
+                        wp_mail( $user->user_email, $subject, $message, $headers);
+                        
+                    }
+                }
+            
+            } elseif($_POST['delivery_select'] == 'role'){
+                
+                $role = $_POST['type_role'];
+                
+                // The Query
+                $user_query = new WP_User_Query( array( 'role' => $role, 'fields' => array( 'ID', 'display_name', 'user_login', 'user_nicename', 'user_email', 'user_url' ) ) );
+
+                // User Loop
+                if ( ! empty( $user_query->results ) ) {
+                    foreach ( $user_query->results as $user ) {
+
+                        wp_mail( $user->user_email, $subject, $message, $headers);
+                        
+                    }
+                }
+                
+            } elseif ($_POST['delivery_select'] == 'private'){
+                
+                $users = $_POST['private_user'];
+                
+                foreach ($users as $user){
+                    
+                    $email = xprofile_get_field_data( 8, $user);
+                    
+                    wp_mail( $email, $subject, $message, $headers);
+                    
+                }
+                
+            } else {
+                
+            }
+        
+        }
+        
+        
+        
+        ?>
+
+    <script> tinymce.init({selector:'textarea'});</script>
+
+        <div class="delivery-select">  
+            
+            <h2>E-mail рассылка</h2>
+            
+            <form action="" name="delivery" method="post">
+                
+                <div class="delivery-type-select">
+                    <h3>Тип рассылки</h3>
+
+                    <select name="delivery_select" id="delivery-select">
+                        <option value="no">Выбрать тип</option>
+                        <option value="all">Все пользователи</option>
+                        <option value="role">По статусу</option>
+                        <option value="private">Индивидуальная</option>
+                    </select>
+                </div>
+                
+                <div class="delivery-type"></div>
+                
+                <div class="message-text">
+                    
+                    <h3>Тема рассылки</h3>
+                    
+                    <input type="text" name="delivery_subject" value="">
+                    
+                    <textarea name="delivery_text" rows="10" cols="50"></textarea>
+                    
+                </div>
+                
+                <input type="submit" name="delivery_start" value="Начать рассылку">
+                
+            </form>
+        </div>
+
+
+    <?php
+       
+    }
+
+    function get_user_delivery(){
+        global $bp;
+        
+        if($_POST['select']){
+            
+            $type = $_POST['select'];
+            
+            if($type == 'all' || $type == 'no'){
+                
+                die();
+                
+            } elseif($type == 'role') {
+                
+                $html = "<select name='type_role'>";
+                $html .= "<option value=''>Выберите роль</option>";
+                $html .= "<option value='Subscriber'>Мастера</option>";
+                $html .= "<option value='Author'>Автор</option>";
+                $html .= "</select>";
+                
+                die($html);
+                
+            } elseif($type == 'private') {
+                
+                $html = '<div class="all-column">';
+                $i=0;
+                // The Query
+                $user_query = new WP_User_Query( array( 'fields' => array( 'ID' ) ) );
+                
+                // User Loop
+                if ( ! empty( $user_query->results ) ) {
+                    foreach ( $user_query->results as $user ) {
+                        $name = xprofile_get_field_data( 1, $user->ID);
+                        
+                        if($i == 0){
+                            $html .= '<div class="one-column">';
+                        }
+                        
+                        $html .= "<p><input type='checkbox' name='private_user[]' value='".$user->ID."'> ".$name."</p>";
+                        $i++;
+                        
+                        
+                        if($i == 9){
+                            $html .= '</div>';
+                            $i=0;
+                        }
+                        
+                    }
+                }
+                
+                $html .= '</div>';
+                
+                die($html);
+                
+            }
+            
+        }
+        
+    }
+
+    add_action( 'wp_ajax_get_user_delivery', 'get_user_delivery' );
+
     // let's start by enqueuing our styles correctly
     function wptutsplus_admin_styles() {
         
         wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
+        wp_register_style( 'admin_style', gavern_file_uri('css/back-end/admin-style.css') );
         wp_enqueue_style( 'admin_style' );
+        wp_enqueue_script('admin-scripts', gavern_file_uri('js/admin-scripts.js'), array('jquery'));
         wp_enqueue_script('jquery-ui-datepicker'); 
     }
     add_action( 'admin_enqueue_scripts', 'wptutsplus_admin_styles' );
