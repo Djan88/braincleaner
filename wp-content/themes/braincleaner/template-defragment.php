@@ -132,4 +132,4 @@ include(TEMPLATEPATH . '/head-part.php'); ?>
         </div>
       </div>
     </div>
-get_footer() ;?>
+<?php get_footer() ;?>
