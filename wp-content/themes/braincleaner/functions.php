@@ -39,6 +39,1116 @@ add_filter('login_redirect', 'users_redirect');
 
 
 // Функционал добавления пользователей
+    add_action( 'admin_enqueue_scripts', 'wptutsplus_admin_styles' );
+
+    add_action( 'admin_menu', 'add_reestr_masters' );
+
+    function add_reestr_masters() {
+
+        //create new top-level menu
+        add_menu_page('Добавить мастера', 'Добавить мастера', 'administrator', 'add_masters', 'add_masters',plugins_url('/add.png'));
+    }
+
+
+    function add_masters() {
+        global $wpdb;
+        
+        $data_country = $wpdb->get_results("SELECT DISTINCT country FROM reestr_masters");
+        $data_state = $wpdb->get_results("SELECT DISTINCT state FROM reestr_masters");
+
+        if($_POST['master_submit']){
+            
+            $db = $_POST['select_db'];
+            
+            $id = $_POST['master_id'];
+            $name = $_POST['name'].' '.$_POST['last_name'].' '.$_POST['midle_name'];
+            $options = $_POST['options'];
+            $email = $_POST['email'];
+            $phone = $_POST['phone'];
+            $skype = $_POST['skype'];
+            $www = $_POST['www'];
+            $vk = $_POST['vkontakte'];
+            $facebook = $_POST['facebook'];
+            $country_db = $_POST['select_country'];
+            $state_db = $_POST['select_state'];
+            
+            if(empty($id)){
+                
+                if($db == 'reestr_masters'){
+            
+                    $wpdb->insert(
+                            $db,
+                            array( 'name' => $name, 'options' => $options, 'phone' => $phone, 'email' => $email, 'www' => $www, 'skype' => $skype, 'vkontakte' => $vk, 'facebook' => $facebook, 'country' => $country_db, 'state' => $state_db ),
+                            array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' )
+                    );
+
+                } elseif($db == 'wp_def_masters'){
+
+                    $wpdb->insert(
+                            $db,
+                            array( 'name' => $name, 'email' => $email, 'phone' => $phone, 'skype' => $skype, 'www' => $www, 'vkontakte' => $vk, 'facebook' => $facebook, 'country' => $country_db, 'state' => $state_db, 'info' => $options ),
+                            array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' )
+                    );
+
+                }
+                
+            } else {
+                
+                if($db == 'reestr_masters'){
+            
+                    $wpdb->update(
+                            $db,                        
+                            array( 'name' => $name, 'options' => $options, 'phone' => $phone, 'email' => $email, 'www' => $www, 'skype' => $skype, 'vkontakte' => $vk, 'facebook' => $facebook, 'country' => $country_db, 'state' => $state_db ),
+                            array( 'id' => $id ),
+                            array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' ),
+                            array( '%d' )
+                    );
+
+                } elseif($db == 'wp_def_masters'){
+
+                    $wpdb->update(
+                            $db,
+                            array( 'name' => $name, 'email' => $email, 'phone' => $phone, 'skype' => $skype, 'www' => $www, 'vkontakte' => $vk, 'facebook' => $facebook, 'country' => $country_db, 'state' => $state_db, 'info' => $options ),
+                            array( 'id' => $id ),
+                            array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' ),
+                            array( '%d' )
+                    );
+
+                }
+                
+            }
+            
+        }
+        
+    ?>
+    <div class="wrap add-master">
+        <h2>Добавить мастера</h2>
+        
+        <form action="" name="add-master" method="post">
+            
+            <input type="hidden" name="master_id" id="master-id" value="">
+            
+            <select name="select_db" id="select-db">
+                <option value="">Выбрать базу</option>
+                <option value="reestr_masters">Мастера школы</option>
+                <option value="wp_def_masters">Специалисты тер. деф.</option>
+            </select>
+            
+            <select name="select_master" id="select-master">
+                <option value="">База данных не выбрана</option>
+            </select>
+            
+            <input type="text" name="name" id="name" value="" placeholder="Имя" />
+            <input type="text" name="last_name" id="last-name" value="" placeholder="Фамилия" />
+            <input type="text" name="midle_name" id="midle-name" value="" placeholder="Отчество" />
+             
+            <textarea name="options" id="option" cols="80" rows="10" placeholder="Специализация (только для мастеров школы)" ></textarea>
+            
+            <input type="text" name="email" id="email" value="" placeholder="E-mail" />
+            <input type="text" name="phone" id="phone" value="" placeholder="Телефон" />
+            <input type="text" name="skype" id="skype" value="" placeholder="Skype" />
+            <input type="text" name="www" id="www" value="" placeholder="Адрес сайта" />
+            
+            <div>
+                <input type="text" name="vkontakte" id="vkontakte" value="" placeholder="Вконтакте" />
+                <input type="text" name="facebook" id="facebook" value="" placeholder="Facebook" />
+                <select name="select_country" id="select-country">
+                    <option value="">Выбрать страну</option>
+                    <?php foreach ($data_country as $country){ ?>
+
+                    <option value="<?php echo $country->country; ?>"><?php echo $country->country; ?></option>
+
+                    <?php } ?>
+                </select>
+            
+                <select name="select_state" id="select-state">
+                    <option value="">Выбрать город</option>
+                    <?php foreach ($data_state as $state){ ?>
+
+                    <option value="<?php echo $state->state; ?>"><?php echo $state->state; ?></option>
+
+                    <?php } ?>
+                </select>
+            </div>
+            <input type="submit" name="master_submit" id="master-submit" value="Добавить">
+            
+        </form>
+
+    </div>
+    <?php }
+
+    add_action('bp_setup_nav', 'mb_bp_profile_menu_posts', 301 );
+
+    function mb_bp_profile_menu_posts() {
+        global $bp;
+        bp_core_new_nav_item(
+                array(
+                'name' => 'Приемные дни',
+                'slug' => 'reception_days', 
+                'position' => 90, 
+                'default_subnav_slug' => 'reception', // We add this submenu item below 
+                'screen_function' => 'mb_author_posts'
+                )
+        );
+        
+        bp_core_new_nav_item(
+                array(
+                'name' => 'Прошедшие семинары',
+                'slug' => 'past_seminars', 
+                'position' => 70, 
+                'default_subnav_slug' => 'past', // We add this submenu item below 
+                'screen_function' => 'past_seminars'
+                )
+        );
+        
+        bp_core_new_nav_item(
+                array(
+                'name' => 'Новости',
+                'slug' => 'author_news', 
+                'position' => 80, 
+                'default_subnav_slug' => 'news', // We add this submenu item below 
+                'screen_function' => 'author_news'
+                )
+        );
+        
+        bp_core_new_nav_item(
+                array(
+                'name' => 'Книги',
+                'slug' => 'author_books', 
+                'position' => 95, 
+                'default_subnav_slug' => 'books', // We add this submenu item below 
+                'screen_function' => 'author_books'
+                )
+        );
+        
+        bp_core_new_nav_item(
+                array(
+                'name' => 'Записавшиеся',
+                'slug' => 'logged_seminar', 
+                'position' => 100, 
+                'default_subnav_slug' => 'logged', // We add this submenu item below 
+                'screen_function' => 'logged_seminar'
+                )
+        );
+        
+    }
+
+    function logged_seminar(){	
+    	add_action( 'bp_template_content', 'show_logged_seminar' );
+    	bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+    }
+
+    function show_logged_seminar(){
+        
+        global $bp, $wpdb;
+        
+        $assistant = bp_core_get_user_displayname(bp_displayed_user_id());
+        $subscriptions = $wpdb->get_results("SELECT * FROM wp_subscription WHERE seminar_assistant = '$assistant'");
+        
+        $seminars = $wpdb->get_results("SELECT DISTINCT name_seminar FROM wp_subscription WHERE seminar_assistant = '$assistant'");
+        $city = $wpdb->get_results("SELECT DISTINCT sity_seminar FROM wp_subscription WHERE seminar_assistant = '$assistant'");
+        $master = $wpdb->get_results("SELECT DISTINCT seminar_master FROM wp_subscription WHERE seminar_assistant = '$assistant'"); 
+        
+        if(isset($_POST['select_submit']) && (isset($_POST['select_seminar']) || isset($_POST['select_city']) || isset($_POST['select_master']))){
+            
+            $sql = 'WHERE';
+            
+            if(!empty($_POST['select_seminar'])){           
+                $select_seminar = $_POST['select_seminar'];
+                $sql .= " name_seminar = '$select_seminar'";
+                if(!empty($_POST['select_city']) || !empty($_POST['select_master'])){
+                    $sql .= " AND";
+                }
+            }
+            
+            if(!empty($_POST['select_city'])){           
+                $select_city = $_POST['select_city'];
+                $sql .= " sity_seminar = '$select_city'";
+                if(!empty($_POST['select_master'])){
+                    $sql .= " AND";
+                }
+            }
+            
+            if(!empty($_POST['select_master'])){           
+                $select_master = $_POST['select_master'];
+                $sql .= " seminar_master = '$select_master'";
+            }
+         
+            $subscriptions = $wpdb->get_results("SELECT * FROM wp_subscription $sql AND seminar_assistant = '$assistant' ORDER BY id DESC");
+            
+        }
+        
+        ?>
+    <div class="wrap search_clients">
+        
+        <?php if($subscriptions){ ?>
+        
+        <h3>Записи на семинары</h3>
+        
+        <form action="" name="select" method="post">
+            
+            <select name="select_seminar" style="width: 300px;">
+                <option value="">Семинары</option>
+                <?php foreach ($seminars as $seminar){ ?>
+                    <?php if(!empty($_POST['select_seminar']) && $_POST['select_seminar'] == $seminar->name_seminar){ 
+                        
+                        $selected = 'selected="selected"';
+                        
+                    } else { $selected = ''; } ?>
+                <option value="<?php echo $seminar->name_seminar; ?>" <?php echo $selected; ?>><?php echo $seminar->name_seminar; ?></option>
+                <?php } ?>
+            </select>
+            
+            <select name="select_master">
+                <option value="">Мастер</option>
+                <?php foreach ($master as $m){ ?>
+                    <?php if(!empty($_POST['select_master']) && $_POST['select_master'] == $m->seminar_master){ 
+                        
+                        $selected = 'selected="selected"';
+                        
+                    } else { $selected = ''; } ?>
+                        <option value="<?php echo $m->seminar_master; ?>" <?php echo $selected; ?>><?php echo $m->seminar_master; ?></option>
+                <?php } ?>
+            </select>
+                   
+            <select name="select_city">
+                <option value="">Город</option>
+                <?php foreach ($city as $c){ ?>
+                    <?php if(!empty($_POST['select_city']) && $_POST['select_city'] == $c->sity_seminar){ 
+                        
+                        $selected = 'selected="selected"';
+                        
+                    } else { $selected = ''; } ?>
+                    <option value="<?php echo $c->sity_seminar; ?>" <?php echo $selected; ?>><?php echo $c->sity_seminar; ?></option>
+                <?php } ?>
+            </select>
+            
+            <input type="submit" name="select_submit" value="Фильтр">
+            
+        </form>
+        
+        <form action="" method="post" name="form-table">
+
+            <table>
+                <thead>
+                    <tr>
+                        <td>Семинар</td>
+                        <td>Ведущий</td>
+                        <td>Дата проведения</td>
+                        <td>Город</td>
+                        <td>Имя</td>
+                        <td>E-mail</td>
+                        <td>Phone</td>
+                        <td>Дата регистрации</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($subscriptions as $subscription){ ?>
+                    <tr>
+                        <td><?php echo $subscription->name_seminar; ?></td>
+                        <td><?php echo $subscription->seminar_master; ?></td>
+                        <td><?php echo $subscription->date_seminar; ?></td>
+                        <td><?php echo $subscription->sity_seminar; ?></td>
+                        <td><?php echo $subscription->name; ?></td>
+                        <td><?php echo $subscription->email; ?></td>
+                        <td><?php echo $subscription->phone; ?></td>
+                        <td><?php echo $subscription->date_registration; ?></td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+            
+        </form>
+        
+        <?php } else{ ?>
+        
+        <p>У вас нет записей на семинары!</p>
+        
+        <?php } ?>
+        
+    </div>
+        
+    <?php }
+
+    function author_books(){	
+    	add_action( 'bp_template_content', 'show_author_books' );
+    	bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+    }
+
+    function show_author_books(){
+        
+        global $bp;
+        
+        $news = get_posts( array(
+                'author'      => bp_displayed_user_id(),
+                'orderby'     => 'date',
+                'category'    => 150,
+                'numberposts' => -1
+        )); 
+        
+    //    echo '<pre>';
+    //    var_dump($news);
+    //    echo '</pre>';
+        ?>
+        
+    <div id="groups-dir-list" class="groups dir-list">
+        
+        <ul id="groups-list" class="item-list" role="main">
+            <?php foreach ($news as $new){ ?>
+            <li>
+                <div class="item-avatar">
+                    <?php if(get_the_post_thumbnail($new->ID)){ ?>
+                        <a href="<?php echo $new->guid; ?>"><?php echo get_the_post_thumbnail($new->ID, array(50,50)); ?></a>
+                    <?php } else { ?>
+                        <?php echo get_avatar( $new->post_author, 50 ); ?>
+                    <?php } ?>
+                </div>
+
+                <div class="item">
+                    <div class="item-title"><a href="<?php echo $new->guid; ?>"><?php echo $new->post_title; ?></a>
+                    </div>
+                    <span class="seminar-date">Автор: <a href=""><?php echo the_author_meta( 'display_name', $new->post_author );?></a></span>
+
+                    <div class="item-desc"><?php echo mb_substr($new->post_content, 0,200); ?></div>
+
+                </div>
+
+                <div class="clear"></div>
+            </li>
+            <?php } ?>
+        </ul>
+        
+    </div>
+        
+    <?php }
+
+    function author_news(){	
+    	add_action( 'bp_template_content', 'show_author_news' );
+    	bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+    }
+
+    function show_author_news(){
+        global $bp;
+        
+        $news = get_posts( array(
+                'author'      => bp_displayed_user_id(),
+                'orderby'     => 'date',
+                'category'    => 149,
+                'numberposts' => 10
+        )); 
+        
+    //    echo '<pre>';
+    //    var_dump($news);
+    //    echo '</pre>';
+        ?>
+        
+    <div id="groups-dir-list" class="groups dir-list">
+        
+        <ul id="groups-list" class="item-list" role="main">
+            <?php foreach ($news as $new){ ?>
+            <li>
+                <div class="item-avatar">
+                    <?php if(get_the_post_thumbnail($new->ID)){ ?>
+                        <a href="<?php echo $new->guid; ?>"><?php echo get_the_post_thumbnail($new->ID, array(50,50)); ?></a>
+                    <?php } else { ?>
+                        <?php echo get_avatar( $new->post_author, 50 ); ?>
+                    <?php } ?>
+                </div>
+
+                <div class="item">
+                    <div class="item-title"><a href="<?php echo $new->guid; ?>"><?php echo $new->post_title; ?></a>
+                    </div>
+                    <span class="seminar-date">Автор: <a href=""><?php echo the_author_meta( 'display_name', $new->post_author );?></a></span>
+
+                    <div class="item-desc"><?php echo mb_substr($new->post_content, 0,200); ?></div>
+
+                </div>
+
+                <div class="clear"></div>
+            </li>
+            <?php } ?>
+        </ul>
+        
+    </div>
+        
+    <?php }
+
+    function past_seminars(){	
+    	add_action( 'bp_template_content', 'show_past_seminars' );
+    	bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+    }
+    function show_past_seminars() { 
+        global $bp; ?>
+        
+        <div id="groups-dir-list" class="groups dir-list">
+                <?php do_action( 'bp_before_groups_loop' ); ?>
+
+    <?php if ( bp_has_groups() ) : ?>
+
+    	<?php do_action( 'bp_before_directory_groups_list' ); ?>
+
+    	<ul id="groups-list" class="item-list" role="main">
+
+    	<?php while ( bp_groups() ) : bp_the_group(); ?>
+                
+                <?php
+                    $group = groups_get_group( array( 'group_id' => bp_get_group_id() ) );
+                    
+                    $date_end = strtotime(groups_get_groupmeta( bp_get_group_id(), 'group_plus_header_fieldtwo'));
+                    
+                    $date_now = date('Y-m-d');
+                    $dateNow = strtotime($date_now);
+                    if($date_end < $dateNow){
+                    $date_end = rdate('d M, Y', $date_end);
+                    $city = groups_get_groupmeta( bp_get_group_id(), 'group_plus_header_fieldthree');
+                    $date = groups_get_groupmeta( bp_get_group_id(), 'group_plus_header_fieldone');
+                    $min_date = strtotime($date);
+                    $date_seminar = rdate('d M, Y', $min_date);
+                    if(bp_displayed_user_id() == 0 || bp_displayed_user_id() == $group->admins[0]->user_id){
+                ?>
+
+    		<li <?php bp_group_class(); ?>>
+    			<div class="item-avatar">
+                                    <a href="<?php bp_group_permalink(); ?>"><?php bp_group_avatar( 'type=thumb&width=50&height=50' ); ?></a>
+    			</div>
+
+    			<div class="item">
+                                <div class="item-title"><a href="<?php bp_group_permalink(); ?>"><?php bp_group_name(); ?></a>
+                                </div>
+                                <span class="seminar-date">Ведуший: <?php echo bp_core_get_userlink($group->admins[0]->user_id); if($group->admins[1]->user_id){ echo ', '.bp_core_get_userlink($group->admins[1]->user_id); } ?> <span>|</span> <?= $city; ?> <span>|</span> <?= $date_seminar; ?> - <?= $date_end; ?></span>
+
+    				<div class="item-desc"><?php bp_group_description_excerpt(); ?></div>
+
+    				<?php do_action( 'bp_directory_groups_item' ); ?>
+
+    			</div>
+
+    			<div class="clear"></div>
+    		</li>
+
+                    <?php } } endwhile; ?>
+
+    	</ul>
+
+    	<?php do_action( 'bp_after_directory_groups_list' ); ?>
+
+    <?php else: ?>
+
+    	<div id="message" class="info">
+    		<p><?php _e( 'There were no groups found.', 'buddypress' ); ?></p>
+    	</div>
+
+    <?php endif; ?>
+
+    <?php do_action( 'bp_after_groups_loop' ); ?>
+
+        </div><!-- #groups-dir-list -->
+        
+    <?php }
+
+
+    function mb_author_posts(){	
+    	add_action( 'bp_template_content', 'mb_show_posts' );
+    	bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+    }
+    function mb_show_posts() { 
+        global $bp;
+        
+        
+        
+    $posts = get_posts( array(
+            'author'      => bp_displayed_user_id(),
+            'orderby'     => 'date',
+            'category'    => 152
+    ));
+        
+        
+        // проверяем передали ли нам месяц и год
+    if (isset($_GET["ym"])) {
+
+        $year = (int) substr($_GET["ym"], 0, 4);
+        $month = (int) substr($_GET["ym"], 4, 2);
+    } else { // иначе выводить текущие месяц и год
+        $month = date("m", mktime(0, 0, 0, date('m'), 1, date('Y')));
+        $year = date("Y", mktime(0, 0, 0, date('m'), 1, date('Y')));
+    }
+
+    $skip = date("w", mktime(0, 0, 0, $month, 1, $year)) - 1; // узнаем номер дня недели
+    if ($skip < 0) {
+        $skip = 6;
+    }
+    $daysInMonth = date("t", mktime(0, 0, 0, $month, 1, $year));       // узнаем число дней в месяце
+    $calendar_head = '';    // обнуляем calendar head
+    $calendar_body = '';    // обнуляем calendar boday
+    $day = 1;       // для цикла далее будем увеличивать значение
+
+    for ($i = 0; $i < 6; $i++) { // Внешний цикл для недель 6 с неполыми
+        $calendar_body .= '<tr>';       // открываем тэг строки
+        for ($j = 0; $j < 7; $j++) {      // Внутренний цикл для дней недели
+            if (($skip > 0)or ( $day > $daysInMonth)) { // выводим пустые ячейки до 1 го дня ип после полного количства дней
+                $calendar_body .= '<td class="none"> </td>';
+                $skip--;
+            } else {
+                    
+                if ($j == 6)     // если воскресенье то омечаем выходной
+                    $calendar_body .= '<td class="holiday" id="' . $day . '">' . $day . '</td>';
+                else {   // в противном случае просто выводим день в ячейке
+                    if ((date(j) == $day) && (date(m) == $month) && (date(Y) == $year)) {//проверяем на текущий день
+                        $calendar_body .= '<td class="today day day-active" id="' . $day . '">' . $day . '</td>';
+                    } else {
+                        $calendar_body .= '<td class="day" id="' . $day . '">' . $day . '</td>';
+                    }
+                }               
+                 
+                $day++; // увеличиваем $day
+            }
+        }
+        $calendar_body .= '</tr>'; // закрываем тэг строки
+    }
+
+    // заголовок календаря
+    $calendar_head = '
+      <tr>          
+            <th colspan="2"><a href="?ym=' . date("Ym", mktime(0, 0, 0, $month - 1, 1, $year)) . '">« Пред</a></th>
+            <th colspan="3">' . rdate("M, Y", mktime(0, 0, 0, $month, 1, $year)) . '</th>
+            <th colspan="2"><a href="?ym=' . date("Ym", mktime(0, 0, 0, $month + 1, 1, $year)) . '">След »</a></th>
+      </tr>
+      <tr>
+        <th>Пн</th>
+        <th>Вт</th>
+        <th>Ср</th>
+        <th>Чт</th>
+        <th>Пт</th>
+        <th>Сб</th>
+        <th>Вс</th>
+      </tr>';
+
+
+    if($_POST['submit-subscribe']){
+            
+        $md5 = md5($_POST['subscribe-name'].$_POST['subscribe-email'].$_POST['subscribe-phone']);
+
+        if($md5 == $_POST['bot_test']){
+
+            $name = $_POST['subscribe-name'];
+            $email = $_POST['subscribe-email'];
+            $phone = $_POST['subscribe-phone'];
+            $title = $_POST['priem-day'];
+
+            $to = xprofile_get_field_data(8, bp_displayed_user_id());
+
+            //$to .= ', info@bablosstudio.ru';
+
+            send_email($to, $email, "Запись на $title", $name, $phone);
+
+        }
+                
+    }
+
+        ?>
+
+        <div><a href="#" class="readon" id="subscribe-seminar" style="margin: 10px 20px;">Запись на прием</a></div>
+        <div class="clear"></div>
+        <div id="reception-day-form" class="seminar-subscribe-form">
+
+            <form action="" method="post" name="form-subscribe">
+                <input type="text" name="subscribe-name" id="subscribe-name" value="" placeholder="Имя" />
+                <input type="text" name="subscribe-email" id="subscribe-email" value="" placeholder="E-mail" />
+                <input type="text" name="subscribe-phone" id="subscribe-phone" value="" placeholder="Телефон" />
+                <select name="priem-day">
+                    <option value="">Выбрать приемный день</option>
+                    <?php foreach ($posts as $post){ ?>
+
+                    <option value="<?php echo $post->post_title; ?>"><?php echo $post->post_title; ?></option>
+
+                    <?php } ?>
+                </select>
+                <input type="hidden" name="bot_test" id="bot_test" value="">
+                <input type="submit" name="submit-subscribe" id="submit-subscribe" value="Отправить" />
+            </form>
+
+        </div>
+        
+    <div class="calendar-wrap">
+        <!-- таблица для вывода календаря -->
+                <table id="calendar" border="1" cellspacing="0" cellpadding="5">
+                        <thead>
+                                <?php echo $calendar_head; ?>
+                        </thead>
+                        <tbody>
+                                <?php echo $calendar_body; ?>
+                        </tbody>
+                </table>
+                <!-- таблица для вывода календаря -->
+               
+                <input type="hidden" name="master_id" id="master-id" value="<?php echo bp_displayed_user_id(); ?>" />
+                <input type="hidden" name="month_year" id="month-year" value="<?php echo rdate("M, Y", mktime(0, 0, 0, $month, 1, $year)); ?>" />
+                <div id="reception_today">
+                    <div class="wrap-name">Сегодняшний прием</div>
+                    <?php                    
+
+                        foreach ($posts as $post){
+                                                  
+                            $status = get_post_meta($post->ID, 'reception_status');
+                            $today = strtotime(date('Y-m-d'));
+                            $value = get_post_meta( $post->ID, 'reception_value');
+                            $city = get_post_meta( $post->ID, 'reception_city');
+                            
+                            if(isset($status[0])){
+                                
+                                if($status[0] == 'date'){
+
+                                    $reception_date = strtotime($value[0]);
+                                    
+                                    if($today == $reception_date){ ?>
+                                        
+                                       <article>                   
+
+                                            <h4><a href="<?php echo $post->guid; ?>" title="" rel="bookmark"><?php echo $post->post_title; ?></a></h4>
+
+                                            <span class="seminar-date">
+                                                <a class="url fn n" href="" title="" rel="author"></a>
+                                                <?php echo $city[0]; ?>
+                                                <span>|</span>
+                                                <?php 
+                                                    $meta_values = get_post_meta( $post->ID, 'reception_date'); 
+                                                    $date = strtotime($meta_values[0]);
+                                                ?>
+                                                 <?php echo rdate('d M, Y', $date); ?>
+                                                <span>|</span>
+                                                <a href="<?php echo $post->guid; ?>">Запись на прием</a>
+                                            </span>
+
+                                            <section class="summary">
+                                                    <?php echo mb_substr($post->post_content, 0, 200); ?>
+                                            </section>
+                                            <a href='<?php echo $post->guid; ?>' class='readon' id='subscribe-seminar' style='float:right;margin: 10px 20px;'>Запись на прием</a>
+                                        </article> 
+                                        
+                                    <?php }
+                                    
+                                } elseif($status[0] == 'monthly'){
+                                    if($value[0] < date('Y-m-d')){
+                                        $data = date_modify(strtotime($value[0]), '+1 months');
+                                    } else {
+                                        $data = strtotime($value[0]);
+                                    }
+                                    if($today == $data){
+                                     ?>
+                                        
+                                       <article>                   
+
+                                            <h4><a href="<?php echo $post->guid; ?>" title="" rel="bookmark"><?php echo $post->post_title; ?></a></h4>
+
+                                            <span class="seminar-date">
+                                                <a class="url fn n" href="" title="" rel="author"></a>
+                                                <?php echo $city[0]; ?>
+                                                <span>|</span>
+                                                 <?php echo rdate('d M, Y'); ?>
+                                                <span>|</span>
+                                                <a href="<?php echo $post->guid; ?>">Запись на прием</a>
+                                            </span>
+
+                                            <section class="summary">
+                                                    <?php echo mb_substr($post->post_content, 0, 200); ?>
+                                            </section>
+                                            <a href='<?php echo $post->guid; ?>' class='readon' id='subscribe-seminar' style='float:right;margin: 10px 20px;'>Запись на прием</a>
+                                        </article> 
+                                        
+                                <?php } } elseif($status[0] == 'weekly'){
+                                    
+                                    if($value[0] == date('w')){ ?>
+                                        
+                                       <article>                   
+
+                                            <h4><a href="<?php echo $post->guid; ?>" title="" rel="bookmark"><?php echo $post->post_title; ?></a></h4>
+
+                                            <span class="seminar-date">
+                                                <a class="url fn n" href="" title="" rel="author"></a>
+                                                <?php echo $city[0]; ?>
+                                                <span>|</span>
+                                                 <?php echo rdate('d M, Y'); ?>
+                                                <span>|</span>
+                                                <a href="<?php echo $post->guid; ?>">Запись на прием</a>
+                                            </span>
+
+                                            <section class="summary">
+                                                    <?php echo mb_substr($post->post_content, 0, 200); ?>
+                                            </section>
+                                            <a href='<?php echo $post->guid; ?>' class='readon' id='subscribe-seminar' style='float:right;margin: 10px 20px;'>Запись на прием</a>
+                                        </article> 
+                                        
+                                    <?php }
+                                    
+                                } elseif($status[0] == 'all_weekly'){
+                                    
+                                    if(0 < date('w') && date('w') < 6){ ?>
+                                        
+                                       <article>                   
+
+                                            <h4><a href="<?php echo $post->guid; ?>" title="" rel="bookmark"><?php echo $post->post_title; ?></a></h4>
+
+                                            <span class="seminar-date">
+                                                <a class="url fn n" href="" title="" rel="author"></a>
+                                                <?php echo $city[0]; ?>
+                                                <span>|</span>
+                                                 <?php echo rdate('d M, Y'); ?>
+                                                <span>|</span>
+                                                <a href="<?php echo $post->guid; ?>">Запись на прием</a>
+                                            </span>
+
+                                            <section class="summary">
+                                                    <?php echo mb_substr($post->post_content, 0, 200); ?>
+                                            </section>
+                                            <a href='<?php echo $post->guid; ?>' class='readon' id='subscribe-seminar' style='float:right;margin: 10px 20px;'>Запись на прием</a>
+                                        </article> 
+                                        
+                                    <?php }
+                                    
+                                }
+                                
+                            }
+                                                                          
+                        }
+                        
+                    ?>
+                </div>
+    </div>
+
+        <section id="gk-mainbody-reception">
+            
+            <div class="wrap-name">Приемные дни</div>
+            
+            <div class="wrap-reception-days">
+
+                <?php query_posts( array('category_name'=>'reception_days', 'author' => bp_displayed_user_id(), 'showposts' => 10 ) ); if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+                
+                <?php
+                    $today = strtotime(date('Y-m-d'));
+                    $status = get_post_meta( get_the_ID(), 'reception_status');
+                    $value = get_post_meta( get_the_ID(), 'reception_value');
+                    $city = get_post_meta( get_the_ID(), 'reception_city');
+                                    
+                    if($status[0] == 'date'){ ?>
+                        
+                        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+                                <h4><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', GKTPLNAME ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark">
+
+                                        <?php the_title(); ?>
+
+                                </a></h4>
+
+                                <span class="seminar-date">
+                                    <a class="url fn n" href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>" title="<?php echo esc_attr(sprintf(__('View all posts by %s', GKTPLNAME), get_the_author())); ?>" rel="author"><?php echo get_the_author(); ?></a> 
+                                    <span>|</span>
+                                     <?php echo rdate('d M, Y', strtotime($value[0])); ?> 
+                                    <span>|</span>
+                                     <?php echo $city[0]; ?>
+                                </span>
+
+                                <span id="thumb-days"><?php get_template_part( 'layouts/content.post.featured' ); ?></span>
+
+                                    <?php if ( (!is_single() && get_option($tpl->name . '_readmore_on_frontpage', 'Y') == 'Y') || is_search() || is_archive() || is_tag() ) : ?>
+                                    <section class="summary">
+                                            <?php echo mb_substr(get_the_excerpt(), 0, 175).' ...'; ?>
+                                    </section>
+                                    <?php else : ?>
+                                    <section class="content">
+                                            <?php the_content( __( 'Read more', GKTPLNAME ) ); ?>
+
+                                            <?php gk_post_fields(); ?>
+                                            <?php gk_post_links(); ?>
+                                    </section>
+                                    <?php endif; ?>
+
+                                    <?php get_template_part( 'layouts/content.post.footer' ); ?>
+                            </article>
+                        
+                    <?php } elseif ($status[0] == 'weekly') { 
+                                switch ($value[0]){
+                                    case '0':
+                                        $data = 'Каждое Воскресенье';
+                                        break;
+                                    case '1':
+                                        $data = 'Каждый Понедельник';
+                                        break;
+                                    case '2':
+                                        $data = 'Каждый Вторник';
+                                        break;
+                                    case '3':
+                                        $data = 'Каждую Среду';
+                                        break;
+                                    case '4':
+                                        $data = 'Каждый Четверг';
+                                        break;
+                                    case '5':
+                                        $data = 'Каждую Пятницу';
+                                        break;
+                                    case '6':
+                                        $data = 'Каждую Субботу';
+                                        break;
+                                } 
+                        ?>
+                        
+                        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+                                <h4><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', GKTPLNAME ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark">
+
+                                        <?php the_title(); ?>
+
+                                </a></h4>
+
+                                <span class="seminar-date">
+                                    <a class="url fn n" href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>" title="<?php echo esc_attr(sprintf(__('View all posts by %s', GKTPLNAME), get_the_author())); ?>" rel="author"><?php echo get_the_author(); ?></a> 
+                                    <span>|</span>
+                                     <?php echo $data; ?> 
+                                    <span>|</span>
+                                     <?php echo $city[0]; ?>
+                                </span>
+
+                                <span id="thumb-days"><?php get_template_part( 'layouts/content.post.featured' ); ?></span>
+
+                                    <?php if ( (!is_single() && get_option($tpl->name . '_readmore_on_frontpage', 'Y') == 'Y') || is_search() || is_archive() || is_tag() ) : ?>
+                                    <section class="summary">
+                                            <?php echo mb_substr(get_the_excerpt(), 0, 175).' ...'; ?>
+                                    </section>
+                                    <?php else : ?>
+                                    <section class="content">
+                                            <?php the_content( __( 'Read more', GKTPLNAME ) ); ?>
+
+                                            <?php gk_post_fields(); ?>
+                                            <?php gk_post_links(); ?>
+                                    </section>
+                                    <?php endif; ?>
+
+                                    <?php get_template_part( 'layouts/content.post.footer' ); ?>
+                            </article>
+                        
+                    <?php } elseif ($status[0] == 'monthly') { 
+                            if($value[0] < date('Y-m-d')){
+                                $data = date_modify(strtotime($value[0]), '+1 months');
+                                $data_update = date('Y-m-d', $data);
+                                $data = rdate('d M, Y', $data);
+                                update_post_meta(get_the_ID(), 'reception_value', $data_update);
+                            } else {
+                                $data = rdate('d M, Y', $value[0]);
+                            }
+                        ?>
+                        
+                        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+                                <h4><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', GKTPLNAME ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark">
+
+                                        <?php the_title(); ?>
+
+                                </a></h4>
+
+                                <span class="seminar-date">
+                                    <a class="url fn n" href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>" title="<?php echo esc_attr(sprintf(__('View all posts by %s', GKTPLNAME), get_the_author())); ?>" rel="author"><?php echo get_the_author(); ?></a> 
+                                    <span>|</span>
+                                     <?php echo $data; ?> 
+                                    <span>|</span>
+                                     <?php echo $city[0]; ?>
+                                </span>
+
+                                <span id="thumb-days"><?php get_template_part( 'layouts/content.post.featured' ); ?></span>
+
+                                    <?php if ( (!is_single() && get_option($tpl->name . '_readmore_on_frontpage', 'Y') == 'Y') || is_search() || is_archive() || is_tag() ) : ?>
+                                    <section class="summary">
+                                            <?php echo mb_substr(get_the_excerpt(), 0, 175).' ...'; ?>
+                                    </section>
+                                    <?php else : ?>
+                                    <section class="content">
+                                            <?php the_content( __( 'Read more', GKTPLNAME ) ); ?>
+
+                                            <?php gk_post_fields(); ?>
+                                            <?php gk_post_links(); ?>
+                                    </section>
+                                    <?php endif; ?>
+
+                                    <?php get_template_part( 'layouts/content.post.footer' ); ?>
+                            </article>
+                        
+                    <?php  } elseif ($status[0] == 'all_weekly') { ?>
+                        
+                        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+                                <h4><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', GKTPLNAME ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark">
+
+                                        <?php the_title(); ?>
+
+                                </a></h4>
+
+                                <span class="seminar-date">
+                                    <a class="url fn n" href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>" title="<?php echo esc_attr(sprintf(__('View all posts by %s', GKTPLNAME), get_the_author())); ?>" rel="author"><?php echo get_the_author(); ?></a> 
+                                    <span>|</span>
+                                     Всю неделю 
+                                    <span>|</span>
+                                     <?php echo $city[0]; ?>
+                                </span>
+
+                                <span id="thumb-days"><?php get_template_part( 'layouts/content.post.featured' ); ?></span>
+
+                                    <?php if ( (!is_single() && get_option($tpl->name . '_readmore_on_frontpage', 'Y') == 'Y') || is_search() || is_archive() || is_tag() ) : ?>
+                                    <section class="summary">
+                                            <?php echo mb_substr(get_the_excerpt(), 0, 175).' ...'; ?>
+                                    </section>
+                                    <?php else : ?>
+                                    <section class="content">
+                                            <?php the_content( __( 'Read more', GKTPLNAME ) ); ?>
+
+                                            <?php gk_post_fields(); ?>
+                                            <?php gk_post_links(); ?>
+                                    </section>
+                                    <?php endif; ?>
+
+                                    <?php get_template_part( 'layouts/content.post.footer' ); ?>
+                            </article>
+                        
+                    <?php } ?>
+                
+                <?php endwhile; endif; wp_reset_query(); ?>
+            </div>
+    		
+        </section>
+        
+        <div class="clear"></div>
+        
+    <?php }
+
+     function reception_day(){
+         
+         if($_POST['day']){
+             
+             $id = $_POST['id'];
+             
+             $posts = get_posts( array(
+                    'author'      => $id,
+                    'orderby'     => 'date',
+                    'category'    => 152
+            ));
+             
+            $day = $_POST['day']." ".$_POST['monthyear'];
+            $date = strtotime(date('Y-m-'.$_POST['day']));
+            $author_url = get_author_posts_url($id);
+            $user = get_userdata( $id );
+            $day_weekly = '';
+             
+            $html = "<div class='wrap-name'>Приемный день $day</div>";
+            if(!empty($posts)){
+                       
+                foreach ($posts as $post){
+                    
+                    $status = get_post_meta( $post->ID, 'reception_status');
+                    $value = get_post_meta( $post->ID, 'reception_value');
+                    $city = get_post_meta( $post->ID, 'reception_city');
+                    $excerpt = mb_substr($post->post_content, 0, 111);
+                    
+                    if($status[0] == 'date'){
+                        
+                        if($value[0] == $day){                       
+
+                            $html .= "<article><h4><a href='$post->guid'>$post->post_title</a></h4>"
+                                . "<span class='seminar-date'>
+                                    <a class='url fn n' href='$author_url'>$user->display_name</a> 
+                                    <span>|</span>
+                                     $day 
+                                    <span>|</span>
+                                     $city[0]
+                                    </span>"
+                                . "<section class='summary'>$excerpt
+                                </section><a href='$post->guid' class='readon' id='subscribe-seminar' style='float:right;margin: 10px 20px;'>Запись на прием</a>"
+                                . "</article>";
+                            
+                        } 
+                        
+                    } elseif($status[0] == 'monthly'){
+                        
+                        if($value[0] < date('Y-m-d')){
+                            $data = date_modify(strtotime($value[0]), '+1 months');
+                            $data_update = date('Y-m-d', $data);
+                            $data = rdate('d M, Y', $data);
+                            update_post_meta($post->ID, 'reception_value', $data_update);
+                        } else {
+                            $data = $value[0];
+                        }
+                        
+                        if($data == $day){                       
+
+                            $html .= "<article><h4><a href='$post->guid'>$post->post_title</a></h4>"
+                                . "<span class='seminar-date'>
+                                    <a class='url fn n' href='$author_url'>$user->display_name</a> 
+                                    <span>|</span>
+                                     $day 
+                                    <span>|</span>
+                                     $city[0]
+                                    </span>"
+                                . "<section class='summary'>$excerpt
+                                </section><a href='$post->guid' class='readon' id='subscribe-seminar' style='float:right;margin: 10px 20px;'>Запись на прием</a>"
+                                . "</article>";
+                            
+                        } 
+                        
+                    } elseif($status[0] == 'weekly'){
+                        
+                        $day_weekly = date('w', $date);
+                        
+                        if($day_weekly == $value[0]){
+                            
+                            $html .= "<article><h4><a href='$post->guid'>$post->post_title</a></h4>"
+                                . "<span class='seminar-date'>
+                                    <a class='url fn n' href='$author_url'>$user->display_name</a> 
+                                    <span>|</span>
+                                     $day 
+                                    <span>|</span>
+                                     $city[0]
+                                    </span>"
+                                . "<section class='summary'>$excerpt
+                                </section><a href='$post->guid' class='readon' id='subscribe-seminar' style='float:right;margin: 10px 20px;'>Запись на прием</a>"
+                                . "</article>";
+                            
+                        } 
+                        
+                    } elseif($status[0] == 'all_weekly'){
+                        
+                        $day_weekly = date('w', $date);
+                        
+                        if($day_weekly > 0 && $day_weekly < 6){
+                            
+                            $html .= "<article><h4><a href='$post->guid'>$post->post_title</a></h4>"
+                                . "<span class='seminar-date'>
+                                    <a class='url fn n' href='$author_url'>$user->display_name</a> 
+                                    <span>|</span>
+                                     $day 
+                                    <span>|</span>
+                                     $city[0]
+                                    </span>"
+                                . "<section class='summary'>$excerpt
+                                </section><a href='$post->guid' class='readon' id='subscribe-seminar' style='float:right;margin: 10px 20px;'>Запись на прием</a>"
+                                . "</article>";
+                            
+                        } 
+                        
+                    }
+
+                }
+            
+            } else {
+            
+            $html .= "<p>Приемные дни отсувствуют!</p>";
+            
+            }
+            
+            die($html);
+             
+         }
+         
+     }
+     
+    add_action( 'wp_ajax_reception_day', 'reception_day' );
+    add_action( 'wp_ajax_nopriv_reception_day', 'reception_day' );
+     
      function select_master(){
          global $wpdb;
          
@@ -515,5 +1625,7 @@ add_filter('login_redirect', 'users_redirect');
             
     }
 
+
+    add_action( 'wp_ajax_author_seminars', 'author_seminars' );
 
 /* DON'T DELETE THIS CLOSING TAG */ ?>
