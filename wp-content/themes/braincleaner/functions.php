@@ -39,6 +39,119 @@ add_filter('login_redirect', 'users_redirect');
 
 
 // Функционал добавления пользователей
+    function get_countrys(){
+        global $wpdb;
+        
+        $countrys = $wpdb->get_results("SELECT country FROM reestr_masters"); 
+        
+        foreach ($countrys as $contry){        
+            $countrys_array[] = $contry->country;        
+        }
+        
+        return $countrys_array;
+        
+    }
+
+    function get_states($country){
+        global $wpdb;
+        
+        
+        $states = $wpdb->get_results("SELECT state FROM reestr_masters WHERE country = '$country'"); 
+        
+        foreach ($states as $state){        
+            $states_array[] = $state->state;        
+        }
+        
+        return $states_array;
+        
+    }
+
+    function get_masters(){
+        global $wpdb;
+        
+        $masters = array();
+        
+        $countrys = $wpdb->get_results("SELECT DISTINCT country FROM reestr_masters"); 
+        
+        
+        foreach ($countrys as $country){
+            
+                $states = $wpdb->get_results("SELECT DISTINCT state FROM reestr_masters WHERE country = '$country->country'"); 
+
+                foreach ($states as $state){
+                    $masters[$country->country][$state->state][] = $wpdb->get_results("SELECT * FROM reestr_masters WHERE state = '$state->state'");
+                }
+               
+        }
+         
+        return $masters;
+        
+    }
+
+    function get_def(){
+        global $wpdb;
+        
+        $masters = array();
+        
+        $countrys = $wpdb->get_results("SELECT DISTINCT country FROM wp_def_masters"); 
+        
+        
+        foreach ($countrys as $country){
+            
+                $states = $wpdb->get_results("SELECT DISTINCT state FROM wp_def_masters WHERE country = '$country->country'"); 
+
+                foreach ($states as $state){
+                    $masters[$country->country][$state->state][] = $wpdb->get_results("SELECT * FROM wp_def_masters WHERE state = '$state->state'");
+                }
+               
+        }
+         
+        return $masters;
+        
+    }
+
+    add_filter('parse_query', 'PluginName_pokaz_1_usery' );
+     
+    function PluginName_pokaz_1_usery( $worpdress_query ) {
+      // Проверяем админ ли сейчас сидит. Если получаем утвердительное да, тогда корректируем системный запрос
+      // на целевой страничке.
+      if ( (!current_user_can('level_10')) and (strpos( $_SERVER[ 'REQUEST_URI' ], '/wp-admin/edit.php' ) == true) ) :
+        global $current_user;
+        $worpdress_query->set( 'author', $current_user->id );
+      endif;
+    }
+
+    function rdate($param, $time=0) {
+    	if(intval($time)==0)$time=time();
+    	$MonthNames=array("Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря");
+    	if(strpos($param,'M')===false) return date($param, $time);
+    		else return date(str_replace('M',$MonthNames[date('n',$time)-1],$param), $time);
+    }
+
+    function add_news(){
+        global $wpdb;
+        
+        $news = $wpdb->get_results("SELECT * FROM news");
+        
+        foreach ($news as $new){
+            
+            
+            if($new->master == 0){
+            
+                $my_post = array(
+                    'post_title' => $new->Title,
+                    'post_content' => $new->Body,
+                    'post_status' => 'publish',
+                    'post_author' => 1,
+                    'post_category' => array(149)
+                 );
+                
+                wp_insert_post( $my_post );
+            
+            }
+        }   
+        
+    }
     // let's start by enqueuing our styles correctly
     function wptutsplus_admin_styles() {
         
