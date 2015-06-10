@@ -710,6 +710,7 @@ add_filter('login_redirect', 'users_redirect');
         wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
         wp_enqueue_style( 'admin_style' );
         wp_enqueue_script('jquery-ui-datepicker'); 
+        wp_enqueue_script('admin-scripts', '/wp-content/themes/braincleaner/js/admin-scripts.js', array('jquery'));
     }
     add_action( 'admin_enqueue_scripts', 'wptutsplus_admin_styles' );
 
