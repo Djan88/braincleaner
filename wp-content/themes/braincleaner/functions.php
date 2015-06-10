@@ -708,9 +708,7 @@ add_filter('login_redirect', 'users_redirect');
     function wptutsplus_admin_styles() {
         
         wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
-        wp_register_style( 'admin_style', gavern_file_uri('css/back-end/admin-style.css') );
         wp_enqueue_style( 'admin_style' );
-        wp_enqueue_script('admin-scripts', gavern_file_uri('js/admin-scripts.js'), array('jquery'));
         wp_enqueue_script('jquery-ui-datepicker'); 
     }
     add_action( 'admin_enqueue_scripts', 'wptutsplus_admin_styles' );
