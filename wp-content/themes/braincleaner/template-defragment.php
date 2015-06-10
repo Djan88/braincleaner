@@ -5,6 +5,7 @@ Template Name: Reestr defragment page
 */
 
 get_header(); 
+do_action( 'bp_before_directory_members_page' );
 include(TEMPLATEPATH . '/head-part.php'); ?>
 
 <div id="buddypress">
@@ -118,6 +119,8 @@ include(TEMPLATEPATH . '/head-part.php'); ?>
 	<?php do_action( 'bp_after_directory_members' ); ?>
 
 </div>
+
+<?php do_action( 'bp_after_directory_members_page' );
 
 <!-- #buddypress -->
       <div class="row footer-wrap">
