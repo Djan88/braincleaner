@@ -120,7 +120,7 @@ include(TEMPLATEPATH . '/head-part.php'); ?>
 
 </div>
 
-<?php do_action( 'bp_after_directory_members_page' );
+<?php do_action( 'bp_after_directory_members_page' );?>
 
 <!-- #buddypress -->
       <div class="row footer-wrap">
