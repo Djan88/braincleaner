@@ -207,7 +207,8 @@ jQuery(document).ready(function() {
                 });
             } else {
                 clearInterval(phases);
-                mySound.stop();
+                // mySound.stop();
+                ion.sound.stop("432");
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
                 jQuery('.popup-img-wrap').removeAttr('checked');
