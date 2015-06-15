@@ -1,4 +1,8 @@
-$(document).ready(function() {
+var mySound = new buzz.sound( "/sounds/432", {
+    formats: [ "ogg", "mp3" ],
+    preload: true
+});
+jQuery(document).ready(function() {
     jQuery('.panel-body').find('iframe').css('height', '400px');
     var wideoHeight = function(){
         var video_w = parseFloat(jQuery('.panel-body').find('iframe').css('width'));
@@ -30,7 +34,7 @@ $(document).ready(function() {
             }
         };
 
-    $(".animsition").animsition({
+    jQuery(".animsition").animsition({
 
         inClass               :   'fade-in',
         outClass              :   'fade-out',
@@ -161,10 +165,6 @@ $(document).ready(function() {
             }
         }, 4000);
     };
-    var mySound = new buzz.sound( "/sounds/432", {
-        formats: [ "ogg", "mp3" ],
-        preload: true
-    });
 
     seconds = function(){
         defCount=1;
