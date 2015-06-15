@@ -33,6 +33,7 @@ include(TEMPLATEPATH . '/head-part.php'); ?>
           
                     
                 <?php $masters_ar = get_subscriber_user_def(); ?>
+                <pre><?php print_r($masters_ar) ?></pre> 
 
         <?php foreach ($masters_ar as $country => $value){ ?>
 
