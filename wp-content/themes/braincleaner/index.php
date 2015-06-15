@@ -237,7 +237,7 @@
       <div class="row footer-wrap">
         <div class="container">
           <div class="pull-left">
-            <a href="/">Braincleaner</a> 2015
+            <a href="/">Braincleaner</a> 2015 v 1.1
           </div>
           <a class="logout" href="http://braincleaner.ru/wp-login.php?action=logout&_wpnonce=bc0c947e8d"><span class="glyphicon glyphicon-log-out"></span> Выход</a>
           <div class="pull-right">
