@@ -1,5 +1,15 @@
-var mySound = new buzz.sound( "/sounds/432", {
-    formats: [ "ogg", "mp3" ],
+// var mySound = new buzz.sound( "/sounds/432", {
+//     formats: [ "ogg", "mp3" ],
+//     preload: true
+// });
+ion.sound({
+    sounds: [
+        {
+            name: "432"
+        }
+    ],
+    volume: 0.5,
+    path: "/sounds/",
     preload: true
 });
 jQuery(document).ready(function() {
@@ -179,18 +189,21 @@ jQuery(document).ready(function() {
                     jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').removeClass('hidden');
                 });
             } else if(defCount > 1 && defCount <= 34) {
-                mySound.play();
+                // mySound.play();
+                ion.sound.play("432");
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap[data-defNum='+1+']').removeClass('hidden');
                 defCount += 1;
                 jQuery('.protocol_stop, .protocol_close').on('click', function() {
                     clearInterval(phases);
-                    mySound.stop();
+                    // mySound.stop();
+                    ion.sound.stop("432");
                     jQuery('.popup-img-wrap').addClass('hidden');
                     jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').removeClass('hidden');
                 });
                 jQuery('.btn-procedure').on('click', function(event) {
-                    mySound.stop();
+                    // mySound.stop();
+                    ion.sound.stop("432");
                 });
             } else {
                 clearInterval(phases);
