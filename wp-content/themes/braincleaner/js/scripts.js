@@ -161,9 +161,10 @@ $(document).ready(function() {
             }
         }, 4000);
     };
-    var mySound = new buzz.sound( "/sounds/432", {
-        formats: [ "ogg", "mp3" ]
-    });
+    var mySound = new buzz.sound([
+            "/sounds/432.ogg",
+            "/sounds/432.mp3"
+        ])
 
     seconds = function(){
         defCount=1;
