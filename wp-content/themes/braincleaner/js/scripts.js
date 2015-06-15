@@ -165,8 +165,6 @@ $(document).ready(function() {
         formats: [ "ogg", "mp3" ],
         preload: true
     });
-                mySound.play();
-    
 
     seconds = function(){
         defCount=1;
