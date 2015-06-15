@@ -161,10 +161,12 @@ $(document).ready(function() {
             }
         }, 4000);
     };
-    var mySound = new buzz.sound( "/sounds/tick", {
-        formats: [ "mp3" ],
+    var mySound = new buzz.sound( "/sounds/432", {
+        formats: [ "ogg", "mp3" ],
         preload: true
     });
+                mySound.play();
+    
 
     seconds = function(){
         defCount=1;
