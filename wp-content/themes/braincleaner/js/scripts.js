@@ -3,8 +3,8 @@
 //     preload: true
 // });
 
-window.addEventListener('touchstart', function() {
-
+window.addEventListener('click', function() {
+    var myContext = new webkitAudioContext();
     // create empty buffer
     var buffer = myContext.createBuffer(1, 1, 22050);
     var source = myContext.createBufferSource();
