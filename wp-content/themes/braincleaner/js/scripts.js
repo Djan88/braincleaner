@@ -31,16 +31,6 @@ jQuery(document).ready(function() {
     //     preload: true 
     // });
 
-    var sound = new Howl({
-      urls: ['/sounds/432.mp3', '/sounds/432.mp3', '/sounds/432.mp3'],
-      autoplay: false,
-      loop: true,
-      buffer: true,
-      volume: 0.5,
-      onend: function() {
-        console.log('Finished!');
-      }
-    });
 
     jQuery('.panel-body').find('iframe').css('height', '400px');
     var wideoHeight = function(){
@@ -300,6 +290,16 @@ jQuery(document).ready(function() {
             protocol();
         });
         jQuery('.protocol_33').on('click', function() {
+            var sound = new Howl({
+              urls: ['/sounds/432.mp3', '/sounds/432.mp3', '/sounds/432.mp3'],
+              autoplay: false,
+              loop: true,
+              buffer: true,
+              volume: 0.5,
+              onend: function() {
+                console.log('Finished!');
+              }
+            });
             seconds();
         });
     };
