@@ -83,7 +83,6 @@
                                 <button type="button" class="btn btn-default protocol_stop jp-stop">Стоп <span class="glyphicon glyphicon-minus-sign"></span></button>
                                 <?php if(get_field('terapy')) { ?><button type="button" class="btn btn-default protocol_terapy">Терапия <span class="glyphicon glyphicon-plus"></span></button><?php } ?>
                                 <?php if(get_field('33_sec')) { ?>
-                                  <div id="jquery_jplayer_1" class="jp-jplayer hidden"></div>
                                   <button type="button" class="btn btn-default protocol_33 jp-play">Старт <span class="glyphicon glyphicon-off"></span></button>
                                 <?php } else { ?>
                                   <button type="button" class="btn btn-default protocol_start">Старт <span class="glyphicon glyphicon-off"></span></button>
@@ -162,6 +161,7 @@
                                   <button type="button" class="btn btn-default protocol_close jp-stop"><span class="glyphicon glyphicon-arrow-left"></span> Назад</button>
                                   <button type="button" class="btn btn-default protocol_stop jp-stop">Стоп <span class="glyphicon glyphicon-minus-sign"></span></button>
                                   <?php if(get_field('33_sec')) { ?>
+                                    <div id="jquery_jplayer_1" class="jp-jplayer hidden"></div>
                                     <button type="button" class="btn btn-default protocol_33 jp-play">Старт <span class="glyphicon glyphicon-off"></span></button>
                                   <?php } else { ?>
                                     <button type="button" class="btn btn-default protocol_start">Старт <span class="glyphicon glyphicon-off"></span></button>
