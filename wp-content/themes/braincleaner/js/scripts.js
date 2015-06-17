@@ -3,29 +3,23 @@
 //     preload: true
 // });
 
-var isUnlocked = false;
-function unlock() {
-            
-    if(isIOS || this.unlocked)
-        return;
+window.addEventListener('click', function() {
 
-    // create empty buffer and play it
+    // create empty buffer
     var buffer = myContext.createBuffer(1, 1, 22050);
     var source = myContext.createBufferSource();
     source.buffer = buffer;
+
+    // connect to output (your speakers)
     source.connect(myContext.destination);
+
+    // play the file
     source.noteOn(0);
 
-    // by checking the play state after some time, we know if we're really unlocked
-    setTimeout(function() {
-        if((source.playbackState === source.PLAYING_STATE || source.playbackState === source.FINISHED_STATE)) {
-            isUnlocked = true;
-        }
-    }, 0);
-
-}
+}, false);
 
 jQuery(document).ready(function() {
+
     ion.sound({
         sounds: [
             {
