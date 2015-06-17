@@ -2,24 +2,17 @@
 //     formats: [ "ogg", "mp3" ],
 //     preload: true
 // });
-var context;
-if (typeof AudioContext !== "undefined") {
-    context = new AudioContext();
-} else if (typeof webkitAudioContext !== "undefined") {
-    context = new webkitAudioContext();
-} else {
-    throw new Error('AudioContext not supported. :(');
-}
-ion.sound({
-    sounds: [
-        {
-            name: "432"
-        }
-    ],
-    volume: 0.5,
-    path: "/sounds/",
-    preload: false
-});
+
+// ion.sound({
+//     sounds: [
+//         {
+//             name: "432"
+//         }
+//     ],
+//     volume: 0.5,
+//     path: "/sounds/",
+//     preload: false
+// });
 jQuery(document).ready(function() {
     jQuery('.panel-body').find('iframe').css('height', '400px');
     var wideoHeight = function(){
@@ -185,43 +178,58 @@ jQuery(document).ready(function() {
     };
 
     seconds = function(){
-        defCount=1;
-        phases = setInterval(function(){
-            if (defCount <= 1){
-                jQuery('.popup-img-wrap').addClass('hidden');
-                jQuery('.popup-img-wrap[data-defNum='+0+']').removeClass('hidden');
-                defCount += 1;
-                jQuery('.protocol_stop, .protocol_close').on('click', function() {
-                    clearInterval(phases);
+        soundManager.setup({
+          url: 'swf/',
+          onready: function() {
+            var mySound = soundManager.createSound({
+              id: '432',
+              url: '/sounds/432.mp3'
+            });
+            defCount=1;
+            phases = setInterval(function(){
+                if (defCount <= 1){
                     jQuery('.popup-img-wrap').addClass('hidden');
-                    jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').removeClass('hidden');
-                });
-            } else if(defCount > 1 && defCount <= 34) {
-                // mySound.play();
-                ion.sound.play("432");
-                jQuery('.popup-img-wrap').addClass('hidden');
-                jQuery('.popup-img-wrap[data-defNum='+1+']').removeClass('hidden');
-                defCount += 1;
-                jQuery('.protocol_stop, .protocol_close').on('click', function() {
-                    clearInterval(phases);
-                    // mySound.stop();
-                    ion.sound.stop("432");
+                    jQuery('.popup-img-wrap[data-defNum='+0+']').removeClass('hidden');
+                    defCount += 1;
+                    jQuery('.protocol_stop, .protocol_close').on('click', function() {
+                        clearInterval(phases);
+                        jQuery('.popup-img-wrap').addClass('hidden');
+                        jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').removeClass('hidden');
+                    });
+                } else if(defCount > 1 && defCount <= 34) {
+                    // mySound.play();
+                    mySound.play();
+                    ion.sound.play("432");
                     jQuery('.popup-img-wrap').addClass('hidden');
-                    jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').removeClass('hidden');
-                });
-                jQuery('.btn-procedure').on('click', function(event) {
+                    jQuery('.popup-img-wrap[data-defNum='+1+']').removeClass('hidden');
+                    defCount += 1;
+                    jQuery('.protocol_stop, .protocol_close').on('click', function() {
+                        clearInterval(phases);
+                        mySound.play();
+                        // mySound.stop();
+                        // ion.sound.stop("432");
+                        jQuery('.popup-img-wrap').addClass('hidden');
+                        jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').removeClass('hidden');
+                    });
+                    jQuery('.btn-procedure').on('click', function(event) {
+                        mySound.play();
+                        // mySound.stop();
+                        // ion.sound.stop("432");
+                    });
+                } else {
+                    clearInterval(phases);
+                    mySound.play();
                     // mySound.stop();
-                    ion.sound.stop("432");
-                });
-            } else {
-                clearInterval(phases);
-                // mySound.stop();
-                ion.sound.stop("432");
-                jQuery('.popup-img-wrap').addClass('hidden');
-                jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
-                jQuery('.popup-img-wrap').removeAttr('checked');
-            }
-        }, 1000);
+                    // ion.sound.stop("432");
+                    jQuery('.popup-img-wrap').addClass('hidden');
+                    jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
+                    jQuery('.popup-img-wrap').removeAttr('checked');
+                }
+            }, 1000);
+
+
+          }
+        });
     };
 
     jQuery('.protocol_terapy').on('click', function(event) {
