@@ -21,7 +21,7 @@
     <!-- custom files -->
     <script src="<?php bloginfo('template_url'); ?>/js/buzz.min.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/ion.sound.min.js"></script>
-    <script src="<?php bloginfo('template_url'); ?>/js/soundmanager2.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/jquery.jplayer.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/scripts.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
