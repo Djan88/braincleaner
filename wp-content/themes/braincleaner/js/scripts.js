@@ -18,7 +18,7 @@ ion.sound({
     ],
     volume: 0.5,
     path: "/sounds/",
-    preload: true
+    preload: false
 });
 jQuery(document).ready(function() {
     jQuery('.panel-body').find('iframe').css('height', '400px');
