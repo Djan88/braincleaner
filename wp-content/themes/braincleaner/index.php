@@ -86,7 +86,7 @@
                                   <div id="jquery_jplayer_1" class="jp-jplayer hidden"></div>
                                   <button type="button" class="btn btn-default protocol_33 jp-play">Старт <span class="glyphicon glyphicon-off"></span></button>
                                 <?php } else { ?>
-                                  <button type="button" class="btn btn-default protocol_start">Старт <span class="glyphicon glyphicon-off"></span></button>
+                                  <button type="button" class="btn btn-default protocol_start jp-play">Старт <span class="glyphicon glyphicon-off"></span></button>
                                 <?php } ?>
                               </div>
                               <div class="btn-group btn-manualic hidden" style="width: 350px;<?php if(get_field('terapy')) { ?>width: 450px;<?php } ?> margin: auto; display: block;">
