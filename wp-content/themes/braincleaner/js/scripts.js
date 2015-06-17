@@ -6,10 +6,10 @@
 jQuery(document).ready(function() {
     window.addEventListener('touchstart', function() {
 
-        // create new buffer source for playback with an already
-        // loaded and decoded empty sound file
+        // create empty buffer
+        var buffer = myContext.createBuffer(1, 1, 22050);
         var source = myContext.createBufferSource();
-        source.buffer = myDecodedBuffer;
+        source.buffer = buffer;
 
         // connect to output (your speakers)
         source.connect(myContext.destination);
