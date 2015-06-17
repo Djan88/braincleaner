@@ -35,7 +35,7 @@ jQuery(document).ready(function() {
       urls: ['/sounds/432.mp3', '/sounds/432.mp3', '/sounds/432.mp3'],
       autoplay: false,
       loop: false,
-      buffer: true
+      buffer: true,
       volume: 0.5,
       onend: function() {
         console.log('Finished!');
