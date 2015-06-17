@@ -2,17 +2,34 @@
 //     formats: [ "ogg", "mp3" ],
 //     preload: true
 // });
-ion.sound({
-    sounds: [
-        {
-            name: "432"
-        }
-    ],
-    volume: 1,
-    path: "/sounds/",
-    preload: true 
-});
+
 jQuery(document).ready(function() {
+    window.addEventListener('touchstart', function() {
+
+        // create new buffer source for playback with an already
+        // loaded and decoded empty sound file
+        var source = myContext.createBufferSource();
+        source.buffer = myDecodedBuffer;
+
+        // connect to output (your speakers)
+        source.connect(myContext.destination);
+
+        // play the file
+        source.noteOn(0);
+
+    }, false);
+
+    ion.sound({
+        sounds: [
+            {
+                name: "432"
+            }
+        ],
+        volume: 1,
+        path: "/sounds/",
+        preload: true 
+    });
+    
     jQuery('.panel-body').find('iframe').css('height', '400px');
     var wideoHeight = function(){
         var video_w = parseFloat(jQuery('.panel-body').find('iframe').css('width'));
