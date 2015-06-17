@@ -8,9 +8,9 @@ ion.sound({
             name: "432"
         }
     ],
-    volume: 0.5,
+    volume: 1,
     path: "/sounds/",
-    preload: false
+    preload: true 
 });
 jQuery(document).ready(function() {
     jQuery('.panel-body').find('iframe').css('height', '400px');
