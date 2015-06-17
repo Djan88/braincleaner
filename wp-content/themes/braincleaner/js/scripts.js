@@ -2,38 +2,17 @@
 //     formats: [ "ogg", "mp3" ],
 //     preload: true
 // });
-
-// ion.sound({
-//     sounds: [
-//         {
-//             name: "432"
-//         }
-//     ],
-//     volume: 0.5,
-//     path: "/sounds/",
-//     preload: false
-// });
+ion.sound({
+    sounds: [
+        {
+            name: "432"
+        }
+    ],
+    volume: 0.5,
+    path: "/sounds/",
+    preload: false
+});
 jQuery(document).ready(function() {
-
-    jQuery("#jquery_jplayer_1").jPlayer({
-        ready: function(event) {
-            jQuery(this).jPlayer("setMedia", {
-                title: "Bubble",
-                m4a: "http://jplayer.org/audio/mp3/Miaow-07-Bubble.mp3",
-                oga: "http://jplayer.org/audio/ogg/Miaow-07-Bubble.ogg"
-            });
-        },
-        swfPath: "http://jplayer.org/latest/dist/jplayer",
-        supplied: "mp3, oga",
-        wmode: "window",
-        useStateClassSkin: true,
-        autoBlur: false,
-        smoothPlayBar: true,
-        keyEnabled: true,
-        remainingDuration: true,
-        toggleDuration: true
-    });
-
     jQuery('.panel-body').find('iframe').css('height', '400px');
     var wideoHeight = function(){
         var video_w = parseFloat(jQuery('.panel-body').find('iframe').css('width'));
@@ -211,25 +190,25 @@ jQuery(document).ready(function() {
                 });
             } else if(defCount > 1 && defCount <= 34) {
                 // mySound.play();
-                // ion.sound.play("432");
+                ion.sound.play("432");
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap[data-defNum='+1+']').removeClass('hidden');
                 defCount += 1;
                 jQuery('.protocol_stop, .protocol_close').on('click', function() {
                     clearInterval(phases);
                     // mySound.stop();
-                    // ion.sound.stop("432");
+                    ion.sound.stop("432");
                     jQuery('.popup-img-wrap').addClass('hidden');
                     jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').removeClass('hidden');
                 });
                 jQuery('.btn-procedure').on('click', function(event) {
                     // mySound.stop();
-                    // ion.sound.stop("432");
+                    ion.sound.stop("432");
                 });
             } else {
                 clearInterval(phases);
                 // mySound.stop();
-                // ion.sound.stop("432");
+                ion.sound.stop("432");
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
                 jQuery('.popup-img-wrap').removeAttr('checked');
