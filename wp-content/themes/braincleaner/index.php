@@ -86,7 +86,7 @@
                                   <div id="jquery_jplayer_1" class="jp-jplayer hidden"></div>
                                   <button type="button" class="btn btn-default protocol_33 jp-play">Старт <span class="glyphicon glyphicon-off"></span></button>
                                 <?php } else { ?>
-                                  <button type="button" class="btn btn-default protocol_start jp-play">Старт <span class="glyphicon glyphicon-off"></span></button>
+                                  <button type="button" class="btn btn-default protocol_start">Старт <span class="glyphicon glyphicon-off"></span></button>
                                 <?php } ?>
                               </div>
                               <div class="btn-group btn-manualic hidden" style="width: 350px;<?php if(get_field('terapy')) { ?>width: 450px;<?php } ?> margin: auto; display: block;">
@@ -159,10 +159,10 @@
                               </div>
                               <div class="row" style="padding-top: 5px;">
                                 <div class="btn-group btn-automatic" style="width: 245px; margin: auto; display: block;">
-                                  <button type="button" class="btn btn-default protocol_close"><span class="glyphicon glyphicon-arrow-left"></span> Назад</button>
-                                  <button type="button" class="btn btn-default protocol_stop">Стоп <span class="glyphicon glyphicon-minus-sign"></span></button>
+                                  <button type="button" class="btn btn-default protocol_close jp-stop"><span class="glyphicon glyphicon-arrow-left"></span> Назад</button>
+                                  <button type="button" class="btn btn-default protocol_stop jp-stop">Стоп <span class="glyphicon glyphicon-minus-sign"></span></button>
                                   <?php if(get_field('33_sec')) { ?>
-                                    <button type="button" class="btn btn-default protocol_33">Старт <span class="glyphicon glyphicon-off"></span></button>
+                                    <button type="button" class="btn btn-default protocol_33 jp-play">Старт <span class="glyphicon glyphicon-off"></span></button>
                                   <?php } else { ?>
                                     <button type="button" class="btn btn-default protocol_start">Старт <span class="glyphicon glyphicon-off"></span></button>
                                   <?php } ?>
