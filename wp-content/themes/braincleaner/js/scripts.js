@@ -3,7 +3,7 @@
 //     preload: true
 // });
 
-window.addEventListener('click', function() {
+window.addEventListener('touchstart', function() {
 
     // create empty buffer
     var buffer = myContext.createBuffer(1, 1, 22050);
