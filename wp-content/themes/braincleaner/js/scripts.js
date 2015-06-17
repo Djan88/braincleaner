@@ -3,32 +3,43 @@
 //     preload: true
 // });
 
-window.addEventListener('click', function() {
-    var myContext = new webkitAudioContext();
-    // create empty buffer
-    var buffer = myContext.createBuffer(1, 1, 22050);
-    var source = myContext.createBufferSource();
-    source.buffer = buffer;
+// window.addEventListener('click', function() {
+//     var myContext = new webkitAudioContext();
+//     // create empty buffer
+//     var buffer = myContext.createBuffer(1, 1, 22050);
+//     var source = myContext.createBufferSource();
+//     source.buffer = buffer;
 
-    // connect to output (your speakers)
-    source.connect(myContext.destination);
+//     // connect to output (your speakers)
+//     source.connect(myContext.destination);
 
-    // play the file
-    source.noteOn(0);
+//     // play the file
+//     source.noteOn(0);
 
-}, false);
+// }, false);
 
 jQuery(document).ready(function() {
 
-    ion.sound({
-        sounds: [
-            {
-                name: "432"
-            }
-        ],
-        volume: 1,
-        path: "/sounds/",
-        preload: true 
+    // ion.sound({
+    //     sounds: [
+    //         {
+    //             name: "432"
+    //         }
+    //     ],
+    //     volume: 1,
+    //     path: "/sounds/",
+    //     preload: true 
+    // });
+
+    var sound = new Howl({
+      urls: ['/sounds/432.mp3', '/sounds/432.mp3', '/sounds/432.mp3'],
+      autoplay: false,
+      loop: false,
+      buffer: true
+      volume: 0.5,
+      onend: function() {
+        console.log('Finished!');
+      }
     });
 
     jQuery('.panel-body').find('iframe').css('height', '400px');
@@ -208,25 +219,29 @@ jQuery(document).ready(function() {
                 });
             } else if(defCount > 1 && defCount <= 34) {
                 // mySound.play();
-                ion.sound.play("432");
+                // ion.sound.play("432");
+                sound.play();
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap[data-defNum='+1+']').removeClass('hidden');
                 defCount += 1;
                 jQuery('.protocol_stop, .protocol_close').on('click', function() {
                     clearInterval(phases);
                     // mySound.stop();
-                    ion.sound.stop("432");
+                    // ion.sound.stop("432");
+                    sound.stop();
                     jQuery('.popup-img-wrap').addClass('hidden');
                     jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').removeClass('hidden');
                 });
                 jQuery('.btn-procedure').on('click', function(event) {
                     // mySound.stop();
-                    ion.sound.stop("432");
+                    // ion.sound.stop("432");
+                    sound.stop();
                 });
             } else {
                 clearInterval(phases);
                 // mySound.stop();
-                ion.sound.stop("432");
+                // ion.sound.stop("432");
+                sound.stop();
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
                 jQuery('.popup-img-wrap').removeAttr('checked');
