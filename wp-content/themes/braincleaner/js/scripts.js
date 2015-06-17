@@ -199,26 +199,26 @@ jQuery(document).ready(function() {
                 } else if(defCount > 1 && defCount <= 34) {
                     // mySound.play();
                     mySound.play();
-                    ion.sound.play("432");
+                    // ion.sound.play("432");
                     jQuery('.popup-img-wrap').addClass('hidden');
                     jQuery('.popup-img-wrap[data-defNum='+1+']').removeClass('hidden');
                     defCount += 1;
                     jQuery('.protocol_stop, .protocol_close').on('click', function() {
                         clearInterval(phases);
-                        mySound.play();
+                        mySound.stop();
                         // mySound.stop();
                         // ion.sound.stop("432");
                         jQuery('.popup-img-wrap').addClass('hidden');
                         jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').removeClass('hidden');
                     });
                     jQuery('.btn-procedure').on('click', function(event) {
-                        mySound.play();
+                        mySound.stop();
                         // mySound.stop();
                         // ion.sound.stop("432");
                     });
                 } else {
                     clearInterval(phases);
-                    mySound.play();
+                    mySound.stop();
                     // mySound.stop();
                     // ion.sound.stop("432");
                     jQuery('.popup-img-wrap').addClass('hidden');
