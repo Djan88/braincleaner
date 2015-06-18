@@ -52,6 +52,7 @@ jQuery(document).ready(function() {
         counter,
         nextImg,
         prevImg,
+        state =0,
         protocol,
         img_num = jQuery('.popup-img-wrap').size(),
         menu = jQuery('.controls').find('.btn-group'),
@@ -257,11 +258,6 @@ jQuery(document).ready(function() {
               buffer: true,
               onend: function() {
                 console.log('Finished!');
-              },
-              onplay: function() {
-                sound.play(){
-                    return false;
-                }
               }
             });
             defCount=1;
@@ -278,7 +274,10 @@ jQuery(document).ready(function() {
                 } else if(defCount > 1 && defCount <= 34) {
                     // mySound.play();
                     // ion.sound.play("432");
-                    sound.play();
+                    if(state == 0){
+                        sound.play();
+                    }
+                    state = 1;
                     jQuery('.popup-img-wrap').addClass('hidden');
                     jQuery('.popup-img-wrap[data-defNum='+1+']').removeClass('hidden');
                     defCount += 1;
@@ -287,6 +286,7 @@ jQuery(document).ready(function() {
                         // mySound.stop();
                         // ion.sound.stop("432");
                         sound.stop();
+                        state = 0;
                         jQuery('.popup-img-wrap').addClass('hidden');
                         jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').removeClass('hidden');
                     });
@@ -294,12 +294,14 @@ jQuery(document).ready(function() {
                         // mySound.stop();
                         // ion.sound.stop("432");
                         sound.stop();
+                        state = 0;
                     });
                 } else {
                     clearInterval(phases);
                     // mySound.stop();
                     // ion.sound.stop("432");
                     sound.stop();
+                    state = 0;
                     jQuery('.protocol_stop').click();
                     jQuery('.popup-img-wrap').addClass('hidden');
                     jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
