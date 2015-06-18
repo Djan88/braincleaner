@@ -251,7 +251,7 @@ jQuery(document).ready(function() {
         });
         jQuery('.protocol_33').on('click', function() {
             var sound = new Howl({
-              urls: ['/sounds/432.mp3', '/sounds/432.mp3', '/sounds/432.mp3'],
+              urls: ['/sounds/432.ogg', '/sounds/432.aac', '/sounds/432.mp3'],
               autoplay: false,
               loop: false,
               buffer: true,
