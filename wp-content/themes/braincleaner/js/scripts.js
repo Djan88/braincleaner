@@ -257,6 +257,11 @@ jQuery(document).ready(function() {
               buffer: true,
               onend: function() {
                 console.log('Finished!');
+              },
+              onplay: function() {
+                sound.play(){
+                    return false;
+                }
               }
             });
             defCount=1;
