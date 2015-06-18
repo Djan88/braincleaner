@@ -296,7 +296,7 @@ jQuery(document).ready(function() {
                     // mySound.stop();
                     // ion.sound.stop("432");
                     sound.stop();
-                    jQuery('.btn-procedure').click();
+                    jQuery('.protocol_close').click();
                     jQuery('.popup-img-wrap').addClass('hidden');
                     jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
                     jQuery('.popup-img-wrap').removeAttr('checked');
