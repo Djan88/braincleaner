@@ -255,7 +255,6 @@ jQuery(document).ready(function() {
               autoplay: false,
               loop: false,
               buffer: true,
-              volume: 0.5,
               onend: function() {
                 console.log('Finished!');
               }
