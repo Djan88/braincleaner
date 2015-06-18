@@ -253,7 +253,7 @@ jQuery(document).ready(function() {
             var sound = new Howl({
               urls: ['/sounds/432.mp3', '/sounds/432.mp3', '/sounds/432.mp3'],
               autoplay: false,
-              loop: true,
+              loop: false,
               buffer: true,
               volume: 0.5,
               onend: function() {
