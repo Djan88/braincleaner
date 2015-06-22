@@ -2172,6 +2172,35 @@ add_filter('login_redirect', 'users_redirect');
         
     }
 
+
+    function get_def_masters(){
+        global $wpdb;
+
+        $masters = array();
+        $results = $wpdb->get_results('SELECT * FROM `wp_def_masters`');
+
+        foreach ($results as $master){
+            $masters[$master->country][$master->state][] = array(
+                'name'          => $master->name,
+                'link'          => $master->link,
+                'vk'            => $master->vkontakte,
+                'f'             => $master->facebook,
+//                'youtube'       => $master->youtube,
+                'email'         => $master->email,
+                'phone'         => $master->phone,
+                'description'   => $master->info,
+                'skype'         => $master->skype,
+                'www'           => $master->www,
+                'city'          => $master->state,
+                'country'       => $master->country
+            );
+        }
+
+        return $masters;
+    }
+
+
+
     function get_subscriber_user_def(){
         global $bp;
         

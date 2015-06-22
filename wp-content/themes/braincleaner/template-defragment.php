@@ -32,8 +32,7 @@ include(TEMPLATEPATH . '/head-part.php'); ?>
                     <?php do_action( 'bp_before_directory_members_list' ); ?>
           
                     
-                <?php $masters_ar = get_subscriber_user_def(); ?>
-
+                <?php $masters_ar = get_def_masters(); ?>
         <?php foreach ($masters_ar as $country => $value){ ?>
 
         <h2><?php echo $country; ?></h2>    
