@@ -61,7 +61,14 @@
                               <!-- <button type="button" class="btn btn-default">Левая</button> -->
                               <!-- <button type="button" class="btn btn-default">Центр</button> -->
                               <button type="button" class="btn btn-default protocol_close">Завершить <span class="glyphicon glyphicon-remove-circle"></span></button>
-                              <button type="button" class="btn btn-default protocol_test">Проверить <span class="glyphicon glyphicon-remove-circle"></span></button>
+                              <!-- <button type="button" class="btn btn-default protocol_test">Проверить <span class="glyphicon glyphicon-remove-circle"></span></button> -->
+                              <button type="button" class="btn btn-default protocol_stop jp-stop">Стоп <span class="glyphicon glyphicon-minus-sign"></span></button>
+                              <?php if(get_field('terapy')) { ?><button type="button" class="btn btn-default protocol_terapy">Терапия <span class="glyphicon glyphicon-plus"></span></button><?php } ?>
+                              <?php if(get_field('33_sec')) { ?>
+                                <button type="button" class="btn btn-default protocol_33 jp-play">Старт <span class="glyphicon glyphicon-off"></span></button>
+                              <?php } else { ?>
+                                <button type="button" class="btn btn-default protocol_start">Старт <span class="glyphicon glyphicon-off"></span></button>
+                              <?php } ?>
                             </div>
                             <button type="button" class="btn btn-default menu-toggle"><span class="glyphicon glyphicon-align-justify"></span></button>
                           </div>
