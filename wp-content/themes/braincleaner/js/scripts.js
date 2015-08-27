@@ -179,7 +179,7 @@ jQuery(document).ready(function() {
                 defCount += 1;
                 if(jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').data('formula')&&(!jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked'))){
                     jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked', 'true');;
-                    defCount -= 1;
+                    defCount -= 7;
                     console.log('test'+defCount);
                 }
                 jQuery('.protocol_stop, .protocol_close').on('click', function() {
