@@ -180,7 +180,7 @@ jQuery(document).ready(function() {
                 jQuery('.popup-img-wrap[data-defNum='+defCount+']').removeClass('hidden');
                 defCount += 1;
                 if(jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').data('formula')&&(!jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked'))){
-                    if (defStatus <= 5){
+                    if (defStatus <= 6){
                         defCount -= 1;
                         defStatus += 1;
                         console.log('test'+defCount);
