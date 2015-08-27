@@ -180,6 +180,7 @@ body
     padding-top: 55px;
     /*max-height: 100vh;*/
     overflow: scroll;
+    max-height: 4740px;
 }
 .date-block
 {
