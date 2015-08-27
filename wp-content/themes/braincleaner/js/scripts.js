@@ -179,13 +179,15 @@ jQuery(document).ready(function() {
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap[data-defNum='+defCount+']').removeClass('hidden');
                 defCount += 1;
-                if(jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').data('formula')&&(!jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked'))&&defStatus<=7){
-                    jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked', 'true');
-                    defCount -= 1;
-                    defStatus += 1
-                    console.log('test'+defCount);
-                } else {
-                    defStatus=0;
+                if(jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').data('formula')&&(!jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked'))){
+                    if (defStatus <= 7){
+                        defCount -= 1;
+                        defStatus += 1;
+                        console.log('test'+defCount);
+                    } else {
+                        jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked', 'true');
+                        defStatus=0;
+                    }                    
                 }
                 jQuery('.protocol_stop, .protocol_close').on('click', function() {
                     clearInterval(phases);
