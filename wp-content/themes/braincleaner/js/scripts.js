@@ -46,6 +46,7 @@ jQuery(document).ready(function() {
     var curStatus = 'auto',
         phase,
         defCount = 1,
+        defStatus,
         count,
         phases,
         seconds,
@@ -172,15 +173,19 @@ jQuery(document).ready(function() {
     });
     protocol = function(){
         defCount=1;
+        defStatus=0;
         phases = setInterval(function(){
             if (defCount <= img_num-1){
                 jQuery('.popup-img-wrap').addClass('hidden');
                 jQuery('.popup-img-wrap[data-defNum='+defCount+']').removeClass('hidden');
                 defCount += 1;
-                if(jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').data('formula')&&(!jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked'))){
-                    jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked', 'true');;
-                    defCount -= 7;
+                if(jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').data('formula')&&(!jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked'))&&defStatus<=7){
+                    jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked', 'true');
+                    defCount -= 1;
+                    defStatus += 1
                     console.log('test'+defCount);
+                } else {
+                    defStatus=0;
                 }
                 jQuery('.protocol_stop, .protocol_close').on('click', function() {
                     clearInterval(phases);
