@@ -14,6 +14,8 @@
           <div class="col-md-8">
           <?php if(is_archive()) { ?>
             <?php include(TEMPLATEPATH . '/arch.php'); ?>
+          <?php } else if (is_page(617)) { ?>
+            <div class="test">olololo</div>
           <?php } else { ?>
             <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
               <?php if(is_single() || is_page()) { ?>
