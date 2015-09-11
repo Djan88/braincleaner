@@ -418,3 +418,21 @@ iframe
   width: 100%;
   padding-bottom: 10px;
 }
+.faces
+{
+  position: relative;
+}
+.ring
+{
+  -webkit-transition: transform 1s linear;
+  -moz-transition: transform 1s linear;
+  transition: transform 1s linear;
+  width: 600px;
+  height: 600px;
+  border: 2px dashed crimson;
+  border-radius: 50%;
+  position: absolute;
+  margin: 150px auto;
+  right: 10px;
+  }
+}
