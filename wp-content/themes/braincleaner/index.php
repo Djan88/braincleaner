@@ -14,8 +14,6 @@
           <div class="col-md-8">
           <?php if(is_archive()) { ?>
             <?php include(TEMPLATEPATH . '/arch.php'); ?>
-          <?php } else if (is_page(617)) { ?>
-            <div class="test">olololo</div>
           <?php } else { ?>
             <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
               <?php if(is_single() || is_page()) { ?>
@@ -25,6 +23,9 @@
               <?php } ?>
               <div class="content-wrap">
                 <div class="panel panel-default main_heading">
+                  <?php if (is_page(617)) { ?>
+                    <div class="test">olololo</div>
+                  <?php } else { ?>
                   <div class="panel-body">
                   <?php if(in_category(3)) { ?>
                     <?php if ( is_user_logged_in() ) { ?>
@@ -249,6 +250,7 @@
             <?php posts_nav_link(' &#8212; ', __('&laquo; Более новые '), __('Более старые &raquo;')); ?>
           <?php } ?>
           </div>
+          <?php } ?>
           <?php include(TEMPLATEPATH . '/sidebar.php'); ?>
         </div>
       </div>
