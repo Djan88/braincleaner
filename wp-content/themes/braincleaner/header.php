@@ -26,6 +26,7 @@
     <script src="<?php bloginfo('template_url'); ?>/js/jquery-ui.min.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/jq.touch.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/jcron.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/exif.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/scripts.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

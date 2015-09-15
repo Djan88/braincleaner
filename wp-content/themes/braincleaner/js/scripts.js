@@ -485,7 +485,6 @@ jQuery(document).ready(function() {
             oReader.readAsDataURL(oFile);
         }
         jQuery('#image_file').on('change', fileSelectHandler);
-        var a = new Vivus('example', {type: 'delayed', duration: 400});
         setTimeout(jQuery(".paranja").animate({
             opacity: 0,
             zIndex: -1
