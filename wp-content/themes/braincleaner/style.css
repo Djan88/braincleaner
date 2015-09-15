@@ -465,3 +465,10 @@ iframe
   left: 54%;
   top: 935px;
 }
+.jcrop-handle.ord-nw
+{
+    left: 0;
+    margin-left: -4px;
+    margin-top: -4px;
+    top: 0;
+}
