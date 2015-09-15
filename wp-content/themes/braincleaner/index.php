@@ -257,7 +257,9 @@
             <?php posts_nav_link(' &#8212; ', __('&laquo; Более новые '), __('Более старые &raquo;')); ?>
           <?php } ?>
           </div>
-          <?php include(TEMPLATEPATH . '/sidebar.php'); ?>
+          <?php if (!is_page(617)) { ?>
+            <?php include(TEMPLATEPATH . '/sidebar.php'); ?>
+          <?php } ?>
         </div>
       </div>
       <div class="row footer-wrap">

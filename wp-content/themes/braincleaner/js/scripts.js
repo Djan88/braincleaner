@@ -322,4 +322,8 @@ jQuery(document).ready(function() {
         snap: false
     });
 
+    jQuery( ".ring" ).resizable({
+      aspectRatio: 1/ 1
+    });
+
 });
