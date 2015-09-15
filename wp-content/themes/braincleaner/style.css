@@ -472,8 +472,4 @@ iframe
     margin-top: -4px;
     top: 0;
 }
-.jcrop-holder, .jcrop-holder img
-{
-    width: 100%!important;
-    height: auto!important;
-}
+
