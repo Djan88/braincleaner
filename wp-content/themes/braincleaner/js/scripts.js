@@ -318,4 +318,8 @@ jQuery(document).ready(function() {
         });
     };
 
+    jQuery( ".ring" ).draggable({ 
+        snap: false
+    });
+
 });
