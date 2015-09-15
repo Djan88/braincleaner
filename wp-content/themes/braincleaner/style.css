@@ -472,11 +472,11 @@ iframe
     margin-top: -4px;
     top: 0;
 }
-/*.jcrop-holder, .jcrop-holder img
+.jcrop-holder, .jcrop-holder img
 {
     width: 1110px!important;
     height: auto!important;
-}*/
+}
 .jcrop-tracker 
 {
     position: relative!important;
