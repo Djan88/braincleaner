@@ -11,7 +11,11 @@
       <?php include(TEMPLATEPATH . '/head-part.php'); ?>
       <div class="row">
         <div class="container main-zone">
-          <div class="col-md-8">
+          <?php if (is_page(617)) { ?>
+            <div class="col-md-12" style="min-height: 1500px;">
+          <?php } else { ?>
+            <div class="col-md-8">
+          <?php } ?>
           <?php if(is_archive()) { ?>
             <?php include(TEMPLATEPATH . '/arch.php'); ?>
           <?php } else { ?>
