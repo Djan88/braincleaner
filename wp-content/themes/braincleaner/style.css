@@ -433,7 +433,8 @@ iframe
   border-radius: 50%;
   position: absolute;
   margin: 150px auto;
-  right: 10px;
+  left: 130px;
+  top: 90px;
 }
 .sq 
 {
