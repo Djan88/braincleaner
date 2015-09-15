@@ -259,8 +259,6 @@
           </div>
           <?php if (!is_page(617)) { ?>
             <?php include(TEMPLATEPATH . '/sidebar.php'); ?>
-          <?php } else { ?>
-            </div>
           <?php } ?>
         </div>
       </div>
