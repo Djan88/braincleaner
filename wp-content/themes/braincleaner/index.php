@@ -28,13 +28,7 @@
               <div class="content-wrap">
                 <div class="panel panel-default main_heading">
                   <?php if (is_page(617)) { ?>
-                    <div class="faces">
-                      <div class="ring"><div class="ring-formula"></div></div>
-                      <div class="sq sq1"></div>
-                      <div class="sq sq2"></div>
-                      <div class="sq sq3"></div>
-                      <div class="sq sq4"></div>
-                    </div>
+                    <?php include(TEMPLATEPATH . '/617.php'); ?>
                   <?php } else { ?>
                     <div class="panel-body">
                     <?php if(in_category(3)) { ?>
