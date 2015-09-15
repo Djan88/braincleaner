@@ -477,3 +477,7 @@ iframe
     width: 1110px!important;
     height: auto!important;
 }
+.jcrop-tracker 
+{
+    position: relative!important;
+}
