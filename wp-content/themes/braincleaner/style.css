@@ -467,20 +467,25 @@ iframe
 }
 .jcrop-handle.ord-nw
 {
-    left: 0;
-    margin-left: -4px;
-    margin-top: -4px;
-    top: 0;
+  left: 0;
+  margin-left: -4px;
+  margin-top: -4px;
+  top: 0;
 }
 .jcrop-tracker 
 {
-    position: relative!important;
+  position: relative!important;
 }
 .step2 img
 {
   max-width: 800px;
 }
-#preview
+#preview, .info
 {
   display: none;
+}
+.jcrop-holder
+{
+  margin: auto;
+  margin-bottom: 15px;
 }
