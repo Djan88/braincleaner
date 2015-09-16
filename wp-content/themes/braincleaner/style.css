@@ -480,3 +480,7 @@ iframe
 {
   max-width: 800px;
 }
+#preview
+{
+  display: none;
+}
