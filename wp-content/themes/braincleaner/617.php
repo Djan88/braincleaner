@@ -2,7 +2,7 @@
 	<?php
 	    if($_POST['mci_magic']){
 	        $sImage = uploadImageFile();
-	        echo '<img class="inside_img" src="'.$sImage.'" />';
+	        echo '<img src="'.$sImage.'" />';
 	    }
 	?>
 	<div class="screen screen-1">

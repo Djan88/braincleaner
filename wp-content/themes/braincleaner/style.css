@@ -476,3 +476,7 @@ iframe
 {
     position: relative!important;
 }
+.step2 img
+{
+  max-width: 800px;
+}
