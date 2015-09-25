@@ -502,3 +502,7 @@ iframe
 {
   text-align: center;
 }
+.step2, .error
+{
+  display: none;
+}
