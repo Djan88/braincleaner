@@ -493,3 +493,12 @@ iframe
 {
   text-align: center;
 }
+#image_file
+{
+  margin: auto;
+  width: 245px;
+}
+.main_heading 
+{
+  text-align: center;
+}

@@ -33,7 +33,7 @@
 		
 		</div>
 	</div>
-	<div class="screen screen-2">
+	<div class="screen screen-2 hidden">
 		<div class="faces">
 			<div class="ring"><div class="ring-formula"></div></div>
 			<div class="sq sq1"></div>
