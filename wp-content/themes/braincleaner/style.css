@@ -506,3 +506,7 @@ iframe
 {
   display: none;
 }
+.crop_photo 
+{
+  margin-bottom: 20px;
+}
