@@ -61,7 +61,7 @@ jQuery(document).ready(function() {
         jQuery('.screen')
             .addClass('hidden')
             .removeClass('fadeIn')
-            .eq(cur_screen)
+            .eq(1)
             .removeClass('hidden')
             .addClass('animated')
             .addClass('fadeIn');
