@@ -58,6 +58,13 @@ jQuery(document).ready(function() {
 
     if (returned_img){
         console.log(returned_img);
+        jQuery('.screen')
+            .addClass('hidden')
+            .removeClass('fadeIn')
+            .eq(cur_screen)
+            .removeClass('hidden')
+            .addClass('animated')
+            .addClass('fadeIn');
     };
 
     jQuery('.panel-body').find('iframe').css('height', '400px');
