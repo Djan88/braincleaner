@@ -30,7 +30,7 @@ jQuery(document).ready(function() {
     //     path: "/sounds/",
     //     preload: true 
     // });
-    var cur_screen = 1,
+    var cur_screen = 0,
         supportsStorage = function(){
             try {
                 return 'localStorage' in window && window['localStorage'] !== null;
@@ -51,7 +51,7 @@ jQuery(document).ready(function() {
             .removeClass('hidden')
             .addClass('animated')
             .addClass('fadeIn');
-        cur_screen++;
+        cur_screen = 1;
         localStorage.setItem('cur_screen', cur_screen);
     }
         
