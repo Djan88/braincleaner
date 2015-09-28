@@ -31,6 +31,7 @@ jQuery(document).ready(function() {
     //     preload: true 
     // });
     var cur_screen = 0,
+        returned_img = jQuery('body').find('.injected').attr('src');
         supportsStorage = function(){
             try {
                 return 'localStorage' in window && window['localStorage'] !== null;
@@ -54,9 +55,9 @@ jQuery(document).ready(function() {
         cur_screen = 1;
         localStorage.setItem('cur_screen', cur_screen);
     }
-        
-    if (jQuery('body').find('.injected')){
-        console.log('img');
+
+    if (returned_img){
+        console.log(returned_img);
     };
 
     jQuery('.panel-body').find('iframe').css('height', '400px');
