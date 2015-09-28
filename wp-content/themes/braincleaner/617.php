@@ -34,6 +34,11 @@
 		</div>
 	</div>
 	<div class="screen screen-2 hidden">
+		<div class="sex">
+			<div class="sex_item" data-sex="male">Мужчина</div>
+			<div class="sex_item" data-sex="female">Женщина</div>
+		</div>
+	</div><div class="screen screen-3 hidden">
 		<div class="faces">
 			<div class="ring"><div class="ring-formula"></div></div>
 			<div class="sq sq1"></div>

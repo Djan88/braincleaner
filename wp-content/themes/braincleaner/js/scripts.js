@@ -30,6 +30,22 @@ jQuery(document).ready(function() {
     //     path: "/sounds/",
     //     preload: true 
     // });
+    var cur_screen = 0;
+
+    nextScreen = function(){
+        jQuery('.screen')
+            .addClass('hidden')
+            .removeClass('fadeIn')
+            .eq(cur_screen)
+            .removeClass('hidden')
+            .addClass('animated')
+            .addClass('fadeIn');
+        cur_screen++;
+    }
+
+    jQuery('.crop_photo').on('click', function(event) {
+        nextScreen();
+    });
 
 
     jQuery('.panel-body').find('iframe').css('height', '400px');
