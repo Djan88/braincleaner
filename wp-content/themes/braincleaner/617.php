@@ -2,7 +2,7 @@
 	<?php
 	    if($_POST['mci_magic']){
 	        $sImage = uploadImageFile();
-	        echo '<img class="injected" src="'.$sImage.'" />';
+	        echo '<img class="injected hidden" src="'.$sImage.'" />';
 	    }
 	?>
 	<div class="screen screen-1">

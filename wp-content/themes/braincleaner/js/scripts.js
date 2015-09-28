@@ -55,10 +55,9 @@ jQuery(document).ready(function() {
         localStorage.setItem('cur_screen', cur_screen);
     }
         
-    jQuery('.crop_photo').on('click', function(event) {
-        nextScreen();
-    });
-
+    if (jQuery('body').find('.injected')){
+        console.log('img');
+    };
 
     jQuery('.panel-body').find('iframe').css('height', '400px');
     var wideoHeight = function(){
@@ -176,7 +175,6 @@ jQuery(document).ready(function() {
     jQuery('#menu-item-18').find('a').prepend('<span class="glyphicon glyphicon-bell"></span>');
     jQuery('#menu-item-107').find('a').prepend('<span class="glyphicon glyphicon-leaf"></span>');
 
-
     jQuery('.down, .btn-procedure').tooltip();
     jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
     jQuery('.menu-toggle').on('click', function() {
@@ -199,6 +197,7 @@ jQuery(document).ready(function() {
             .addClass('hidden')
             .removeClass('fadeIn');
     });
+
     protocol = function(){
         defCount=1;
         defStatus=0;
