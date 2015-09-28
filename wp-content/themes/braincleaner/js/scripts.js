@@ -30,10 +30,19 @@ jQuery(document).ready(function() {
     //     path: "/sounds/",
     //     preload: true 
     // });
-    var cur_screen = 0;
-
+    var cur_screen = 0,
+        supportsStorage = function(){
+            try {
+                return 'localStorage' in window && window['localStorage'] !== null;
+            } catch (e) {
+                return false;
+            }
+        };
+    //Получение данных из локального хранилища
+    if(supportsStorage && localStorage.getItem('cur_screen')){
+        cur_screen = localStorage.getItem('cur_screen');
+    }
     nextScreen = function(){
-        cur_screen++;
         jQuery('.screen')
             .addClass('hidden')
             .removeClass('fadeIn')
@@ -41,8 +50,12 @@ jQuery(document).ready(function() {
             .removeClass('hidden')
             .addClass('animated')
             .addClass('fadeIn');
+        cur_screen++;
+        localStorage.setItem('cur_screen', cur_screen);
     }
 
+    nextScreen();
+    
     jQuery('.crop_photo').on('click', function(event) {
         nextScreen();
     });
