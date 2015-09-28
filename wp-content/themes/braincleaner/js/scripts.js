@@ -54,8 +54,14 @@ jQuery(document).ready(function() {
         localStorage.setItem('cur_screen', cur_screen);
     }
 
-    nextScreen();
-    
+    jQuery('.screen')
+        .addClass('hidden')
+        .removeClass('fadeIn')
+        .eq(cur_screen)
+        .removeClass('hidden')
+        .addClass('animated')
+        .addClass('fadeIn');
+        
     jQuery('.crop_photo').on('click', function(event) {
         nextScreen();
     });
