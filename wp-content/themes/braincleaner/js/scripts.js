@@ -1,35 +1,7 @@
-// var mySound = new buzz.sound( "/sounds/432", {
-//     formats: [ "ogg", "mp3" ],
-//     preload: true
-// });
-
-// window.addEventListener('click', function() {
-//     var myContext = new webkitAudioContext();
-//     // create empty buffer
-//     var buffer = myContext.createBuffer(1, 1, 22050);
-//     var source = myContext.createBufferSource();
-//     source.buffer = buffer;
-
-//     // connect to output (your speakers)
-//     source.connect(myContext.destination);
-
-//     // play the file
-//     source.noteOn(0);
-
-// }, false);
-
 jQuery(document).ready(function() {
 
-    // ion.sound({
-    //     sounds: [
-    //         {
-    //             name: "432"
-    //         }
-    //     ],
-    //     volume: 1,
-    //     path: "/sounds/",
-    //     preload: true 
-    // });
+
+//617 протокол
     var cur_screen = 0,
         sex,
         cur_sex,
@@ -47,7 +19,6 @@ jQuery(document).ready(function() {
         cur_screen = localStorage.getItem('cur_screen');
         console.log(cur_screen);
     }
-
     next_screen = function(screen){
         jQuery('.screen')
             .addClass('hidden')
@@ -67,7 +38,7 @@ jQuery(document).ready(function() {
         localStorage.setItem('sex', cur_sex);
         next_screen(2);
     });
-
+//617 протокол. Конец.
     jQuery('.panel-body').find('iframe').css('height', '400px');
     var wideoHeight = function(){
         var video_w = parseFloat(jQuery('.panel-body').find('iframe').css('width'));
