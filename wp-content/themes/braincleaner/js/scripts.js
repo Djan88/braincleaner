@@ -31,6 +31,9 @@ jQuery(document).ready(function() {
     //     preload: true 
     // });
     var cur_screen = 0,
+        sex,
+        cur_sex,
+        next_screen,
         returned_img = jQuery('body').find('.injected').attr('src');
         supportsStorage = function(){
             try {
@@ -44,28 +47,26 @@ jQuery(document).ready(function() {
         cur_screen = localStorage.getItem('cur_screen');
         console.log(cur_screen);
     }
-    nextScreen = function(){
+
+    next_screen = function(screen){
         jQuery('.screen')
             .addClass('hidden')
             .removeClass('fadeIn')
-            .eq(cur_screen)
+            .eq(screen)
             .removeClass('hidden')
             .addClass('animated')
             .addClass('fadeIn');
-        cur_screen = 1;
-        localStorage.setItem('cur_screen', cur_screen);
     }
-
     if (returned_img){
         console.log(returned_img);
-        jQuery('.screen')
-            .addClass('hidden')
-            .removeClass('fadeIn')
-            .eq(1)
-            .removeClass('hidden')
-            .addClass('animated')
-            .addClass('fadeIn');
+        next_screen(1);
     };
+
+    jQuery('.sex_item').on('click', function(event) {
+        cur_sex = jQuery(this).data('sex');
+        localStorage.setItem('sex', cur_sex);
+        next_screen(2);
+    });
 
     jQuery('.panel-body').find('iframe').css('height', '400px');
     var wideoHeight = function(){
