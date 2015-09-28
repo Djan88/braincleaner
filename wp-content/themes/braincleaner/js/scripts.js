@@ -33,6 +33,7 @@ jQuery(document).ready(function() {
     var cur_screen = 0;
 
     nextScreen = function(){
+        cur_screen++;
         jQuery('.screen')
             .addClass('hidden')
             .removeClass('fadeIn')
@@ -40,7 +41,6 @@ jQuery(document).ready(function() {
             .removeClass('hidden')
             .addClass('animated')
             .addClass('fadeIn');
-        cur_screen++;
     }
 
     jQuery('.crop_photo').on('click', function(event) {
