@@ -439,31 +439,31 @@ iframe
 }
 .sq 
 {
-  width: 265px;
-  height: 400px;
+  width: 198px;
+  height: 300px;
   position: absolute;
   border: 2px solid #999;
   border-radius: 6px;
 }
 .sq1 
 {
-  left: 18%;
-  top: 485px;
+  left: 30%;
+  top: 350px;
 }
 .sq2 
 {
-  left: 54%;
+  left: 49%;
   top: 35px;
 }
 .sq3 
 {   
-  left: 54%;
-  top: 485px;
+  left: 49%;
+  top: 350px;
 }
 .sq4 
 {
-  left: 54%;
-  top: 935px;
+  left: 49%;
+  top: 665px;
 }
 .jcrop-handle.ord-nw
 {
@@ -516,6 +516,7 @@ iframe
   border: solid 1px #c2c2c2;
   background: #fff url(img/ServerConfiguratorSprite.png) no-repeat 11px 18px;
   transition: all 0.3s;
+  cursor: pointer;
 }
 .sex_item.active
 {
