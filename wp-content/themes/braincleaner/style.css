@@ -517,6 +517,8 @@ iframe
   background: #fff url(img/ServerConfiguratorSprite.png) no-repeat 11px 18px;
   transition: all 0.3s;
   cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .sex_item.active
 {
