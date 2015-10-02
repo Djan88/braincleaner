@@ -37,6 +37,8 @@ jQuery(document).ready(function() {
         cur_sex = jQuery(this).data('sex');
         localStorage.setItem('sex', cur_sex);
         next_screen(2);
+        jQuery('.sex_item').removeClass('active');
+        jQuery(this).addClass('active');
     });
     
 //617 протокол. Конец.

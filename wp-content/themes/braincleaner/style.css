@@ -516,3 +516,8 @@ iframe
   border: solid 1px #c2c2c2;
   background: #fff url(img/ServerConfiguratorSprite.png) no-repeat 11px 18px;
 }
+.sex_item.active
+{
+  background-position: 11px -82px;
+  background-color: #ede7e1;
+}
