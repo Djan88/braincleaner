@@ -515,6 +515,7 @@ iframe
   padding: 15px 19px;
   border: solid 1px #c2c2c2;
   background: #fff url(img/ServerConfiguratorSprite.png) no-repeat 11px 18px;
+  transition: all 0.3s;
 }
 .sex_item.active
 {
