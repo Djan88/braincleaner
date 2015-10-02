@@ -12,7 +12,7 @@
       <div class="row">
         <div class="container main-zone">
           <?php if (is_page(617)) { ?>
-            <div class="col-md-12" style="min-height: 1200px; min-width: 1200px;">
+            <div class="col-md-12" style="min-height: 1200px; min-width: 1140px;">
           <?php } else { ?>
             <div class="col-md-8">
           <?php } ?>
