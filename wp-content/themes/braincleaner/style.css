@@ -427,14 +427,14 @@ iframe
   -webkit-transition: transform 1s linear;
   -moz-transition: transform 1s linear;
   transition: transform 1s linear;
-  width: 900px;
-  height: 900px;
+  width: 1100px;
+  height: 1100px;
   border: 2px dashed crimson;
   border-radius: 50%;
   position: absolute;
   margin: 150px auto;
-  left: 130px;
-  top: 90px;
+  left: 5px;
+  top: -110px;
   z-index: 9;
 }
 .sq 
@@ -447,23 +447,23 @@ iframe
 }
 .sq1 
 {
-  left: 30%;
-  top: 350px;
+  left: 22%;
+  top: 393px;
 }
 .sq2 
 {
-  left: 49%;
-  top: 35px;
+  left: 42%;
+  top: 70px;
 }
 .sq3 
 {   
-  left: 49%;
-  top: 350px;
+  left: 42%;
+  top: 393px;
 }
 .sq4 
 {
-  left: 49%;
-  top: 665px;
+  left: 42%;
+  top: 716px;
 }
 .jcrop-handle.ord-nw
 {
