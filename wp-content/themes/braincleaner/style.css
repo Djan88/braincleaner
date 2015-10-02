@@ -521,3 +521,7 @@ iframe
   background-position: 11px -82px;
   background-color: #ede7e1;
 }
+.sex_item:hover
+{
+  background-color: #ede7e1;
+}
