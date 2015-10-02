@@ -34,9 +34,9 @@
 		</div>
 	</div>
 	<div class="screen screen-2 hidden">
-		<div class="sex">
-			<div class="sex_item" data-sex="male">Мужчина</div>
-			<div class="sex_item" data-sex="female">Женщина</div>
+		<div class="sex row">
+			<div class="sex_item col-md-3 col-md-offset-3" data-sex="male">Мужчина</div>
+			<div class="sex_item col-md-3" data-sex="female">Женщина</div>
 		</div>
 	</div><div class="screen screen-3 hidden">
 		<div class="faces">
