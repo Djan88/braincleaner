@@ -535,4 +535,6 @@ iframe
   border-radius: 50%;
   border: 1px solid red;
   position: absolute;
+  width: 56px;
+  height: 56px;
 }
