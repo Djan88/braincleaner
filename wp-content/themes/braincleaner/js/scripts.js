@@ -36,10 +36,10 @@ jQuery(document).ready(function() {
     };
 
     protocol_people = function(this_sex){
-        if (this_sex == male){
+        if (this_sex == 'male'){
             faces_img = '/wp-content/themes/braincleaner/img/male.png';
 
-        } else if (this_sex == female) {
+        } else if (this_sex == 'female') {
             faces_img = '/wp-content/themes/braincleaner/img/female.png';
         };
 
