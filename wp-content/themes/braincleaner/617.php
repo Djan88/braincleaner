@@ -40,7 +40,7 @@
 		</div>
 	</div><div class="screen screen-3 hidden">
 		<div class="faces">
-			<div class="ring"><div class="ring-formula"></div></div>
+			<div class="ring box_rounded"><div class="ring-formula"></div></div>
 			<div class="sq sq1"></div>
 			<div class="sq sq2"></div>
 			<div class="sq sq3"></div>

@@ -53,7 +53,6 @@ jQuery(document).ready(function() {
         console.log(cur_sex);
         protocol_people(cur_sex);
     });
-
     
 //617 протокол. Конец.
     jQuery('.panel-body').find('iframe').css('height', '400px');
