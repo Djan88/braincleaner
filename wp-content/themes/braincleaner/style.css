@@ -529,3 +529,9 @@ iframe
 {
   background-color: #ede7e1;
 }
+.ring-formula
+{
+  border-radius: 50%;
+  border: 1px solid red;
+  position: relative;
+}
