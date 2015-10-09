@@ -23,6 +23,7 @@ var mw,
     }
 circle_model = function(count_animation){
     if(count_animation <= 120){
+        console.log(count_animation);
         cur_animation_val += 1.5;
         d12Val+= 9;
         jQuery('.ring-formula').css('transform', 'rotate(-'+d12Val+'deg)');
@@ -48,7 +49,6 @@ circle_model = function(count_animation){
         jQuery('.ring-formula').css('background', '#fff url(/wp-content/themes/braincleaner/img/daemon.png) 0 0/100% no-repeat');
     } else {
         d12Val+= 9;
-        console.log('FIN');
         cur_animation_val += 1.5;
         jQuery('.box_rounded').css('transform', 'rotate('+cur_animation_val+'deg) scale(1)');
         jQuery('.ring-formula').css('transform', 'rotate('+d12Val+'deg)');
