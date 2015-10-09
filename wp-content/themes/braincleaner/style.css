@@ -541,4 +541,7 @@ iframe
   height: 56px;
   left: 47.5%;
   top: 5px;
+  -webkit-transition: transform 1s linear;
+  -moz-transition: transform 1s linear;
+  transition: transform 1s linear;
 }
