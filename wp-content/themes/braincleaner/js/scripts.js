@@ -9,6 +9,9 @@ jQuery(document).ready(function() {
         protocol_people,
         next_screen,
         returned_img = jQuery('body').find('.injected').attr('src');
+        if (returned_img) {
+            localStorage.setItem('returned_img', returned_img);
+        };
         supportsStorage = function(){
             try {
                 return 'localStorage' in window && window['localStorage'] !== null;

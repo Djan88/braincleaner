@@ -8,7 +8,12 @@ var mw,
     cur_animation_val,
     count_animation,
     phaseSeven_one,
-    circle_model;
+    circle_model,
+    client_img;
+    if(supportsStorage && localStorage.getItem('returned_img')){
+        client_img = localStorage.getItem('returned_img');
+        console.log(cur_screen);
+    }
 circle_model = function(count_animation){
     if(count_animation <= 120){
         cur_animation_val += 1.5;
@@ -49,6 +54,7 @@ mw = function(){
     d12Val = 0;
     cur_animation_val = 0;
     count_animation = 1;
+    jQuery('.sq2').css('background', 'url('+client_img+')');
     phaseSeven_one = setInterval(function(){
         circle_model(count_animation);
         count_animation+=1;
