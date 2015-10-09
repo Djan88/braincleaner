@@ -445,6 +445,8 @@ iframe
   position: absolute;
   border: 2px solid #999;
   border-radius: 6px;
+  background-size: 100%!important;
+  background-position: 0 0!important;
 }
 .sq1 
 {
