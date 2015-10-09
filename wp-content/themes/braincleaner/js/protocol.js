@@ -29,19 +29,19 @@ circle_model = function(count_animation){
         jQuery('.ring-formula').css('transform', 'rotate(-'+d12Val+'deg)');
         jQuery('.box_rounded').css('transform', 'rotate('+cur_animation_val+'deg) scale(1)');
         jQuery('.ring-formula').css('background', '#fff url(/wp-content/themes/braincleaner/img/lovushka.jpg) 0 0/100% no-repeat');
-    } else if (count_animation >= 120 && count_animation <= 228){
+    } else if (count_animation >= 120 && count_animation <= 240){
         cur_animation_val -= 1.5;
         d12Val+= 9;
         jQuery('.ring-formula').css('transform', 'rotate(-'+d12Val+'deg)');
         jQuery('.box_rounded').css('transform', 'rotate('+cur_animation_val+'deg) scale(1)');
         jQuery('.ring-formula').css('background', '#fff url(/wp-content/themes/braincleaner/img/lovushka.jpg) 0 0/100% no-repeat');
-    } else if (count_animation >= 228 && count_animation <= 292){
+    } else if (count_animation >= 240 && count_animation <= 310){
         cur_animation_val -= 1.5;
         d12Val+= 9;
         jQuery('.box_rounded').css('transform', 'rotate('+cur_animation_val+'deg) scale(1)');
         jQuery('.ring-formula').css('transform', 'rotate('+d12Val+'deg)');
         jQuery('.ring-formula').css('background', '#fff url(/wp-content/themes/braincleaner/img/daemon.png) 0 0/100% no-repeat');
-    } else if (count_animation >= 292 && count_animation <= 344){
+    } else if (count_animation >= 310 && count_animation <= 344){
         cur_animation_val += 1.5;
         d12Val+= 9;
         jQuery('.box_rounded').css('transform', 'rotate('+cur_animation_val+'deg) scale(1)');
