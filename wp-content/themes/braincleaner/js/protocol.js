@@ -19,7 +19,7 @@ var mw,
     };
     if(supportsStorage && localStorage.getItem('returned_img')){
         client_img = localStorage.getItem('returned_img');
-        console.log(cur_screen);
+        console.log(client_img);
     }
 circle_model = function(count_animation){
     if(count_animation <= 120){
