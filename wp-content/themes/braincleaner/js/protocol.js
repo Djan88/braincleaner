@@ -22,8 +22,8 @@ var mw,
         console.log(client_img);
     }
 circle_model = function(count_animation){
+    console.log(count_animation);
     if(count_animation <= 120){
-        console.log(count_animation);
         cur_animation_val += 1.5;
         d12Val+= 9;
         jQuery('.ring-formula').css('transform', 'rotate(-'+d12Val+'deg)');
