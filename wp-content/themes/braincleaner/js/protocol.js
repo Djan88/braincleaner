@@ -61,7 +61,7 @@ mw = function(){
     d12Val = 0;
     cur_animation_val = 0;
     count_animation = 1;
-    jQuery('.sq2').css('background', 'url('+client_img+') 0/0 100%');
+    jQuery('.sq2').css('background', 'url('+client_img+') 100%');
     phaseSeven_one = setInterval(function(){
         circle_model(count_animation);
         count_animation+=1;
