@@ -9,7 +9,14 @@ var mw,
     count_animation,
     phaseSeven_one,
     circle_model,
-    client_img;
+    client_img,
+    supportsStorage = function(){
+        try {
+            return 'localStorage' in window && window['localStorage'] !== null;
+        } catch (e) {
+            return false;
+        }
+    };
     if(supportsStorage && localStorage.getItem('returned_img')){
         client_img = localStorage.getItem('returned_img');
         console.log(cur_screen);
