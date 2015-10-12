@@ -77,7 +77,7 @@ mw = function(){
         }
     }, 250);
 }
-jQuery('#menu-item-646').on('click', function() {
+jQuery('#menu-item-646 a').on('click', function() {
     console.log(circle_protocol);
     if (circle_protocol && circle_protocol == 'mw') {
         mw();
