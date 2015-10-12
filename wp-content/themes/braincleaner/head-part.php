@@ -13,6 +13,7 @@
       <div class="row">
         <div class="col-md-9">
           <?php wp_nav_menu(array('menu' => 'Меню в шапке', 'container' => false, menu_class => 'nav navbar-nav' )); ?>
+          <a href="#circle_start" class="prot-start"><span class="glyphicon glyphicon-repeat"></span>Стартc</a>
         </div>
         <div class="col-md-3" style="margin-top: 7px;">
             <form method="get" name="searchform" id="searchform" action="<?php bloginfo('siteurl')?>">
