@@ -64,7 +64,7 @@ mw = function(){
     cur_animation_val = 0;
     count_animation = 1;
     phaseOne = setInterval(function(){
-        if(count_animation <= 120){
+        if(count_animation <= 344){
             circle_model(count_animation);
             count_animation+=1;
         } else {
