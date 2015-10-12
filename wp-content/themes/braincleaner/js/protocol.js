@@ -26,6 +26,17 @@ var mw,
         circle_protocol = localStorage.getItem('circle_protocol');
         console.log(client_img);
     }
+jQuery('#menu-item-646').on('click', function() {
+    if (circle_protocol && circle_protocol == 'mw') {
+        mw();
+    } else-if (circle_protocol && circle_protocol == 'mm') {
+        mm();
+    } else-if (circle_protocol && circle_protocol == 'wm') {
+        wm();
+    } else-if (circle_protocol && circle_protocol == 'ww') {
+        ww();
+    }
+});
 circle_model = function(count_animation){
     console.log(count_animation);
     if(count_animation <= 120){
