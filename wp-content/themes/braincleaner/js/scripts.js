@@ -41,10 +41,11 @@ jQuery(document).ready(function() {
 
     protocol_people = function(this_sex, this_recep){
         console.log(this_sex+' — '+this_recep);
-        if (this_sex == 'male'){
-            faces_img = '/wp-content/themes/braincleaner/img/male.png';
+        if (this_sex == 'male' && this_recep = 'female'){
+            localStorage.setItem('faces_img', '/wp-content/themes/braincleaner/img/male.png');
+            localStorage.setItem('circle_protocol', 'mw');
         } else if (this_sex == 'female') {
-            faces_img = '/wp-content/themes/braincleaner/img/female.png';
+            localStorage.setItem('faces_img', '/wp-content/themes/braincleaner/img/female.png');
         };
     }
     jQuery('.sex_item-client').on('click', function(event) {
@@ -176,6 +177,7 @@ jQuery(document).ready(function() {
     jQuery('#menu-item-15').find('a').prepend('<span class="glyphicon glyphicon-log-out"></span>');
     jQuery('#menu-item-18').find('a').prepend('<span class="glyphicon glyphicon-bell"></span>');
     jQuery('#menu-item-107').find('a').prepend('<span class="glyphicon glyphicon-leaf"></span>');
+    jQuery('#menu-item-646').find('a').prepend('<span class="glyphicon glyphicon-repeat"></span>');
 
     jQuery('.down, .btn-procedure').tooltip();
     jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
@@ -346,14 +348,6 @@ jQuery(document).ready(function() {
             }, 1000);
         });
     };
-
-    jQuery( ".ring" ).draggable({ 
-        snap: false
-    });
-
-    jQuery( ".ring" ).resizable({
-      aspectRatio: 1/ 1
-    });
 
     //CROPPING SCRIPT
         // convert bytes into friendly format

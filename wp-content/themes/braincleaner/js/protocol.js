@@ -7,6 +7,7 @@ var mw,
     d12Val,
     cur_animation_val,
     count_animation,
+    circle_protocol,
     phaseSeven_one,
     circle_model,
     client_img,
@@ -19,6 +20,10 @@ var mw,
     };
     if(supportsStorage && localStorage.getItem('returned_img')){
         client_img = localStorage.getItem('returned_img');
+        console.log(client_img);
+    }
+    if(supportsStorage && localStorage.getItem('circle_protocol')){
+        circle_protocol = localStorage.getItem('circle_protocol');
         console.log(client_img);
     }
 circle_model = function(count_animation){
@@ -56,7 +61,7 @@ circle_model = function(count_animation){
     }
 }
 mw = function(){
-    jQuery('.sq2').css('background', 'url('+client_img+') no-repeat');
+    jQuery('.sq1').css('background', 'url('+client_img+') no-repeat');
 //фаза 1
     reloadTime = 0;
     reloadTime1 = 0;
@@ -69,22 +74,6 @@ mw = function(){
             count_animation+=1;
         } else {
             clearInterval(phaseOne);
-//фаза 2
-    jQuery('.sq2').css('background', 'none');
-    jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
-            reloadTime = 0;
-            reloadTime1 = 0;
-            d12Val = 0;
-            cur_animation_val = 0;
-            count_animation = 1;
-            phaseTwo = setInterval(function(){
-                if(count_animation <= 120){
-                    circle_model(count_animation);
-                    count_animation+=1;
-                } else {
-
-                }
-            }, 250);
         }
     }, 250);
 }
