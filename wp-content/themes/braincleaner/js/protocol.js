@@ -77,6 +77,7 @@ mw = function(){
         }
     }, 250);
 }
+console.log(jQuery('a[href="#circle_start"]'));
 jQuery('body').on('click', '.prot-start', function(event) {
     console.log('circle_protocol');
     console.log(circle_protocol);
