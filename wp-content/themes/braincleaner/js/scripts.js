@@ -41,22 +41,17 @@ jQuery(document).ready(function() {
     protocol_people = function(this_sex){
         if (this_sex == 'male'){
             faces_img = '/wp-content/themes/braincleaner/img/male.png';
-
         } else if (this_sex == 'female') {
             faces_img = '/wp-content/themes/braincleaner/img/female.png';
         };
-
     }
-
     jQuery('.sex_item').on('click', function(event) {
         cur_sex = jQuery(this).data('sex');
         next_screen(2);
         jQuery('.sex_item').removeClass('active');
         jQuery(this).addClass('active');
-        console.log(cur_sex);
         protocol_people(cur_sex);
     });
-    
 //617 протокол. Конец.
     jQuery('.panel-body').find('iframe').css('height', '400px');
     var wideoHeight = function(){

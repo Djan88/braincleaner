@@ -56,15 +56,35 @@ circle_model = function(count_animation){
     }
 }
 mw = function(){
+    jQuery('.sq2').css('background', 'url('+client_img+')');
 //фаза 1
     reloadTime = 0;
     reloadTime1 = 0;
     d12Val = 0;
     cur_animation_val = 0;
     count_animation = 1;
-    jQuery('.sq2').css('background', 'url('+client_img+')');
-    phaseSeven_one = setInterval(function(){
-        circle_model(count_animation);
-        count_animation+=1;
+    phaseOne = setInterval(function(){
+        if(count_animation <= 120){
+            circle_model(count_animation);
+            count_animation+=1;
+        } else {
+            clearInterval(phaseOne);
+//фаза 2
+    jQuery('.sq2').css('background', 'none');
+    jQuery('.sq3').css('background', 'url('+client_img+')');
+            reloadTime = 0;
+            reloadTime1 = 0;
+            d12Val = 0;
+            cur_animation_val = 0;
+            count_animation = 1;
+            phaseTwo = setInterval(function(){
+                if(count_animation <= 120){
+                    circle_model(count_animation);
+                    count_animation+=1;
+                } else {
+
+                }
+            }, 250);
+        }
     }, 250);
 }
