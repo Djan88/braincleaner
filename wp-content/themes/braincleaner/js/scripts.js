@@ -41,7 +41,7 @@ jQuery(document).ready(function() {
 
     protocol_people = function(this_sex, this_recep){
         console.log(this_sex+' — '+this_recep);
-        if (this_sex == 'male' && this_recep = 'female'){
+        if (this_sex == 'male' && this_recep == 'female'){
             localStorage.setItem('faces_img', '/wp-content/themes/braincleaner/img/male.png');
             localStorage.setItem('circle_protocol', 'mw');
         } else if (this_sex == 'female') {
