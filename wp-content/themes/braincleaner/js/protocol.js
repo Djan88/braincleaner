@@ -7,6 +7,7 @@ jQuery(document).ready(function() {
         reloadTime1,
         d12Val,
         prot_count,
+        cur_faces,
         cur_animation_val,
         count_animation,
         circle_protocol,
@@ -79,11 +80,12 @@ jQuery(document).ready(function() {
         phaseOne = setInterval(function(){
             if(count_animation <= 360){
                 circle_model(count_animation);
-                count_animation+=1;
+                count_animation += 1;
             } else {
                 if (prot_count <= 31) {
                     prot_count += 1;
-                    jQuery('.sq3').css('background', 'url('+faces_img+')'+(prot_count * 355)+55+'px/0 11000px no-repeat');
+                    cur_faces = +jQuery('.sq3').css('background-position-x');
+                    jQuery('.sq3').css('background-position-x', cur_faces + 355 + 'px');
                     count_animation = 1;
                 } else {
                     clearInterval(phaseOne);
