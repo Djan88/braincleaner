@@ -58,7 +58,7 @@ jQuery(document).ready(function() {
         cur_recep = jQuery(this).data('usex');
         next_screen(2);
         jQuery('.sex_item-recep').removeClass('active');
-        jQuery('#menu-item-646').css('display', 'inlineBlock');
+        jQuery('#menu-item-646').addClass('set-prot');
         jQuery(this).addClass('active');
         protocol_people(cur_sex, cur_recep);
     });
