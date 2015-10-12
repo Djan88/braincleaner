@@ -447,6 +447,9 @@ iframe
   border-radius: 6px;
   background-size: 100%!important;
   background-position: 0 0!important;
+  -webkit-transition: transform 1s linear;
+  -moz-transition: transform 1s linear;
+  transition: transform 1s linear;
 }
 .sq1 
 {
