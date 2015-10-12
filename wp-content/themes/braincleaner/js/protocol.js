@@ -24,9 +24,10 @@ var mw,
     }
     if(supportsStorage && localStorage.getItem('circle_protocol')){
         circle_protocol = localStorage.getItem('circle_protocol');
-        console.log(client_img);
+        console.log(circle_protocol);
     }
 jQuery('#menu-item-646').on('click', function() {
+    console.log(circle_protocol);
     if (circle_protocol && circle_protocol == 'mw') {
         mw();
     } else if (circle_protocol && circle_protocol == 'mm') {
