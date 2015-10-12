@@ -77,7 +77,7 @@ mw = function(){
         }
     }, 250);
 }
-jQuery('body').on('click', '.menu-item-646', function(event) {
+jQuery('a[href="#circle_start"]').on('click', function(event) {
     console.log('circle_protocol');
     console.log(circle_protocol);
     if (circle_protocol && circle_protocol == 'mw') {
