@@ -77,7 +77,8 @@ jQuery(document).ready(function() {
         jQuery('.sq3').css('background', 'url('+faces_img+') no-repeat');
         jQuery('.sq3').css('background-size', '11000px');
         jQuery('.sq3').css('background-position-x', '-55px');
-        console.log(Number(jQuery('.sq3').css('background-position-x')));
+        console.log(parseInt(jQuery('.sq3').css('background-position-x')));
+        console.log(jQuery('.sq3').css('background-position-x'));
         phaseOne = setInterval(function(){
             if(count_animation <= 360){
                 circle_model(count_animation);
