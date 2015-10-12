@@ -5,6 +5,7 @@ jQuery(document).ready(function() {
     var cur_screen = 0,
         sex,
         cur_sex,
+        cur_recep,
         faces_img,
         protocol_people,
         next_screen,
@@ -45,12 +46,18 @@ jQuery(document).ready(function() {
             faces_img = '/wp-content/themes/braincleaner/img/female.png';
         };
     }
-    jQuery('.sex_item').on('click', function(event) {
+    jQuery('.sex_item-client').on('click', function(event) {
         cur_sex = jQuery(this).data('sex');
-        next_screen(2);
-        jQuery('.sex_item').removeClass('active');
+        jQuery('.sex_item-client').removeClass('active');
+        jQuery('.sex-recep').removeClass('hidden');
         jQuery(this).addClass('active');
         protocol_people(cur_sex);
+    });
+    jQuery('.sex_item-recep').on('click', function(event) {
+        cur_recep = jQuery(this).data('usex');
+        next_screen(2);
+        jQuery('.sex_item-recep').removeClass('active');
+        jQuery(this).addClass('active');
     });
 //617 протокол. Конец.
     jQuery('.panel-body').find('iframe').css('height', '400px');
