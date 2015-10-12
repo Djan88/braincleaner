@@ -65,6 +65,7 @@ jQuery(document).ready(function() {
     }
     mw = function(){
         jQuery('.sq1').css('background', 'url('+client_img+') no-repeat');
+        jQuery('.sq1').addClass('client_sq');
     //фаза 1
         reloadTime = 0;
         reloadTime1 = 0;
@@ -72,11 +73,7 @@ jQuery(document).ready(function() {
         prot_count = 1;
         cur_animation_val = 0;
         count_animation = 1;
-        jQuery('.sq3').css({
-            background: 'url('+faces_img+') no-repeat',
-            backgroundPosition: '55px/0!important',
-            backgroundSize: '11000px!important'
-        });
+        jQuery('.sq3').css('background', 'url('+faces_img+')'+(prot_count * 355)+55+'px/0 11000px no-repeat');
         phaseOne = setInterval(function(){
             if(count_animation <= 360){
                 circle_model(count_animation);
