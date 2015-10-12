@@ -87,6 +87,7 @@ jQuery(document).ready(function() {
                     cur_faces = parseInt(jQuery('.sq3').css('background-position-x'))-357;
                     jQuery('.sq3').css('background-position-x', cur_faces+'px');
                     count_animation = 1;
+                    d12Val = 0;
                 } else {
                     clearInterval(phaseOne);
                 }
