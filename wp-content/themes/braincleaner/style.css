@@ -445,9 +445,9 @@ iframe
   position: absolute;
   border: 2px solid #999;
   border-radius: 6px;
-  -webkit-transition: transform 1s linear;
-  -moz-transition: transform 1s linear;
-  transition: transform 1s linear;
+  -webkit-transition: background-position 1s linear;
+  -moz-transition: background-position 1s linear;
+  transition: background-position 1s linear;
 }.sq.client_sq
 {
   background-size: 100%!important;
