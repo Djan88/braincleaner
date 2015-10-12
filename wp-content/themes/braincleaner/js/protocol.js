@@ -77,6 +77,7 @@ jQuery(document).ready(function() {
         jQuery('.sq3').css('background', 'url('+faces_img+') no-repeat');
         jQuery('.sq3').css('background-size', '11000px');
         jQuery('.sq3').css('background-position-x', '-55px');
+        console.log(+jQuery('.sq3').css('background-position-x'));
         phaseOne = setInterval(function(){
             if(count_animation <= 360){
                 circle_model(count_animation);
@@ -85,7 +86,7 @@ jQuery(document).ready(function() {
                 if (prot_count <= 31) {
                     prot_count += 1;
                     cur_faces = +jQuery('.sq3').css('background-position-x');
-                    jQuery('.sq3').css('background-position-x', cur_faces + 355 + 'px');
+                    jQuery('.sq3').css('background-position-x', cur_faces - 355 + 'px');
                     count_animation = 1;
                 } else {
                     clearInterval(phaseOne);
