@@ -29,11 +29,11 @@ var mw,
 jQuery('#menu-item-646').on('click', function() {
     if (circle_protocol && circle_protocol == 'mw') {
         mw();
-    } else-if (circle_protocol && circle_protocol == 'mm') {
+    } else if (circle_protocol && circle_protocol == 'mm') {
         mm();
-    } else-if (circle_protocol && circle_protocol == 'wm') {
+    } else if (circle_protocol && circle_protocol == 'wm') {
         wm();
-    } else-if (circle_protocol && circle_protocol == 'ww') {
+    } else if (circle_protocol && circle_protocol == 'ww') {
         ww();
     }
 });
