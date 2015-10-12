@@ -77,6 +77,7 @@ jQuery(document).ready(function() {
                 count_animation+=1;
             } else {
                 if (prot_count <= 31) {
+                    console.log('protocol count '+prot_count);
                     prot_count += 1;
                     count_animation = 1;
                 } else {
