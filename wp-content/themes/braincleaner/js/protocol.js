@@ -78,6 +78,7 @@ mw = function(){
     }, 250);
 }
 jQuery('body').on('click', '.prot-start', function(event) {
+    console.log('circle_protocol');
     console.log(circle_protocol);
     if (circle_protocol && circle_protocol == 'mw') {
         mw();
