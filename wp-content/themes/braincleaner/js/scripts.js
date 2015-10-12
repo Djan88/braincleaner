@@ -179,6 +179,7 @@ jQuery(document).ready(function() {
     jQuery('#menu-item-18').find('a').prepend('<span class="glyphicon glyphicon-bell"></span>');
     jQuery('#menu-item-107').find('a').prepend('<span class="glyphicon glyphicon-leaf"></span>');
     jQuery('#menu-item-646').find('a').prepend('<span class="glyphicon glyphicon-repeat"></span>');
+    jQuery('#menu-item-646').find('a').addClass('prot-start');
 
     jQuery('.down, .btn-procedure').tooltip();
     jQuery('.popup-img-wrap').eq(0).removeClass('hidden');
