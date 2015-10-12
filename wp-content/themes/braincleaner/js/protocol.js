@@ -10,6 +10,7 @@ jQuery(document).ready(function() {
         cur_animation_val,
         count_animation,
         circle_protocol,
+        faces_img,
         phaseSeven_one,
         circle_model,
         client_img,
@@ -23,6 +24,10 @@ jQuery(document).ready(function() {
         if(supportsStorage && localStorage.getItem('returned_img')){
             client_img = localStorage.getItem('returned_img');
             console.log(client_img);
+        }
+        if(supportsStorage && localStorage.getItem('faces_img')){
+            faces_img = localStorage.getItem('faces_img');
+            console.log(faces_img);
         }
         if(supportsStorage && localStorage.getItem('circle_protocol')){
             circle_protocol = localStorage.getItem('circle_protocol');
@@ -79,6 +84,7 @@ jQuery(document).ready(function() {
                 if (prot_count <= 31) {
                     console.log('protocol count '+prot_count);
                     prot_count += 1;
+                    jQuery('.sq3').css('background', 'url('+faces_img+')'+(prot_count * 355)+55+'px no-repeat');
                     count_animation = 1;
                 } else {
                     clearInterval(phaseOne);
