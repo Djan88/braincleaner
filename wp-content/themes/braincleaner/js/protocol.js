@@ -41,7 +41,7 @@ circle_model = function(count_animation){
         jQuery('.box_rounded').css('transform', 'rotate('+cur_animation_val+'deg) scale(1)');
         jQuery('.ring-formula').css('transform', 'rotate('+d12Val+'deg)');
         jQuery('.ring-formula').css('background', '#fff url(/wp-content/themes/braincleaner/img/daemon.png) 0 0/100% no-repeat');
-    } else if (count_animation >= 300 && count_animation <= 355){
+    } else if (count_animation >= 300 && count_animation <= 365){
         cur_animation_val += 1.5;
         d12Val+= 9;
         jQuery('.box_rounded').css('transform', 'rotate('+cur_animation_val+'deg) scale(1)');
@@ -64,7 +64,7 @@ mw = function(){
     cur_animation_val = 0;
     count_animation = 1;
     phaseOne = setInterval(function(){
-        if(count_animation <= 355){
+        if(count_animation <= 365){
             circle_model(count_animation);
             count_animation+=1;
         } else {
