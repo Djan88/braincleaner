@@ -23,18 +23,14 @@ jQuery(document).ready(function() {
         };
         if(supportsStorage && localStorage.getItem('returned_img')){
             client_img = localStorage.getItem('returned_img');
-            console.log(client_img);
         }
         if(supportsStorage && localStorage.getItem('faces_img')){
             faces_img = localStorage.getItem('faces_img');
-            console.log(faces_img);
         }
         if(supportsStorage && localStorage.getItem('circle_protocol')){
             circle_protocol = localStorage.getItem('circle_protocol');
-            console.log(circle_protocol);
         }
     circle_model = function(count_animation){
-        console.log(count_animation);
         if(count_animation <= 120){
             cur_animation_val += 1.5;
             d12Val+= 9;
@@ -87,7 +83,6 @@ jQuery(document).ready(function() {
                 count_animation+=1;
             } else {
                 if (prot_count <= 31) {
-                    console.log('protocol count '+prot_count);
                     prot_count += 1;
                     jQuery('.sq3').css('background', 'url('+faces_img+')'+(prot_count * 355)+55+'px/0 11000px no-repeat');
                     count_animation = 1;
@@ -98,8 +93,6 @@ jQuery(document).ready(function() {
         }, 250);
     }
     jQuery('body').on('click', '.prot-start', function(event) {
-        console.log('circle_protocol');
-        console.log(circle_protocol);
         if (circle_protocol && circle_protocol == 'mw') {
             mw();
         } else if (circle_protocol && circle_protocol == 'mm') {

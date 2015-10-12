@@ -23,7 +23,6 @@ jQuery(document).ready(function() {
     //Получение данных из локального хранилища
     if(supportsStorage && localStorage.getItem('cur_screen')){
         cur_screen = localStorage.getItem('cur_screen');
-        console.log(cur_screen);
     }
     next_screen = function(screen){
         jQuery('.screen')
@@ -35,12 +34,10 @@ jQuery(document).ready(function() {
             .addClass('fadeIn');
     }
     if (returned_img){
-        console.log(returned_img);
         next_screen(1);
     };
 
     protocol_people = function(this_sex, this_recep){
-        console.log(this_sex+' — '+this_recep);
         if (this_sex == 'male' && this_recep == 'female'){
             localStorage.setItem('faces_img', '/wp-content/themes/braincleaner/img/male.png');
             localStorage.setItem('circle_protocol', 'mw');
@@ -70,7 +67,6 @@ jQuery(document).ready(function() {
     }
     wideoHeight();
     jQuery(window).resize(function() {
-      console.log(parseFloat(jQuery('.panel-body').find('iframe').css('width')));
       wideoHeight();
     });
 
