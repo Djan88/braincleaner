@@ -7,7 +7,7 @@
         </script>
     <?php } ?>
   <?php } else { ?>
-    <div class="container-fluid inside animsition <?php if(is_page(617)){?>617<?php } ?>">
+    <div class="container-fluid inside animsition <?php if(is_page(617)){?>class_617<?php } ?>">
       <?php include(TEMPLATEPATH . '/head-part.php'); ?>
       <div class="row">
         <div class="container main-zone">
