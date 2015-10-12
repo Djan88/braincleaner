@@ -6,6 +6,7 @@ jQuery(document).ready(function() {
         reloadTime,
         reloadTime1,
         d12Val,
+        prot_count,
         cur_animation_val,
         count_animation,
         circle_protocol,
@@ -67,6 +68,7 @@ jQuery(document).ready(function() {
         reloadTime = 0;
         reloadTime1 = 0;
         d12Val = 0;
+        prot_count = 1;
         cur_animation_val = 0;
         count_animation = 1;
         phaseOne = setInterval(function(){
@@ -74,7 +76,12 @@ jQuery(document).ready(function() {
                 circle_model(count_animation);
                 count_animation+=1;
             } else {
-                clearInterval(phaseOne);
+                if (prot_count <= 31) {
+                    prot_count += 1;
+                    count_animation = 1;
+                } else {
+                    clearInterval(phaseOne);
+                }
             }
         }, 250);
     }
