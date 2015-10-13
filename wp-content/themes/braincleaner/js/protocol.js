@@ -64,7 +64,7 @@ jQuery(document).ready(function() {
             jQuery('.ring-formula').css('background', '#fff url(/wp-content/themes/braincleaner/img/daemon.png) 0 0/100% no-repeat');
         }
     }
-    mw = function(){
+    wm = function(){
         jQuery('.sq1').css('background', 'url('+client_img+') no-repeat');
         jQuery('.sq1').addClass('client_sq');
     //фаза 1
