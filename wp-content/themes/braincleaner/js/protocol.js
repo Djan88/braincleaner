@@ -65,8 +65,8 @@ jQuery(document).ready(function() {
         }
     }
     wm = function(){
-        jQuery('.sq1').css('background', 'url('+client_img+') no-repeat');
-        jQuery('.sq1').addClass('client_sq');
+        jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
+        jQuery('.sq3').addClass('client_sq');
     //фаза 1
         reloadTime = 0;
         reloadTime1 = 0;
@@ -74,9 +74,9 @@ jQuery(document).ready(function() {
         prot_count = 1;
         cur_animation_val = 0;
         count_animation = 1;
-        jQuery('.sq3').css('background', 'url('+faces_img+') no-repeat');
-        jQuery('.sq3').css('background-size', '11000px');
-        jQuery('.sq3').css('background-position-x', '-55px');
+        jQuery('.sq1').css('background', 'url('+faces_img+') no-repeat');
+        jQuery('.sq1').css('background-size', '11000px');
+        jQuery('.sq1').css('background-position-x', '-55px');
         phaseOne = setInterval(function(){
             if(count_animation <= 360){
                 circle_model(count_animation);
@@ -85,7 +85,7 @@ jQuery(document).ready(function() {
                 if (prot_count <= 31) {
                     prot_count += 1;
                     cur_faces = parseInt(jQuery('.sq3').css('background-position-x'))-357;
-                    jQuery('.sq3').css('background-position-x', cur_faces+'px');
+                    jQuery('.sq1').css('background-position-x', cur_faces+'px');
                     count_animation = 1;
                     d12Val = 0;
                 } else {
