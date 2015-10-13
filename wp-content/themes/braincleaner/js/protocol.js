@@ -84,7 +84,7 @@ jQuery(document).ready(function() {
             } else {
                 if (prot_count <= 31) {
                     prot_count += 1;
-                    cur_faces = parseInt(jQuery('.sq3').css('background-position-x'))-357;
+                    cur_faces = parseInt(jQuery('.sq1').css('background-position-x'))-357;
                     jQuery('.sq1').css('background-position-x', cur_faces+'px');
                     count_animation = 1;
                     d12Val = 0;
