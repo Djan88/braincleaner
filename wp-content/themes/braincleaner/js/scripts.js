@@ -39,10 +39,17 @@ jQuery(document).ready(function() {
 
     protocol_people = function(this_sex, this_recep){
         if (this_sex == 'male' && this_recep == 'female'){
-            localStorage.setItem('faces_img', '/wp-content/themes/braincleaner/img/male.png');
-            localStorage.setItem('circle_protocol', 'mw');
-        } else if (this_sex == 'female') {
             localStorage.setItem('faces_img', '/wp-content/themes/braincleaner/img/female.png');
+            localStorage.setItem('circle_protocol', 'mw');
+        } else if (this_sex == 'male' && this_recep == 'male') {
+            localStorage.setItem('faces_img', '/wp-content/themes/braincleaner/img/male.png');
+            localStorage.setItem('circle_protocol', 'mm');
+        } else if (this_sex == 'female' && this_recep == 'female') {
+            localStorage.setItem('faces_img', '/wp-content/themes/braincleaner/img/female.png');
+            localStorage.setItem('circle_protocol', 'ww');
+        } else if (this_sex == 'female' && this_recep == 'male') {
+            localStorage.setItem('faces_img', '/wp-content/themes/braincleaner/img/male.png');
+            localStorage.setItem('circle_protocol', 'wm');
         };
     }
     jQuery('.sex_item-client').on('click', function(event) {
