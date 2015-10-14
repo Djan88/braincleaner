@@ -92,8 +92,6 @@ jQuery(document).ready(function() {
                     reloadSound.play();
                     cur_faces = parseInt(jQuery('.sq1').css('background-position-x'))-357;
                     jQuery('.sq1').css('background-position-x', cur_faces+'px');
-                    reloadSound.stop();
-                    tickSound.play();
                     count_animation = 1;
                     d12Val = 0;
                 } else {
