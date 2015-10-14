@@ -17,9 +17,15 @@ jQuery(document).ready(function() {
         tickSound = new buzz.sound( "/sounds/tick", {
             formats: [ "ogg", "mp3" ]
         }),
-        reloadSound = new buzz.sound( "/sounds/reload", {
-            formats: [ "ogg", "mp3" ]
-        }),
+        reloadSound  = new Howl({
+            urls: ['/sounds/reload.ogg', '/sounds/reload.aac', '/sounds/reload.mp3'],
+            autoplay: false,
+            loop: false,
+            buffer: true,
+            onend: function() {
+            console.log('Finished!');
+            }
+        });
         client_img;
         supportsStorage = function(){
             try {
@@ -92,7 +98,6 @@ jQuery(document).ready(function() {
                     reloadSound.play();
                     cur_faces = parseInt(jQuery('.sq1').css('background-position-x'))-357;
                     jQuery('.sq1').css('background-position-x', cur_faces+'px');
-                    reloadSound.stop();
                     tickSound.play();
                     count_animation = 1;
                     d12Val = 0;
