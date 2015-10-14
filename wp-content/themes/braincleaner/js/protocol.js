@@ -132,22 +132,26 @@ jQuery(document).ready(function() {
         prot_count = 1;
         cur_animation_val = 0;
         count_animation = 1;
+        tickSound.play();
         jQuery('.sq3').css('background', 'url('+faces_img+') no-repeat');
-        // jQuery('.sq3').css('background-size', '11000px');
         jQuery('.sq3').css('background-position-x', '-95px');
         phaseOne = setInterval(function(){
             if(count_animation <= 360){
                 circle_model(count_animation);
                 count_animation += 1;
             } else {
-                if (prot_count <= 31) {
+                if (prot_count <= 15) {
                     prot_count += 1;
-                    // cur_faces = parseInt(jQuery('.sq3').css('background-position-x'))-357;
-                    // jQuery('.sq3').css('background-position-x', cur_faces+'px');
+                    tickSound.stop();
+                    reloadSound.play();
+                    cur_faces = parseInt(jQuery('.sq3').css('background-position-x'))-400;
+                    jQuery('.sq3').css('background-position-x', cur_faces+'px');
+                    tickSound.play();
                     count_animation = 1;
                     d12Val = 0;
                 } else {
                     clearInterval(phaseOne);
+                    onEnd();
                 }
             }
         }, 250);
