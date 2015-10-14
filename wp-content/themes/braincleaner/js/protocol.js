@@ -171,7 +171,7 @@ jQuery(document).ready(function() {
         tickSound.play();
         jQuery('.sq4').css('background', 'url('+faces_img+') no-repeat');
         jQuery('.sq4').css('background-size', '11000px');
-        jQuery('.sq4').css('background-position-x', '-95px');
+        jQuery('.sq4').css('background-position-x', '-55px');
         phaseOne = setInterval(function(){
             if(count_animation <= 360){
                 circle_model(count_animation);
@@ -189,7 +189,7 @@ jQuery(document).ready(function() {
                         caliber = 1;
                         prot_count += 1;
                         jQuery('.sq2').css('background', 'none');
-                        cur_faces = parseInt(jQuery('.sq4').css('background-position-x'))-400;
+                        cur_faces = parseInt(jQuery('.sq4').css('background-position-x'))-356;
                         jQuery('.sq4').css('background-position-x', cur_faces+'px');
                     };
                     tickSound.play();
