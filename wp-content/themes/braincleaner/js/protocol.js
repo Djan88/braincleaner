@@ -122,6 +122,7 @@ jQuery(document).ready(function() {
                     d12Val = 0;
                 } else {
                     clearInterval(phaseOne);
+                    onEnd();
                 }
             }
         }, 250);
