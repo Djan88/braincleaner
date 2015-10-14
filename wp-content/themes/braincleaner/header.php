@@ -9,6 +9,7 @@
     <!-- Bootstrap -->
     <link href="<?php bloginfo('template_url'); ?>/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php bloginfo('template_url'); ?>/css/jcrop.css" rel="stylesheet">
+    <link href="<?php bloginfo('template_url'); ?>/css/sweet-alert.css" rel="stylesheet">
     <link href="<?php bloginfo('template_url'); ?>/style.css" rel="stylesheet">
     <!-- animsition CSS -->
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/dist/css/animsition.min.css">
@@ -28,6 +29,7 @@
     <script src="<?php bloginfo('template_url'); ?>/js/jq.touch.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/jcron.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/exif.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/sweet-alert.min.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/protocol.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/scripts.js"></script>
 

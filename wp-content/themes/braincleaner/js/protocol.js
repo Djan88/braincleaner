@@ -26,6 +26,25 @@ jQuery(document).ready(function() {
             console.log('Finished!');
             }
         }),
+        onEnd = function(){
+            tickSound.stop();
+            swal({   
+                title: "Дефрагментация окончена",
+                type: "success",   
+                confirmButtonColor: "#DD6B56",
+                confirmButtonText: "Завершить"
+            }, 
+            function(isConfirm){
+                if (isConfirm) {
+                    var protocol = undefined;    
+                    jQuery(location).attr('href','/novyj-protokol');
+                }
+            });
+            var endSound = new buzz.sound( "/sounds/duos", {
+                formats: [ "ogg", "mp3" ]
+            });
+            endSound.play();
+        },
         client_img,
         supportsStorage = function(){
             try {
@@ -34,12 +53,12 @@ jQuery(document).ready(function() {
                 return false;
             }
         };
-        if(supportsStorage && localStorage.getItem('faces_img')){
-            faces_img = localStorage.getItem('faces_img');
-        }
-        if(supportsStorage && localStorage.getItem('circle_protocol')){
-            circle_protocol = localStorage.getItem('circle_protocol');
-        }
+    if(supportsStorage && localStorage.getItem('faces_img')){
+        faces_img = localStorage.getItem('faces_img');
+    }
+    if(supportsStorage && localStorage.getItem('circle_protocol')){
+        circle_protocol = localStorage.getItem('circle_protocol');
+    }
     circle_model = function(count_animation){
         if(count_animation <= 120){
             cur_animation_val += 1.5;
