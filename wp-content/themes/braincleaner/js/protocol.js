@@ -185,15 +185,15 @@ jQuery(document).ready(function() {
                         jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
                         jQuery('.sq2').css('background-position-x', jQuery('.sq4').css('background-position-x'));
                         jQuery('.sq4').css('background', 'none');
-                        jQuery('.sq2').css('background-size', '11000px');
                     } else {
                         caliber = 1;
                         prot_count += 1;
-                        jQuery('.sq2').css('background', 'none');
                         jQuery('.sq4').css('background', 'url('+faces_img+') no-repeat');
-                        cur_faces = parseInt(jQuery('.sq4').css('background-position-x'))-356;
+                        cur_faces = parseInt(jQuery('.sq2').css('background-position-x'))-356;
                         jQuery('.sq4').css('background-position-x', cur_faces+'px');
+                        jQuery('.sq2').css('background', 'none');
                     };
+                    jQuery('.sq2, .sq4').css('background-size', '11000px');
                     tickSound.play();
                     count_animation = 1;
                     d12Val = 0;
