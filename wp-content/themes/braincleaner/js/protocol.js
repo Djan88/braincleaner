@@ -249,7 +249,7 @@ jQuery(document).ready(function() {
         jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
         jQuery('.sq2').css('background-position-x', '-95px');
         phaseOne = setInterval(function(){
-            if(count_animation <= 360){
+            if(count_animation <= 240){
                 circle_model_woman(count_animation);
                 count_animation += 1;
             } else {
