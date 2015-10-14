@@ -14,7 +14,8 @@ jQuery(document).ready(function() {
         faces_img,
         phaseSeven_one,
         circle_model,
-        caliber = 1;
+        caliber = 1,
+        client_img,
         tickSound = new buzz.sound( "/sounds/tick", {
             formats: [ "ogg", "mp3" ]
         }),
@@ -46,7 +47,6 @@ jQuery(document).ready(function() {
             });
             endSound.play();
         },
-        client_img,
         supportsStorage = function(){
             try {
                 return 'localStorage' in window && window['localStorage'] !== null;
