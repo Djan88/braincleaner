@@ -185,6 +185,7 @@ jQuery(document).ready(function() {
                         jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
                         jQuery('.sq2').css('background-position-x', jQuery('.sq4').css('background-position-x'));
                         jQuery('.sq4').css('background', 'none');
+                        jQuery('.sq2').css('background-size', '11000px');
                     } else {
                         caliber = 1;
                         prot_count += 1;
