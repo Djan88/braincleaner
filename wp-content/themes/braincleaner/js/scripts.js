@@ -9,10 +9,7 @@ jQuery(document).ready(function() {
         faces_img,
         protocol_people,
         next_screen,
-        returned_img = jQuery('body').find('.injected').attr('src');
-        if (returned_img) {
-            localStorage.setItem('returned_img', returned_img);
-        };
+        returned_img = jQuery('body').find('.injected').attr('src'),
         supportsStorage = function(){
             try {
                 return 'localStorage' in window && window['localStorage'] !== null;
@@ -24,6 +21,9 @@ jQuery(document).ready(function() {
     if(supportsStorage && localStorage.getItem('cur_screen')){
         cur_screen = localStorage.getItem('cur_screen');
     }
+    if (returned_img) {
+        localStorage.setItem('returned_img', returned_img);
+    };
     next_screen = function(screen){
         jQuery('.screen')
             .addClass('hidden')
