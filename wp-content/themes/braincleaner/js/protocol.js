@@ -25,8 +25,8 @@ jQuery(document).ready(function() {
             onend: function() {
             console.log('Finished!');
             }
-        });
-        client_img;
+        }),
+        client_img,
         supportsStorage = function(){
             try {
                 return 'localStorage' in window && window['localStorage'] !== null;
