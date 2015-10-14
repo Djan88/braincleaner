@@ -14,6 +14,12 @@ jQuery(document).ready(function() {
         faces_img,
         phaseSeven_one,
         circle_model,
+        tickSound = new buzz.sound( "/sounds/tick", {
+            formats: [ "ogg", "mp3" ]
+        }),
+        reloadSound = new buzz.sound( "/sounds/reload", {
+            formats: [ "ogg", "mp3" ]
+        }),
         client_img;
         supportsStorage = function(){
             try {
@@ -65,13 +71,13 @@ jQuery(document).ready(function() {
         client_img = jQuery('body').find('.injected').attr('src');
         jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
         jQuery('.sq3').addClass('client_sq');
-    //фаза 1
         reloadTime = 0;
         reloadTime1 = 0;
         d12Val = 0;
         prot_count = 1;
         cur_animation_val = 0;
         count_animation = 1;
+        tickSound.play();
         jQuery('.sq1').css('background', 'url('+faces_img+') no-repeat');
         jQuery('.sq1').css('background-size', '11000px');
         jQuery('.sq1').css('background-position-x', '-55px');
@@ -82,8 +88,12 @@ jQuery(document).ready(function() {
             } else {
                 if (prot_count <= 31) {
                     prot_count += 1;
+                    tickSound.stop();
+                    reloadSound.play();
                     cur_faces = parseInt(jQuery('.sq1').css('background-position-x'))-357;
                     jQuery('.sq1').css('background-position-x', cur_faces+'px');
+                    reloadSound.stop();
+                    tickSound.play();
                     count_animation = 1;
                     d12Val = 0;
                 } else {
