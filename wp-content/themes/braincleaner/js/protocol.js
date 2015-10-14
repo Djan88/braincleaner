@@ -86,6 +86,21 @@ jQuery(document).ready(function() {
             jQuery('.ring-formula').css('transform', 'rotate('+d12Val+'deg)');
             jQuery('.ring-formula').css('background', '#fff url(/wp-content/themes/braincleaner/img/daemon.png) 0 0/100% no-repeat');
         }
+    };
+    circle_model_man = function(count_animation){
+        if(count_animation <= 120){
+            cur_animation_val -= 1.5;
+            d12Val+= 9;
+            jQuery('.ring-formula').css('transform', 'rotate('+d12Val+'deg)');
+            jQuery('.box_rounded').css('transform', 'rotate('+cur_animation_val+'deg) scale(1)');
+            jQuery('.ring-formula').css('background', '#fff url(/wp-content/themes/braincleaner/img/daemon.png) 0 0/100% no-repeat');
+        } else {
+            cur_animation_val += 1.5;
+            d12Val+= 9;
+            jQuery('.ring-formula').css('transform', 'rotate('+d12Val+'deg)');
+            jQuery('.box_rounded').css('transform', 'rotate('+cur_animation_val+'deg) scale(1)');
+            jQuery('.ring-formula').css('background', '#fff url(/wp-content/themes/braincleaner/img/daemon.png) 0 0/100% no-repeat');
+        }
     }
     wm = function(){
         client_img = jQuery('body').find('.injected').attr('src');
@@ -174,7 +189,7 @@ jQuery(document).ready(function() {
         jQuery('.sq4').css('background-position-x', '-55px');
         phaseOne = setInterval(function(){
             if(count_animation <= 360){
-                circle_model(count_animation);
+                circle_model_man(count_animation);
                 count_animation += 1;
             } else {
                 if (prot_count <= 30) {
