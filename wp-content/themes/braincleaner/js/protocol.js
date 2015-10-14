@@ -56,9 +56,6 @@ jQuery(document).ready(function() {
     if(supportsStorage && localStorage.getItem('faces_img')){
         faces_img = localStorage.getItem('faces_img');
     }
-    if(supportsStorage && localStorage.getItem('circle_protocol')){
-        circle_protocol = localStorage.getItem('circle_protocol');
-    }
     circle_model = function(count_animation){
         if(count_animation <= 120){
             cur_animation_val += 1.5;
@@ -159,6 +156,9 @@ jQuery(document).ready(function() {
         }, 250);
     }
     jQuery('body').on('click', '.prot-start', function(event) {
+        if(supportsStorage && localStorage.getItem('circle_protocol')){
+            circle_protocol = localStorage.getItem('circle_protocol');
+        }
         console.log(circle_protocol);
         if (circle_protocol && circle_protocol == 'mw') {
             mw();
