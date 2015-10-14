@@ -188,7 +188,7 @@ jQuery(document).ready(function() {
         jQuery('.sq4').css('background-size', '11000px');
         jQuery('.sq4').css('background-position-x', '-55px');
         phaseOne = setInterval(function(){
-            if(count_animation <= 360){
+            if(count_animation <= 240){
                 circle_model_man(count_animation);
                 count_animation += 1;
             } else {
