@@ -14,7 +14,7 @@ jQuery(document).ready(function() {
         faces_img,
         phaseSeven_one,
         circle_model,
-        client_img,
+        client_img;
         supportsStorage = function(){
             try {
                 return 'localStorage' in window && window['localStorage'] !== null;
@@ -22,9 +22,6 @@ jQuery(document).ready(function() {
                 return false;
             }
         };
-        if(supportsStorage && localStorage.getItem('returned_img')){
-            client_img = localStorage.getItem('returned_img');
-        }
         if(supportsStorage && localStorage.getItem('faces_img')){
             faces_img = localStorage.getItem('faces_img');
         }
@@ -65,6 +62,7 @@ jQuery(document).ready(function() {
         }
     }
     wm = function(){
+        client_img = jQuery('body').find('.injected').attr('src');
         jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
         jQuery('.sq3').addClass('client_sq');
     //фаза 1
@@ -95,6 +93,7 @@ jQuery(document).ready(function() {
         }, 250);
     }
     mw = function(){
+        client_img = jQuery('body').find('.injected').attr('src');
         jQuery('.sq1').css('background', 'url('+client_img+') no-repeat');
         jQuery('.sq1').addClass('client_sq');
     //фаза 1
