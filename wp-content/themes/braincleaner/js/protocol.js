@@ -115,7 +115,7 @@ jQuery(document).ready(function() {
                     prot_count += 1;
                     tickSound.stop();
                     reloadSound.play();
-                    cur_faces = parseInt(jQuery('.sq1').css('background-position-x'))-357;
+                    cur_faces = parseInt(jQuery('.sq1').css('background-position-x'))-356;
                     jQuery('.sq1').css('background-position-x', cur_faces+'px');
                     tickSound.play();
                     count_animation = 1;
