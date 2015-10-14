@@ -42,7 +42,7 @@ jQuery(document).ready(function() {
                     jQuery(location).attr('href','/novyj-protokol');
                 }
             });
-            var endSound = new buzz.sound( "/sounds/duos", {
+            var endSound = new buzz.sound( "/sounds/fin", {
                 formats: [ "ogg", "mp3" ]
             });
             endSound.play();
