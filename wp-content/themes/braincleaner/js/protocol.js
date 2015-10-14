@@ -184,13 +184,11 @@ jQuery(document).ready(function() {
                         caliber = 2;
                         jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
                         jQuery('.sq2').css('background-position-x', jQuery('.sq4').css('background-position-x'));
-                        jQuery('.sq4').css('opacity', '0');
-                        jQuery('.sq2').css('opacity', '1');
+                        jQuery('.sq4').css('background', 'none');
                     } else {
                         caliber = 1;
                         prot_count += 1;
-                        jQuery('.sq2').css('opacity', '0');
-                        jQuery('.sq4').css('opacity', '1');
+                        jQuery('.sq2').css('background', 'none');
                         jQuery('.sq4').css('background', 'url('+faces_img+') no-repeat');
                         cur_faces = parseInt(jQuery('.sq4').css('background-position-x'))-356;
                         jQuery('.sq4').css('background-position-x', cur_faces+'px');
