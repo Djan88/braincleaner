@@ -111,7 +111,7 @@ jQuery(document).ready(function() {
                 circle_model(count_animation);
                 count_animation += 1;
             } else {
-                if (prot_count <= 31) {
+                if (prot_count <= 30) {
                     prot_count += 1;
                     tickSound.stop();
                     reloadSound.play();
