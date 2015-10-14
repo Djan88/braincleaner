@@ -189,6 +189,7 @@ jQuery(document).ready(function() {
                         caliber = 1;
                         prot_count += 1;
                         jQuery('.sq2').css('background', 'none');
+                        jQuery('.sq4').css('background', 'url('+client_img+') no-repeat');
                         cur_faces = parseInt(jQuery('.sq4').css('background-position-x'))-356;
                         jQuery('.sq4').css('background-position-x', cur_faces+'px');
                     };
