@@ -39,7 +39,7 @@ jQuery(document).ready(function() {
             function(isConfirm){
                 if (isConfirm) {
                     var protocol = undefined;    
-                    jQuery(location).attr('href','/novyj-protokol');
+                    jQuery(location).attr('href','/defra');
                 }
             });
             var endSound = new buzz.sound( "/sounds/fin", {
