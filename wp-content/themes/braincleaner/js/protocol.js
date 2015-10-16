@@ -61,7 +61,7 @@ jQuery(document).ready(function() {
         jQuery('.main-zone').addClass('main-zone_min');
     };
     if (jQuery('.main-zone').hasClass('main-zone_min')) {
-        bg_size_man = '6470px';
+        bg_size_man = '6460px';
     } else {
         bg_size_man = '11000px';
     }
