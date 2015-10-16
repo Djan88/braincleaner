@@ -20,6 +20,7 @@ jQuery(document).ready(function() {
         bg_size_man,
         bg_size_woman,
         move_man,
+        move_woman,
         tickSound = new buzz.sound( "/sounds/tick", {
             formats: [ "ogg", "mp3" ]
         }),
@@ -66,9 +67,11 @@ jQuery(document).ready(function() {
         bg_size_man = '6450px';
         bg_size_woman = '3500px';
         move_man = 208;
+        move_woman = 219;
     } else {
         bg_size_man = '11000px';
         move_man = 356;
+        move_woman = 400;
     }
     circle_model = function(count_animation){
         if(count_animation <= 120){
@@ -194,7 +197,7 @@ jQuery(document).ready(function() {
                     prot_count += 1;
                     tickSound.stop();
                     reloadSound.play();
-                    cur_faces = parseInt(jQuery('.sq3').css('background-position-x'))-400;
+                    cur_faces = parseInt(jQuery('.sq3').css('background-position-x'))-move_woman;
                     jQuery('.sq3').css('background-position-x', cur_faces+'px');
                     tickSound.play();
                     count_animation = 1;
@@ -287,7 +290,7 @@ jQuery(document).ready(function() {
                         caliber = 1;
                         prot_count += 1;
                         jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
-                        cur_faces = parseInt(jQuery('.sq4').css('background-position-x'))-400;
+                        cur_faces = parseInt(jQuery('.sq4').css('background-position-x'))-move_woman;
                         jQuery('.sq2').css('background-position-x', cur_faces+'px');
                         jQuery('.sq4').css('background', 'none');
                     };
