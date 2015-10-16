@@ -149,7 +149,7 @@ jQuery(document).ready(function() {
         tickSound.play();
         jQuery('.sq1').css('background', 'url('+faces_img+') no-repeat');
         jQuery('.sq1').css('background-size', bg_size_man);
-        jQuery('.sq1').css('background-position-x', '-55px');
+        jQuery('.sq1').css('background-position-x', '-52px');
         phaseOne = setInterval(function(){
             if(count_animation <= 360){
                 circle_model(count_animation);
@@ -223,7 +223,7 @@ jQuery(document).ready(function() {
         tickSound.play();
         jQuery('.sq4').css('background', 'url('+faces_img+') no-repeat');
         jQuery('.sq4').css('background-size', bg_size_man);
-        jQuery('.sq4').css('background-position-x', '-55px');
+        jQuery('.sq4').css('background-position-x', '-52px');
         phaseOne = setInterval(function(){
             if(count_animation <= 240){
                 circle_model_man(count_animation);
