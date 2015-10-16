@@ -557,3 +557,32 @@ iframe
 {
   display: inline-block;
 }
+.main-zone_min .ring
+{
+  width: 550px;
+  height: 550px;
+  left: 20%;
+}
+.main-zone_min .sq
+{
+  width: 90px;
+  height: 150px;
+}
+.main-zone_min .sq1
+{
+  top: 193px;
+  left: 32.5%;
+}
+.main-zone_min .sq2
+{
+  top: 30px;
+}
+.main-zone_min .sq3
+{
+  top: 193px;
+}
+.main-zone_min .sq4
+{
+  top: 355px;
+}
+}
