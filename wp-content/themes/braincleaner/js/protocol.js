@@ -12,6 +12,7 @@ jQuery(document).ready(function() {
         count_animation,
         circle_protocol,
         faces_img,
+        browser_w,
         phaseSeven_one,
         circle_model,
         caliber = 1,
@@ -54,6 +55,10 @@ jQuery(document).ready(function() {
                 return false;
             }
         };
+    browser_w = jQuery(window).width();
+    if (browser_w <= 2000) {
+        jQuery('.main-zone').addClass('main-zone_min');
+    };
     circle_model = function(count_animation){
         if(count_animation <= 120){
             cur_animation_val += 1.5;
