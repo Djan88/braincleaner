@@ -184,7 +184,7 @@ jQuery(document).ready(function() {
         if (bg_size_woman) {
             jQuery('.sq3').css('background-size', bg_size_woman);
         };
-        jQuery('.sq3').css('background-position-x', '-95px');
+        jQuery('.sq3').css('background-position-x', '-65px');
         phaseOne = setInterval(function(){
             if(count_animation <= 360){
                 circle_model(count_animation);
