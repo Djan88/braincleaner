@@ -18,6 +18,8 @@ jQuery(document).ready(function() {
         caliber = 1,
         client_img,
         bg_size_man,
+        bg_size_woman,
+        move_man,
         tickSound = new buzz.sound( "/sounds/tick", {
             formats: [ "ogg", "mp3" ]
         }),
@@ -62,6 +64,7 @@ jQuery(document).ready(function() {
     };
     if (jQuery('.main-zone').hasClass('main-zone_min')) {
         bg_size_man = '6450px';
+        bg_size_woman = '3500px';
         move_man = 208;
     } else {
         bg_size_man = '11000px';
@@ -178,6 +181,9 @@ jQuery(document).ready(function() {
         count_animation = 1;
         tickSound.play();
         jQuery('.sq3').css('background', 'url('+faces_img+') no-repeat');
+        if (bg_size_woman) {
+            jQuery('.sq3').css('background-size', bg_size_woman);
+        };
         jQuery('.sq3').css('background-position-x', '-95px');
         phaseOne = setInterval(function(){
             if(count_animation <= 360){
@@ -250,6 +256,10 @@ jQuery(document).ready(function() {
     ww = function(){
         client_img = jQuery('body').find('.injected').attr('src');
         jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
+        jQuery('.sq3').css('background', 'url('+faces_img+') no-repeat');
+        if (bg_size_woman) {
+            jQuery('.sq3').css('background-size', bg_size_woman);
+        };
         jQuery('.sq3').addClass('client_sq');
         reloadTime = 0;
         reloadTime1 = 0;
@@ -280,6 +290,10 @@ jQuery(document).ready(function() {
                         cur_faces = parseInt(jQuery('.sq4').css('background-position-x'))-400;
                         jQuery('.sq2').css('background-position-x', cur_faces+'px');
                         jQuery('.sq4').css('background', 'none');
+                    };
+                    jQuery('.sq3').css('background', 'url('+faces_img+') no-repeat');
+                    if (bg_size_woman) {
+                        jQuery('.sq2, .sq4').css('background-size', bg_size_woman);
                     };
                     tickSound.play();
                     count_animation = 1;
