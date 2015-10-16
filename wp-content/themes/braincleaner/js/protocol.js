@@ -62,8 +62,10 @@ jQuery(document).ready(function() {
     };
     if (jQuery('.main-zone').hasClass('main-zone_min')) {
         bg_size_man = '6450px';
+        move_man = 208;
     } else {
         bg_size_man = '11000px';
+        move_man = 356;
     }
     circle_model = function(count_animation){
         if(count_animation <= 120){
@@ -151,7 +153,7 @@ jQuery(document).ready(function() {
                     prot_count += 1;
                     tickSound.stop();
                     reloadSound.play();
-                    cur_faces = parseInt(jQuery('.sq1').css('background-position-x'))-356;
+                    cur_faces = parseInt(jQuery('.sq1').css('background-position-x'))-move_man;
                     jQuery('.sq1').css('background-position-x', cur_faces+'px');
                     tickSound.play();
                     count_animation = 1;
@@ -230,7 +232,7 @@ jQuery(document).ready(function() {
                         caliber = 1;
                         prot_count += 1;
                         jQuery('.sq4').css('background', 'url('+faces_img+') no-repeat');
-                        cur_faces = parseInt(jQuery('.sq2').css('background-position-x'))-356;
+                        cur_faces = parseInt(jQuery('.sq2').css('background-position-x'))-move_man;
                         jQuery('.sq4').css('background-position-x', cur_faces+'px');
                         jQuery('.sq2').css('background', 'none');
                     };
