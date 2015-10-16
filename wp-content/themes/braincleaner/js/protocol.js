@@ -234,7 +234,7 @@ jQuery(document).ready(function() {
                         jQuery('.sq4').css('background-position-x', cur_faces+'px');
                         jQuery('.sq2').css('background', 'none');
                     };
-                    jQuery('.sq2, .sq4').css('background-size', '11000px');
+                    jQuery('.sq2, .sq4').css('background-size', bg_size_man);
                     tickSound.play();
                     count_animation = 1;
                     d12Val = 0;
@@ -249,7 +249,6 @@ jQuery(document).ready(function() {
         client_img = jQuery('body').find('.injected').attr('src');
         jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
         jQuery('.sq3').addClass('client_sq');
-    //фаза 1
         reloadTime = 0;
         reloadTime1 = 0;
         d12Val = 0;
