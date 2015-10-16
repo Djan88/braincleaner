@@ -272,7 +272,7 @@ jQuery(document).ready(function() {
         count_animation = 1;
         tickSound.play();
         jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
-        jQuery('.sq2').css('background-position-x', '-95px');
+        jQuery('.sq2').css('background-position-x', '-55px');
         phaseOne = setInterval(function(){
             if(count_animation <= 240){
                 circle_model_woman(count_animation);
@@ -294,7 +294,6 @@ jQuery(document).ready(function() {
                         jQuery('.sq2').css('background-position-x', cur_faces+'px');
                         jQuery('.sq4').css('background', 'none');
                     };
-                    jQuery('.sq3').css('background', 'url('+faces_img+') no-repeat');
                     if (bg_size_woman) {
                         jQuery('.sq2, .sq4').css('background-size', bg_size_woman);
                     };
