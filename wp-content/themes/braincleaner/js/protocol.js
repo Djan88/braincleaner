@@ -259,9 +259,9 @@ jQuery(document).ready(function() {
     ww = function(){
         client_img = jQuery('body').find('.injected').attr('src');
         jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
-        jQuery('.sq3').css('background', 'url('+faces_img+') no-repeat');
+        jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
         if (bg_size_woman) {
-            jQuery('.sq3').css('background-size', bg_size_woman);
+            jQuery('.sq2').css('background-size', bg_size_woman);
         };
         jQuery('.sq3').addClass('client_sq');
         reloadTime = 0;
