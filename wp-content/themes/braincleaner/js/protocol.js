@@ -25,13 +25,11 @@ jQuery(document).ready(function() {
             formats: [ "ogg", "mp3" ]
         }),
         reloadSound  = new Howl({
-            urls: ['/sounds/reload.ogg', '/sounds/reload.aac', '/sounds/reload.mp3'],
+            urls: ['/sounds/reload-2.ogg', '/sounds/reload-2.mp3'],
             autoplay: false,
             loop: false,
             buffer: true,
             onend: function() {
-            console.log('Finished!');
-            }
         }),
         onEnd = function(){
             tickSound.stop();
