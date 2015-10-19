@@ -28,8 +28,7 @@ jQuery(document).ready(function() {
             urls: ['/sounds/reload-2.ogg', '/sounds/reload-2.mp3'],
             autoplay: false,
             loop: false,
-            buffer: true,
-            onend: function() {
+            buffer: true
         }),
         onEnd = function(){
             tickSound.stop();
