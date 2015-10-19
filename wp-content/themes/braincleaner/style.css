@@ -595,3 +595,9 @@ iframe
   right: 0;
   top: 5px;
 }
+@media (max-width: 1400px) { 
+    .main-zone_min .sq2, .main-zone_min .sq3, .main-zone_min .sq4
+    {
+      left: 44%;
+    }
+}
