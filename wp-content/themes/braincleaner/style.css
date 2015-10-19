@@ -589,3 +589,9 @@ iframe
 {
   padding: 10px 10px;
 }
+.mobile-start 
+{
+  position: absolute;
+  right: 0;
+  top: 5px;
+}
