@@ -51,6 +51,7 @@
             <div class="sq sq2"></div>
             <div class="sq sq3"></div>
             <div class="sq sq4"></div>
+            <button type="button" class="btn btn-primary prot-start mobile-start hidden">Старт</button>
         </div>
     </div>
 <?php } else { ?>
