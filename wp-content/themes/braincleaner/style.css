@@ -585,4 +585,7 @@ iframe
 {
   top: 355px;
 }
+.nav>li>a 
+{
+  padding: 10px 10px;
 }
