@@ -64,6 +64,7 @@ jQuery(document).ready(function() {
         jQuery('.sex_item-recep').removeClass('active');
         if (jQuery(window).width() <= 1200) {
             jQuery('.mobile-start').removeClass('hidden');
+            jQuery('.sq1').css('left', '29.5%!important');
         } else {
             jQuery('#menu-item-646').addClass('set-prot');
         };
