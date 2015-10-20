@@ -66,12 +66,12 @@ jQuery(document).ready(function() {
         bg_size_woman = '3500px';
         move_man = 208;
         move_woman = 219;
-        start_move = 55;
+        start_move = -55;
     } else {
         bg_size_man = '11000px';
         move_man = 356;
         move_woman = 400;
-        start_move = 75;
+        start_move = -75;
     }
     circle_model = function(count_animation){
         if(count_animation <= 120){
