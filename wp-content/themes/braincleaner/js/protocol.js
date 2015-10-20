@@ -71,7 +71,7 @@ jQuery(document).ready(function() {
         bg_size_man = '11000px';
         move_man = 356;
         move_woman = 400;
-        start_move = 65;
+        start_move = 75;
     }
     circle_model = function(count_animation){
         if(count_animation <= 120){
