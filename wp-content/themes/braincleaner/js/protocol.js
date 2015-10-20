@@ -149,7 +149,7 @@ jQuery(document).ready(function() {
         tickSound.play();
         jQuery('.sq1').css('background', 'url('+faces_img+') no-repeat');
         jQuery('.sq1').css('background-size', bg_size_man);
-        jQuery('.sq1').css('background-position-x', 'center -52px');
+        jQuery('.sq1').css('background-position-x', '-52px');
         phaseOne = setInterval(function(){
             if(count_animation <= 360){
                 circle_model(count_animation);
@@ -160,7 +160,7 @@ jQuery(document).ready(function() {
                     tickSound.stop();
                     reloadSound.play();
                     cur_faces = parseInt(jQuery('.sq1').css('background-position-x'))-move_man;
-                    jQuery('.sq1').css('background-position', 'center '+cur_faces+'px');
+                    jQuery('.sq1').css('background-position-x', cur_faces+'px');
                     tickSound.play();
                     count_animation = 1;
                     d12Val = 0;
@@ -187,7 +187,7 @@ jQuery(document).ready(function() {
         if (bg_size_woman) {
             jQuery('.sq3').css('background-size', bg_size_woman);
         };
-        jQuery('.sq3').css('background-position', 'center '+start_move+'px');
+        jQuery('.sq3').css('background-position-x', start_move);
         phaseOne = setInterval(function(){
             if(count_animation <= 360){
                 circle_model(count_animation);
@@ -198,7 +198,7 @@ jQuery(document).ready(function() {
                     tickSound.stop();
                     reloadSound.play();
                     cur_faces = parseInt(jQuery('.sq3').css('background-position-x'))-move_woman;
-                    jQuery('.sq3').css('background-position', 'center '+cur_faces+'px');
+                    jQuery('.sq3').css('background-position-x', cur_faces+'px');
                     tickSound.play();
                     count_animation = 1;
                     d12Val = 0;
@@ -223,7 +223,7 @@ jQuery(document).ready(function() {
         tickSound.play();
         jQuery('.sq4').css('background', 'url('+faces_img+') no-repeat');
         jQuery('.sq4').css('background-size', bg_size_man);
-        jQuery('.sq4').css('background-position', 'center -52px');
+        jQuery('.sq4').css('background-position-x', '-52px');
         phaseOne = setInterval(function(){
             if(count_animation <= 240){
                 circle_model_man(count_animation);
@@ -235,14 +235,14 @@ jQuery(document).ready(function() {
                     if (caliber == 1){
                         caliber = 2;
                         jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
-                        jQuery('.sq2').css('background-position', 'center '+jQuery('.sq4').css('background-position-x'));
+                        jQuery('.sq2').css('background-position-x', jQuery('.sq4').css('background-position-x'));
                         jQuery('.sq4').css('background', 'none');
                     } else {
                         caliber = 1;
                         prot_count += 1;
                         jQuery('.sq4').css('background', 'url('+faces_img+') no-repeat');
                         cur_faces = parseInt(jQuery('.sq2').css('background-position-x'))-move_man;
-                        jQuery('.sq4').css('background-position', 'center '+cur_faces+'px');
+                        jQuery('.sq4').css('background-position-x', cur_faces+'px');
                         jQuery('.sq2').css('background', 'none');
                     };
                     jQuery('.sq2, .sq4').css('background-size', bg_size_man);
@@ -269,7 +269,7 @@ jQuery(document).ready(function() {
         count_animation = 1;
         tickSound.play();
         jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
-        jQuery('.sq2').css('background-position', 'center '+start_move+'px');
+        jQuery('.sq2').css('background-position-x', start_move);
         if (bg_size_woman) {
             jQuery('.sq2, .sq4').css('background-size', bg_size_woman);
         };
@@ -284,14 +284,14 @@ jQuery(document).ready(function() {
                     if (caliber == 1){
                         caliber = 2;
                         jQuery('.sq4').css('background', 'url('+faces_img+') no-repeat');
-                        jQuery('.sq4').css('background-position', 'center '+jQuery('.sq2').css('background-position-x'));
+                        jQuery('.sq4').css('background-position-x', jQuery('.sq2').css('background-position-x'));
                         jQuery('.sq2').css('background', 'none');
                     } else {
                         caliber = 1;
                         prot_count += 1;
                         jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
                         cur_faces = parseInt(jQuery('.sq4').css('background-position-x'))-move_woman;
-                        jQuery('.sq2').css('background-position', 'center '+cur_faces+'px');
+                        jQuery('.sq2').css('background-position-x', cur_faces+'px');
                         jQuery('.sq4').css('background', 'none');
                     };
                     if (bg_size_woman) {
