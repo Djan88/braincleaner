@@ -235,13 +235,15 @@ jQuery(document).ready(function() {
                     if (caliber == 1){
                         caliber = 2;
                         jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
-                        jQuery('.sq2').css('background-position', jQuery('.sq4').css('background-position-x')+' center');
+                        jQuery('.sq2').css('background-position', jQuery('.sq4').css('background-position'));
                         jQuery('.sq4').css('background', 'none');
                     } else {
                         caliber = 1;
                         prot_count += 1;
                         jQuery('.sq4').css('background', 'url('+faces_img+') no-repeat');
-                        cur_faces = parseInt(jQuery('.sq2').css('background-position-x'))-move_man;
+                        cur_faces = parseInt(jQuery('.sq2').css('background-position-x'));
+                        console.log(cur_faces);
+                        cur_faces = cur_faces-move_man;
                         jQuery('.sq4').css('background-position', cur_faces+'px center');
                         jQuery('.sq2').css('background', 'none');
                     };
