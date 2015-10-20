@@ -21,6 +21,7 @@ jQuery(document).ready(function() {
         bg_size_woman,
         move_man,
         move_woman,
+        start_move,
         tickSound = new buzz.sound( "/sounds/tick", {
             formats: [ "ogg", "mp3" ]
         }),
@@ -65,10 +66,12 @@ jQuery(document).ready(function() {
         bg_size_woman = '3500px';
         move_man = 208;
         move_woman = 219;
+        start_move = 55;
     } else {
         bg_size_man = '11000px';
         move_man = 356;
         move_woman = 400;
+        start_move = 65;
     }
     circle_model = function(count_animation){
         if(count_animation <= 120){
@@ -184,7 +187,7 @@ jQuery(document).ready(function() {
         if (bg_size_woman) {
             jQuery('.sq3').css('background-size', bg_size_woman);
         };
-        jQuery('.sq3').css('background-position-x', '-55px');
+        jQuery('.sq3').css('background-position-x', start_move);
         phaseOne = setInterval(function(){
             if(count_animation <= 360){
                 circle_model(count_animation);
@@ -266,7 +269,7 @@ jQuery(document).ready(function() {
         count_animation = 1;
         tickSound.play();
         jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
-        jQuery('.sq2').css('background-position-x', '-55px');
+        jQuery('.sq2').css('background-position-x', start_move);
         if (bg_size_woman) {
             jQuery('.sq2, .sq4').css('background-size', bg_size_woman);
         };
