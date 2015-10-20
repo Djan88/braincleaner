@@ -223,7 +223,7 @@ jQuery(document).ready(function() {
         tickSound.play();
         jQuery('.sq4').css('background', 'url('+faces_img+') no-repeat');
         jQuery('.sq4').css('background-size', bg_size_man);
-        jQuery('.sq4').css('background-position-x', '-52px');
+        jQuery('.sq4').css('background-position', '-52px center');
         phaseOne = setInterval(function(){
             if(count_animation <= 240){
                 circle_model_man(count_animation);
@@ -235,14 +235,14 @@ jQuery(document).ready(function() {
                     if (caliber == 1){
                         caliber = 2;
                         jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
-                        jQuery('.sq2').css('background-position-x', jQuery('.sq4').css('background-position-x'));
+                        jQuery('.sq2').css('background-position', jQuery('.sq4').css('background-position-x')+' center');
                         jQuery('.sq4').css('background', 'none');
                     } else {
                         caliber = 1;
                         prot_count += 1;
                         jQuery('.sq4').css('background', 'url('+faces_img+') no-repeat');
                         cur_faces = parseInt(jQuery('.sq2').css('background-position-x'))-move_man;
-                        jQuery('.sq4').css('background-position-x', cur_faces+'px');
+                        jQuery('.sq4').css('background-position', cur_faces+'px center');
                         jQuery('.sq2').css('background', 'none');
                     };
                     jQuery('.sq2, .sq4').css('background-size', bg_size_man);
