@@ -243,6 +243,7 @@ jQuery(document).ready(function() {
                         jQuery('.sq4').css('background', 'url('+faces_img+') no-repeat');
                         cur_faces = jQuery('.sq2').css('background-position');
                         console.log(cur_faces);
+                        console.log(cur_faces.indexOf("px"));
                         cur_faces = cur_faces-move_man;
                         jQuery('.sq4').css('background-position', cur_faces+'px center');
                         jQuery('.sq2').css('background', 'none');
