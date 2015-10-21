@@ -304,7 +304,7 @@ jQuery(document).ready(function() {
                         console.log(cur_faces);
                         cur_px_position = cur_faces.indexOf("px");
                         cur_faces = cur_faces.substr(0,cur_px_position)-womove_man;
-                        jQuery('.sq2').css('background-position-x', cur_faces+'px');
+                        jQuery('.sq2').css('background-position', cur_faces+'px center');
                         jQuery('.sq4').css('background', 'none');
                     };
                     if (bg_size_woman) {
