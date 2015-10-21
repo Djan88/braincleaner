@@ -303,7 +303,7 @@ jQuery(document).ready(function() {
                         cur_faces = jQuery('.sq4').css('background-position');
                         console.log(cur_faces);
                         cur_px_position = cur_faces.indexOf("px");
-                        cur_faces = cur_faces.substr(0,cur_px_position)-womove_man;
+                        cur_faces = cur_faces.substr(0,cur_px_position)-move_woman;
                         jQuery('.sq2').css('background-position', cur_faces+'px center');
                         jQuery('.sq4').css('background', 'none');
                     };
