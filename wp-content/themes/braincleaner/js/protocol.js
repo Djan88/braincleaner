@@ -241,7 +241,7 @@ jQuery(document).ready(function() {
                         caliber = 1;
                         prot_count += 1;
                         jQuery('.sq4').css('background', 'url('+faces_img+') no-repeat');
-                        cur_faces = jQuery('.sq2').css('background-position-x');
+                        cur_faces = jQuery('.sq2').css('background-position');
                         console.log(cur_faces);
                         cur_faces = cur_faces-move_man;
                         jQuery('.sq4').css('background-position', cur_faces+'px center');
