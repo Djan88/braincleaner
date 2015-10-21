@@ -245,8 +245,7 @@ jQuery(document).ready(function() {
                         cur_faces = jQuery('.sq2').css('background-position');
                         console.log(cur_faces);
                         cur_px_position = cur_faces.indexOf("px");
-                        console.log(cur_faces.substr(0,cur_px_position));
-                        cur_faces = cur_faces-move_man;
+                        cur_faces = cur_faces.substr(0,cur_px_position)-move_man;
                         jQuery('.sq4').css('background-position', cur_faces+'px center');
                         jQuery('.sq2').css('background', 'none');
                     };
