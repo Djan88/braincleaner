@@ -21,6 +21,7 @@ jQuery(document).ready(function() {
         bg_size_woman,
         move_man,
         move_woman,
+        cur_px_position,
         start_move,
         tickSound = new buzz.sound( "/sounds/tick", {
             formats: [ "ogg", "mp3" ]
@@ -243,7 +244,8 @@ jQuery(document).ready(function() {
                         jQuery('.sq4').css('background', 'url('+faces_img+') no-repeat');
                         cur_faces = jQuery('.sq2').css('background-position');
                         console.log(cur_faces);
-                        console.log(cur_faces.indexOf("px"));
+                        cur_px_position = cur_faces.indexOf("px");
+                        console.log(cur_faces.substr(0,cur_px_position));
                         cur_faces = cur_faces-move_man;
                         jQuery('.sq4').css('background-position', cur_faces+'px center');
                         jQuery('.sq2').css('background', 'none');
