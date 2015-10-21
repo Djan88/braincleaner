@@ -279,7 +279,7 @@ jQuery(document).ready(function() {
         count_animation = 1;
         tickSound.play();
         jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
-        jQuery('.sq2').css('background-position', start_move'px center');
+        jQuery('.sq2').css('background-position', start_move+'px center');
         if (bg_size_woman) {
             jQuery('.sq2, .sq4').css('background-size', bg_size_woman);
         };
