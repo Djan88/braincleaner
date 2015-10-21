@@ -279,7 +279,7 @@ jQuery(document).ready(function() {
         count_animation = 1;
         tickSound.play();
         jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
-        jQuery('.sq2').css('background-position-x', start_move);
+        jQuery('.sq2').css('background-position', start_move'px center');
         if (bg_size_woman) {
             jQuery('.sq2, .sq4').css('background-size', bg_size_woman);
         };
@@ -294,13 +294,16 @@ jQuery(document).ready(function() {
                     if (caliber == 1){
                         caliber = 2;
                         jQuery('.sq4').css('background', 'url('+faces_img+') no-repeat');
-                        jQuery('.sq4').css('background-position-x', jQuery('.sq2').css('background-position-x'));
+                        jQuery('.sq4').css('background-position', jQuery('.sq2').css('background-position'));
                         jQuery('.sq2').css('background', 'none');
                     } else {
                         caliber = 1;
                         prot_count += 1;
                         jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
-                        cur_faces = parseInt(jQuery('.sq4').css('background-position-x'))-move_woman;
+                        cur_faces = jQuery('.sq4').css('background-position');
+                        console.log(cur_faces);
+                        cur_px_position = cur_faces.indexOf("px");
+                        cur_faces = cur_faces.substr(0,cur_px_position)-womove_man;
                         jQuery('.sq2').css('background-position-x', cur_faces+'px');
                         jQuery('.sq4').css('background', 'none');
                     };
