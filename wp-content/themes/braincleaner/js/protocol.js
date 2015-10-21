@@ -191,7 +191,7 @@ jQuery(document).ready(function() {
         if (bg_size_woman) {
             jQuery('.sq3').css('background-size', bg_size_woman);
         };
-        jQuery('.sq3').css('background-position-x', start_move);
+        jQuery('.sq3').css('background-position', start_move+'px center');
         phaseOne = setInterval(function(){
             if(count_animation <= 360){
                 circle_model(count_animation);
@@ -201,8 +201,11 @@ jQuery(document).ready(function() {
                     prot_count += 1;
                     tickSound.stop();
                     reloadSound.play();
-                    cur_faces = parseInt(jQuery('.sq3').css('background-position-x'))-move_woman;
-                    jQuery('.sq3').css('background-position-x', cur_faces+'px');
+                    cur_faces = jQuery('.sq3').css('background-position');
+                    console.log(cur_faces);
+                    cur_px_position = cur_faces.indexOf("px");
+                    cur_faces = cur_faces.substr(0,cur_px_position)-move_woman;
+                    jQuery('.sq3').css('background-position', cur_faces+'px center');
                     tickSound.play();
                     count_animation = 1;
                     d12Val = 0;
