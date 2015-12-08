@@ -14,7 +14,7 @@
         <div class="col-md-9">
           <?php wp_nav_menu(array('menu' => 'Меню в шапке', 'container' => false, menu_class => 'nav navbar-nav' )); ?>
         </div>
-        <div class="col-md-3" style="margin-top: 7px;">
+        <div class="col-md-3" style="margin-top: 7px;margin-bottom: 7px;">
             <form method="get" name="searchform" id="searchform" action="<?php bloginfo('siteurl')?>">
               <div class="input-group">
                 <input type="text" name="s" id="s" placeholder="Что искать?" class="search-input form-control" required="true"/>
