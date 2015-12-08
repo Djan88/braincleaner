@@ -12,8 +12,8 @@
         <div class="list-group-item">
             <h4 class="sidebar-heading">
                 <a href="http://wizardduos.ru/">wizardduos.ru</a>
-                
             </h4>
+            Терапевтическая машина «wizardduos" для коррекции партнерских, семейных, а также бизнес-отношений между людьми.
         </div>
     </div>
     <div class="list-group">
