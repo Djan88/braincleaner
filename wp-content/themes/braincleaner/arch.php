@@ -4,7 +4,7 @@
   <!-- <span class="glyphicon glyphicon-arrow-down"></span><span class="glyphicon glyphicon-arrow-up"> -->
   </span><?php echo category_description( ); ?>
 </div>
-<div class="content-wrap clearfix">
+<div class="col-md-12 panel panel-default content-wrap clearfix">
     <?php if(is_category(3)){ ?>
       <?php if ( is_user_logged_in() ) { ?>
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>

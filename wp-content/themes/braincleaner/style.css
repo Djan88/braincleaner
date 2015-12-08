@@ -601,3 +601,8 @@ iframe
       left: 44%;
     }
 }
+.content-wrap 
+{
+  padding: 0;
+  border-color: transparent;
+}
