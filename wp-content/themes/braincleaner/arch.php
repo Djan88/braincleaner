@@ -1,4 +1,4 @@
-<?php if(is_category(5)) { ?><h4 style="padding-bottom: 6px;padding-top: 25px;">Обучение методике +7(495) 255-05-61 <a target="_blank" href="mailto:yuchikurov@gmail.com">yuchikurov@gmail.com</a></h4><?php } ?>
+<?php if(is_category(5)) { ?><h4 style="padding-bottom: 15px;padding-top: 25px;">Обучение методике +7(495) 255-05-61 <a target="_blank" href="mailto:yuchikurov@gmail.com">yuchikurov@gmail.com</a></h4><?php } ?>
 <?php if(!is_category(5)) { ?><h3><?php single_cat_title(); ?></h3><?php } ?>
 <div class="col-md-12 panel panel-default cat_description">
   <!-- <span class="glyphicon glyphicon-arrow-down"></span><span class="glyphicon glyphicon-arrow-up"> -->
