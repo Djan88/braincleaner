@@ -1,6 +1,6 @@
 <div class="col-md-4 sidebar-zone">
     <div class="list-group">
-        <div class="list-group-item active">
+        <div class="list-group-item">
             <h4 class="sidebar-heading"><a href="http://wizardmachine.ru/">wizardmachine.ru</a></h4>
         </div>
     </div>
