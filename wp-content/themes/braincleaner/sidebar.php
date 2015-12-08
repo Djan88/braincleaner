@@ -1,7 +1,19 @@
 <div class="col-md-4 sidebar-zone">
     <div class="list-group">
+        <div class="list-group-item active">
+            <h4 class="sidebar-heading">Проекты</h4>
+        </div>
         <div class="list-group-item">
-            <h4 class="sidebar-heading"><a href="http://wizardmachine.ru/">wizardmachine.ru</a></h4>
+            <h4 class="sidebar-heading">
+                <a href="http://wizardmachine.ru/">wizardmachine.ru</a>
+                Последние достижения российской науки в области нейрофизиологии, направленное на улучшение качества жизни и повышение уровня социально-бытовой адаптации.
+            </h4>
+        </div>
+        <div class="list-group-item">
+            <h4 class="sidebar-heading">
+                <a href="http://wizardduos.ru/">wizardduos.ru</a>
+                
+            </h4>
         </div>
     </div>
     <div class="list-group">
