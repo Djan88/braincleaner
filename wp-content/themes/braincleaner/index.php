@@ -21,7 +21,7 @@
           <?php } else { ?>
             <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
               <?php if(is_single() || is_page()) { ?>
-                <h3><?php the_title(); ?></h3>
+                <h3><?php the_title(); ?> <?php if(is_front_page()) { ?> Обучение методике +7(495) 255-05-61 <a href="mailto:yuchikurov@gmail.com">yuchikurov@gmail.com</a><?php } ?></h3>
               <?php } else { ?>
                 <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
               <?php } ?>
