@@ -1,7 +1,7 @@
 <div class="col-md-4 sidebar-zone">
     <div class="list-group">
         <div class="list-group-item active">
-            <h4 class="sidebar-heading">Проекты</h4>
+            <h4>Проекты</h4>
         </div>
         <div class="list-group-item">
             <h4 class="sidebar-heading">
