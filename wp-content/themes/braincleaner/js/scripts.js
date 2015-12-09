@@ -180,7 +180,8 @@ jQuery(document).ready(function() {
             .addClass('fadeIn');
     });
 
-    jQuery('#menu-item-13').find('a').prepend('<span class="glyphicon glyphicon-film"></span>').find('span').removeClass('glyphicon-arrow-down');
+    jQuery('#menu-item-13').find('a').prepend('<span class="glyphicon glyphicon-film"></span>');
+    jQuery('#menu-item-13').find('span').removeClass('glyphicon-arrow-down');
     jQuery('#menu-item-14').find('a').prepend('<span class="glyphicon glyphicon-book"></span>');
     jQuery('#menu-item-12').find('a').prepend('<span class="glyphicon glyphicon-envelope"></span>');
     jQuery('#menu-item-15').find('a').prepend('<span class="glyphicon glyphicon-log-out"></span>');
