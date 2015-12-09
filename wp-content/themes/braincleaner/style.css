@@ -640,4 +640,16 @@ iframe
   border: 1px solid #ddd;
   border-radius: 50%;
   transition: transform 1s linear;
+  position: relative;
+  z-index: 1;
+}
+.emo_pelena
+{
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  top: 0;
+  overflow: hidden;
 }

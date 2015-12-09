@@ -13,13 +13,13 @@
     </div>
 </div>
 <script>
-// jQuery(document).ready(function() {
-//     var count_emo = 0;
-//     var countereom = setInterval (function(){
-//         jQuery('.emo_lovushka').css('transform', 'rotate(-'+count_emo/2+'deg)');
-//         count_emo += 1;
-//         // console.log(count);
-//     }, 100);
-// });
+jQuery(document).ready(function() {
+    var count_emo = 0;
+    var countereom = setInterval (function(){
+        jQuery('.emo_lovushka').css('transform', 'rotate(-'+count_emo/2+'deg)');
+        count_emo += 1;
+        // console.log(count);
+    }, 100);
+});
 
 </script>
