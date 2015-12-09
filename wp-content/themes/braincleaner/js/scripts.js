@@ -181,12 +181,11 @@ jQuery(document).ready(function() {
     });
 
     jQuery('#menu-item-13').find('a').prepend('<span class="glyphicon glyphicon-film"></span>');
-    jQuery('#menu-item-13').find('span').removeClass('glyphicon-arrow-down');
     jQuery('#menu-item-14').find('a').prepend('<span class="glyphicon glyphicon-book"></span>');
     jQuery('#menu-item-12').find('a').prepend('<span class="glyphicon glyphicon-envelope"></span>');
     jQuery('#menu-item-15').find('a').prepend('<span class="glyphicon glyphicon-log-out"></span>');
     jQuery('#menu-item-18').find('a').prepend('<span class="glyphicon glyphicon-bell"></span>');
-    jQuery('#menu-item-648').find('a').prepend('<span class="glyphicon glyphicon-play-circle"></span>');
+    jQuery('#menu-item-648').find('a:first').prepend('<span class="glyphicon glyphicon-play-circle"></span>');
     jQuery('#menu-item-658').find('a').prepend('<span class="glyphicon glyphicon-arrow-down"></span>');
     jQuery('#menu-item-107').find('a').prepend('<span class="glyphicon glyphicon-leaf"></span>');
     jQuery('#menu-item-646').find('a').prepend('<span class="glyphicon glyphicon-repeat"></span>');
