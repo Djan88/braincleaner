@@ -32,7 +32,9 @@
                   <?php if (is_page(617)) { ?>
                     <?php include(TEMPLATEPATH . '/617.php'); ?>
                   <?php } else if (is_page(659)) { ?>
-                    <?php include(TEMPLATEPATH . '/659.php'); ?>
+                    <div class="clearfix">
+                      <?php include(TEMPLATEPATH . '/659.php'); ?>
+                    </div>
                   <?php } else { ?>
                     <div class="panel-body">
                     <?php if(in_category(3)) { ?>
