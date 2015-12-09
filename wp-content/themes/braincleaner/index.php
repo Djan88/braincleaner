@@ -7,11 +7,13 @@
         </script>
     <?php } ?>
   <?php } else { ?>
-    <div class="container-fluid inside animsition <?php if(is_page(617)){?>class_617<?php } ?>">
+    <div class="container-fluid inside animsition <?php if(is_page(617)){?>class_617<?php } else if (is_page(659)) { ?>class_659<?php } ?>">
       <?php include(TEMPLATEPATH . '/head-part.php'); ?>
       <div class="row">
         <div class="container main-zone">
           <?php if (is_page(617)) { ?>
+            <div class="col-md-12" style="min-height: 1200px;">
+          <?php } else if (is_page(659)) { ?>
             <div class="col-md-12" style="min-height: 1200px;">
           <?php } else { ?>
             <div class="col-md-8">
@@ -29,6 +31,8 @@
                 <div class="panel panel-default main_heading">
                   <?php if (is_page(617)) { ?>
                     <?php include(TEMPLATEPATH . '/617.php'); ?>
+                  <?php } else if (is_page(659)) { ?>
+                    <?php include(TEMPLATEPATH . '/659.php'); ?>
                   <?php } else { ?>
                     <div class="panel-body">
                     <?php if(in_category(3)) { ?>
