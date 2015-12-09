@@ -127,8 +127,8 @@ jQuery(document).ready(function() {
         overlayParentElement  :   'body'
     });
     
-        count = 0;
-        counter = setInterval (function(){
+    count = 0;
+    counter = setInterval (function(){
         jQuery('.gear_1').css('transform', 'rotate('+count/2+'deg)');
         jQuery('.gear_2').css('transform', 'rotate(-'+count*2+'deg)');
         jQuery('.gear_3').css('transform', 'rotate('+count/2+'deg)');
