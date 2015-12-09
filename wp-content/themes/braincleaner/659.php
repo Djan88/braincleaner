@@ -14,8 +14,8 @@
 jQuery(document).ready(function() {
 	var count_emo = 0;
 	var countereom = setInterval (function(){
-	    jQuery('.emo_lovushka').css('transform', 'rotate(-'+count_emo+'deg)');
-	    count_emo += 3;
+	    jQuery('.emo_lovushka').css('transform', 'rotate(-'+count_emo/2+'deg)');
+	    count_emo += 6;
 	    // console.log(count);
 	}, 100);
 });
