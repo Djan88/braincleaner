@@ -259,7 +259,7 @@
             <?php posts_nav_link(' &#8212; ', __('&laquo; Более новые '), __('Более старые &raquo;')); ?>
           <?php } ?>
           </div>
-          <?php if (!is_page(617)) { ?>
+          <?php if (!is_page(617) && !is_page(659)) { ?>
             <?php include(TEMPLATEPATH . '/sidebar.php'); ?>
           <?php } ?>
         </div>
