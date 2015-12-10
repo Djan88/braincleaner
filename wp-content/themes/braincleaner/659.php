@@ -16,7 +16,7 @@
 jQuery(document).ready(function() {
     var count_emo = 0;
     var emo_status;
-    jQuery('.emo_util').on('touch', function(event) {
+    jQuery('.emo_util').on('click touch', function(event) {
         count_emo = 0;
         emo_status = 2;
         jQuery('.emo_usilitel').css('transform', 'rotate(0deg)');
@@ -29,7 +29,7 @@ jQuery(document).ready(function() {
             };
         }, 100);
     });
-    jQuery('.emo_usil').on('touch', function(event) {
+    jQuery('.emo_usil').on('click touch', function(event) {
         count_emo = 0;
         emo_status = 1;
         jQuery('.emo_lovushka').css('transform', 'rotate(0deg)');
