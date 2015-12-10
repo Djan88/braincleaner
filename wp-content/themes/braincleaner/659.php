@@ -20,6 +20,12 @@ jQuery(document).ready(function() {
         count_emo += 1;
         // console.log(count);
     }, 100);
+    jQuery('.emo_util').on('click', function(event) {
+        console.log('emo_util')
+    });
+    jQuery('.emo_usil').on('click', function(event) {
+        console.log('emo_usil')
+    });
 });
 
 </script>

@@ -22,6 +22,7 @@
     <script src="<?php bloginfo('template_url'); ?>/dist/js/jquery.animsition.min.js"></script>
     <!-- custom files -->
     <script src="<?php bloginfo('template_url'); ?>/js/buzz.min.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/jquery.ui.touch-punch.min.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/ion.sound.min.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/jquery.jplayer.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/howler.js"></script>
