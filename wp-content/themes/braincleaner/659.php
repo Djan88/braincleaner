@@ -26,7 +26,7 @@ jQuery(document).ready(function() {
             if(emo_status == 1) {
                 clearInterval(counter_util);
                 jQuery('.emo_lovushka').css('transform', 'rotate(0deg)');
-            });
+            };
         }, 100);
     });
     jQuery('.emo_usil').on('click', function(event) {
@@ -39,7 +39,7 @@ jQuery(document).ready(function() {
             if(emo_status == 2) {
                 clearInterval(counter_usil);
                 jQuery('.emo_usilitel').css('transform', 'rotate(0deg)');
-            });
+            };
         }, 100);
     });
 });
