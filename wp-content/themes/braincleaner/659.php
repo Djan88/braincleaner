@@ -9,23 +9,34 @@
     <div class="emo_img emo_usil">
         <h5>Усилитель</h5>
         <div class="emo_pelena"></div>
-        <img src="<?php bloginfo('template_url'); ?>/img/usilitel.png" alt="usilitel">
+        <img class="emo_usilitel" src="<?php bloginfo('template_url'); ?>/img/usilitel.png" alt="usilitel">
     </div>
 </div>
 <script>
 jQuery(document).ready(function() {
     var count_emo = 0;
-    var countereom = setInterval (function(){
-        jQuery('.emo_lovushka').css('transform', 'rotate(-'+count_emo/2+'deg)');
-        count_emo += 1;
-        // console.log(count);
-    }, 100);
     jQuery('.emo_util').on('mousedown', function(event) {
-        console.log('emo_util')
+        count_emo = 0;
+        clearInterval(counter_usil);
+        jQuery('.emo_usilitel').css('transform', 'rotate(0deg)');
+        var counter_util = setInterval (function(){
+            jQuery('.emo_lovushka').css('transform', 'rotate(-'+count_emo/2+'deg)');
+            count_emo += 1;
+            // console.log(count);
+        }, 100);
     });
     jQuery('.emo_usil').on('mousedown', function(event) {
-        console.log('emo_usil')
+        count_emo = 0;
+        clearInterval(counter_util);
+        jQuery('.emo_lovushka').css('transform', 'rotate(0deg)');
+        var counter_usil = setInterval (function(){
+            jQuery('.emo_usilitel').css('transform', 'rotate(-'+count_emo/2+'deg)');
+            count_emo += 1;
+            // console.log(count);
+        }, 100);
     });
+    clearInterval(counter_util);
+    clearInterval(counter_usil);
 });
 
 </script>
