@@ -17,7 +17,6 @@ jQuery(document).ready(function() {
     var count_emo = 0;
     jQuery('.emo_util').on('mousedown', function(event) {
         count_emo = 0;
-        clearInterval(counter_usil);
         jQuery('.emo_usilitel').css('transform', 'rotate(0deg)');
         var counter_util = setInterval (function(){
             jQuery('.emo_lovushka').css('transform', 'rotate(-'+count_emo/2+'deg)');
@@ -25,15 +24,20 @@ jQuery(document).ready(function() {
             // console.log(count);
         }, 100);
     });
+    jQuery('.emo_util').on('mouseup', function(event) {
+        clearInterval(counter_util);
+    });
     jQuery('.emo_usil').on('mousedown', function(event) {
         count_emo = 0;
-        clearInterval(counter_util);
         jQuery('.emo_lovushka').css('transform', 'rotate(0deg)');
         var counter_usil = setInterval (function(){
             jQuery('.emo_usilitel').css('transform', 'rotate(-'+count_emo/2+'deg)');
             count_emo += 1;
             // console.log(count);
         }, 100);
+    });
+    jQuery('.emo_usil').on('mouseup', function(event) {
+        clearInterval(counter_usil);
     });
     clearInterval(counter_util);
     clearInterval(counter_usil);
