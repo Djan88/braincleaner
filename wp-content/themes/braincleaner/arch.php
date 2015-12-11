@@ -65,7 +65,7 @@
             echo '</div><div class="defra_btns"><a href="';
             the_permalink();
             echo '" class="btn btn-default btn-lg btn-block center-block">';
-            echo 'К программе</a></div></div></div></div>';
+            echo 'Войти</a></div></div></div></div>';
           }
         ?>
       <?php if ( is_user_logged_in() ) { ?>
