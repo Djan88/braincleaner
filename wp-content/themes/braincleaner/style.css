@@ -653,13 +653,22 @@ iframe
   top: 0;
   overflow: hidden;
 }
+.emo-start
+{
+  width: 100px;
+}
 .emo-wrap
 {
   position: relative;
 }
 .emo-first
 {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
+  z-index: 2;
+}
+.emo-second
+{
+  display: none;
 }

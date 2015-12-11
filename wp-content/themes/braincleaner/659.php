@@ -24,6 +24,7 @@
 jQuery(document).ready(function() {
     jQuery('.emo-start').on('click', function(event) {
         jQuery('.emo-first').hide();
+        jQuery('.emo-second').show();
     });
     var count_emo = 0;
     var emo_status;
