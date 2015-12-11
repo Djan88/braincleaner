@@ -1,19 +1,30 @@
-<div class="col-md-6" style="border-right: 1px solid #ddd; padding-top: 15px; padding-bottom: 15px;">
-    <div class="emo_img emo_util">
-        <h5>Утилизатор</h5>
-        <div class="emo_pelena"></div>
-        <img class="emo_lovushka" src="<?php bloginfo('template_url'); ?>/img/lovushka.png" alt="lovushka">
+<div class="emo-wrap">
+    <div class="col-md-12 emo-first">
+        <?php the_content();?>
+        <button class="btn btn-primary btn-lg btn-block center-block emo-start">Начать</button>
     </div>
-</div>
-<div class="col-md-6" style="padding-top: 15px; padding-bottom: 15px;">
-    <div class="emo_img emo_usil">
-        <h5>Усилитель</h5>
-        <div class="emo_pelena"></div>
-        <img class="emo_usilitel" src="<?php bloginfo('template_url'); ?>/img/usilitel.png" alt="usilitel">
+    <div class="col-md-12 emo-second">
+        <div class="col-md-6" style="border-right: 1px solid #ddd; padding-top: 15px; padding-bottom: 15px;">
+            <div class="emo_img emo_util">
+                <h5>Утилизатор</h5>
+                <div class="emo_pelena"></div>
+                <img class="emo_lovushka" src="<?php bloginfo('template_url'); ?>/img/lovushka.png" alt="lovushka">
+            </div>
+        </div>
+        <div class="col-md-6" style="padding-top: 15px; padding-bottom: 15px;">
+            <div class="emo_img emo_usil">
+                <h5>Усилитель</h5>
+                <div class="emo_pelena"></div>
+                <img class="emo_usilitel" src="<?php bloginfo('template_url'); ?>/img/usilitel.png" alt="usilitel">
+            </div>
+        </div>
     </div>
 </div>
 <script>
 jQuery(document).ready(function() {
+    jQuery('.emo-start').on('click', function(event) {
+        jQuery('.emo-first').hide();
+    });
     var count_emo = 0;
     var emo_status;
     jQuery('.emo_util').on('click mousedown', function(event) {
