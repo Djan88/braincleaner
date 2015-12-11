@@ -50,8 +50,8 @@
     <?php } else if(is_category(5)){ ?>
         <?php 
           $emo_query = new WP_Query( 'page_id=659' );
-          while ( $query->have_posts() ) {
-            $query->the_post();
+          while ( $emo_query->have_posts() ) {
+            $emo_query->the_post();
 
             the_title(); // выведем заголовок поста
           }
