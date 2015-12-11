@@ -300,6 +300,7 @@ body
   text-align: justify;
   position: relative;
   cursor: ns-resize;
+  margin-top: 35px;
 }
 .popup-img-wrap img
 {

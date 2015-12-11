@@ -47,7 +47,7 @@
         </div>
       <?php } ?>
     <?php } else if(is_category(5)){ ?>
-        <h3>Наши проекты</h3>
+        <h3 style="margin-top: 0;">Наши проекты</h3>
         <?php 
           $emo_query = new WP_Query( 'page_id=659' );
           while ( $emo_query->have_posts() ) {
