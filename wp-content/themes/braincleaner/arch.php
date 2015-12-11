@@ -48,6 +48,15 @@
         </div>
       <?php } ?>
     <?php } else if(is_category(5)){ ?>
+        <?php 
+          $emo_query = new WP_Query( 'page_id=659' );
+          while ( $query->have_posts() ) {
+            $query->the_post();
+
+            the_title(); // выведем заголовок поста
+          }
+
+        ?>
       <?php if ( is_user_logged_in() ) { ?>
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
           <div class="panel panel-default main_heading">
