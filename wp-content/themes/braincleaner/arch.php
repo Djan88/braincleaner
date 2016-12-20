@@ -54,9 +54,7 @@
           <?php $counter_blocks += 1; ?>
           <?php if ($counter_blocks == 1) { ?>
             <div class="blocks_wrapper blocks_wrapper_one">
-          <?php } else if ($counter_blocks == 4) { ?>
             <div class="blocks_wrapper blocks_wrapper_two">
-          <?php } else if ($counter_blocks == 7) { ?>
             <div class="blocks_wrapper blocks_wrapper_three">
           <?php } ?>
           <div class="panel panel-default main_heading">
