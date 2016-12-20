@@ -14,12 +14,6 @@
             </h4>
             Терапевтическая машина Wizardmachine для коррекции психосоматических расстройств, улучшения качества жизни и повышения уровня социально-бытовой адаптации.
         </div>
-        <div class="list-group-item">
-            <h4 class="sidebar-heading">
-                <a href="http://wizardduos.ru/">wizardduos.ru</a>
-            </h4>
-            Терапевтическая машина «wizardduos" для коррекции партнерских, семейных, а также бизнес-отношений между людьми.
-        </div>
         <?php if (!dynamic_sidebar("arhive-widget-area") ) : ?>
         <?php endif; ?>
     </div>
