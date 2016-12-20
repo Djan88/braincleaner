@@ -52,9 +52,13 @@
         <?php $counter_blocks =0; ?>
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
           <?php $counter_blocks += 1; ?>
-          <div class="blocks_wrapper blocks_wrapper_one">
-          <div class="blocks_wrapper blocks_wrapper_two">
-          <div class="blocks_wrapper blocks_wrapper_three">
+          <?php if ($counter_blocks == 1) { ?>
+            <div class="blocks_wrapper blocks_wrapper_one">
+          <?php } else if ($counter_blocks == 4) { ?>
+            <div class="blocks_wrapper blocks_wrapper_two">
+          <?php } else if ($counter_blocks == 7) { ?>
+            <div class="blocks_wrapper blocks_wrapper_three">
+          <?php } ?>
           <div class="panel panel-default main_heading">
             <h4 class="panel-heading">
               <span class="glyphicon glyphicon-leaf"></span>
