@@ -54,8 +54,11 @@
           <?php $counter_blocks += 1; ?>
           <?php if ($counter_blocks == 1) { ?>
             <div class="blocks_wrapper blocks_wrapper_one">
+            <h4 class="blocks_heading">Продвинутый блок</h4>
             <div class="blocks_wrapper blocks_wrapper_two">
+            <h4 class="blocks_heading">Средний блок</h4>
             <div class="blocks_wrapper blocks_wrapper_three">
+            <h4 class="blocks_heading">Начальный блок</h4>
           <?php } ?>
           <div class="panel panel-default main_heading">
             <h4 class="panel-heading">

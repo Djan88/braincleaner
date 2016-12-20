@@ -676,3 +676,42 @@ iframe
 {
   display: none;
 }
+.blocks_wrapper 
+{
+  padding-right: 10px;
+  padding-top: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  border-left: transparent;
+}
+.blocks_wrapper_one 
+{
+  background-color: #dff0d8;
+  border-left: 1px solid #ddd;
+}
+.blocks_wrapper_two 
+{
+  background-color: #fcf8e3;
+}
+.blocks_wrapper_three 
+{
+  background-color: #d9edf7;
+}
+.blocks_heading
+{
+  text-align: center;
+  font-weight: 600;
+}
+.blocks_wrapper_one .blocks_wrapper_two .panel 
+{
+    margin-right: 10px;
+}
+.blocks_wrapper_one .blocks_wrapper_two .blocks_wrapper_three .panel 
+{
+    margin-right: 0px;
+}
+.blocks_wrapper_one .panel 
+{
+    margin-right: 20px;
+}
