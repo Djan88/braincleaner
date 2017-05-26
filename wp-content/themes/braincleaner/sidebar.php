@@ -5,8 +5,8 @@
         </div>
         <div class="list-group-item list-group-item-info">
             <h4 class="sidebar-heading list-group-item-heading">Обучение методике</h4>
-            <p>+7(495) 255-05-61</p>
-            <p><a target="_blank" href="mailto:yuchikurov@gmail.com">yuchikurov@gmail.com</a></p>
+            <p>+7(495)135-25-48</p>
+            <p><a target="_blank" href="mailto:yuchikurov@gmail.com">info@chikurov.com</a></p>
         </div>
         <div class="list-group-item">
             <h4 class="sidebar-heading">

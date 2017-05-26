@@ -181,7 +181,7 @@ add_filter('login_redirect', 'users_redirect');
         
         $headers = 'MIME-Version: 1.0' . "\n";
         $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-        $headers .= "From: Roman Paramonov( chikurov.com ) <info@bablosstudio.ru>";
+        $headers .= "From: Ivan( chikurov.com ) <info@chikurov.com>";
         
         $message = "Добрый день! Спасибо за вашу заявку, наш специалист свяжется с вами в ближайшее время.";
         
@@ -545,7 +545,7 @@ add_filter('login_redirect', 'users_redirect');
         if(isset($_POST['delivery_start'])){
             
             $headers[] = 'Content-type: text/html';
-            $headers[] = 'From: Чикуров Юрий Валентинович <info@bablosstudio.ru>';
+            $headers[] = 'From: Чикуров Юрий Валентинович <info@chikurov.com>';
             
             $subject = $_POST['delivery_subject'];
             $message = $_POST['delivery_text'];
@@ -1311,7 +1311,7 @@ add_filter('login_redirect', 'users_redirect');
 
             $to = xprofile_get_field_data(8, bp_displayed_user_id());
 
-            //$to .= ', info@bablosstudio.ru';
+            //$to .= ', info@chikurov.com';
 
             send_email($to, $email, "Запись на $title", $name, $phone);
 
@@ -2069,7 +2069,7 @@ add_filter('login_redirect', 'users_redirect');
                     }
                     
                     $headers[] = 'Content-type: text/html';
-                    $headers[] = 'From: Чикуров Юрий Валентинович <info@bablosstudio.ru>';
+                    $headers[] = 'From: Чикуров Юрий Валентинович <info@chikurov.com>';
                     
                     $message = "<p>Добрый день уважаемый(я) ".$master->name."! На сайте <a href='http://chikurov.com/'>Chikurov.com</a> для вас был создан аккаунт, где вы можете редактировать свою информацию!</p>";
                     $message .= "<ul><li>Логин: $username</li>";
