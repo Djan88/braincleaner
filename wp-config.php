@@ -16,13 +16,13 @@
 
 // ** Параметры MySQL: Эту информацию можно получить у вашего хостинг-провайдера ** //
 /** Имя базы данных для WordPress */
-define('DB_NAME', 'braincle_db');
+define('DB_NAME', 'u0352628_brain');
 
 /** Имя пользователя MySQL */
-define('DB_USER', 'braincle_user');
+define('DB_USER', 'u0352628_default');
 
 /** Пароль к базе данных MySQL */
-define('DB_PASSWORD', 'Djan159357');
+define('DB_PASSWORD', 'wZ1h8!MC');
 
 /** Имя сервера MySQL */
 define('DB_HOST', 'localhost');

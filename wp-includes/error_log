@@ -1,0 +1,2 @@
+[09-Mar-2017 05:50:22 Europe/Simferopol] PHP Fatal error:  Call to undefined function _deprecated_file() in /home/braincleaner/public_html/wp-includes/rss-functions.php on line 8
+[22-Mar-2017 03:12:28 Europe/Simferopol] PHP Fatal error:  Call to undefined function _deprecated_file() in /home/braincleaner/public_html/wp-includes/registration-functions.php on line 7
