@@ -162,26 +162,7 @@
           <?php posts_nav_link(' &#8212; ', __('&laquo; Более новые '), __('Более старые &raquo;')); ?>
         </div>
       <?php } ?>
-      <?php 
-        $emo_query = new WP_Query( 'page_id=659' );
-        while ( $emo_query->have_posts() ) {
-          $emo_query->the_post();
-          echo '<div class="panel panel-default main_heading"><h4 class="panel-heading"><span class="glyphicon glyphicon-leaf"></span>';
-          echo '<a href="'; 
-          the_permalink();
-          echo '">';
-          the_title();
-          echo '</a></h4><div class="panel-body"><div class="col-md-6 thumb-wrap">'; 
-          the_post_thumbnail( 'medium' );
-          echo '</div><div class="col-md-6">';
-          echo '<div class="defra_content">';
-          the_field('emo_pre');
-          echo '</div><div class="defra_btns"><a href="';
-          the_permalink();
-          echo '" class="btn btn-default btn-lg btn-block center-block">';
-          echo 'Войти</a></div></div></div></div>';
-        }
-      ?>
+      
     <?php } else { ?>
       <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
         <div class="panel panel-default main_heading">
