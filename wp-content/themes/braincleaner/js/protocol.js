@@ -6,6 +6,8 @@ jQuery(document).ready(function() {
         reloadTime,
         reloadTime1,
         d12Val,
+        sec_four = 1,
+        cur_formula = 1,
         prot_count,
         cur_faces,
         cur_animation_val,
@@ -158,6 +160,8 @@ jQuery(document).ready(function() {
         reloadTime1 = 0;
         d12Val = 0;
         prot_count = 1;
+        sec_four = 1;
+        cur_formula = 1;
         cur_animation_val = 0;
         count_animation = 1;
         tickSound.play();
@@ -168,6 +172,31 @@ jQuery(document).ready(function() {
             if(count_animation <= 360){
                 circle_model(count_animation);
                 count_animation += 1;
+                if (sec_four <= 4) {
+                    if (cur_formula == 1) {
+                       jQuery('#draggable1, #draggable2, #draggable3').css({
+                          background: '#fff url(/wp-content/themes/braincleaner/img/veter.png) 0 0/100% no-repeat',
+                          color: 'transparent'
+                       }); 
+                    } else if (cur_formula == 2) {
+                       jQuery('#draggable1, #draggable2, #draggable3').css({
+                          background: '#fff url(/wp-content/themes/braincleaner/img/life_vater.png) 0 0/100% no-repeat',
+                          color: 'transparent'
+                       }); 
+                    } else if (cur_formula == 1) {
+                       jQuery('#draggable1, #draggable2, #draggable3').css({
+                          background: '#fff url(/wp-content/themes/braincleaner/img/disfunction.jpg) 0 0/100% no-repeat',
+                          color: 'transparent'
+                       }); 
+                    }
+                    sec_four++;
+                } else {
+                    sec_four = 1;
+                    cur_formula++;
+                    if (cur_formula > 3) {
+                        cur_formula = 1;
+                    }
+                }
             } else {
                 if (prot_count <= 30) {
                     prot_count += 1;
@@ -183,6 +212,12 @@ jQuery(document).ready(function() {
                     d12Val = 0;
                 } else {
                     clearInterval(phaseOne);
+                    jQuery('#draggable1, #draggable2, #draggable3').css({
+                       background: none,
+                       color: 'crimson'
+                    });
+                    sec_four = 1;
+                    cur_formula = 1;
                     onEnd();
                 }
             }
