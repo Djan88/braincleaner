@@ -23,6 +23,16 @@ jQuery(document).ready(function() {
         move_woman,
         cur_px_position,
         start_move,
+        //Функция проверки положения точек
+        pointsStatus = true,
+        checkPoints = function(){
+            jQuery('.itemlist_item_dr').each(function() {
+                if(parseFloat(jQuery(this).css('left')) < 200){
+                    pointsStatus = false;
+                    console.log(parseFloat(jQuery(this).css('left')));
+                }
+            });
+        },
         tickSound = new buzz.sound( "/sounds/tick", {
             formats: [ "ogg", "mp3" ]
         }),
@@ -313,16 +323,6 @@ jQuery(document).ready(function() {
             }
         }, 250);
     };
-    //Функция проверки положения точек
-    var pointsStatus = true,
-        checkPoints = function(){
-            jQuery('.itemlist_item').each(function() {
-                if(parseFloat(jQuery(this).css('left')) < 200){
-                    pointsStatus = false;
-                    console.log(parseFloat(jQuery(this).css('left')));
-                }
-            });
-        }
     jQuery('body').on('click', '.prot-start', function(event) {
         if(supportsStorage && localStorage.getItem('circle_protocol')){
         circle_protocol = localStorage.getItem('circle_protocol');
