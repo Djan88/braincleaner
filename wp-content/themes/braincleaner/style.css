@@ -723,6 +723,11 @@ li
 {
   position: relative;
 }
+.clearfix:after,.main_heading.panel
+{
+  display:table;
+  content:" "
+}
 .itemlist_item
 {
   border-radius: 50%;
