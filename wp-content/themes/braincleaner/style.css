@@ -723,7 +723,7 @@ li
 {
   position: relative;
 }
-.clearfix:after,.main_heading.panel:after
+.clearfix:after,.faces:after
 {
   display:table;
   content:" "
