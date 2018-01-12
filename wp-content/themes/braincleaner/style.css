@@ -715,6 +715,10 @@ iframe
 {
     margin-right: 20px;
 }
+li 
+{
+  list-style: none;
+}
 .formuls
 {
   position: relative;

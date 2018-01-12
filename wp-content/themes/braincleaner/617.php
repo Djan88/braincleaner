@@ -46,11 +46,11 @@
         </div>
     </div><div class="screen screen-3 hidden">
         <div class="faces">
-            <div class="formuls">
+            <ul class="formuls">
                 <li id="draggable1" class="itemlist_item itemlist_item_dr item_list__mid draggable" style="left: 5px; top: 0px;">D2</li>
                 <li id="draggable2" class="itemlist_item itemlist_item_dr item_list__mid draggable" style="left: 5px; top: 0px;">D3</li>
                 <li id="draggable3" class="itemlist_item itemlist_item_dr item_list__mid draggable" style="left: 5px; top: 0px;">D4</li>
-            </div>
+            </ul>
             <div class="ring box_rounded"><div class="ring-formula"></div></div>
             <div class="sq sq1"></div>
             <div class="sq sq2"></div>
