@@ -319,7 +319,7 @@ jQuery(document).ready(function() {
             jQuery('.itemlist_item').each(function() {
                 if(parseFloat(jQuery(this).css('left')) < 200){
                     pointsStatus = false;
-                    console.log(parseFloat(jQuery(this).css('left'));
+                    console.log(parseFloat(jQuery(this).css('left')));
                 }
             });
         }
