@@ -183,7 +183,7 @@ jQuery(document).ready(function() {
                           background: '#fff url(/wp-content/themes/braincleaner/img/life_vater.png) 0 0/100% no-repeat',
                           color: 'transparent'
                        }); 
-                    } else if (cur_formula == 1) {
+                    } else if (cur_formula == 3) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
                           background: '#fff url(/wp-content/themes/braincleaner/img/disfunction.jpg) 0 0/100% no-repeat',
                           color: 'transparent'
