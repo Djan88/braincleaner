@@ -314,7 +314,7 @@ jQuery(document).ready(function() {
         }, 250);
     };
     //Функция проверки положения точек
-    var pointsStatus == true,
+    var pointsStatus = true,
         checkPoints = function(){
             jQuery('.itemlist_item').each(function() {
                 if(parseFloat(jQuery(this).css('left')) < 200){
