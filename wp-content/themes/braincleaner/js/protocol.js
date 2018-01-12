@@ -172,7 +172,7 @@ jQuery(document).ready(function() {
             if(count_animation <= 360){
                 circle_model(count_animation);
                 count_animation += 1;
-                if (sec_four <= 4) {
+                if (sec_four <= 8) {
                     if (cur_formula == 1) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
                           background: '#fff url(/wp-content/themes/braincleaner/img/veter.png) 0 0/100% no-repeat',
