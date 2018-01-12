@@ -47,9 +47,9 @@
     </div><div class="screen screen-3 hidden">
         <div class="faces">
             <ul class="formuls">
-                <li id="draggable1" class="itemlist_item itemlist_item_dr item_list__mid draggable" style="left: 5px; top: 0px;">D2</li>
-                <li id="draggable2" class="itemlist_item itemlist_item_dr item_list__mid draggable" style="left: 5px; top: 0px;">D3</li>
-                <li id="draggable3" class="itemlist_item itemlist_item_dr item_list__mid draggable" style="left: 5px; top: 0px;">D4</li>
+                <li id="draggable1" class="itemlist_item itemlist_item_dr item_list__mid draggable" style="left: 6px; top: 5px;">D2</li>
+                <li id="draggable2" class="itemlist_item itemlist_item_dr item_list__mid draggable" style="left: 6px; top: 55px;">D3</li>
+                <li id="draggable3" class="itemlist_item itemlist_item_dr item_list__mid draggable" style="left: 6px; top: 105px;">D4</li>
             </ul>
             <div class="ring box_rounded"><div class="ring-formula"></div></div>
             <div class="sq sq1"></div>
