@@ -50,6 +50,8 @@ jQuery(document).ready(function() {
                 formats: [ "ogg", "mp3" ]
             });
             endSound.play();
+            localStorage.removeItem('circle_protocol');
+            localStorage.removeItem('faces_img');
         },
         supportsStorage = function(){
             try {
@@ -138,9 +140,6 @@ jQuery(document).ready(function() {
         }
     };
     wm = function(){
-        client_img = jQuery('body').find('.injected').attr('src');
-        jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
-        jQuery('.sq3').addClass('client_sq');
         reloadTime = 0;
         reloadTime1 = 0;
         d12Val = 0;
@@ -176,9 +175,6 @@ jQuery(document).ready(function() {
         }, 250);
     };
     mw = function(){
-        client_img = jQuery('body').find('.injected').attr('src');
-        jQuery('.sq1').css('background', 'url('+client_img+') no-repeat');
-        jQuery('.sq1').addClass('client_sq');
     //фаза 1
         reloadTime = 0;
         reloadTime1 = 0;
@@ -217,9 +213,6 @@ jQuery(document).ready(function() {
         }, 250);
     };
     mm = function(){
-        client_img = jQuery('body').find('.injected').attr('src');
-        jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
-        jQuery('.sq3').addClass('client_sq');
     //фаза 1
         reloadTime = 0;
         reloadTime1 = 0;
@@ -267,10 +260,6 @@ jQuery(document).ready(function() {
         }, 250);
     };
     ww = function(){
-        client_img = jQuery('body').find('.injected').attr('src');
-        jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
-        jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
-        jQuery('.sq3').addClass('client_sq');
         reloadTime = 0;
         reloadTime1 = 0;
         d12Val = 0;
@@ -320,13 +309,31 @@ jQuery(document).ready(function() {
             }
         }, 250);
     };
+    if(supportsStorage && localStorage.getItem('circle_protocol')){
+        circle_protocol = localStorage.getItem('circle_protocol');
+    }
+    if(supportsStorage && localStorage.getItem('faces_img')){
+        faces_img = localStorage.getItem('faces_img');
+        client_img = jQuery('body').find('.injected').attr('src');
+    }
+    if (circle_protocol && circle_protocol == 'mw') {
+        client_img = jQuery('body').find('.injected').attr('src');
+        jQuery('.sq1').css('background', 'url('+client_img+') no-repeat');
+        jQuery('.sq1').addClass('client_sq');
+    } else if (circle_protocol && circle_protocol == 'mm') {
+        client_img = jQuery('body').find('.injected').attr('src');
+        jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
+        jQuery('.sq3').addClass('client_sq');
+    } else if (circle_protocol && circle_protocol == 'wm') {
+        client_img = jQuery('body').find('.injected').attr('src');
+        jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
+        jQuery('.sq3').addClass('client_sq');
+    } else if (circle_protocol && circle_protocol == 'ww') {
+        client_img = jQuery('body').find('.injected').attr('src');
+        jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
+        jQuery('.sq3').addClass('client_sq');
+    }
     jQuery('body').on('click', '.prot-start', function(event) {
-        if(supportsStorage && localStorage.getItem('circle_protocol')){
-            circle_protocol = localStorage.getItem('circle_protocol');
-        }
-        if(supportsStorage && localStorage.getItem('faces_img')){
-            faces_img = localStorage.getItem('faces_img');
-        }
         console.log(circle_protocol);
         if (circle_protocol && circle_protocol == 'mw') {
             mw();

@@ -55,11 +55,13 @@ jQuery(document).ready(function() {
             localStorage.setItem('circle_protocol', 'wm');
         };
     }
+
     jQuery('.sex_item-client').on('click', function(event) {
         jQuery('.sex_item-client').removeClass('active');
         jQuery('.sex-recep').removeClass('hidden');
         jQuery(this).addClass('active');
     });
+    
     jQuery('.sex_item-recep').on('click', function(event) {
         cur_sex = jQuery('.sex_item-client.active').data('sex');
         cur_recep = jQuery(this).data('usex');
