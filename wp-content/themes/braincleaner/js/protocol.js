@@ -76,6 +76,10 @@ jQuery(document).ready(function() {
         move_woman = 400;
         start_move = -95;
     }
+    jQuery('#menu-item-648').on('click', function(event) {
+        localStorage.removeItem('circle_protocol');
+        localStorage.removeItem('faces_img');
+    });
     circle_model = function(count_animation){
         if(count_animation <= 120){
             cur_animation_val += 1.5;
