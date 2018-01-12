@@ -723,9 +723,8 @@ li
 {
   position: relative;
 }
-.clearfix:after,.main_heading.panel
+.clearfix:after,.main_heading.panel:after
 {
-  width: 100%;
   display:table;
   content:" "
 }
