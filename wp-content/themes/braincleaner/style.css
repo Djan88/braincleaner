@@ -715,3 +715,29 @@ iframe
 {
     margin-right: 20px;
 }
+.formuls
+{
+  position: relative;
+}
+.itemlist_item
+{
+  border-radius: 50%;
+  padding-top: 4px;
+  padding-left: 3px;
+  font-weight: 400;
+  font-size: 30px;
+  color: crimson;
+  cursor: pointer;
+  background: rgba(255,255,255, 0.5);
+  z-index: 999;
+  border: 2px solid crimson;
+  transform: scale(0.5);
+  -webkit-transform: scale(0.5);
+  width: 56px;
+  height: 56px;
+  position: absolute;
+  /* -webkit-transition: opacity 0.2s ease-in; */
+  /* -moz-transition: opacity 0.2s ease-in; */
+  /* transition: opacity 0.2s ease-in; */
+  transition: transform 1s linear;
+}

@@ -36,7 +36,10 @@ jQuery(document).ready(function() {
     if (returned_img){
         next_screen(1);
     };
-
+    //Перетягивание элементов
+    jQuery( ".draggable" ).draggable({ 
+        snap: false
+    });
     protocol_people = function(this_sex, this_recep){
         if (this_sex == 'male' && this_recep == 'female'){
             localStorage.setItem('faces_img', '/wp-content/themes/braincleaner/img/female.png');
