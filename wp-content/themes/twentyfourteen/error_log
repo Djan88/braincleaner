@@ -1,1 +1,0 @@
-[06-Mar-2017 11:28:25 Europe/Simferopol] PHP Fatal error:  Call to undefined function get_header() in /home/braincleaner/public_html/wp-content/themes/twentyfourteen/404.php on line 10
