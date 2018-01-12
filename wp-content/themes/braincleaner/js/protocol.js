@@ -319,6 +319,7 @@ jQuery(document).ready(function() {
             jQuery('.itemlist_item').each(function() {
                 if(parseFloat(jQuery(this).css('left')) < 200){
                     pointsStatus = false;
+                    console.log(parseFloat(jQuery(this).css('left'));
                 }
             });
         }
@@ -330,7 +331,7 @@ jQuery(document).ready(function() {
             faces_img = localStorage.getItem('faces_img');
             client_img = jQuery('body').find('.injected').attr('src');
         }
-        pointsStatus == true;
+        pointsStatus = true;
         checkPoints();
         if (pointsStatus == true) {
             if (circle_protocol && circle_protocol == 'mw') {
