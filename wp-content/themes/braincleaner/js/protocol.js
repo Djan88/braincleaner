@@ -176,17 +176,23 @@ jQuery(document).ready(function() {
                     if (cur_formula == 1) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
                           background: '#fff url(/wp-content/themes/braincleaner/img/veter.png) 0 0/100% no-repeat',
-                          color: 'transparent'
+                          color: 'transparent',
+                          borderColor: 'transparent',
+                          opacity: 0.8
                        }); 
                     } else if (cur_formula == 2) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
                           background: '#fff url(/wp-content/themes/braincleaner/img/life_vater.png) 0 0/100% no-repeat',
-                          color: 'transparent'
+                          color: 'transparent',
+                          borderColor: 'transparent',
+                          opacity: 0.8
                        }); 
                     } else if (cur_formula == 3) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
                           background: '#fff url(/wp-content/themes/braincleaner/img/disfunction.jpg) 0 0/100% no-repeat',
-                          color: 'transparent'
+                          color: 'transparent',
+                          borderColor: 'transparent',
+                          opacity: 0.8
                        }); 
                     }
                     sec_four++;
@@ -213,8 +219,10 @@ jQuery(document).ready(function() {
                 } else {
                     clearInterval(phaseOne);
                     jQuery('#draggable1, #draggable2, #draggable3').css({
-                       background: none,
-                       color: 'crimson'
+                        background: 'none',
+                        color: 'crimson',
+                        borderColor: 'crimson',
+                        opacity: 1
                     });
                     sec_four = 1;
                     cur_formula = 1;
@@ -247,17 +255,23 @@ jQuery(document).ready(function() {
                     if (cur_formula == 1) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
                           background: '#fff url(/wp-content/themes/braincleaner/img/veter.png) 0 0/100% no-repeat',
-                          color: 'transparent'
+                          color: 'transparent',
+                          borderColor: 'transparent',
+                          opacity: 0.8
                        }); 
                     } else if (cur_formula == 2) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
                           background: '#fff url(/wp-content/themes/braincleaner/img/life_vater.png) 0 0/100% no-repeat',
-                          color: 'transparent'
+                          color: 'transparent',
+                          borderColor: 'transparent',
+                          opacity: 0.8
                        }); 
                     } else if (cur_formula == 3) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
                           background: '#fff url(/wp-content/themes/braincleaner/img/disfunction.jpg) 0 0/100% no-repeat',
-                          color: 'transparent'
+                          color: 'transparent',
+                          borderColor: 'transparent',
+                          opacity: 0.8
                        }); 
                     }
                     sec_four++;
@@ -284,8 +298,10 @@ jQuery(document).ready(function() {
                 } else {
                     clearInterval(phaseOne);
                     jQuery('#draggable1, #draggable2, #draggable3').css({
-                       background: none,
-                       color: 'crimson'
+                        background: 'none',
+                        color: 'crimson',
+                        borderColor: 'crimson',
+                        opacity: 1
                     });
                     sec_four = 1;
                     cur_formula = 1;
@@ -316,17 +332,23 @@ jQuery(document).ready(function() {
                     if (cur_formula == 1) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
                           background: '#fff url(/wp-content/themes/braincleaner/img/veter.png) 0 0/100% no-repeat',
-                          color: 'transparent'
+                          color: 'transparent',
+                          borderColor: 'transparent',
+                          opacity: 0.8
                        }); 
                     } else if (cur_formula == 2) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
                           background: '#fff url(/wp-content/themes/braincleaner/img/life_vater.png) 0 0/100% no-repeat',
-                          color: 'transparent'
+                          color: 'transparent',
+                          borderColor: 'transparent',
+                          opacity: 0.8
                        }); 
                     } else if (cur_formula == 3) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
                           background: '#fff url(/wp-content/themes/braincleaner/img/disfunction.jpg) 0 0/100% no-repeat',
-                          color: 'transparent'
+                          color: 'transparent',
+                          borderColor: 'transparent',
+                          opacity: 0.8
                        }); 
                     }
                     sec_four++;
@@ -364,8 +386,10 @@ jQuery(document).ready(function() {
                 } else {
                     clearInterval(phaseOne);
                     jQuery('#draggable1, #draggable2, #draggable3').css({
-                       background: none,
-                       color: 'crimson'
+                        background: 'none',
+                        color: 'crimson',
+                        borderColor: 'crimson',
+                        opacity: 1
                     });
                     sec_four = 1;
                     cur_formula = 1;
@@ -397,17 +421,23 @@ jQuery(document).ready(function() {
                     if (cur_formula == 1) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
                           background: '#fff url(/wp-content/themes/braincleaner/img/veter.png) 0 0/100% no-repeat',
-                          color: 'transparent'
+                          color: 'transparent',
+                          borderColor: 'transparent',
+                          opacity: 0.8
                        }); 
                     } else if (cur_formula == 2) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
                           background: '#fff url(/wp-content/themes/braincleaner/img/life_vater.png) 0 0/100% no-repeat',
-                          color: 'transparent'
+                          color: 'transparent',
+                          borderColor: 'transparent',
+                          opacity: 0.8
                        }); 
                     } else if (cur_formula == 3) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
                           background: '#fff url(/wp-content/themes/braincleaner/img/disfunction.jpg) 0 0/100% no-repeat',
-                          color: 'transparent'
+                          color: 'transparent',
+                          borderColor: 'transparent',
+                          opacity: 0.8
                        }); 
                     }
                     sec_four++;
@@ -447,8 +477,10 @@ jQuery(document).ready(function() {
                 } else {
                     clearInterval(phaseOne);
                     jQuery('#draggable1, #draggable2, #draggable3').css({
-                       background: none,
-                       color: 'crimson'
+                        background: 'none',
+                        color: 'crimson',
+                        borderColor: 'crimson',
+                        opacity: 1
                     });
                     sec_four = 1;
                     cur_formula = 1;
