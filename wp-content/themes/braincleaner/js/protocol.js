@@ -309,31 +309,15 @@ jQuery(document).ready(function() {
             }
         }, 250);
     };
-    if(supportsStorage && localStorage.getItem('circle_protocol')){
-        circle_protocol = localStorage.getItem('circle_protocol');
-    }
-    if(supportsStorage && localStorage.getItem('faces_img')){
-        faces_img = localStorage.getItem('faces_img');
-        client_img = jQuery('body').find('.injected').attr('src');
-    }
-    if (circle_protocol && circle_protocol == 'mw') {
-        client_img = jQuery('body').find('.injected').attr('src');
-        jQuery('.sq1').css('background', 'url('+client_img+') no-repeat');
-        jQuery('.sq1').addClass('client_sq');
-    } else if (circle_protocol && circle_protocol == 'mm') {
-        client_img = jQuery('body').find('.injected').attr('src');
-        jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
-        jQuery('.sq3').addClass('client_sq');
-    } else if (circle_protocol && circle_protocol == 'wm') {
-        client_img = jQuery('body').find('.injected').attr('src');
-        jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
-        jQuery('.sq3').addClass('client_sq');
-    } else if (circle_protocol && circle_protocol == 'ww') {
-        client_img = jQuery('body').find('.injected').attr('src');
-        jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
-        jQuery('.sq3').addClass('client_sq');
-    }
+    
     jQuery('body').on('click', '.prot-start', function(event) {
+        if(supportsStorage && localStorage.getItem('circle_protocol')){
+        circle_protocol = localStorage.getItem('circle_protocol');
+        }
+        if(supportsStorage && localStorage.getItem('faces_img')){
+            faces_img = localStorage.getItem('faces_img');
+            client_img = jQuery('body').find('.injected').attr('src');
+        }
         console.log(circle_protocol);
         if (circle_protocol && circle_protocol == 'mw') {
             mw();

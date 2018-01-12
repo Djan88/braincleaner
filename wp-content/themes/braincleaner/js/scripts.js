@@ -61,7 +61,7 @@ jQuery(document).ready(function() {
         jQuery('.sex-recep').removeClass('hidden');
         jQuery(this).addClass('active');
     });
-    
+
     jQuery('.sex_item-recep').on('click', function(event) {
         cur_sex = jQuery('.sex_item-client.active').data('sex');
         cur_recep = jQuery(this).data('usex');
@@ -75,6 +75,30 @@ jQuery(document).ready(function() {
         };
         jQuery(this).addClass('active');
         protocol_people(cur_sex, cur_recep);
+        if(supportsStorage && localStorage.getItem('circle_protocol')){
+            circle_protocol = localStorage.getItem('circle_protocol');
+        }
+        if(supportsStorage && localStorage.getItem('faces_img')){
+            faces_img = localStorage.getItem('faces_img');
+            client_img = jQuery('body').find('.injected').attr('src');
+        }
+        if (circle_protocol && circle_protocol == 'mw') {
+            client_img = jQuery('body').find('.injected').attr('src');
+            jQuery('.sq1').css('background', 'url('+client_img+') no-repeat');
+            jQuery('.sq1').addClass('client_sq');
+        } else if (circle_protocol && circle_protocol == 'mm') {
+            client_img = jQuery('body').find('.injected').attr('src');
+            jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
+            jQuery('.sq3').addClass('client_sq');
+        } else if (circle_protocol && circle_protocol == 'wm') {
+            client_img = jQuery('body').find('.injected').attr('src');
+            jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
+            jQuery('.sq3').addClass('client_sq');
+        } else if (circle_protocol && circle_protocol == 'ww') {
+            client_img = jQuery('body').find('.injected').attr('src');
+            jQuery('.sq3').css('background', 'url('+client_img+') no-repeat');
+            jQuery('.sq3').addClass('client_sq');
+        }
     });
 //617 протокол. Конец.
     jQuery('.panel-body').find('iframe').css('height', '400px');
