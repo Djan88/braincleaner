@@ -313,7 +313,15 @@ jQuery(document).ready(function() {
             }
         }, 250);
     };
-    
+    //Функция проверки положения точек
+    var pointsStatus == true,
+        checkPoints = function(){
+            jQuery('.itemlist_item').each(function() {
+                if(parseFloat(jQuery(this).css('left')) < 200){
+                    pointsStatus = false;
+                }
+            });
+        }
     jQuery('body').on('click', '.prot-start', function(event) {
         if(supportsStorage && localStorage.getItem('circle_protocol')){
         circle_protocol = localStorage.getItem('circle_protocol');
@@ -322,15 +330,20 @@ jQuery(document).ready(function() {
             faces_img = localStorage.getItem('faces_img');
             client_img = jQuery('body').find('.injected').attr('src');
         }
-        console.log(circle_protocol);
-        if (circle_protocol && circle_protocol == 'mw') {
-            mw();
-        } else if (circle_protocol && circle_protocol == 'mm') {
-            mm();
-        } else if (circle_protocol && circle_protocol == 'wm') {
-            wm();
-        } else if (circle_protocol && circle_protocol == 'ww') {
-            ww();
+        pointsStatus == true;
+        checkPoints();
+        if (pointsStatus == true) {
+            if (circle_protocol && circle_protocol == 'mw') {
+                mw();
+            } else if (circle_protocol && circle_protocol == 'mm') {
+                mm();
+            } else if (circle_protocol && circle_protocol == 'wm') {
+                wm();
+            } else if (circle_protocol && circle_protocol == 'ww') {
+                ww();
+            }
+        } else {
+            swal("Не все зоны перенесены", "Перед началом процедуры необходимо перенести все зоны", "info");
         }
     });
 });
