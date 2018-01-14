@@ -38,12 +38,12 @@ jQuery(document).ready(function() {
         tickSound = new buzz.sound( "/sounds/tick", {
             formats: [ "ogg", "mp3" ]
         }),
-        reloadSound  = new Howl({
-            urls: ['/sounds/reload-2.ogg', '/sounds/reload-2.mp3'],
-            autoplay: false,
-            loop: false,
-            buffer: true
-        }),
+        // reloadSound  = new Howl({
+        //     urls: ['/sounds/reload-2.ogg', '/sounds/reload-2.mp3'],
+        //     autoplay: false,
+        //     loop: false,
+        //     buffer: true
+        // }),
         onEnd = function(){
             tickSound.stop();
             swal({   
@@ -207,7 +207,7 @@ jQuery(document).ready(function() {
                 if (prot_count <= 30) {
                     prot_count += 1;
                     tickSound.stop();
-                    reloadSound.play();
+                    // reloadSound.play();
                     cur_faces = jQuery('.sq1').css('background-position');
                     console.log(cur_faces);
                     cur_px_position = cur_faces.indexOf("px");
@@ -286,7 +286,7 @@ jQuery(document).ready(function() {
                 if (prot_count <= 15) {
                     prot_count += 1;
                     tickSound.stop();
-                    reloadSound.play();
+                    // reloadSound.play();
                     cur_faces = jQuery('.sq3').css('background-position');
                     console.log(cur_faces);
                     cur_px_position = cur_faces.indexOf("px");
@@ -362,7 +362,7 @@ jQuery(document).ready(function() {
             } else {
                 if (prot_count <= 30) {
                     tickSound.stop();
-                    reloadSound.play();
+                    // reloadSound.play();
                     if (caliber == 1){
                         caliber = 2;
                         jQuery('.sq2').css('background', 'url('+faces_img+') no-repeat');
@@ -451,7 +451,7 @@ jQuery(document).ready(function() {
             } else {
                 if (prot_count <= 15) {
                     tickSound.stop();
-                    reloadSound.play();
+                    // reloadSound.play();
                     if (caliber == 1){
                         caliber = 2;
                         jQuery('.sq4').css('background', 'url('+faces_img+') no-repeat');
