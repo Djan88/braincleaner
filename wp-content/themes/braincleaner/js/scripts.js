@@ -550,9 +550,9 @@ jQuery(document).ready(function() {
             oReader.readAsDataURL(oFile);
         }
         jQuery('#image_file').on('change', fileSelectHandler);
-        setTimeout(jQuery(".paranja").animate({
-            opacity: 0,
-            zIndex: -1
-          }, 1500 ), 5000);
+        // setTimeout(jQuery(".paranja").animate({
+        //     opacity: 0,
+        //     zIndex: -1
+        //   }, 1500 ), 5000);
 
 });
