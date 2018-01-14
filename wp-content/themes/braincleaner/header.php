@@ -17,22 +17,6 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
     <?php wp_head(); ?>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="<?php bloginfo('template_url'); ?>/js/jquery-1.11.2.min.js"></script>
-    <!-- animsition js -->
-    <script src="<?php bloginfo('template_url'); ?>/dist/js/jquery.animsition.min.js"></script>
-    <!-- custom files -->
-    <script src="<?php bloginfo('template_url'); ?>/js/buzz.min.js"></script>
-    <script src="<?php bloginfo('template_url'); ?>/js/jquery.ui.touch-punch.min.js"></script>
-    <script src="<?php bloginfo('template_url'); ?>/js/ion.sound.min.js"></script>
-    <script src="<?php bloginfo('template_url'); ?>/js/jquery.jplayer.js"></script>
-    <!-- <script src="<?php //bloginfo('template_url'); ?>/js/howler.js"></script> -->
-    <script src="<?php bloginfo('template_url'); ?>/js/jquery-ui.min.js"></script>
-    <script src="<?php bloginfo('template_url'); ?>/js/jq.touch.js"></script>
-    <script src="<?php bloginfo('template_url'); ?>/js/jcron.js"></script>
-    <script src="<?php bloginfo('template_url'); ?>/js/exif.js"></script>
-    <script src="<?php bloginfo('template_url'); ?>/js/sweet-alert.min.js"></script>
-    <script src="<?php bloginfo('template_url'); ?>/js/protocol.js"></script>
-    <script src="<?php bloginfo('template_url'); ?>/js/scripts.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

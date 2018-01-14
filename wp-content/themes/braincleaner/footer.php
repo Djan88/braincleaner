@@ -78,7 +78,23 @@ hideWebSite()
 <?php /* uqjsQSyWVhmOHAEVa1i6 */ ?>  
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <?php wp_footer(); ?>
+    <script src="<?php bloginfo('template_url'); ?>/js/jquery-1.11.2.min.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/bootstrap.min.js"></script>
+    <!-- animsition js -->
+    <script src="<?php bloginfo('template_url'); ?>/dist/js/jquery.animsition.min.js"></script>
+    <!-- custom files -->
+    <script src="<?php bloginfo('template_url'); ?>/js/buzz.min.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/ion.sound.min.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/jquery.jplayer.js"></script>
+    <!-- <script src="<?php //bloginfo('template_url'); ?>/js/howler.js"></script> -->
+    <script src="<?php bloginfo('template_url'); ?>/js/jquery-ui.min.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/jq.touch.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/jcron.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/exif.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/sweet-alert.min.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/protocol.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/scripts.js"></script>
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
     (function (d, w, c) {
