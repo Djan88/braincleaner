@@ -16,7 +16,7 @@
           <?php } else if (is_page(659)) { ?>
             <div class="col-md-12" style="min-height: 1200px;">
           <?php } else { ?>
-            <div class="col-md-8">
+            <div class="col-md-12">
           <?php } ?>
           <?php if(is_archive()) { ?>
             <?php include(TEMPLATEPATH . '/arch.php'); ?>
@@ -261,9 +261,6 @@
             <?php posts_nav_link(' &#8212; ', __('&laquo; Более новые '), __('Более старые &raquo;')); ?>
           <?php } ?>
           </div>
-          <?php if (!is_page(617) && !is_page(659)) { ?>
-            <?php include(TEMPLATEPATH . '/sidebar.php'); ?>
-          <?php } ?>
         </div>
       </div>
       <div class="row footer-wrap">
