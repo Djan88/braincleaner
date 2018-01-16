@@ -231,7 +231,7 @@
                               <?php } ?>
                               <div class="btn-group">
                               <?php if(is_user_logged_in()) { ?> 
-                                <button type="button" class="btn btn-default btn-status btn-manual btn-procedure<?php if($only_manual != true) { ?> active<?php }?>" data-status="manual" data-toggle="tooltip" title="Провести процедуру в режиме ручного управления">Ручное управление</button>
+                                <button type="button" class="btn btn-default btn-status btn-manual btn-procedure<?php if($only_manual == true) { ?> active<?php }?>" data-status="manual" data-toggle="tooltip" title="Провести процедуру в режиме ручного управления">Ручное управление</button>
                               <?php } else { ?>
                                 <button type="button" class="btn btn-default disabled btn-status btn-manual btn-procedure" data-status="manual" data-toggle="tooltip" title="Доступно только сертифицированным пользователям">Ручное управление</button>
                               <?php } ?>
