@@ -326,6 +326,9 @@ jQuery(document).ready(function() {
     });
     if (jQuery('.b-popup')) {
         jQuery('.protocol_start').on('click', function() {
+            if (jQuery('.btn-manual').hasClass('active')) {
+                curStatus = jQuery('.btn-manual').data('status');
+            }
             protocol();
         });
         jQuery('.protocol_33').on('click', function() {
