@@ -225,7 +225,7 @@
                               </div>
                               <?php $only_manual = get_field('only_manual'); ?>
                               <?php if($only_manual != true) { ?>
-                                <div class="btn-group">
+                                <div class="btn-group test">
                                   <button type="button" class="btn btn-default btn-status btn-auto active btn-procedure" data-status="auto" data-toggle="tooltip" title="Провести процедуру в автоматическом режиме">Авто режим</button>
                                 </div>
                               <?php } ?>
