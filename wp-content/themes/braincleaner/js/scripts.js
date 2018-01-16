@@ -204,8 +204,9 @@ jQuery(document).ready(function() {
 
     jQuery('.btn-start').on('click', function() {
         if (jQuery('.btn-manual').hasClass('active')) {
-            curStatus = jQuery('.btn-manual').data('status');
+            curStatus = 'manual';
         }
+        console.log(curStatus);
         jQuery('.b-popup')
             .removeClass('hidden')
             .addClass('animated')
