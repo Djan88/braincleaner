@@ -203,6 +203,9 @@ jQuery(document).ready(function() {
     });
 
     jQuery('.btn-start').on('click', function() {
+        if (jQuery('.btn-manual').hasClass('active')) {
+            curStatus = jQuery('.btn-manual').data('status');
+        }
         jQuery('.b-popup')
             .removeClass('hidden')
             .addClass('animated')
@@ -371,9 +374,6 @@ jQuery(document).ready(function() {
                     jQuery('.btn-procedure').on('click', function(event) {
                         // mySound.stop();
                         // ion.sound.stop("432");
-                        if (jQuery('.btn-manual').hasClass('active')) {
-                            curStatus = jQuery('.btn-manual').data('status');
-                        }
                         sound.stop();
                         state = 0;
                     });
