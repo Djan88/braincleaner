@@ -240,6 +240,13 @@ jQuery(document).ready(function() {
             .addClass('slideInUp')
             .addClass('hidden');
         }
+        if(curStatus == 'auto'){
+            jQuery('.btn-manualic').addClass('hidden');
+            jQuery('.btn-automatic').removeClass('hidden');
+        } else if(curStatus == 'manual'){
+            jQuery('.btn-manualic').removeClass('hidden');
+            jQuery('.btn-automatic').addClass('hidden');
+        }
     });
 
     jQuery('.protocol_close').on('click', function() {
