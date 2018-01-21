@@ -71,22 +71,24 @@
                           <div class="b-popup hidden">
                             <div class="controls">
                               <div class="btn-group animated hidden slideInUp">
-                                <div class="btn-group btn-automatic" style="width: 245px; margin: auto; display: block;">
-                                  <button type="button" class="btn btn-default protocol_close jp-stop"><span class="glyphicon glyphicon-arrow-left"></span> Назад</button>
-                                  <button type="button" class="btn btn-default protocol_stop jp-stop">Стоп <span class="glyphicon glyphicon-minus-sign"></span></button>
-                                  <?php if(get_field('33_sec')) { ?>
-                                    <div id="jquery_jplayer_1" class="jp-jplayer hidden"></div>
-                                    <button type="button" class="btn btn-default protocol_33 jp-play">Старт <span class="glyphicon glyphicon-off"></span></button>
-                                  <?php } else { ?>
-                                    <button type="button" class="btn btn-default protocol_start">Старт <span class="glyphicon glyphicon-off"></span></button>
-                                  <?php } ?>
+                                <div class="row" style="padding-top: 5px;">
+                                  <div class="btn-group btn-automatic" style="width: 245px;<?php if(get_field('terapy')) { ?>width: 345px;<?php } ?> margin: auto; display: block;">
+                                    <button type="button" class="btn btn-default protocol_close jp-stop"><span class="glyphicon glyphicon-arrow-left"></span> Назад</button>
+                                    <button type="button" class="btn btn-default protocol_stop jp-stop">Стоп <span class="glyphicon glyphicon-minus-sign"></span></button>
+                                    <?php if(get_field('terapy')) { ?><button type="button" class="btn btn-default protocol_terapy">Терапия <span class="glyphicon glyphicon-plus"></span></button><?php } ?>
+                                    <?php if(get_field('33_sec')) { ?>
+                                      <button type="button" class="btn btn-default protocol_33 jp-play">Старт <span class="glyphicon glyphicon-off"></span></button>
+                                    <?php } else { ?>
+                                      <button type="button" class="btn btn-default protocol_start">Старт <span class="glyphicon glyphicon-off"></span></button>
+                                    <?php } ?>
+                                  </div>
+                                  <div class="btn-group btn-manualic hidden" style="width: 350px;<?php if(get_field('terapy')) { ?>width: 450px;<?php } ?> margin: auto; display: block;">
+                                    <button type="button" class="btn btn-default protocol_close"><span class="glyphicon glyphicon-arrow-left"></span> Назад</button>
+                                    <?php if(get_field('terapy')) { ?><button type="button" class="btn btn-default protocol_terapy">Терапия <span class="glyphicon glyphicon-plus"></span></button><?php } ?>
+                                    <button type="button" class="btn btn-default protocol_prev disabled"><span class="glyphicon glyphicon-chevron-left"></span> Предыдущий</button>
+                                    <button type="button" class="btn btn-default protocol_next">Следующий <span class="glyphicon glyphicon-chevron-right"></span></button>
+                                  </div>
                                 </div>
-                                <div class="btn-group btn-manualic hidden" style="width: 350px; margin: auto; display: block;">
-                                  <button type="button" class="btn btn-default protocol_close"><span class="glyphicon glyphicon-arrow-left"></span> Назад</button>
-                                  <button type="button" class="btn btn-default protocol_prev disabled"><span class="glyphicon glyphicon-chevron-left"></span> Предыдущий</button>
-                                  <button type="button" class="btn btn-default protocol_next">Следующий <span class="glyphicon glyphicon-chevron-right"></span></button>
-                                </div>
-                                <?php } ?>
                               </div>
                               <button type="button" class="btn btn-default menu-toggle"><span class="glyphicon glyphicon-align-justify"></span></button>
                             </div>
