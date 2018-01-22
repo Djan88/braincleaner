@@ -264,7 +264,17 @@ jQuery(document).ready(function() {
                 jQuery('.popup-img-wrap[data-defNum='+defCount+']').removeClass('hidden');
                 defCount += 1;
                 if(jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').data('formula')&&(!jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked'))){
-                    if (defStatus <= 6){
+                    if (defStatus <= 4){
+                        defCount -= 1;
+                        defStatus += 1;
+                        console.log('test'+defCount);
+                    } else {
+                        jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked', 'true');
+                        defStatus=0;
+                    }                    
+                }
+                if(jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').data('first_element')&&(!jQuery('.popup-img-wrap[data-defNum='+(defCount-1)+']').attr('checked'))){
+                    if (defStatus <= 8){
                         defCount -= 1;
                         defStatus += 1;
                         console.log('test'+defCount);
