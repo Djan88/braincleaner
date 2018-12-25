@@ -175,21 +175,21 @@ jQuery(document).ready(function() {
                 if (sec_four <= 16) {
                     if (cur_formula == 1) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
-                          background: '#fff url(/wp-content/themes/braincleaner/img/veter.png) 0 0/100% no-repeat',
+                          background: '#fff url(/wp-content/themes/braincleaner/img/disfunction.png) 0 0/100% no-repeat',
                           color: 'transparent',
                           borderColor: 'transparent',
                           opacity: 0.8
                        }); 
                     } else if (cur_formula == 2) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
-                          background: '#fff url(/wp-content/themes/braincleaner/img/life_vater.png) 0 0/100% no-repeat',
+                          background: '#fff url(/wp-content/themes/braincleaner/img/travma.png) 0 0/100% no-repeat',
                           color: 'transparent',
                           borderColor: 'transparent',
                           opacity: 0.8
                        }); 
                     } else if (cur_formula == 3) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
-                          background: '#fff url(/wp-content/themes/braincleaner/img/disfunction.jpg) 0 0/100% no-repeat',
+                          background: '#fff url(/wp-content/themes/braincleaner/img/povregdenie_demona.png) 0 0/100% no-repeat',
                           color: 'transparent',
                           borderColor: 'transparent',
                           opacity: 0.8
@@ -254,21 +254,21 @@ jQuery(document).ready(function() {
                 if (sec_four <= 16) {
                     if (cur_formula == 1) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
-                          background: '#fff url(/wp-content/themes/braincleaner/img/veter.png) 0 0/100% no-repeat',
+                          background: '#fff url(/wp-content/themes/braincleaner/img/disfunction.png) 0 0/100% no-repeat',
                           color: 'transparent',
                           borderColor: 'transparent',
                           opacity: 0.8
                        }); 
                     } else if (cur_formula == 2) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
-                          background: '#fff url(/wp-content/themes/braincleaner/img/life_vater.png) 0 0/100% no-repeat',
+                          background: '#fff url(/wp-content/themes/braincleaner/img/travma.png) 0 0/100% no-repeat',
                           color: 'transparent',
                           borderColor: 'transparent',
                           opacity: 0.8
                        }); 
                     } else if (cur_formula == 3) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
-                          background: '#fff url(/wp-content/themes/braincleaner/img/disfunction.jpg) 0 0/100% no-repeat',
+                          background: '#fff url(/wp-content/themes/braincleaner/img/povregdenie_demona.png) 0 0/100% no-repeat',
                           color: 'transparent',
                           borderColor: 'transparent',
                           opacity: 0.8
@@ -331,21 +331,21 @@ jQuery(document).ready(function() {
                 if (sec_four <= 16) {
                     if (cur_formula == 1) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
-                          background: '#fff url(/wp-content/themes/braincleaner/img/veter.png) 0 0/100% no-repeat',
+                          background: '#fff url(/wp-content/themes/braincleaner/img/disfunction.png) 0 0/100% no-repeat',
                           color: 'transparent',
                           borderColor: 'transparent',
                           opacity: 0.8
                        }); 
                     } else if (cur_formula == 2) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
-                          background: '#fff url(/wp-content/themes/braincleaner/img/life_vater.png) 0 0/100% no-repeat',
+                          background: '#fff url(/wp-content/themes/braincleaner/img/travma.png) 0 0/100% no-repeat',
                           color: 'transparent',
                           borderColor: 'transparent',
                           opacity: 0.8
                        }); 
                     } else if (cur_formula == 3) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
-                          background: '#fff url(/wp-content/themes/braincleaner/img/disfunction.jpg) 0 0/100% no-repeat',
+                          background: '#fff url(/wp-content/themes/braincleaner/img/povregdenie_demona.png) 0 0/100% no-repeat',
                           color: 'transparent',
                           borderColor: 'transparent',
                           opacity: 0.8
@@ -420,21 +420,21 @@ jQuery(document).ready(function() {
                 if (sec_four <= 16) {
                     if (cur_formula == 1) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
-                          background: '#fff url(/wp-content/themes/braincleaner/img/veter.png) 0 0/100% no-repeat',
+                          background: '#fff url(/wp-content/themes/braincleaner/img/disfunction.png) 0 0/100% no-repeat',
                           color: 'transparent',
                           borderColor: 'transparent',
                           opacity: 0.8
                        }); 
                     } else if (cur_formula == 2) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
-                          background: '#fff url(/wp-content/themes/braincleaner/img/life_vater.png) 0 0/100% no-repeat',
+                          background: '#fff url(/wp-content/themes/braincleaner/img/travma.png) 0 0/100% no-repeat',
                           color: 'transparent',
                           borderColor: 'transparent',
                           opacity: 0.8
                        }); 
                     } else if (cur_formula == 3) {
                        jQuery('#draggable1, #draggable2, #draggable3').css({
-                          background: '#fff url(/wp-content/themes/braincleaner/img/disfunction.jpg) 0 0/100% no-repeat',
+                          background: '#fff url(/wp-content/themes/braincleaner/img/povregdenie_demona.png) 0 0/100% no-repeat',
                           color: 'transparent',
                           borderColor: 'transparent',
                           opacity: 0.8
