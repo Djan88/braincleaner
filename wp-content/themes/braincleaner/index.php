@@ -35,6 +35,10 @@
                     <div class="clearfix">
                       <?php include(TEMPLATEPATH . '/659.php'); ?>
                     </div>
+                  <?php } else if (is_page(820)) { ?>
+                    <div class="clearfix">
+                      <?php include(TEMPLATEPATH . '/820.php'); ?>
+                    </div>
                   <?php } else { ?>
                     <div class="panel-body">
                     <?php if(in_category(3)) { ?>

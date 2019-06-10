@@ -758,3 +758,35 @@ li
   padding-top: 7px;
   padding-left: 1px;
 }
+.marakata_sim-wrap 
+{
+  overflow: hidden;
+  height: 180px;
+}
+.marakata_sim-inner 
+{
+  background: #fff;
+  height: 1800px;
+}
+.marakata_sim
+{
+  color: transparent;
+  background-position-y: 0px;
+  -webkit-transition: margin-top 3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -moz-transition: margin-top 3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: margin-top 3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.marakata_sim, .marakata_dot 
+{
+  text-align: center;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 110px;
+  position: relative;
+  color: #000;
+  margin-top: 0;
+}
+.marakata_sim-active.marakata_sim_from
+{
+  opacity: 1;
+}
