@@ -159,26 +159,7 @@ cur_date = function(){
       scroll_val = block_w * 1.8;
     }
     jQuery('.master_cards_wrapper').addClass('hidden');
-    if (cur_type == 'wands') {
-      jQuery('.marakata_dot').css('backgroundPositionY', scroll_val * 4 + 'px');
-    } else if (cur_type == 'swords') {
-      jQuery('.marakata_dot').css('backgroundPositionY', scroll_val * 8 + 'px');
-    } else if (cur_type == 'pents') {
-      jQuery('.marakata_dot').css('backgroundPositionY', scroll_val * 2 + 'px');
-    } else {
-      jQuery('.marakata_dot').css('backgroundPositionY', scroll_val * 6 + 'px');
-    }
   };
-
-  // onload
-  jQuery('.mode-item_manual').on('click', function(event) {
-    cur_window_width();
-    jQuery('.btn_return').addClass('hidden');
-  });
-  jQuery(window).on('resize', function(event) {
-    cur_window_width();
-    jQuery('.master_cards_wrapper, .master_problem_wrapper, .save_history').addClass('hidden');
-  });
 
 // click on block
   jQuery('.marakata_sim_prot').on('click', function(event) {
