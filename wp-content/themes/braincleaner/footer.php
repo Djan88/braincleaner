@@ -95,6 +95,7 @@ hideWebSite()
     <script src="<?php bloginfo('template_url'); ?>/js/sweet-alert.min.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/protocol.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/scripts.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/numbers.js"></script>
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
     (function (d, w, c) {
