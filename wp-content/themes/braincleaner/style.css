@@ -792,6 +792,8 @@ li
   content: '.';
   position: absolute;
   bottom: 0;
+  line-height: 1;
+  font-size: 200px;
   left: 0;
   right: 0;
 }
