@@ -136,8 +136,9 @@ cur_date = function(){
     page_h = jQuery("html").width();
     jQuery('.marakata_sim-wrap').height(block_w * 1.25+'px');
     jQuery('.marakata_sim_prot, .marakata_dot').height(block_w * 1.25 * 10 +'px');
+    scroll_val = block_w * 1.25;
     // if (page_h < 1150) {
-    //   scroll_val = block_w * 1.79;
+    //   scroll_val = block_w * 1.25;
     // } else {
     //   scroll_val = block_w * 1.8;
     // }
