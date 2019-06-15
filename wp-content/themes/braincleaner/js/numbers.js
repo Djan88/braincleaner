@@ -341,6 +341,7 @@ cur_date = function(){
       console.log(history_item);
       history_returned.push(history_item);
       localStorage.setItem('history', JSON.stringify(history_returned));
+      history_update();
       swal("Рецепт сохранен в истории!", "Название: '" + inputValue + "'", "success");
     });
   });
