@@ -134,22 +134,13 @@ cur_date = function(){
     jQuery('.form-group-inner').css('width', jQuery('.form-group_login').css('width'));
     block_w = parseFloat(jQuery(".marakata_sim.marakata_sim_prot").css('width'));
     page_h = jQuery("html").width();
-    jQuery('.marakata_sim-wrap').height(block_w * 1.8+'px');
-    jQuery('.marakata_sim_prot, .marakata_dot').height(block_w * 1.8 * 10 +'px');
-    if (page_h < 1150) {
-      scroll_val = block_w * 1.79;
-    } else {
-      scroll_val = block_w * 1.8;
-    }
-    if (cur_type == 'wands') {
-      jQuery('.marakata_dot').css('backgroundPositionY', scroll_val * 4 + 'px');
-    } else if (cur_type == 'swords') {
-      jQuery('.marakata_dot').css('backgroundPositionY', scroll_val * 8 + 'px');
-    } else if (cur_type == 'pents') {
-      jQuery('.marakata_dot').css('backgroundPositionY', scroll_val * 2 + 'px');
-    } else {
-      jQuery('.marakata_dot').css('backgroundPositionY', scroll_val * 6 + 'px');
-    }
+    jQuery('.marakata_sim-wrap').height(block_w * 1.079+'px');
+    jQuery('.marakata_sim_prot, .marakata_dot').height(block_w * 1.079 * 10 +'px');
+    // if (page_h < 1150) {
+    //   scroll_val = block_w * 1.79;
+    // } else {
+    //   scroll_val = block_w * 1.8;
+    // }
   };
 
   // onload
