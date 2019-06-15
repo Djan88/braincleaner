@@ -787,6 +787,14 @@ li
   color: #000;
   margin-top: 0;
 }
+.marakata_dot:after
+{
+  content: '.';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 .marakata_sim.marakata_sim_from
 {
   opacity: 0.4;
