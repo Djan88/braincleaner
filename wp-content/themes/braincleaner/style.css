@@ -820,7 +820,6 @@ li
 }
 .history_wrapper 
 {
-  padding: 5px;
   border: 1px solid #ddd;
   border-radius: 6px;
   margin-bottom: 20px;
@@ -836,6 +835,10 @@ li
 .history_item:nth-child(odd) 
 {
   background: #f0f3fa;
+}
+.history_item:last-child
+{
+  border-color: transparent;
 }
 .remove_history_item
 {
