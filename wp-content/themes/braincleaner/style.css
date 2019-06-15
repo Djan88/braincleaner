@@ -831,6 +831,8 @@ li
 {
   content: 'Нет сохраненных рецептов';
   position: absolute;
+  font-size: 18px;
+  color: #ddd;
   top: 0;
   left: 0;
   right: 0;
@@ -840,6 +842,7 @@ li
   border-bottom: 1px solid #ddd;
   padding: 5px;
   font-size: 18px;
+  position: relative;
 }
 .history_item:nth-child(odd) 
 {
