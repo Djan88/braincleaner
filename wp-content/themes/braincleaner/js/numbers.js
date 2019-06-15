@@ -212,15 +212,13 @@ cur_date = function(){
 // reset
   jQuery('.btn_reset').on('click', function(event) {
     jQuery(this).addClass('hidden');
-    jQuery('.master_problem_wrapper').addClass('shadow hidden');
-    jQuery('.problem_finish').text('?');
-    jQuery('.problem_range').css('background', '#afb1b6');
-    jQuery('.problem_range_card').removeClass('problem_range_card_d, problem_range_card_n');
+
+    
     jQuery('.marakata_sim').css('marginTop', '0px');
     jQuery('.marakata_sim_prot').addClass('marakata_sim_from');
-    jQuery('.btn_tarot_type').removeClass('active');
     jQuery('.save_history').addClass('hidden');
     jQuery('.marakata_sim').removeClass('marakata_sim-active');
+    jQuery('.marakata_sim-1').addClass('marakata_sim-active');
     global_counter = 0;
     elems_obj = {
       0: 0,
