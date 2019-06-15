@@ -773,7 +773,6 @@ li
   color: transparent;
   background: url(img/numbers.png) top left/100% repeat-y!important;
   background-position-y: 0px;
-  opacity: 0.4;
   -webkit-transition: margin-top 3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   -moz-transition: margin-top 3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition: margin-top 3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -787,6 +786,10 @@ li
   position: relative;
   color: #000;
   margin-top: 0;
+}
+.marakata_sim.marakata_sim_from
+{
+  opacity: 0.4;
 }
 .marakata_sim-active.marakata_sim_from
 {
