@@ -255,7 +255,7 @@ cur_date = function(){
     }
     // console.log(history_returned);
     jQuery.each(history_returned,function(key, data) {
-      jQuery('.history_wrapper').append('<div class="history_item row" data-item_num="'+key+'"><div class="history_item_date col-2">'+data['date']+'</div><div class="history_item_code col-2"><div class="history_item_code_1">'+data['0']+'</div><div class="history_item_code_2">'+data['1']+'</div><div class="history_item_code_3">'+data['2']+'</div><div class="history_item_code_4">'+data['3']+'</div><div class="history_item_code_dot">.</div><div class="history_item_code_5">'+data['4']+'</div></div><div class="history_item_name col-4">'+data['name']+'</div><div class="history_item_open col-1"><div class="open_history_item" data-toggle="modal" data-target="#history_item_modal" data-item_num_history="'+key+'"><i class="fas fa-eye"></i></div></div><div class="remove_history_item" data-name="'+data['name']+'" data-item_num_history="'+key+'"><i class="fas fa-backspace"></i></div></div></div>')
+      jQuery('.history_wrapper').append('<div class="history_item row" data-item_num="'+key+'"><div class="history_item_date col-md-2">'+data['date']+'</div><div class="history_item_code col-md-2"><div class="history_item_code_1">'+data['0']+'</div><div class="history_item_code_2">'+data['1']+'</div><div class="history_item_code_3">'+data['2']+'</div><div class="history_item_code_4">'+data['3']+'</div><div class="history_item_code_dot">.</div><div class="history_item_code_5">'+data['4']+'</div></div><div class="history_item_name col-md-4">'+data['name']+'</div><div class="history_item_open col-md-1"><div class="open_history_item" data-toggle="modal" data-target="#history_item_modal" data-item_num_history="'+key+'"><i class="fas fa-eye"></i></div></div><div class="remove_history_item col-md-1" data-name="'+data['name']+'" data-item_num_history="'+key+'"><i class="fas fa-backspace"></i></div></div></div>')
     });
   }
   history_update();
@@ -337,7 +337,6 @@ cur_date = function(){
       cur_date();
       history_item.date = hist_item_date;
       history_item.name = inputValue;
-      history_item.type = jQuery('.btn_tarot_type.active').data('type');
       jQuery('.save_history').addClass('hidden');
       console.log(history_item);
       history_returned.push(history_item);

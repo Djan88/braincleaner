@@ -809,3 +809,7 @@ li
 {
   padding: 20px;
 }
+.history_item_code div 
+{
+  display: inline;
+}
