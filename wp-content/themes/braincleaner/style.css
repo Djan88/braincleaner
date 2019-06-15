@@ -823,7 +823,6 @@ li
   border: 1px solid #ddd;
   border-radius: 6px;
   margin-bottom: 20px;
-  min-height: 100px;
   overflow: hidden;
 }
 .history_item 
