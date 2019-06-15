@@ -771,14 +771,11 @@ li
 .marakata_sim
 {
   color: transparent;
+  background: url(img/numbers.png) top left/100% repeat-y!important;
   background-position-y: 0px;
   -webkit-transition: margin-top 3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   -moz-transition: margin-top 3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition: margin-top 3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.marakata_sim_from
-{
-  background: url(img/.png) top left/100% repeat-y!important;
 }
 .marakata_sim, .marakata_dot 
 {

@@ -106,22 +106,6 @@ if (!history_returned) {
   history_returned = []; 
 }
 
-
-// draggable
-jQuery( ".problem_range_card" ).draggable({
-    snap: false,
-    containment: '.problem_range',
-    axis: "x",
-    stop: function() {
-      cur_window_width();
-      if (jQuery('.master_problem_wrapper').hasClass('shadow')) {
-        swal("Выберите режим", "Нажмите на соответствующую кнопку", "info");
-      } else {
-        jQuery('.master_cards_wrapper').removeClass('shadow hidden');
-      }
-    }
-});
-
 // proble diagnostic
 jQuery( ".problem_range_card" ).on('click', function(event) {
   
@@ -148,7 +132,6 @@ cur_date = function(){
 // width of block
   cur_window_width = function(){
     jQuery('.form-group-inner').css('width', jQuery('.form-group_login').css('width'));
-    jQuery('.master_cards_wrapper').removeClass('hidden');
     block_w = parseFloat(jQuery(".marakata_sim.marakata_sim_prot").css('width'));
     page_h = jQuery("html").width();
     jQuery('.marakata_sim-wrap').height(block_w * 1.8+'px');
@@ -158,7 +141,6 @@ cur_date = function(){
     } else {
       scroll_val = block_w * 1.8;
     }
-    jQuery('.master_cards_wrapper').addClass('hidden');
     if (cur_type == 'wands') {
       jQuery('.marakata_dot').css('backgroundPositionY', scroll_val * 4 + 'px');
     } else if (cur_type == 'swords') {
@@ -177,7 +159,7 @@ cur_date = function(){
   });
   jQuery(window).on('resize', function(event) {
     cur_window_width();
-    jQuery('.master_cards_wrapper, .master_problem_wrapper, .save_history').addClass('hidden');
+    jQuery('.master_problem_wrapper, .save_history').addClass('hidden');
   });
 
 // click on block
@@ -245,7 +227,7 @@ cur_date = function(){
 // reset
   jQuery('.btn_reset').on('click', function(event) {
     jQuery(this).addClass('hidden');
-    jQuery('.master_problem_wrapper, .master_cards_wrapper').addClass('shadow hidden');
+    jQuery('.master_problem_wrapper').addClass('shadow hidden');
     jQuery('.problem_finish').text('?');
     jQuery('.problem_range').css('background', '#afb1b6');
     jQuery('.problem_range_card').removeClass('problem_range_card_d, problem_range_card_n');
