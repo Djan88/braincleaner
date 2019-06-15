@@ -825,13 +825,29 @@ li
   border-radius: 6px;
   margin-bottom: 20px;
   min-height: 100px;
+  overflow: hidden;
 }
 .history_item 
 {
-  border-top: 1px solid;
-  padding-right: 5px;
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  font-size: 18px;
 }
 .history_item:nth-child(odd) 
 {
   background: #f0f3fa;
+}
+.remove_history_item
+{
+  color: #f96b46;
+  cursor: pointer;
+}
+.open_history_item
+{
+  color: #28a645;
+  cursor: pointer;
+}
+.history_item_code 
+{
+  font-weight: 700;
 }
