@@ -40,10 +40,10 @@
         <div class="col"></div>
     </div>
     <div class="row">
-        <div class="history col">
-          <button type="button" class="close history_close">
+        <div class="history col-md-8 col-md-offset-2">
+          <!-- <button type="button" class="close history_close">
             <span aria-hidden="true">&times;</span>
-          </button>
+          </button> -->
           <div class="col history-title">История рецептов</div>
           <div class="history_wrapper"></div>
         </div>

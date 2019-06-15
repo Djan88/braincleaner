@@ -813,3 +813,25 @@ li
 {
   display: inline;
 }
+.history-title 
+{
+  font-size: 22px;
+  padding-bottom: 10px;
+}
+.history_wrapper 
+{
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  min-height: 100px;
+}
+.history_item 
+{
+  border-top: 1px solid;
+  padding-right: 5px;
+}
+.history_item:nth-child(odd) 
+{
+  background: #f0f3fa;
+}

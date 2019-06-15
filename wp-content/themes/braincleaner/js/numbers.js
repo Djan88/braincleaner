@@ -255,7 +255,7 @@ cur_date = function(){
     }
     // console.log(history_returned);
     jQuery.each(history_returned,function(key, data) {
-      jQuery('.history_wrapper').append('<div class="history_item row" data-item_num="'+key+'"><div class="history_item_date col-md-2">'+data['date']+'</div><div class="history_item_code col-md-2"><div class="history_item_code_1">'+data['0']+'</div><div class="history_item_code_2">'+data['1']+'</div><div class="history_item_code_3">'+data['2']+'</div><div class="history_item_code_4">'+data['3']+'</div><div class="history_item_code_dot">.</div><div class="history_item_code_5">'+data['4']+'</div></div><div class="history_item_name col-md-4">'+data['name']+'</div><div class="history_item_open col-md-1"><div class="open_history_item" data-toggle="modal" data-target="#history_item_modal" data-item_num_history="'+key+'"><span class="glyphicon glyphicon-eye-open"></span></div></div><div class="remove_history_item col-md-1" data-name="'+data['name']+'" data-item_num_history="'+key+'"><span class="glyphicon glyphicon-remove-circle"></div></div></div>')
+      jQuery('.history_wrapper').append('<div class="history_item row" data-item_num="'+key+'"><div class="history_item_date col-md-3">'+data['date']+'</div><div class="history_item_code col-md-2"><div class="history_item_code_1">'+data['0']+'</div><div class="history_item_code_2">'+data['1']+'</div><div class="history_item_code_3">'+data['2']+'</div><div class="history_item_code_4">'+data['3']+'</div><div class="history_item_code_dot">.</div><div class="history_item_code_5">'+data['4']+'</div></div><div class="history_item_name col-md-5">'+data['name']+'</div><div class="history_item_open col-md-1"><div class="open_history_item" data-toggle="modal" data-target="#history_item_modal" data-item_num_history="'+key+'"><span class="glyphicon glyphicon-eye-open"></span></div></div><div class="remove_history_item col-md-1" data-name="'+data['name']+'" data-item_num_history="'+key+'"><span class="glyphicon glyphicon-remove-circle"></div></div></div>')
     });
   }
   history_update();
@@ -291,9 +291,9 @@ cur_date = function(){
 
 
   // history block
-  history_h = jQuery("html").height()-100;
-  jQuery('.history_wrapper').css('height', history_h+'px');
-  jQuery('.history').css('top', "-"+history_h+'px');
+  // history_h = jQuery("html").height()-100;
+  // jQuery('.history_wrapper').css('height', history_h+'px');
+  // jQuery('.history').css('top', "-"+history_h+'px');
 
 
   jQuery('.user_history, .btn_history').on('click', function(event) {
