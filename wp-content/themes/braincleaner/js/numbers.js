@@ -145,6 +145,7 @@ cur_date = function(){
 
   // onload
   cur_window_width();
+  jQuery('.marakata_sim-1').addClass('marakata_sim-active');
   jQuery(window).on('resize', function(event) {
     cur_window_width();
     jQuery('.master_problem_wrapper, .save_history').addClass('hidden');
@@ -352,39 +353,6 @@ cur_date = function(){
       localStorage.setItem('history', JSON.stringify(history_returned));
       swal("Рецепт сохранен в истории!", "Название: '" + inputValue + "'", "success");
     });
-  });
-
-
-  // choice type of cards
-  jQuery('.btn_tarot_type').on('click', function(event) {
-    jQuery('.master_problem_wrapper').removeClass('shadow hidden');
-    jQuery('.problem_range, .problem_finish').css('background', jQuery(this).css('background'));
-    jQuery('.marakata_sim-1').addClass('marakata_sim-active');
-    jQuery('.btn_tarot_type').removeClass('active');
-    jQuery(this).addClass('active')
-    jQuery('.marakata_sim_prot').removeClass('marakata_sim_pents marakata_sim_wands marakata_sim_cups marakata_sim_swords marakata_sim_pents marakata_sim_cups');
-    jQuery('.problem_range_card').removeClass('problem_range_card_d problem_range_card_n problem_range_card_r problem_range_card_z');
-    history_item.type = jQuery(this).data('type');
-    cur_type = jQuery(this).data('type');
-    console.log(history_item);
-    if (jQuery(this).data('type') == 'pents') {
-      jQuery('.marakata_sim_prot').addClass('marakata_sim_pents');
-      jQuery('.problem_range_card').addClass('problem_range_card_r');
-      jQuery('.problem_finish').text('Ресурс');
-    } else if (jQuery(this).data('type') == 'wands') {
-      jQuery('.marakata_sim_prot').addClass('marakata_sim_wands');
-      jQuery('.problem_range_card').addClass('problem_range_card_n');
-      jQuery('.problem_finish').text('Намерение');
-    } else if (jQuery(this).data('type') == 'cups') {
-      jQuery('.marakata_sim_prot').addClass('marakata_sim_cups');
-      jQuery('.problem_range_card').addClass('problem_range_card_z');
-      jQuery('.problem_finish').text('Здоровье');
-    } else if (jQuery(this).data('type') == 'swords') {
-      jQuery('.marakata_sim_prot').addClass('marakata_sim_swords');
-      jQuery('.problem_range_card').addClass('problem_range_card_d');
-      jQuery('.problem_finish').text('Действие');
-    }
-    cur_window_width();
   });
 
   setImgFromHistory = function(elem, type, position){
