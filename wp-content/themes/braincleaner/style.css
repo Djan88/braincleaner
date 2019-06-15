@@ -805,4 +805,7 @@ li
 {
   opacity: 1;
 }
-
+.after_btns 
+{
+  padding: 20px;
+}

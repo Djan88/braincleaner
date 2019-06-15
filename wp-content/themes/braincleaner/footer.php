@@ -92,7 +92,8 @@ hideWebSite()
     <script src="<?php bloginfo('template_url'); ?>/js/jq.touch.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/jcron.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/exif.js"></script>
-    <script src="<?php bloginfo('template_url'); ?>/js/sweet-alert.min.js"></script>
+    <!-- <script src="<?php //bloginfo('template_url'); ?>/js/sweet-alert.min.js"></script> -->
+    <script src="<?php bloginfo('template_url'); ?>/js/sweetalert.min.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/protocol.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/scripts.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/numbers.js"></script>
