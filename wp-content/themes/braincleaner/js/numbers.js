@@ -153,10 +153,7 @@ cur_date = function(){
   };
 
   // onload
-  jQuery('.mode-item_manual').on('click', function(event) {
-    cur_window_width();
-    jQuery('.btn_return').addClass('hidden');
-  });
+  cur_window_width();
   jQuery(window).on('resize', function(event) {
     cur_window_width();
     jQuery('.master_problem_wrapper, .save_history').addClass('hidden');
