@@ -134,8 +134,8 @@ cur_date = function(){
     jQuery('.form-group-inner').css('width', jQuery('.form-group_login').css('width'));
     block_w = parseFloat(jQuery(".marakata_sim.marakata_sim_prot").css('width'));
     page_h = jQuery("html").width();
-    jQuery('.marakata_sim-wrap').height(block_w * 1.058+'px');
-    jQuery('.marakata_sim_prot, .marakata_dot').height(block_w * 1.058 * 10 +'px');
+    jQuery('.marakata_sim-wrap').height(block_w * 1.25+'px');
+    jQuery('.marakata_sim_prot, .marakata_dot').height(block_w * 1.25 * 10 +'px');
     // if (page_h < 1150) {
     //   scroll_val = block_w * 1.79;
     // } else {
