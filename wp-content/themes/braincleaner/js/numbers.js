@@ -174,6 +174,7 @@ cur_date = function(){
         max_time = 9 - max_time
         history_item[global_counter] = max_time;
         curTrY = curTrY-(scroll_val*max_time);
+        console.log(curTrY);
         jQuery(this).css('marginTop', curTrY+'px');
         jQuery('.marakata_sim').removeClass('marakata_sim-active');
         jQuery(this).removeClass('marakata_sim_from');
