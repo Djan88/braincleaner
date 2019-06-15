@@ -161,62 +161,54 @@ cur_date = function(){
 
 // click on block
   jQuery('.marakata_sim_prot').on('click', function(event) {
-    if (jQuery(this).hasClass('marakata_sim_from')&&jQuery(this).hasClass('marakata_sim-active')) {
-      jQuery('.btn_reset').removeClass('hidden');
-      if (counter <= 9) {
-        if (counter <= -1) {
-          end_time = new Date();
-        } else {
-          start_time = end_time;
-          end_time = new Date();
-          elems_obj[counter] = end_time - start_time;
-          if (elems_obj[max_time] < (end_time - start_time)) {
-            max_time = counter;
-          }
-          console.log(elems_obj);
-          console.log('Лучшее: '+ max_time+', Текущее: '+(end_time - start_time));
-        }
-        counter += 1;
+    jQuery('.btn_reset').removeClass('hidden');
+    if (counter <= 9) {
+      if (counter <= -1) {
+        end_time = new Date();
       } else {
-        curTrY = parseFloat(jQuery(this).css('marginTop'));
-        max_time = 9 - max_time
-        history_item[global_counter] = max_time;
-        curTrY = curTrY-(scroll_val*max_time);
-        jQuery(this).css('marginTop', curTrY+'px');
-        jQuery('.marakata_sim').removeClass('marakata_sim-active');
-        jQuery(this).removeClass('marakata_sim_from');
-        if (global_counter <= 2) {
-          cur_elem = global_counter+1
-        } else {
-          cur_elem = global_counter+2
+        start_time = end_time;
+        end_time = new Date();
+        elems_obj[counter] = end_time - start_time;
+        if (elems_obj[max_time] < (end_time - start_time)) {
+          max_time = counter;
         }
-        jQuery('.marakata_sim-wrap').eq(cur_elem).find('.marakata_sim').addClass('marakata_sim-active');
-        counter = -1;
-        elems_obj = {
-            0: 0,
-            1: 0,
-            2: 0,
-            3: 0,
-            4: 0,
-            5: 0,
-            6: 0,
-            7: 0,
-            8: 0,
-            9: 0,
-          };
-        console.log(global_counter);
-        global_counter += 1;
-        if (global_counter >= 5) {
-          // if all cards open
-          jQuery('.save_history').removeClass('hidden');
-
-        }
+        console.log(elems_obj);
+        console.log('Лучшее: '+ max_time+', Текущее: '+(end_time - start_time));
       }
+      counter += 1;
     } else {
-      if ("type" in history_item) {
-        
+      curTrY = parseFloat(jQuery(this).css('marginTop'));
+      max_time = 9 - max_time
+      history_item[global_counter] = max_time;
+      curTrY = curTrY-(scroll_val*max_time);
+      jQuery(this).css('marginTop', curTrY+'px');
+      jQuery('.marakata_sim').removeClass('marakata_sim-active');
+      jQuery(this).removeClass('marakata_sim_from');
+      if (global_counter <= 2) {
+        cur_elem = global_counter+1
       } else {
-        swal("Намерение или действие?", "Нажмите на соответствующую кнопку", "info");
+        cur_elem = global_counter+2
+      }
+      jQuery('.marakata_sim-wrap').eq(cur_elem).find('.marakata_sim').addClass('marakata_sim-active');
+      counter = -1;
+      elems_obj = {
+          0: 0,
+          1: 0,
+          2: 0,
+          3: 0,
+          4: 0,
+          5: 0,
+          6: 0,
+          7: 0,
+          8: 0,
+          9: 0,
+        };
+      console.log(global_counter);
+      global_counter += 1;
+      if (global_counter >= 5) {
+        // if all cards open
+        jQuery('.save_history').removeClass('hidden');
+
       }
     }
   });
