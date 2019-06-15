@@ -1,4 +1,13 @@
 <?php if(is_user_logged_in()){ ?>
+    <div class="row">
+        <div class="history col">
+          <button type="button" class="close history_close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="col history-title">История рецептов</div>
+          <div class="history_wrapper"></div>
+        </div>
+    </div>
     <div class="row master_cards_wrapper shadow">
         <div class="col-md-2 marakata_sim-wrap">
             <div class="marakata_sim-inner">

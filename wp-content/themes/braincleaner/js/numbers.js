@@ -14,11 +14,11 @@ jQuery(document).ready(function () {
       history_returned = JSON.parse(localStorage.getItem('history')),
       history_type,
       supportsStorage = function(){
-          try {
-              return 'localStorage' in window && window['localStorage'] !== null;
-          } catch (e) {
-              return false;
-          }
+        try {
+            return 'localStorage' in window && window['localStorage'] !== null;
+        } catch (e) {
+            return false;
+        }
       },
       cur_date,
       history,
@@ -159,7 +159,26 @@ cur_date = function(){
       scroll_val = block_w * 1.8;
     }
     jQuery('.master_cards_wrapper').addClass('hidden');
+    if (cur_type == 'wands') {
+      jQuery('.marakata_dot').css('backgroundPositionY', scroll_val * 4 + 'px');
+    } else if (cur_type == 'swords') {
+      jQuery('.marakata_dot').css('backgroundPositionY', scroll_val * 8 + 'px');
+    } else if (cur_type == 'pents') {
+      jQuery('.marakata_dot').css('backgroundPositionY', scroll_val * 2 + 'px');
+    } else {
+      jQuery('.marakata_dot').css('backgroundPositionY', scroll_val * 6 + 'px');
+    }
   };
+
+  // onload
+  jQuery('.mode-item_manual').on('click', function(event) {
+    cur_window_width();
+    jQuery('.btn_return').addClass('hidden');
+  });
+  jQuery(window).on('resize', function(event) {
+    cur_window_width();
+    jQuery('.master_cards_wrapper, .master_problem_wrapper, .save_history').addClass('hidden');
+  });
 
 // click on block
   jQuery('.marakata_sim_prot').on('click', function(event) {
@@ -248,6 +267,7 @@ cur_date = function(){
       8: 0,
       9: 0,
     };
+    jQuery('.marakata_sim_prot').removeClass('marakata_sim_pents marakata_sim_wands marakata_sim_cups marakata_sim_swords marakata_sim_pents marakata_sim_cups');
     history_item = {
       0: 0,
       1: 0,
@@ -256,5 +276,207 @@ cur_date = function(){
       4: 0
     };
   });
+
+
+  // local storage
+
+
+  // upload history on DOM load
+  history_update = function(){
+    jQuery('.history_wrapper').empty();
+    history_returned = JSON.parse(localStorage.getItem('history'));
+    if (!history_returned) {
+      history_returned = []; 
+    }
+    // console.log(history_returned);
+    jQuery.each(history_returned,function(key, data) {
+      if (data['type'] == 'swords') {
+        history_type = '/wp-content/themes/mobile/img/cards/tarot_numbers/sword.png';
+      } else if (data['type'] == 'wands') {
+        history_type = '/wp-content/themes/mobile/img/cards/tarot_numbers/wand.png';
+      } else if (data['type'] == 'cups') {
+        history_type = '/wp-content/themes/mobile/img/cards/tarot_numbers/cup.png';
+      } else if (data['type'] == 'pents') {
+        history_type = '/wp-content/themes/mobile/img/cards/tarot_numbers/pent.png';
+      }
+      jQuery('.history_wrapper').append('<div class="history_item row" data-item_num="'+key+'"><div class="history_item_date col-2">'+data['date']+'</div><div class="history_item_code col-2"><div class="history_item_code_1">'+data['0']+'</div><div class="history_item_code_2">'+data['1']+'</div><div class="history_item_code_3">'+data['2']+'</div><div class="history_item_code_4">'+data['3']+'</div><div class="history_item_code_dot">.</div><div class="history_item_code_5">'+data['4']+'</div></div><div class="history_item_name col-4">'+data['name']+'</div><div class="history_item_type col-2" data-type="'+data['type']+'"><img src="'+history_type+'"></img></div><div class="history_item_open col-1"><div class="open_history_item" data-toggle="modal" data-target="#history_item_modal" data-item_num_history="'+key+'"><i class="fas fa-eye"></i></div></div><div class="remove_history_item" data-name="'+data['name']+'" data-item_num_history="'+key+'"><i class="fas fa-backspace"></i></div></div></div>')
+    });
+  }
+  history_update();
+
+
+  // remove history item
+  jQuery('.history_wrapper').on('click', '.remove_history_item', function(event) {
+    var delete_item_date = jQuery(this).data('name'),
+        delete_item_index = jQuery(this).data('item_num_history');
+    swal({
+      title:"Уверены что хотите удалить этот рецепт?",
+      text: "Рецепт от: ''"+delete_item_date+"'' будет удален",
+      type: "warning",
+      showCancelButton: true,
+      closeOnConfirm: false,
+      allowOutsideClick: false,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Да, удалить!",
+      cancelButtonText: "Нет"
+    },
+    function(isConfirm){
+      var protocol = undefined;
+      if (isConfirm) {
+        swal("Рецепт удален!", "Рецепт от: ''"+delete_item_date+"'' удален из истории!", "success");
+        jQuery('.history_wrapper').find(jQuery('[data-item_num =' +delete_item_index+ ']')).detach();
+        history_returned.splice(delete_item_index, 1)
+        localStorage.setItem('history', JSON.stringify(history_returned));
+      } else {    
+        
+      } 
+    });
+  });
+
+
+  // history block
+  history_h = jQuery("html").height()-100;
+  jQuery('.history_wrapper').css('height', history_h+'px');
+  jQuery('.history').css('top', "-"+history_h+'px');
+
+
+  jQuery('.user_history, .btn_history').on('click', function(event) {
+    if (jQuery('.history').hasClass('history_visible')) {
+      jQuery('.history').removeClass('history_visible');
+    } else {
+      jQuery('.history').addClass('history_visible');
+      history_update();
+    }
+  });
+  jQuery('.btn-back').on('click', function(event) {
+    jQuery('.history').removeClass('history_visible');
+    jQuery('.btn_start_elems').addClass('hidden');
+  });
+  jQuery('.history_close').on('click', function(event) {
+    jQuery('.history').removeClass('history_visible');
+  });
+
+
+  // save history
+  jQuery('.save_history').on('click', function(event) {
+    swal({
+      title:"Сохранить рецепт?",
+      text: "Вы можете сохранить этот рецепт в истории. Для этого придумайте ему краткое название.",
+      type: "input",
+      inputPlaceholder: "Введите краткий заголовок в это поле.",
+      showCancelButton: true,
+      closeOnConfirm: false,
+      allowOutsideClick: false,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Да",
+      cancelButtonText: "Нет"
+    }, function (inputValue) {
+      if (inputValue === false) {
+        return false;
+      };
+      if (inputValue === "") {
+        swal.showInputError("Коротко озаглавьте рецепт!");
+        return false
+      }
+      cur_date();
+      history_item.date = hist_item_date;
+      history_item.name = inputValue;
+      history_item.type = jQuery('.btn_tarot_type.active').data('type');
+      jQuery('.save_history').addClass('hidden');
+      console.log(history_item);
+      history_returned.push(history_item);
+      localStorage.setItem('history', JSON.stringify(history_returned));
+      swal("Рецепт сохранен в истории!", "Название: '" + inputValue + "'", "success");
+    });
+  });
+
+
+  // choice type of cards
+  jQuery('.btn_tarot_type').on('click', function(event) {
+    jQuery('.master_problem_wrapper').removeClass('shadow hidden');
+    jQuery('.problem_range, .problem_finish').css('background', jQuery(this).css('background'));
+    jQuery('.marakata_sim-1').addClass('marakata_sim-active');
+    jQuery('.btn_tarot_type').removeClass('active');
+    jQuery(this).addClass('active')
+    jQuery('.marakata_sim_prot').removeClass('marakata_sim_pents marakata_sim_wands marakata_sim_cups marakata_sim_swords marakata_sim_pents marakata_sim_cups');
+    jQuery('.problem_range_card').removeClass('problem_range_card_d problem_range_card_n problem_range_card_r problem_range_card_z');
+    history_item.type = jQuery(this).data('type');
+    cur_type = jQuery(this).data('type');
+    console.log(history_item);
+    if (jQuery(this).data('type') == 'pents') {
+      jQuery('.marakata_sim_prot').addClass('marakata_sim_pents');
+      jQuery('.problem_range_card').addClass('problem_range_card_r');
+      jQuery('.problem_finish').text('Ресурс');
+    } else if (jQuery(this).data('type') == 'wands') {
+      jQuery('.marakata_sim_prot').addClass('marakata_sim_wands');
+      jQuery('.problem_range_card').addClass('problem_range_card_n');
+      jQuery('.problem_finish').text('Намерение');
+    } else if (jQuery(this).data('type') == 'cups') {
+      jQuery('.marakata_sim_prot').addClass('marakata_sim_cups');
+      jQuery('.problem_range_card').addClass('problem_range_card_z');
+      jQuery('.problem_finish').text('Здоровье');
+    } else if (jQuery(this).data('type') == 'swords') {
+      jQuery('.marakata_sim_prot').addClass('marakata_sim_swords');
+      jQuery('.problem_range_card').addClass('problem_range_card_d');
+      jQuery('.problem_finish').text('Действие');
+    }
+    cur_window_width();
+  });
+
+  setImgFromHistory = function(elem, type, position){
+    cur_history_image = cur_history_item[position];
+    if (type == 'swords') {
+      elem.css('backgroundPositionY', img_position[cur_history_image]);
+      jQuery('.marakata_modal_sim-dot').css('backgroundPositionY', '-354px');
+    } else if (type == 'wands') {
+      cur_history_image = cur_history_item[position]+10;
+      elem.css('backgroundPositionY', img_position[cur_history_image]);
+      jQuery('.marakata_modal_sim-dot').css('backgroundPositionY', '-177px');
+    } else if (type == 'pents') {
+      cur_history_image = cur_history_item[position]+20;
+      elem.css('backgroundPositionY', img_position[cur_history_image]);
+      jQuery('.marakata_modal_sim-dot').css('backgroundPositionY', '-534px');
+    } else {
+      cur_history_image = cur_history_item[position]+30;
+      elem.css('backgroundPositionY', img_position[cur_history_image]);
+      jQuery('.marakata_modal_sim-dot').css('backgroundPositionY', '-711px');
+    }
+  }
+
+  // open history item
+  jQuery('.history_wrapper').on('click', '.open_history_item', function(event) {
+    cur_history_item = history_returned[jQuery(this).data('item_num_history')];
+    
+    setImgFromHistory(jQuery('.marakata_modal_sim-1'), cur_history_item.type, 0);
+    setImgFromHistory(jQuery('.marakata_modal_sim-2'), cur_history_item.type, 1);
+    setImgFromHistory(jQuery('.marakata_modal_sim-3'), cur_history_item.type, 2);
+    setImgFromHistory(jQuery('.marakata_modal_sim-4'), cur_history_item.type, 3);
+    setImgFromHistory(jQuery('.marakata_modal_sim-5'), cur_history_item.type, 4);
+  
+    jQuery('.history_item_modal_sub_title').text(cur_history_item.name)
+    jQuery('.history_item_modal_code').text(cur_history_item['0']+' '+cur_history_item['1']+' '+cur_history_item['2']+' '+cur_history_item['3']+' . '+cur_history_item['4'])
+    jQuery('.history_item_modal_date').text(cur_history_item.date)
+  });
+
+  // save as img
+  jQuery('.save_img').on('click', function(event) {
+    jQuery('.for_print').css('display', 'block');
+    html2canvas(document.querySelector("#history_item_modal_content")).then(canvas => {
+      document.body.appendChild(canvas)
+      jQuery('.for_print').css('display', 'none');
+      jQuery(canvas).attr('id', 'history_canvas');
+      var c = document.getElementById("history_canvas");
+      var d = c.toDataURL("image/png");
+      var temp_elem = "<img src='"+d+"' alt='from canvas'/>";
+      jQuery('.saved_img').attr('href', d);
+      jQuery('.saved_img')[0].click();
+    });
+  });
+  jQuery('.history_wrapper').on('click', '.history_item_open', function(event) {
+    jQuery('.saved_img').attr('href', '')
+    jQuery('#history_canvas').detach();
+  });
+
+// TODO
 
 });
