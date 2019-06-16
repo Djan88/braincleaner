@@ -909,7 +909,8 @@ li
 .modal-title.for_print
 {
   position: absolute;
-  right: 0;
+  right: 15px;
+  top: 15px;
 }
 .save_img 
 {
@@ -923,6 +924,6 @@ li
 #history_item_modal button.close
 {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 15px;
+  right: 15px;
 }

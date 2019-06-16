@@ -147,6 +147,7 @@ hideWebSite()
           <div class="modal-footer card_modal_footer">
             <div class="row">
               <div class="col-xs-6">
+                <div>Рецепт создан в программе — <b>"TarotMachine"</b></div>
                 <button data-html2canvas-ignore="true" class="btn btn-success save_img">Сохранить <i class="fas fa-download"></i></button>
                 <!-- <img class="saved_img hidden" src="" alt=""> -->
                 <a href="" download class="saved_img btn hidden">Скачать</a>
@@ -154,9 +155,6 @@ hideWebSite()
               <div class="col-xs-6">
                 <div class="history_item_modal_date"></div>
               </div>
-            </div>
-            <div class="row for_print">
-              <div class="col" style="margin-top: 10px;text-align: center;">Рецепт создан в программе — <b>"TarotMachine"</b></div>
             </div>
           </div>
         </div>
