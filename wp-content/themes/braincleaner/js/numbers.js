@@ -1,6 +1,7 @@
 jQuery(document).ready(function () {
   var cur_window_width,
       block_w,
+      block_w_modal,
       page_h,
       counter = -1,
       scroll_val,
@@ -360,6 +361,9 @@ cur_date = function(){
     setImgFromHistory(jQuery('.marakata_modal_sim-3'), cur_history_item.type, 2);
     setImgFromHistory(jQuery('.marakata_modal_sim-4'), cur_history_item.type, 3);
     setImgFromHistory(jQuery('.marakata_modal_sim-5'), cur_history_item.type, 4);
+
+    block_w_modal = parseFloat(jQuery(".marakata_sim_prot_modal").css('width'));
+    jQuery('.marakata_sim_prot_modal').height(block_w_modal * 1.25+'px');
   
     jQuery('.history_item_modal_sub_title').text(cur_history_item.name)
     jQuery('.history_item_modal_code').text(cur_history_item['0']+' '+cur_history_item['1']+' '+cur_history_item['2']+' '+cur_history_item['3']+' . '+cur_history_item['4'])

@@ -135,12 +135,12 @@ hideWebSite()
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="marakata_sim_prot_modal marakata_modal_sim-1"></div>
-              <div class="marakata_sim_prot_modal marakata_modal_sim-2"></div>
-              <div class="marakata_sim_prot_modal marakata_modal_sim-3"></div>
-              <div class="marakata_sim_prot_modal marakata_modal_sim-4"></div>
-              <div class="marakata_modal_sim-dot">.</div>
-              <div class="marakata_sim_prot_modal marakata_modal_sim-5"></div>
+              <div class="marakata_sim_prot_modal col-xs-2 marakata_modal_sim-1"></div>
+              <div class="marakata_sim_prot_modal col-xs-2 marakata_modal_sim-2"></div>
+              <div class="marakata_sim_prot_modal col-xs-2 marakata_modal_sim-3"></div>
+              <div class="marakata_sim_prot_modal col-xs-2 marakata_modal_sim-4"></div>
+              <div class="marakata_modal_sim-dot col-xs-2">.</div>
+              <div class="marakata_sim_prot_modal col-xs-2 marakata_modal_sim-5"></div>
             </div>
           </div>
           <div class="modal-footer card_modal_footer">
