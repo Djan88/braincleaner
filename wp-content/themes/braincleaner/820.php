@@ -45,7 +45,9 @@
             <span aria-hidden="true">&times;</span>
           </button> -->
           <div class="col history-title">История рецептов</div>
-          <div class="history_wrapper"></div>
+          <div class="history_inner">
+              <div class="history_wrapper"></div>
+          </div>
         </div>
     </div>
 <?php } else { ?>

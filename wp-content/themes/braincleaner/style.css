@@ -818,6 +818,11 @@ li
   font-size: 22px;
   padding-bottom: 10px;
 }
+.history_inner
+{
+  overflow: scroll;
+  max-height: 720px;
+}
 .history_wrapper 
 {
   border: 1px solid #ddd;
