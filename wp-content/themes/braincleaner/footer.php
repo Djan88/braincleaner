@@ -144,23 +144,18 @@ hideWebSite()
             </div>
           </div>
           <div class="modal-footer card_modal_footer">
-            <div class="container">
-              <div class="row">
-                <div class="col-4">
-                  <div class="history_item_modal_code"></div>
-                </div>
-                <div class="col-4">
-                  <button data-html2canvas-ignore="true" class="btn btn-success save_img">Сохранить <i class="fas fa-download"></i></button>
-                  <!-- <img class="saved_img hidden" src="" alt=""> -->
-                  <a href="" download class="saved_img btn hidden">Скачать</a>
-                </div>
-                <div class="col-4">
-                  <div class="history_item_modal_date"></div>
-                </div>
+            <div class="row">
+              <div class="col-xs-6">
+                <button data-html2canvas-ignore="true" class="btn btn-success save_img">Сохранить <i class="fas fa-download"></i></button>
+                <!-- <img class="saved_img hidden" src="" alt=""> -->
+                <a href="" download class="saved_img btn hidden">Скачать</a>
               </div>
-              <div class="row for_print">
-                <div class="col" style="margin-top: 10px;text-align: center;">Рецепт создан в программе — <b>"TarotMachine"</b></div>
+              <div class="col-xs-6">
+                <div class="history_item_modal_date"></div>
               </div>
+            </div>
+            <div class="row for_print">
+              <div class="col" style="margin-top: 10px;text-align: center;">Рецепт создан в программе — <b>"TarotMachine"</b></div>
             </div>
           </div>
         </div>
