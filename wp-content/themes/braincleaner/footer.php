@@ -146,8 +146,8 @@ hideWebSite()
           </div>
           <div class="modal-footer card_modal_footer">
             <div class="row">
+              <div class="modal-credits for_print">Рецепт создан в программе — <b>"BrainCleaner"</b></div>
               <div class="col-xs-6">
-                <div>Рецепт создан в программе — <b>"TarotMachine"</b></div>
                 <button data-html2canvas-ignore="true" class="btn btn-success save_img">Сохранить <i class="fas fa-download"></i></button>
                 <!-- <img class="saved_img hidden" src="" alt=""> -->
                 <a href="" download class="saved_img btn hidden">Скачать</a>
