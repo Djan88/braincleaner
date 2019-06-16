@@ -1,7 +1,6 @@
 jQuery(document).ready(function () {
   var cur_window_width,
       block_w,
-      block_w_modal,
       page_h,
       counter = -1,
       scroll_val,
@@ -32,45 +31,16 @@ jQuery(document).ready(function () {
       },
       img_position = {
         0: '0',
-        1: '-178px',
-        2: '-356px',
-        3: '-534px',
-        4: '-712px',
-        5: '-890px',
-        6: '-1068px',
-        7: '-1246px',
-        8: '-1424px',
-        9: '-1602px',
-        10: '-1780px',
-        11: '-1958px',
-        12: '-2136px',
-        13: '-2314px',
-        14: '-2494px',
-        15: '-2671px',
-        16: '-2850px',
-        17: '-3026px',
-        18: '-3206px',
-        19: '-3385px',
-        20: '-3563px',
-        21: '-3740px',
-        22: '-3920px',
-        23: '-4098px',
-        24: '-4275px',
-        25: '-4454px',
-        26: '-4632px',
-        27: '-4810px',
-        28: '-4988px',
-        29: '-5166px',
-        30: '-5344px',
-        31: '-5523px',
-        32: '-5702px',
-        33: '-5880px',
-        34: '-6058px',
-        35: '-6235px',
-        36: '-6415px',
-        37: '-6593px',
-        38: '-6770px',
-        39: '-6950px',
+        1: '-125px',
+        2: '-250px',
+        3: '-375px',
+        4: '-500px',
+        5: '-625px',
+        6: '-750px',
+        7: '-875px',
+        8: '-1000px',
+        9: '-1125px',
+        10: '-1250px',
       },
       setImgFromHistory,
       hist_item_date,
@@ -347,7 +317,7 @@ cur_date = function(){
     });
   });
 
-  setImgFromHistory = function(elem, type, position){
+  setImgFromHistory = function(elem, position){
     cur_history_image = cur_history_item[position];
     elem.css('backgroundPositionY', img_position[cur_history_image]);
   }
@@ -361,9 +331,6 @@ cur_date = function(){
     setImgFromHistory(jQuery('.marakata_modal_sim-3'), cur_history_item.type, 2);
     setImgFromHistory(jQuery('.marakata_modal_sim-4'), cur_history_item.type, 3);
     setImgFromHistory(jQuery('.marakata_modal_sim-5'), cur_history_item.type, 4);
-
-    block_w_modal = parseFloat(jQuery(".marakata_sim_prot_modal").css('width'));
-    jQuery('.marakata_sim_prot_modal').height(block_w_modal * 1.25+'px');
   
     jQuery('.history_item_modal_sub_title').text(cur_history_item.name)
     jQuery('.history_item_modal_code').text(cur_history_item['0']+' '+cur_history_item['1']+' '+cur_history_item['2']+' '+cur_history_item['3']+' . '+cur_history_item['4'])

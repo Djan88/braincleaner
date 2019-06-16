@@ -869,4 +869,9 @@ li
 .marakata_sim_prot_modal
 {
   background: url(img/numbers.png) top left/100% repeat-y;
+  height: 125px;
+}
+#history_item_modal .modal-dialog
+{
+  width: 600px!important;
 }
