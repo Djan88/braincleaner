@@ -883,9 +883,25 @@ li
   bottom: 0;
   left: 0;
   right: 0;
-  font-size: 25px;
+  font-size: 100px;
+  text-align: center;
+  line-height: 1;
 }
 #history_item_modal .modal-dialog
 {
   width: 600px!important;
+}
+.for_print 
+{
+  display: none;
+  color: #777;
+}
+.modal-header
+{
+  position: relative;
+}
+.history_item_modal_title
+{
+  position: absolute;
+  right: 0;
 }
