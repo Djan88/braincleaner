@@ -871,6 +871,19 @@ li
   background: url(img/numbers.png) top left/100% repeat-y;
   height: 125px;
 }
+.marakata_modal_sim-dot
+{
+  height: 125px;
+  position: relative;
+}
+.marakata_modal_sim-dot:after
+{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 25px;
+}
 #history_item_modal .modal-dialog
 {
   width: 600px!important;
