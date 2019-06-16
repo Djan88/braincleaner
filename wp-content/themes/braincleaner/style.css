@@ -866,3 +866,7 @@ li
 {
   font-weight: 700;
 }
+.marakata_sim_prot_modal
+{
+  background: url(img/numbers.png) top left/100% repeat-y;
+}

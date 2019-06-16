@@ -348,22 +348,7 @@ cur_date = function(){
 
   setImgFromHistory = function(elem, type, position){
     cur_history_image = cur_history_item[position];
-    if (type == 'swords') {
-      elem.css('backgroundPositionY', img_position[cur_history_image]);
-      jQuery('.marakata_modal_sim-dot').css('backgroundPositionY', '-354px');
-    } else if (type == 'wands') {
-      cur_history_image = cur_history_item[position]+10;
-      elem.css('backgroundPositionY', img_position[cur_history_image]);
-      jQuery('.marakata_modal_sim-dot').css('backgroundPositionY', '-177px');
-    } else if (type == 'pents') {
-      cur_history_image = cur_history_item[position]+20;
-      elem.css('backgroundPositionY', img_position[cur_history_image]);
-      jQuery('.marakata_modal_sim-dot').css('backgroundPositionY', '-534px');
-    } else {
-      cur_history_image = cur_history_item[position]+30;
-      elem.css('backgroundPositionY', img_position[cur_history_image]);
-      jQuery('.marakata_modal_sim-dot').css('backgroundPositionY', '-711px');
-    }
+    elem.css('backgroundPositionY', img_position[cur_history_image]);
   }
 
   // open history item
