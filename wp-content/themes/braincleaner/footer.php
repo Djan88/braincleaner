@@ -123,5 +123,48 @@ hideWebSite()
     </script>
     <noscript><div><img src="//mc.yandex.ru/watch/30639627" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
+    <div class="modal" id="history_item_modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" id="history_item_modal_content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="history_item_modal_title">Рецепт: "<span class="history_item_modal_sub_title"></span>"</h5>
+            <button data-html2canvas-ignore="true" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h5 class="modal-title for_print" id="history_item_modal_title">применять 21 день</h5>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="marakata_sim_prot_modal marakata_modal_sim-1"></div>
+              <div class="marakata_sim_prot_modal marakata_modal_sim-2"></div>
+              <div class="marakata_sim_prot_modal marakata_modal_sim-3"></div>
+              <div class="marakata_sim_prot_modal marakata_modal_sim-4"></div>
+              <div class="marakata_modal_sim-dot"></div>
+              <div class="marakata_sim_prot_modal marakata_modal_sim-5"></div>
+            </div>
+          </div>
+          <div class="modal-footer card_modal_footer">
+            <div class="container">
+              <div class="row">
+                <div class="col-4">
+                  <div class="history_item_modal_code"></div>
+                </div>
+                <div class="col-4">
+                  <button data-html2canvas-ignore="true" class="btn btn-success save_img">Сохранить <i class="fas fa-download"></i></button>
+                  <!-- <img class="saved_img hidden" src="" alt=""> -->
+                  <a href="" download class="saved_img btn hidden">Скачать</a>
+                </div>
+                <div class="col-4">
+                  <div class="history_item_modal_date"></div>
+                </div>
+              </div>
+              <div class="row for_print">
+                <div class="col" style="margin-top: 10px;text-align: center;">Рецепт создан в программе — <b>"TarotMachine"</b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
