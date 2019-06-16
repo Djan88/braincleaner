@@ -951,9 +951,9 @@ li
   top: 0;
   right: 0;
   z-index: 601;
-  box-shadow: inset -27px 0px 1rem rgba(255,255,255,1)!important;
+  box-shadow: inset -27px 0px 3rem rgba(255,255,255,1)!important;
 }
 .history_item:nth-child(odd) .history_item_name:after
 {
-  box-shadow: inset -27px 0px 1rem rgba(234,238,247,1)!important;
+  box-shadow: inset -27px 0px 3rem rgba(234,238,247,1)!important;
 }
