@@ -878,6 +878,7 @@ li
 }
 .marakata_modal_sim-dot:after
 {
+  content: '.';
   position: absolute;
   bottom: 0;
   left: 0;
