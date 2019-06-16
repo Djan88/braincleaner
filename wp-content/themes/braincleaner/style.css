@@ -911,3 +911,18 @@ li
   position: absolute;
   right: 0;
 }
+.save_img 
+{
+  float: left;
+}
+.history_item_modal_date 
+{
+  font-size: 18px;
+  margin-top: 5px;
+}
+#history_item_modal button.close
+{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
