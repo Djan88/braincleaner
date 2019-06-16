@@ -39,8 +39,7 @@ jQuery(document).ready(function () {
         6: '-750px',
         7: '-875px',
         8: '-1000px',
-        9: '-1125px',
-        10: '-1250px',
+        9: '-1125px'
       },
       setImgFromHistory,
       hist_item_date,
@@ -326,11 +325,11 @@ cur_date = function(){
   jQuery('.history_wrapper').on('click', '.open_history_item', function(event) {
     cur_history_item = history_returned[jQuery(this).data('item_num_history')];
     
-    setImgFromHistory(jQuery('.marakata_modal_sim-1'), cur_history_item.type, 0);
-    setImgFromHistory(jQuery('.marakata_modal_sim-2'), cur_history_item.type, 1);
-    setImgFromHistory(jQuery('.marakata_modal_sim-3'), cur_history_item.type, 2);
-    setImgFromHistory(jQuery('.marakata_modal_sim-4'), cur_history_item.type, 3);
-    setImgFromHistory(jQuery('.marakata_modal_sim-5'), cur_history_item.type, 4);
+    setImgFromHistory(jQuery('.marakata_modal_sim-1'), 0);
+    setImgFromHistory(jQuery('.marakata_modal_sim-2'), 1);
+    setImgFromHistory(jQuery('.marakata_modal_sim-3'), 2);
+    setImgFromHistory(jQuery('.marakata_modal_sim-4'), 3);
+    setImgFromHistory(jQuery('.marakata_modal_sim-5'), 4);
   
     jQuery('.history_item_modal_sub_title').text(cur_history_item.name)
     jQuery('.history_item_modal_code').text(cur_history_item['0']+' '+cur_history_item['1']+' '+cur_history_item['2']+' '+cur_history_item['3']+' . '+cur_history_item['4'])
