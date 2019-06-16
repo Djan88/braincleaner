@@ -927,3 +927,10 @@ li
   top: 15px;
   right: 15px;
 }
+.modal-credits.for_print 
+{
+  text-align: left;
+  position: absolute;
+  left: 15px;
+  bottom: 20px;
+}
