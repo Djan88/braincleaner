@@ -132,7 +132,7 @@ hideWebSite()
             <button data-html2canvas-ignore="true" type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h5 class="modal-title for_print" id="history_item_modal_title">применять 21 день</h5>
+            <h5 class="modal-title for_print">применять 21 день</h5>
           </div>
           <div class="modal-body">
             <div class="row">

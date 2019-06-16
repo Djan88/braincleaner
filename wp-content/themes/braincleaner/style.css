@@ -895,12 +895,18 @@ li
 {
   display: none;
   color: #777;
+  font-size: 16px;
 }
 .modal-header
 {
   position: relative;
 }
-.history_item_modal_title
+#history_item_modal_title
+{
+  font-size: 20px;
+  font-weight: 600;
+}
+.modal-title.for_print
 {
   position: absolute;
   right: 0;
