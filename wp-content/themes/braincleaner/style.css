@@ -975,10 +975,15 @@ li
   width: 300px;
   height: 528px;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   background: url(img/magician.jpg) top left/100% repeat-y;
 }
 .invers_img_rotated
 {
   transform: rotate(180deg);
+}
+.btn_refresh
+{
+  margin-bottom: 20px;
 }

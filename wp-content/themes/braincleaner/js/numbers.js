@@ -357,7 +357,7 @@ cur_date = function(){
 // INVERS
   jQuery('.invers_img').on('click', function(event) {
     jQuery(this).addClass('invers_img_rotated');
-    jQuery('.invers_img').removeClass('hidden');
+    jQuery('.btn_refresh').removeClass('hidden');
   });
 
   jQuery('.btn_refresh').on('click', function(event) {
