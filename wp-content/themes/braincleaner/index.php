@@ -41,7 +41,7 @@
                     </div>
                   <?php } else if (is_page(824)) { ?>
                     <div class="clearfix">
-                      <?php include(TEMPLATEPATH . '/820.php'); ?>
+                      <?php include(TEMPLATEPATH . '/824.php'); ?>
                     </div>
                   <?php } else { ?>
                     <div class="panel-body">
