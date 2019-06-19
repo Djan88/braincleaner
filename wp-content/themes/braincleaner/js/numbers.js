@@ -354,6 +354,15 @@ cur_date = function(){
     jQuery('#history_canvas').detach();
   });
 
-// TODO
+// INVERS
+  jQuery('.invers_img').on('click', function(event) {
+    jQuery(this).addClass('invers_img_rotated');
+    jQuery('.invers_img').removeClass('hidden');
+  });
+
+  jQuery('.btn_refresh').on('click', function(event) {
+    jQuery('.invers_img').removeClass('invers_img_rotated');
+    jQuery(this).addClass('hidden');
+  });
 
 });
