@@ -963,3 +963,8 @@ li
 {
   box-shadow: inset -27px 0px 3rem rgba(234,238,247,1)!important;
 }
+.history_item_date 
+{
+  font-size: 11px;
+  padding-top: 5px;
+}
