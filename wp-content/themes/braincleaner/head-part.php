@@ -13,13 +13,6 @@
       <div class="row">
         <div class="col-md-9 col-sm-12">
           <?php wp_nav_menu(array('menu' => 'Меню в шапке', 'container' => false, menu_class => 'nav navbar-nav' )); ?>
-          <?php if(is_user_logged_in()){ ?>
-            <?php if(current_user_can('administrator')) { ?>
-              <button type="button" class="btn btn-lg btn-link btn_history justify-content-end">
-                H
-              </button>
-            <?php } ?>
-          <?php } ?>
         </div>
         <div class="col-md-3 col-sm-12" style="margin-top: 7px;margin-bottom: 7px;">
             <form method="get" name="searchform" id="searchform" action="<?php bloginfo('siteurl')?>">
