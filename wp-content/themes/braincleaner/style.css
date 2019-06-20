@@ -989,7 +989,7 @@ li
 }
 .invers_img_rotated
 {
-  transform: rotate(180deg);
+  transform: rotate(-180deg);
 }
 .btn_refresh
 {
