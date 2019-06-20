@@ -382,7 +382,7 @@ cur_date = function(){
   }
   jQuery('.btn_refresh').on('click', function(event) {
     jQuery('.invers_img').addClass('invers_img_rotated_second');
-    setTimeout(remove_rotate, 1000);
+    setTimeout(remove_rotate(), 1000);
     jQuery(this).addClass('hidden');
   });
 
