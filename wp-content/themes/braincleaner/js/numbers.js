@@ -379,7 +379,10 @@ cur_date = function(){
   });
 
   jQuery('.btn_refresh').on('click', function(event) {
-    jQuery('.invers_img').removeClass('invers_img_rotated');
+    jQuery('.invers_img').addClass('invers_img_rotated_second');
+    setTimeout(jQuery(".paranja").animate({
+       jQuery('.invers_img').removeClass('invers_img_rotated_second, invers_img_rotated');
+    }, 1500 ), 1000);
     jQuery(this).addClass('hidden');
   });
 

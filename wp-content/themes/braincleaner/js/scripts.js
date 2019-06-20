@@ -575,6 +575,6 @@ jQuery(document).ready(function() {
         setTimeout(jQuery(".paranja").animate({
             opacity: 0,
             zIndex: -1
-          }, 1500 ), 5000);
+        }, 1500 ), 5000);
 
 });

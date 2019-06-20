@@ -991,6 +991,11 @@ li
 {
   transform: rotate(-180deg);
 }
+.invers_img_rotated_second
+{
+  transform: rotate(-360deg);
+  transition: auto!important;
+}
 .btn_refresh
 {
   margin-bottom: 20px;
