@@ -289,7 +289,11 @@
           <div class="pull-left">
             <a href="/">Braincleaner</a> 2019 v 1.3
           </div>
-          <a class="logout" href="http://braincleaner.ru/wp-login.php?action=logout&_wpnonce=bc0c947e8d"><span class="glyphicon glyphicon-log-out"></span> Выход</a>
+          <?php if(is_user_logged_in()){ ?>
+            <a class="logout" href="http://braincleaner.ru/wp-login.php?action=logout&_wpnonce=bc0c947e8d"><span class="glyphicon glyphicon-log-out"></span> Выход</a>
+          <?php } else { ?>
+            <a class="logout" href="http://braincleaner.ru/"><span class="glyphicon glyphicon-log-in"></span> Вход</a>
+          <?php } ?>
           <div class="pull-right">
             <a href="mailto:wizardmachine@yandex.ru">wizardmachine@yandex.ru</a>
           </div>
