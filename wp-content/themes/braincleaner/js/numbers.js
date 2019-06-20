@@ -360,6 +360,23 @@ cur_date = function(){
     jQuery('.btn_refresh').removeClass('hidden');
   });
 
+  jQuery('.btn_magician').on('click', function(event) {
+    jQuery(this).addClass('active');
+    jQuery('.btn_strength').removeClass('active');
+    jQuery('.invers_img_magician').removeClass('hidden');
+    jQuery('.invers_img_strength').addClass('hidden');
+    jQuery('.invers_img').removeClass('invers_img_rotated');
+    jQuery('.btn_refresh').addClass('hidden');
+  });
+  jQuery('.btn_strength').on('click', function(event) {
+    jQuery(this).addClass('active');
+    jQuery('.btn_magician').removeClass('active');
+    jQuery('.invers_img_magician').addClass('hidden');
+    jQuery('.invers_img_strength').removeClass('hidden');
+    jQuery('.invers_img').removeClass('invers_img_rotated');
+    jQuery('.btn_refresh').addClass('hidden');
+  });
+
   jQuery('.btn_refresh').on('click', function(event) {
     jQuery('.invers_img').removeClass('invers_img_rotated');
     jQuery(this).addClass('hidden');

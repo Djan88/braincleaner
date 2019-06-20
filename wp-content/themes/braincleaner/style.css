@@ -977,7 +977,14 @@ li
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+.invers_img_magician
+{
   background: url(img/magician.jpg) top left/100% repeat-y;
+}
+.invers_img_strength
+{
+  background: url(img/strength.jpg) top left/100% repeat-y;
 }
 .invers_img_rotated
 {
@@ -986,4 +993,8 @@ li
 .btn_refresh
 {
   margin-bottom: 20px;
+}
+.cards
+{
+  text-align: center;
 }
