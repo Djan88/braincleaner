@@ -119,7 +119,7 @@ cur_date = function(){
   jQuery('.marakata_sim-1').addClass('marakata_sim-active');
   jQuery(window).on('resize', function(event) {
     cur_window_width();
-    jQuery('.master_problem_wrapper, .save_history').addClass('hidden');
+    jQuery('.master_problem_wrapper').addClass('hidden');
   });
 
 // click on block
@@ -307,7 +307,6 @@ cur_date = function(){
       cur_date();
       history_item.date = hist_item_date;
       history_item.name = inputValue;
-      jQuery('.save_history').addClass('hidden');
       console.log(history_item);
       history_returned.push(history_item);
       localStorage.setItem('history', JSON.stringify(history_returned));
