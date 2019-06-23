@@ -2645,7 +2645,6 @@ add_filter('login_redirect', 'users_redirect');
                                 }
                                 if(current_user_can('administrator')) {
                                   print_r ($exif);
-                                  // print_r ($vImg);
                                 }
                                 // print_r ($exif);
 
@@ -2665,7 +2664,7 @@ add_filter('login_redirect', 'users_redirect');
                                         $vImg = imagerotate($vImg, 180, 0);
                                         break;
                                     case 6:
-                                        $vImg = imagerotate($vImg, -90, 0);
+                                        $vImg = imagerotate($vImg, 270, 0);
                                         $tmp = $aSize[0];
                                         $aSize[0] = $aSize[1];
                                         $aSize[1] = $tmp;
