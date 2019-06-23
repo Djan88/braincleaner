@@ -2626,9 +2626,6 @@ add_filter('login_redirect', 'users_redirect');
                                     // create a new image from file 
                                     $vImg = @imagecreatefromjpeg($sTempFileName);
                                     if(current_user_can('administrator')) {
-                                      if (!$vImg) {
-                                          $vImg = 'Resource id #344';
-                                      }
                                       print_r ($vImg);
                                     }
                                     break;
@@ -2671,6 +2668,9 @@ add_filter('login_redirect', 'users_redirect');
                                         break;
                                     case 6:
                                         // $vImg = $vImg;
+                                        if (!$vImg) {
+                                            $vImg = 'Resource id #344';
+                                        }
                                         $vImg = imagerotate($vImg, -90, 0);
                                         $tmp = $aSize[0];
                                         $aSize[0] = $aSize[1];
