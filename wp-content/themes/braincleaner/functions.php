@@ -2662,6 +2662,9 @@ add_filter('login_redirect', 'users_redirect');
                                         break;
                                     case 3:
                                         $vImg = imagerotate($vImg, 180, 0);
+                                        if(current_user_can('administrator')) {
+                                          print_r ($vImg);
+                                        }
                                         break;
                                     case 6:
                                         $vImg = imagerotate($vImg, -90, 0);
