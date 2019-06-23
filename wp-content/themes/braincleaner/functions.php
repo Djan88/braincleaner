@@ -2664,7 +2664,7 @@ add_filter('login_redirect', 'users_redirect');
                                         $vImg = imagerotate($vImg, 180, 0);
                                         break;
                                     case 6:
-                                        $vImg = imagerotate($vImg, 270, 0);
+                                        $vImg = $vImg;
                                         $tmp = $aSize[0];
                                         $aSize[0] = $aSize[1];
                                         $aSize[1] = $tmp;
