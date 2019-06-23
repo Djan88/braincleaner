@@ -2645,7 +2645,7 @@ add_filter('login_redirect', 'users_redirect');
                                 }
                                 if(current_user_can('administrator')) {
                                   print_r ($exif);
-                                  print_r ($vImg);
+                                  // print_r ($vImg);
                                 }
                                 // print_r ($exif);
 
