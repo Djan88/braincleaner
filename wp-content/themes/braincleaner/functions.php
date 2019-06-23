@@ -2639,7 +2639,8 @@ add_filter('login_redirect', 'users_redirect');
 
                             //exif only supports jpg in our supported file types
                             if ($sExt == ".jpg") {
-                                $exif = exif_read_data($sTempFileName);
+                                $exif = @exif_read_data($sTempFileName);
+                                // print_r ($exif);
 
                                 //get the orientation
                                 if(isset($exif['Orientation'])) $orientation = $exif['Orientation'];
