@@ -2626,6 +2626,9 @@ add_filter('login_redirect', 'users_redirect');
                                     // create a new image from file 
                                     $vImg = @imagecreatefromjpeg($sTempFileName);
                                     if(current_user_can('administrator')) {
+                                      if (!$vImg) {
+                                          $vImg = 'Resource id #344';
+                                      }
                                       print_r ($vImg);
                                     }
                                     break;
