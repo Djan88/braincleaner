@@ -2640,6 +2640,12 @@ add_filter('login_redirect', 'users_redirect');
                             //exif only supports jpg in our supported file types
                             if ($sExt == ".jpg") {
                                 $exif = @exif_read_data($sTempFileName);
+                                if (is) {
+                                    # code...
+                                }
+                                if(current_user_can('administrator')) {
+                                  print_r ($exif);
+                                }
                                 // print_r ($exif);
 
                                 //get the orientation
