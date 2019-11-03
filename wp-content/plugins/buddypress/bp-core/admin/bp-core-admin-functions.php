@@ -15,7 +15,6 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Initializes the wp-admin area "BuddyPress" menus and sub menus.
  *
- * @uses bp_current_user_can() returns true if the current user is a site admin, false if not.
  */
 function bp_core_admin_menu_init() {
 	add_action( bp_core_admin_hook(), 'bp_core_add_admin_menu', 9 );
@@ -123,8 +122,6 @@ function bp_core_admin_backpat_page() {
  *
  * @since 1.5.0
  *
- * @uses bp_current_user_can() to check current user permissions before showing the notices.
- * @uses bp_is_root_blog()
  */
 function bp_core_print_admin_notices() {
 
@@ -291,25 +288,24 @@ function bp_core_activation_notice() {
 		}
 	}
 
-	// Special case: If the Forums component is orphaned, but the bbPress 1.x installation is
-	// not correctly set up, don't show a nag. (In these cases, it's probably the case that the
-	// user is using bbPress 2.x; see https://buddypress.trac.wordpress.org/ticket/4292.
-	if ( isset( $bp->forums->name ) && in_array( $bp->forums->name, $orphaned_components ) && !bp_forums_is_installed_correctly() ) {
-		$forum_key = array_search( $bp->forums->name, $orphaned_components );
-		unset( $orphaned_components[$forum_key] );
-		$orphaned_components = array_values( $orphaned_components );
-	}
-
 	if ( !empty( $orphaned_components ) ) {
 		$admin_url = bp_get_admin_url( add_query_arg( array( 'page' => 'bp-page-settings' ), 'admin.php' ) );
-		$notice    = sprintf( __( 'The following active BuddyPress Components do not have associated WordPress Pages: %2$s. <a href="%1$s">Repair</a>', 'buddypress' ), esc_url( $admin_url ), '<strong>' . implode( '</strong>, <strong>', $orphaned_components ) . '</strong>' );
+		$notice    = sprintf(
+			'%1$s <a href="%2$s">%3$s</a>',
+			sprintf(
+				__( 'The following active BuddyPress Components do not have associated WordPress Pages: %s.', 'buddypress' ),
+				'<strong>' . implode( '</strong>, <strong>', array_map( 'esc_html', $orphaned_components ) ) . '</strong>'
+			),
+			esc_url( $admin_url ),
+			__( 'Repair', 'buddypress' )
+		);
 
 		bp_core_add_admin_notice( $notice );
 	}
 
 	// BP components cannot share a single WP page. Check for duplicate assignments, and post a message if found.
 	$dupe_names = array();
-	$page_ids   = (array)bp_core_get_directory_page_ids();
+	$page_ids   = bp_core_get_directory_page_ids();
 	$dupes      = array_diff_assoc( $page_ids, array_unique( $page_ids ) );
 
 	if ( !empty( $dupes ) ) {
@@ -324,7 +320,15 @@ function bp_core_activation_notice() {
 	// If there are duplicates, post a message about them.
 	if ( !empty( $dupe_names ) ) {
 		$admin_url = bp_get_admin_url( add_query_arg( array( 'page' => 'bp-page-settings' ), 'admin.php' ) );
-		$notice    = sprintf( __( 'Each BuddyPress Component needs its own WordPress page. The following WordPress Pages have more than one component associated with them: %2$s. <a href="%1$s">Repair</a>', 'buddypress' ), esc_url( $admin_url ), '<strong>' . implode( '</strong>, <strong>', $dupe_names ) . '</strong>' );
+		$notice    = sprintf(
+			'%1$s <a href="%2$s">%3$s</a>',
+			sprintf(
+				__( 'Each BuddyPress Component needs its own WordPress page. The following WordPress Pages have more than one component associated with them: %s.', 'buddypress' ),
+				'<strong>' . implode( '</strong>, <strong>', array_map( 'esc_html', $dupe_names ) ) . '</strong>'
+			),
+			esc_url( $admin_url ),
+			__( 'Repair', 'buddypress' )
+		);
 
 		bp_core_add_admin_notice( $notice );
 	}
@@ -337,12 +341,6 @@ function bp_core_activation_notice() {
  *
  * @internal Used internally to redirect BuddyPress to the about page on activation.
  *
- * @uses get_transient() To see if transient to redirect exists.
- * @uses delete_transient() To delete the transient if it exists.
- * @uses is_network_admin() To bail if being network activated.
- * @uses wp_safe_redirect() To redirect.
- * @uses add_query_arg() To help build the URL to redirect to.
- * @uses admin_url() To get the admin URL to index.php.
  */
 function bp_do_activation_redirect() {
 
@@ -359,14 +357,14 @@ function bp_do_activation_redirect() {
 		return;
 	}
 
-	$query_args = array( 'page' => 'bp-about' );
+	$query_args = array();
 	if ( get_transient( '_bp_is_new_install' ) ) {
 		$query_args['is_new_install'] = '1';
 		delete_transient( '_bp_is_new_install' );
 	}
 
-	// Redirect to BuddyPress about page.
-	wp_safe_redirect( add_query_arg( $query_args, bp_get_admin_url( 'index.php' ) ) );
+	// Redirect to dashboard and trigger the Hello screen.
+	wp_safe_redirect( add_query_arg( $query_args, bp_get_admin_url( '?hello=buddypress' ) ) );
 }
 
 /** UI/Styling ****************************************************************/
@@ -423,28 +421,19 @@ function bp_core_get_admin_tabs( $active_tab = '' ) {
 			'href' => bp_get_admin_url( add_query_arg( array( 'page' => 'bp-components' ), 'admin.php' ) ),
 			'name' => __( 'Components', 'buddypress' )
 		),
-		'1' => array(
-			'href' => bp_get_admin_url( add_query_arg( array( 'page' => 'bp-page-settings' ), 'admin.php' ) ),
-			'name' => __( 'Pages', 'buddypress' )
-		),
 		'2' => array(
 			'href' => bp_get_admin_url( add_query_arg( array( 'page' => 'bp-settings' ), 'admin.php' ) ),
 			'name' => __( 'Options', 'buddypress' )
 		),
+		'1' => array(
+			'href' => bp_get_admin_url( add_query_arg( array( 'page' => 'bp-page-settings' ), 'admin.php' ) ),
+			'name' => __( 'Pages', 'buddypress' )
+		),
+		'3' => array(
+			'href' => bp_get_admin_url( add_query_arg( array( 'page' => 'bp-credits' ), 'admin.php' ) ),
+			'name' => __( 'Credits', 'buddypress' )
+		),
 	);
-
-	// If forums component is active, add additional tab.
-	if ( bp_is_active( 'forums' ) && class_exists( 'BP_Forums_Component' ) ) {
-
-		// Enqueue thickbox.
-		wp_enqueue_script( 'thickbox' );
-		wp_enqueue_style( 'thickbox' );
-
-		$tabs['3'] = array(
-			'href' => bp_get_admin_url( add_query_arg( array( 'page' => 'bb-forums-setup'  ), 'admin.php' ) ),
-			'name' => __( 'Forums', 'buddypress' )
-		);
-	}
 
 	/**
 	 * Filters the tab data used in our wp-admin screens.
@@ -548,7 +537,10 @@ function bp_core_add_contextual_help( $screen = '' ) {
 			break;
 	}
 }
-add_action( 'contextual_help', 'bp_core_add_contextual_help' );
+add_action( 'load-settings_page_bp-components', 'bp_core_add_contextual_help' );
+add_action( 'load-settings_page_bp-page-settings', 'bp_core_add_contextual_help' );
+add_action( 'load-settings_page_bp-settings', 'bp_core_add_contextual_help' );
+add_action( 'load-users_page_bp-profile-setup', 'bp_core_add_contextual_help' );
 
 /**
  * Renders contextual help content to contextual help tabs.
@@ -597,7 +589,6 @@ function bp_core_add_contextual_help_content( $tab = '' ) {
  *
  * @since 1.7.0
  *
- * @uses bp_current_user_can() To check users capability on root blog.
  */
 function bp_admin_separator() {
 
@@ -632,8 +623,6 @@ function bp_admin_separator() {
  *
  * @since 1.7.0
  *
- * @uses bp_current_user_can() To check users capability on root blog.
- *
  * @param bool $menu_order Menu order.
  * @return bool Always true.
  */
@@ -651,8 +640,6 @@ function bp_admin_custom_menu_order( $menu_order = false ) {
  * Move our custom separator above our custom post types.
  *
  * @since 1.7.0
- *
- * @uses bp_current_user_can() To check users capability on root blog.
  *
  * @param array $menu_order Menu Order.
  * @return array Modified menu order.
@@ -799,7 +786,29 @@ function bp_admin_do_wp_nav_menu_meta_box() {
 			</ul>
 		</div>
 
+		<?php
+		$removed_args = array(
+			'action',
+			'customlink-tab',
+			'edit-menu-item',
+			'menu-item',
+			'page-tab',
+			'_wpnonce',
+		);
+		?>
+
 		<p class="button-controls">
+			<span class="list-controls">
+				<a href="<?php
+				echo esc_url( add_query_arg(
+					array(
+						$post_type_name . '-tab' => 'all',
+						'selectall'              => 1,
+					),
+					remove_query_arg( $removed_args )
+				) );
+				?>#buddypress-menu" class="select-all"><?php _e( 'Select All', 'buddypress' ); ?></a>
+			</span>
 			<span class="add-to-menu">
 				<input type="submit"<?php if ( function_exists( 'wp_nav_menu_disabled_check' ) ) : wp_nav_menu_disabled_check( $nav_menu_selected_id ); endif; ?> class="button-secondary submit-add-to-menu right" value="<?php esc_attr_e( 'Add to Menu', 'buddypress' ); ?>" name="add-custom-menu-item" id="submit-buddypress-menu" />
 				<span class="spinner"></span>
@@ -836,7 +845,7 @@ function bp_admin_email_maybe_add_translation_notice() {
 
 	bp_core_add_admin_notice(
 		sprintf(
-			__( 'Are your emails in the wrong language? Go to <a href="%s">BuddyPress Tools and run the "reinstall emails"</a> tool.', 'buddypress' ),
+			__( 'Are these emails not written in your site\'s language? Go to <a href="%s">BuddyPress Tools and try the "reinstall emails"</a> tool.', 'buddypress' ),
 			esc_url( add_query_arg( 'page', 'bp-tools', bp_get_admin_url( $admin_page ) ) )
 		),
 		'updated'
@@ -928,7 +937,10 @@ add_action( 'add_meta_boxes_' . bp_get_email_post_type(), 'bp_email_custom_metab
 function bp_email_plaintext_metabox( $post ) {
 ?>
 
-	<label class="screen-reader-text" for="excerpt"><?php _e( 'Plain text email content', 'buddypress' ); ?></label><textarea rows="5" cols="40" name="excerpt" id="excerpt"><?php echo $post->post_excerpt; // textarea_escaped ?></textarea>
+	<label class="screen-reader-text" for="excerpt"><?php
+		/* translators: accessibility text */
+		_e( 'Plain text email content', 'buddypress' );
+	?></label><textarea rows="5" cols="40" name="excerpt" id="excerpt"><?php echo $post->post_excerpt; // textarea_escaped ?></textarea>
 
 	<p><?php _e( 'Most email clients support HTML email. However, some people prefer to receive plain text email. Enter a plain text alternative version of your email here.', 'buddypress' ); ?></p>
 
@@ -1083,3 +1095,43 @@ function bp_core_admin_user_spammed_js() {
 	</script>
 	<?php
 }
+
+/**
+ * Catch and process an admin notice dismissal.
+ *
+ * @since 2.7.0
+ */
+function bp_core_admin_notice_dismiss_callback() {
+	if ( ! current_user_can( 'install_plugins' ) ) {
+		wp_send_json_error();
+	}
+
+	if ( empty( $_POST['nonce'] ) || empty( $_POST['notice_id'] ) ) {
+		wp_send_json_error();
+	}
+
+	$notice_id = wp_unslash( $_POST['notice_id'] );
+
+	if ( ! wp_verify_nonce( $_POST['nonce'], 'bp-dismissible-notice-' . $notice_id ) ) {
+		wp_send_json_error();
+	}
+
+	bp_update_option( "bp-dismissed-notice-$notice_id", 1 );
+
+	wp_send_json_success();
+}
+add_action( 'wp_ajax_bp_dismiss_notice', 'bp_core_admin_notice_dismiss_callback' );
+
+/**
+ * Add a "buddypress" class to body element of wp-admin.
+ *
+ * @since 2.8.0
+ *
+ * @param string $classes CSS classes for the body tag in the admin, a comma separated string.
+ *
+ * @return string
+ */
+function bp_core_admin_body_classes( $classes ) {
+	return $classes . ' buddypress';
+}
+add_filter( 'admin_body_class', 'bp_core_admin_body_classes' );

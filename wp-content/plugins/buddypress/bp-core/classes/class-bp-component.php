@@ -206,8 +206,6 @@ class BP_Component {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @uses apply_filters() Calls 'bp_{@link bp_Component::name}_id'.
-	 * @uses apply_filters() Calls 'bp_{@link bp_Component::name}_slug'.
 	 *
 	 * @param array $args {
 	 *     All values are optional.
@@ -350,7 +348,6 @@ class BP_Component {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @uses do_action() Calls 'bp_{@link bp_Component::name}includes'.
 	 *
 	 * @param array $includes An array of file names, or file name chunks,
 	 *                        to be parsed and then included.
@@ -397,12 +394,21 @@ class BP_Component {
 	}
 
 	/**
+	 * Late includes method.
+	 *
+	 * Components should include files here only on specific pages using
+	 * conditionals such as {@link bp_is_current_component()}. Intentionally left
+	 * empty.
+	 *
+	 * @since 3.0.0
+	 */
+	public function late_includes() {}
+
+	/**
 	 * Set up the actions.
 	 *
 	 * @since 1.5.0
 	 *
-	 * @uses add_action() To add various actions.
-	 * @uses do_action() Calls 'bp_{@link BP_Component::name}setup_actions'.
 	 */
 	public function setup_actions() {
 
@@ -418,6 +424,9 @@ class BP_Component {
 		// compatibility; henceforth, plugins should register themselves by
 		// extending this base class.
 		add_action( 'bp_include',                array( $this, 'includes'               ), 8 );
+
+		// Load files conditionally, based on certain pages.
+		add_action( 'bp_late_include',           array( $this, 'late_includes'          ) );
 
 		// Setup navigation.
 		add_action( 'bp_setup_nav',              array( $this, 'setup_nav'              ), 10 );
@@ -489,12 +498,15 @@ class BP_Component {
 
 		// No sub nav items without a main nav item.
 		if ( !empty( $main_nav ) ) {
-			bp_core_new_nav_item( $main_nav );
+			// Always set the component ID.
+			$main_nav['component_id'] = $this->id;
+
+			bp_core_new_nav_item( $main_nav, 'members' );
 
 			// Sub nav items are not required.
 			if ( !empty( $sub_nav ) ) {
 				foreach( (array) $sub_nav as $nav ) {
-					bp_core_new_subnav_item( $nav );
+					bp_core_new_subnav_item( $nav, 'members' );
 				}
 			}
 		}
@@ -598,7 +610,6 @@ class BP_Component {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @uses do_action() Calls 'bp_{@link bp_Component::name}_setup_title'.
 	 */
 	public function setup_title() {
 
@@ -617,7 +628,6 @@ class BP_Component {
 	 *
 	 * @since 2.2.0
 	 *
-	 * @uses do_action() Calls 'bp_setup_{@link bp_Component::name}_cache_groups'.
 	 */
 	public function setup_cache_groups() {
 
@@ -654,7 +664,7 @@ class BP_Component {
 		// Add to the BuddyPress global object.
 		if ( !empty( $tables ) && is_array( $tables ) ) {
 			foreach ( $tables as $global_name => $table_name ) {
-				$this->$global_name = $table_name;
+				$this->{$global_name} = $table_name;
 			}
 
 			// Keep a record of the metadata tables in the component.
@@ -723,7 +733,6 @@ class BP_Component {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @uses do_action() Calls 'bp_{@link bp_Component::name}_register_post_types'.
 	 */
 	public function register_post_types() {
 
@@ -742,7 +751,6 @@ class BP_Component {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @uses do_action() Calls 'bp_{@link bp_Component::name}_register_taxonomies'.
 	 */
 	public function register_taxonomies() {
 
@@ -761,7 +769,6 @@ class BP_Component {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @uses do_action() Calls 'bp_{@link bp_Component::name}_add_rewrite_tags'.
 	 */
 	public function add_rewrite_tags() {
 
@@ -780,7 +787,6 @@ class BP_Component {
 	 *
 	 * @since 1.9.0
 	 *
-	 * @uses do_action() Calls 'bp_{@link bp_Component::name}_add_rewrite_rules'.
 	 */
 	public function add_rewrite_rules() {
 
@@ -799,7 +805,6 @@ class BP_Component {
 	 *
 	 * @since 1.9.0
 	 *
-	 * @uses do_action() Calls 'bp_{@link bp_Component::name}_add_permastruct'.
 	 */
 	public function add_permastructs() {
 
@@ -818,7 +823,6 @@ class BP_Component {
 	 *
 	 * @since 1.9.0
 	 *
-	 * @uses do_action() Calls 'bp_{@link bp_Component::name}_parse_query'.
 	 *
 	 * @param object $query The main WP_Query.
 	 */
@@ -841,7 +845,6 @@ class BP_Component {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @uses do_action() Calls 'bp_{@link bp_Component::name}_generate_rewrite_rules'.
 	 */
 	public function generate_rewrite_rules() {
 

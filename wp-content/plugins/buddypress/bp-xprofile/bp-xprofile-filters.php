@@ -77,13 +77,15 @@ add_filter( 'xprofile_field_can_delete_before_save',   'absint' );
 add_filter( 'xprofile_field_options_before_save', 'bp_xprofile_sanitize_field_options' );
 add_filter( 'xprofile_field_default_before_save', 'bp_xprofile_sanitize_field_default' );
 
+// Personal data export.
+add_filter( 'wp_privacy_personal_data_exporters', 'bp_xprofile_register_personal_data_exporter' );
+
 /**
  * Sanitize each field option name for saving to the database.
  *
  * @since 2.3.0
  *
- * @param  mixed $field_options Options to sanitize.
- *
+ * @param mixed $field_options Options to sanitize.
  * @return mixed
  */
 function bp_xprofile_sanitize_field_options( $field_options = '' ) {
@@ -99,9 +101,8 @@ function bp_xprofile_sanitize_field_options( $field_options = '' ) {
  *
  * @since 2.3.0
  *
- * @param  mixed $field_default Field defaults to sanitize.
- *
- * @return mixed
+ * @param mixed $field_default Field defaults to sanitize.
+ * @return array|int
  */
 function bp_xprofile_sanitize_field_default( $field_default = '' ) {
 	if ( is_array( $field_default ) ) {
@@ -114,9 +115,10 @@ function bp_xprofile_sanitize_field_default( $field_default = '' ) {
 /**
  * Run profile field values through kses with filterable allowed tags.
  *
+ * @since 1.5.0
+ *
  * @param string      $content  Content to filter.
  * @param object|null $data_obj The BP_XProfile_ProfileData object.
- *
  * @return string $content
  */
 function xprofile_filter_kses( $content, $data_obj = null ) {
@@ -154,11 +156,12 @@ function xprofile_filter_kses( $content, $data_obj = null ) {
 /**
  * Safely runs profile field data through kses and force_balance_tags.
  *
+ * @since 1.2.6
+ *
  * @param string      $field_value Field value being santized.
  * @param int         $field_id    Field ID being sanitized.
  * @param bool        $reserialize Whether to reserialize arrays before returning. Defaults to true.
  * @param object|null $data_obj    The BP_XProfile_ProfileData object.
- *
  * @return string
  */
 function xprofile_sanitize_data_value_before_save( $field_value, $field_id = 0, $reserialize = true, $data_obj = null ) {
@@ -168,11 +171,16 @@ function xprofile_sanitize_data_value_before_save( $field_value, $field_id = 0, 
 		return $field_value;
 	}
 
-	// Value might be serialized.
+	// Force reserialization if serialized (avoids mutation, retains integrity)
+	if ( is_serialized( $field_value ) && ( false === $reserialize ) ) {
+		$reserialize = true;
+	}
+
+	// Value might be a serialized array of options.
 	$field_value = maybe_unserialize( $field_value );
 
-	// Filter single value.
-	if ( !is_array( $field_value ) ) {
+	// Sanitize single field value.
+	if ( ! is_array( $field_value ) ) {
 		$kses_field_value     = xprofile_filter_kses( $field_value, $data_obj );
 		$filtered_field_value = wp_rel_nofollow( force_balance_tags( $kses_field_value ) );
 
@@ -187,16 +195,15 @@ function xprofile_sanitize_data_value_before_save( $field_value, $field_id = 0, 
 		 */
 		$filtered_field_value = apply_filters( 'xprofile_filtered_data_value_before_save', $filtered_field_value, $field_value, $data_obj );
 
-	// Filter each array item independently.
+	// Sanitize multiple individual option values.
 	} else {
 		$filtered_values = array();
 		foreach ( (array) $field_value as $value ) {
-			$kses_field_value       = xprofile_filter_kses( $value, $data_obj );
-			$filtered_value 	= wp_rel_nofollow( force_balance_tags( $kses_field_value ) );
+			$kses_field_value = xprofile_filter_kses( $value, $data_obj );
+			$filtered_value   = wp_rel_nofollow( force_balance_tags( $kses_field_value ) );
 
 			/** This filter is documented in bp-xprofile/bp-xprofile-filters.php */
 			$filtered_values[] = apply_filters( 'xprofile_filtered_data_value_before_save', $filtered_value, $value, $data_obj );
-
 		}
 
 		if ( !empty( $reserialize ) ) {
@@ -216,8 +223,7 @@ function xprofile_sanitize_data_value_before_save( $field_value, $field_id = 0, 
  *
  * @param string $field_value XProfile field_value to be filtered.
  * @param string $field_type  XProfile field_type to be filtered.
- *
- * @return string $field_value Filtered XProfile field_value. False on failure.
+ * @return false|string $field_value Filtered XProfile field_value. False on failure.
  */
 function xprofile_filter_format_field_value( $field_value, $field_type = '' ) {
 
@@ -242,7 +248,6 @@ function xprofile_filter_format_field_value( $field_value, $field_type = '' ) {
  * @param mixed      $field_value Field value.
  * @param string     $field_type  Field type.
  * @param string|int $field_id    Optional. ID of the field.
- *
  * @return mixed
  */
 function xprofile_filter_format_field_value_by_type( $field_value, $field_type = '', $field_id = '' ) {
@@ -286,7 +291,7 @@ function xprofile_filter_format_field_value_by_field_id( $field_value, $field_id
  */
 function xprofile_filter_pre_validate_value_by_field_type( $value, $field, $field_type_obj ) {
 	if ( method_exists( $field_type_obj, 'pre_validate_filter' ) ) {
-		$value = call_user_func( array( $field_type_obj, 'pre_validate_filter' ), $value );
+		$value = call_user_func( array( $field_type_obj, 'pre_validate_filter' ), $value, $field->id );
 	}
 
 	return $value;
@@ -338,7 +343,7 @@ function bp_xprofile_escape_field_data( $value, $field_type, $field_id ) {
  *
  * @param string $field_value Profile field data value.
  * @param string $field_type  Profile field type.
- * @return string
+ * @return string|array
  */
 function xprofile_filter_link_profile_data( $field_value, $field_type = 'textbox' ) {
 	global $field;
@@ -351,13 +356,35 @@ function xprofile_filter_link_profile_data( $field_value, $field_type = 'textbox
 		return $field_value;
 	}
 
-	if ( !strpos( $field_value, ',' ) && ( count( explode( ' ', $field_value ) ) > 5 ) ) {
+	if ( strpos( $field_value, ',' ) === false && strpos( $field_value, ';' ) === false && ( count( explode( ' ', $field_value ) ) > 5 ) ) {
 		return $field_value;
 	}
 
-	$values = explode( ',', $field_value );
+	if ( strpos( $field_value, ',' ) !== false ) {
+		// Comma-separated lists.
+		$list_type = 'comma';
+		$values    = explode( ',', $field_value );
+	} else {
+		/*
+		 * Semicolon-separated lists.
+		 *
+		 * bp_xprofile_escape_field_data() runs before this function, which often runs esc_html().
+		 * In turn, that encodes HTML entities in the string (";" becomes "&#039;").
+		 *
+		 * Before splitting on the ";" character, decode the HTML entities, and re-encode after.
+		 * This prevents input like "O'Hara" rendering as "O&#039; Hara" (with each of those parts
+		 * having a seperate HTML link).
+		 */
+		$list_type   = 'semicolon';
+		$field_value = wp_specialchars_decode( $field_value, ENT_QUOTES );
+		$values      = explode( ';', $field_value );
 
-	if ( !empty( $values ) ) {
+		array_walk( $values, function( &$value, $key ) use ( $field_type, $field ) {
+			$value = bp_xprofile_escape_field_data( $value, $field_type, $field->id );
+		} );
+	}
+
+	if ( ! empty( $values ) ) {
 		foreach ( (array) $values as $value ) {
 			$value = trim( $value );
 
@@ -381,7 +408,11 @@ function xprofile_filter_link_profile_data( $field_value, $field_type = 'textbox
 			}
 		}
 
-		$values = implode( ', ', $new_values );
+		if ( 'comma' === $list_type ) {
+			$values = implode( ', ', $new_values );
+		} else {
+			$values = implode( '; ', $new_values );
+		}
 	}
 
 	return $values;
@@ -393,9 +424,10 @@ function xprofile_filter_link_profile_data( $field_value, $field_type = 'textbox
  * This filter loops through the comments return by a normal WordPress request
  * and swaps out user data with BP xprofile data, where available.
  *
+ * @since 1.2.0
+ *
  * @param array $comments Comments to filter in.
  * @param int   $post_id  Post ID the comments are for.
- *
  * @return array $comments
  */
 function xprofile_filter_comments( $comments, $post_id = 0 ) {
@@ -593,4 +625,21 @@ function bp_xprofile_filter_meta_query( $q ) {
 	}
 
 	return $q;
+}
+
+/**
+ * Register XProfile personal data exporter.
+ *
+ * @since 4.0.0
+ *
+ * @param array $exporters  An array of personal data exporters.
+ * @return array An array of personal data exporters.
+ */
+function bp_xprofile_register_personal_data_exporter( $exporters ) {
+	$exporters['buddypress-xprofile'] = array(
+		'exporter_friendly_name' => __( 'BuddyPress Extended Profile Data', 'buddypress' ),
+		'callback'               => 'bp_xprofile_personal_data_exporter',
+	);
+
+	return $exporters;
 }

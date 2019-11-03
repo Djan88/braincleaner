@@ -15,7 +15,6 @@ defined( 'ABSPATH' ) || exit;
 // Apply WordPress defined filters.
 add_filter( 'bp_get_activity_action',                'bp_activity_filter_kses', 1 );
 add_filter( 'bp_get_activity_content_body',          'bp_activity_filter_kses', 1 );
-add_filter( 'bp_get_activity_content',               'bp_activity_filter_kses', 1 );
 add_filter( 'bp_get_activity_parent_content',        'bp_activity_filter_kses', 1 );
 add_filter( 'bp_get_activity_latest_update',         'bp_activity_filter_kses', 1 );
 add_filter( 'bp_get_activity_latest_update_excerpt', 'bp_activity_filter_kses', 1 );
@@ -43,6 +42,7 @@ add_filter( 'bp_get_activity_content',               'wptexturize' );
 add_filter( 'bp_get_activity_parent_content',        'wptexturize' );
 add_filter( 'bp_get_activity_latest_update',         'wptexturize' );
 add_filter( 'bp_get_activity_latest_update_excerpt', 'wptexturize' );
+add_filter( 'bp_activity_get_embed_excerpt',         'wptexturize' );
 
 add_filter( 'bp_get_activity_action',                'convert_smilies' );
 add_filter( 'bp_get_activity_content_body',          'convert_smilies' );
@@ -50,6 +50,7 @@ add_filter( 'bp_get_activity_content',               'convert_smilies' );
 add_filter( 'bp_get_activity_parent_content',        'convert_smilies' );
 add_filter( 'bp_get_activity_latest_update',         'convert_smilies' );
 add_filter( 'bp_get_activity_latest_update_excerpt', 'convert_smilies' );
+add_filter( 'bp_activity_get_embed_excerpt',         'convert_smilies' );
 
 add_filter( 'bp_get_activity_action',                'convert_chars' );
 add_filter( 'bp_get_activity_content_body',          'convert_chars' );
@@ -57,11 +58,13 @@ add_filter( 'bp_get_activity_content',               'convert_chars' );
 add_filter( 'bp_get_activity_parent_content',        'convert_chars' );
 add_filter( 'bp_get_activity_latest_update',         'convert_chars' );
 add_filter( 'bp_get_activity_latest_update_excerpt', 'convert_chars' );
+add_filter( 'bp_activity_get_embed_excerpt',         'convert_chars' );
 
 add_filter( 'bp_get_activity_action',                'wpautop' );
 add_filter( 'bp_get_activity_content_body',          'wpautop' );
 add_filter( 'bp_get_activity_content',               'wpautop' );
 add_filter( 'bp_get_activity_feed_item_description', 'wpautop' );
+add_filter( 'bp_activity_get_embed_excerpt',         'wpautop' );
 
 add_filter( 'bp_get_activity_action',                'make_clickable', 9 );
 add_filter( 'bp_get_activity_content_body',          'make_clickable', 9 );
@@ -70,6 +73,7 @@ add_filter( 'bp_get_activity_parent_content',        'make_clickable', 9 );
 add_filter( 'bp_get_activity_latest_update',         'make_clickable', 9 );
 add_filter( 'bp_get_activity_latest_update_excerpt', 'make_clickable', 9 );
 add_filter( 'bp_get_activity_feed_item_description', 'make_clickable', 9 );
+add_filter( 'bp_activity_get_embed_excerpt',         'make_clickable', 9 );
 
 add_filter( 'bp_acomment_name',                      'stripslashes_deep', 5 );
 add_filter( 'bp_get_activity_action',                'stripslashes_deep', 5 );
@@ -91,9 +95,8 @@ add_filter( 'bp_get_activity_latest_update_excerpt', 'bp_activity_make_nofollow_
 add_filter( 'bp_get_activity_feed_item_description', 'bp_activity_make_nofollow_filter' );
 
 add_filter( 'pre_comment_content',                   'bp_activity_at_name_filter' );
-add_filter( 'group_forum_topic_text_before_save',    'bp_activity_at_name_filter' );
-add_filter( 'group_forum_post_text_before_save',     'bp_activity_at_name_filter' );
 add_filter( 'the_content',                           'bp_activity_at_name_filter' );
+add_filter( 'bp_activity_get_embed_excerpt',         'bp_activity_at_name_filter' );
 
 add_filter( 'bp_get_activity_parent_content',        'bp_create_excerpt' );
 
@@ -102,6 +105,11 @@ add_filter( 'bp_get_activity_content',      'bp_activity_truncate_entry', 5 );
 
 add_filter( 'bp_get_total_favorite_count_for_user', 'bp_core_number_format' );
 add_filter( 'bp_get_total_mention_count_for_user',  'bp_core_number_format' );
+
+add_filter( 'bp_activity_get_embed_excerpt', 'bp_activity_embed_excerpt_onclick_location_filter', 9 );
+
+// Personal data export.
+add_filter( 'wp_privacy_personal_data_exporters', 'bp_activity_register_personal_data_exporter' );
 
 /* Actions *******************************************************************/
 
@@ -147,13 +155,19 @@ function bp_activity_get_moderated_activity_types() {
 function bp_activity_check_moderation_keys( $activity ) {
 
 	// Only check specific types of activity updates.
-	if ( !in_array( $activity->type, bp_activity_get_moderated_activity_types() ) )
+	if ( ! in_array( $activity->type, bp_activity_get_moderated_activity_types() ) ) {
 		return;
+	}
 
-	// Unset the activity component so activity stream update fails
+	// Send back the error so activity update fails.
 	// @todo This is temporary until some kind of moderation is built.
-	if ( !bp_core_check_for_moderation( $activity->user_id, '', $activity->content ) )
+	$moderate = bp_core_check_for_moderation( $activity->user_id, '', $activity->content, 'wp_error' );
+	if ( is_wp_error( $moderate ) ) {
+		$activity->errors = $moderate;
+
+		// Backpat.
 		$activity->component = false;
+	}
 }
 
 /**
@@ -166,12 +180,19 @@ function bp_activity_check_moderation_keys( $activity ) {
 function bp_activity_check_blacklist_keys( $activity ) {
 
 	// Only check specific types of activity updates.
-	if ( ! in_array( $activity->type, bp_activity_get_moderated_activity_types() ) )
+	if ( ! in_array( $activity->type, bp_activity_get_moderated_activity_types() ) ) {
 		return;
+	}
 
-	// Mark as spam.
-	if ( ! bp_core_check_for_blacklist( $activity->user_id, '', $activity->content ) )
-		bp_activity_mark_as_spam( $activity, 'by_blacklist' );
+	// Send back the error so activity update fails.
+	// @todo This is temporary until some kind of trash status is built.
+	$blacklist = bp_core_check_for_blacklist( $activity->user_id, '', $activity->content, 'wp_error' );
+	if ( is_wp_error( $blacklist ) ) {
+		$activity->errors = $blacklist;
+
+		// Backpat.
+		$activity->component = false;
+	}
 }
 
 /**
@@ -179,34 +200,17 @@ function bp_activity_check_blacklist_keys( $activity ) {
  *
  * @since 1.1.0
  *
- * @uses apply_filters() To call the 'bp_activity_allowed_tags' hook.
- * @uses wp_kses()
- *
  * @param string $content The activity content.
  * @return string $content Filtered activity content.
  */
 function bp_activity_filter_kses( $content ) {
-	global $allowedtags;
+	$activity_allowedtags = bp_get_allowedtags();
 
-	$activity_allowedtags = $allowedtags;
-	$activity_allowedtags['a']['class']    = array();
-	$activity_allowedtags['a']['id']       = array();
-	$activity_allowedtags['a']['rel']      = array();
-	$activity_allowedtags['a']['title']    = array();
-	$activity_allowedtags['b']             = array();
-	$activity_allowedtags['code']          = array();
-	$activity_allowedtags['i']             = array();
-	$activity_allowedtags['img']           = array();
-	$activity_allowedtags['img']['src']    = array();
-	$activity_allowedtags['img']['alt']    = array();
-	$activity_allowedtags['img']['width']  = array();
-	$activity_allowedtags['img']['height'] = array();
-	$activity_allowedtags['img']['class']  = array();
-	$activity_allowedtags['img']['id']     = array();
-	$activity_allowedtags['img']['title']  = array();
-	$activity_allowedtags['span']          = array();
-	$activity_allowedtags['span']['class'] = array();
-
+	// Don't allow 'class' or 'id'.
+	foreach ( $activity_allowedtags as $el => &$atts ) {
+		unset( $atts['class'] );
+		unset( $atts['id'] );
+	}
 
 	/**
 	 * Filters the allowed HTML tags for BuddyPress Activity content.
@@ -260,7 +264,7 @@ function bp_activity_at_name_filter( $content, $activity_id = 0 ) {
 
 	// Linkify the mentions with the username.
 	foreach ( (array) $usernames as $user_id => $username ) {
-		$content = preg_replace( '/(@' . $username . '\b)/', "<a href='" . bp_core_get_user_domain( $user_id ) . "' rel='nofollow'>@$username</a>", $content );
+		$content = preg_replace( '/(@' . $username . '\b)/', "<a class='bp-suggestions-mention' href='" . bp_core_get_user_domain( $user_id ) . "' rel='nofollow'>@$username</a>", $content );
 	}
 
 	// Put everything back.
@@ -282,8 +286,6 @@ function bp_activity_at_name_filter( $content, $activity_id = 0 ) {
  *
  * @since 1.5.0
  *
- * @uses bp_activity_find_mentions()
- *
  * @param BP_Activity_Activity $activity Activity Object.
  */
 function bp_activity_at_name_filter_updates( $activity ) {
@@ -303,7 +305,7 @@ function bp_activity_at_name_filter_updates( $activity ) {
 	if ( ! empty( $usernames ) ) {
 		// Replace @mention text with userlinks.
 		foreach( (array) $usernames as $user_id => $username ) {
-			$activity->content = preg_replace( '/(@' . $username . '\b)/', "<a href='" . bp_core_get_user_domain( $user_id ) . "' rel='nofollow'>@$username</a>", $activity->content );
+			$activity->content = preg_replace( '/(@' . $username . '\b)/', "<a class='bp-suggestions-mention' href='" . bp_core_get_user_domain( $user_id ) . "' rel='nofollow'>@$username</a>", $activity->content );
 		}
 
 		// Add our hook to send @mention emails after the activity item is saved.
@@ -319,9 +321,6 @@ function bp_activity_at_name_filter_updates( $activity ) {
  *
  * @since 1.7.0
  *
- * @uses bp_activity_at_message_notification()
- * @uses bp_activity_update_mention_count_for_user()
- *
  * @param BP_Activity_Activity $activity The BP_Activity_Activity object.
  */
 function bp_activity_at_name_send_emails( $activity ) {
@@ -330,15 +329,17 @@ function bp_activity_at_name_send_emails( $activity ) {
 		return;
 	}
 
+	$bp = buddypress();
+
 	// If our temporary variable doesn't exist, stop now.
-	if ( empty( buddypress()->activity->mentioned_users ) )
+	if ( empty( $bp->activity->mentioned_users ) )
 		return;
 
 	// Grab our temporary variable from bp_activity_at_name_filter_updates().
-	$usernames = buddypress()->activity->mentioned_users;
+	$usernames = $bp->activity->mentioned_users;
 
 	// Get rid of temporary variable.
-	unset( buddypress()->activity->mentioned_users );
+	unset( $bp->activity->mentioned_users );
 
 	// Send @mentions and setup BP notifications.
 	foreach( (array) $usernames as $user_id => $username ) {
@@ -395,19 +396,16 @@ function bp_activity_make_nofollow_filter( $text ) {
  * This method can only be used inside the Activity loop.
  *
  * @since 1.5.0
- *
- * @uses bp_is_single_activity()
- * @uses apply_filters() To call the 'bp_activity_excerpt_append_text' hook.
- * @uses apply_filters() To call the 'bp_activity_excerpt_length' hook.
- * @uses bp_create_excerpt()
- * @uses bp_get_activity_id()
- * @uses bp_get_activity_thread_permalink()
- * @uses apply_filters() To call the 'bp_activity_truncate_entry' hook.
+ * @since 2.6.0 Added $args parameter.
  *
  * @param string $text The original activity entry text.
+ * @param array  $args {
+ *     Optional parameters. See $options argument of {@link bp_create_excerpt()}
+ *     for all available parameters.
+ * }
  * @return string $excerpt The truncated text.
  */
-function bp_activity_truncate_entry( $text ) {
+function bp_activity_truncate_entry( $text, $args = array() ) {
 	global $activities_template;
 
 	/**
@@ -423,7 +421,7 @@ function bp_activity_truncate_entry( $text ) {
 	);
 
 	// The full text of the activity update should always show on the single activity screen.
-	if ( ! $maybe_truncate_text || bp_is_single_activity() ) {
+	if ( empty( $args['force_truncate'] ) && ( ! $maybe_truncate_text || bp_is_single_activity() ) ) {
 		return $text;
 	}
 
@@ -436,24 +434,19 @@ function bp_activity_truncate_entry( $text ) {
 	 */
 	$append_text    = apply_filters( 'bp_activity_excerpt_append_text', __( '[Read more]', 'buddypress' ) );
 
-	/**
-	 * Filters the excerpt length for the activity excerpt.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param int $value Number indicating how many words to trim the excerpt down to.
-	 */
-	$excerpt_length = apply_filters( 'bp_activity_excerpt_length', 358 );
+	$excerpt_length = bp_activity_get_excerpt_length();
+
+	$args = wp_parse_args( $args, array( 'ending' => __( '&hellip;', 'buddypress' ) ) );
 
 	// Run the text through the excerpt function. If it's too short, the original text will be returned.
-	$excerpt        = bp_create_excerpt( $text, $excerpt_length, array( 'ending' => __( '&hellip;', 'buddypress' ) ) );
+	$excerpt        = bp_create_excerpt( $text, $excerpt_length, $args );
 
 	/*
 	 * If the text returned by bp_create_excerpt() is different from the original text (ie it's
 	 * been truncated), add the "Read More" link. Note that bp_create_excerpt() is stripping
 	 * shortcodes, so we have strip them from the $text before the comparison.
 	 */
-	if ( $excerpt != strip_shortcodes( $text ) ) {
+	if ( strlen( $excerpt ) < strlen( strip_shortcodes( $text ) ) ) {
 		$id = !empty( $activities_template->activity->current_comment->id ) ? 'acomment-read-more-' . $activities_template->activity->current_comment->id : 'activity-read-more-' . bp_get_activity_id();
 
 		$excerpt = sprintf( '%1$s<span class="activity-read-more" id="%2$s"><a href="%3$s" rel="nofollow">%4$s</a></span>', $excerpt, $id, bp_get_activity_thread_permalink(), $append_text );
@@ -475,8 +468,6 @@ function bp_activity_truncate_entry( $text ) {
  * Include extra JavaScript dependencies for activity component.
  *
  * @since 2.0.0
- *
- * @uses bp_activity_do_heartbeat() to check if heartbeat is required.
  *
  * @param array $js_handles The original dependencies.
  * @return array $js_handles The new dependencies.
@@ -543,8 +534,6 @@ add_filter( 'bp_get_activity_css_class', 'bp_activity_timestamp_class', 9, 1 );
  *
  * @since 2.0.0
  *
- * @uses bp_activity_get_last_updated() to get the recorded date of the last activity.
- *
  * @param array $response Array containing Heartbeat API response.
  * @param array $data     Array containing data for Heartbeat API response.
  * @return array $response
@@ -591,7 +580,7 @@ function bp_activity_heartbeat_last_recorded( $response = array(), $data = array
 	ob_end_clean();
 
 	// Remove the temporary filter.
-	remove_filter( 'bp_get_activity_css_class', 'bp_activity_newest_class', 10, 1 );
+	remove_filter( 'bp_get_activity_css_class', 'bp_activity_newest_class', 10 );
 
 	if ( ! empty( $newest_activities['last_recorded'] ) ) {
 		$response['bp_activity_newest_activities'] = $newest_activities;
@@ -825,3 +814,20 @@ function bp_activity_filter_mentions_scope( $retval = array(), $filter = array()
 	return $retval;
 }
 add_filter( 'bp_activity_set_mentions_scope_args', 'bp_activity_filter_mentions_scope', 10, 2 );
+
+/**
+ * Registers Activity personal data exporter.
+ *
+ * @since 4.0.0
+ *
+ * @param array $exporters  An array of personal data exporters.
+ * @return array An array of personal data exporters.
+ */
+function bp_activity_register_personal_data_exporter( $exporters ) {
+	$exporters['buddypress-activity'] = array(
+		'exporter_friendly_name' => __( 'BuddyPress Activity Data', 'buddypress' ),
+		'callback'               => 'bp_activity_personal_data_exporter',
+	);
+
+	return $exporters;
+}

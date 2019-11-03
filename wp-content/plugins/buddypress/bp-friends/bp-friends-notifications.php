@@ -13,73 +13,6 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-/** Emails ********************************************************************/
-
-/**
- * Send notifications related to a new friendship request.
- *
- * When a friendship is requested, an email and a BP notification are sent to
- * the user of whom friendship has been requested ($friend_id).
- *
- * @since 1.0.0
- *
- * @param int $friendship_id ID of the friendship object.
- * @param int $initiator_id  ID of the user who initiated the request.
- * @param int $friend_id     ID of the request recipient.
- */
-function friends_notification_new_request( $friendship_id, $initiator_id, $friend_id ) {
-	if ( 'no' == bp_get_user_meta( (int) $friend_id, 'notification_friends_friendship_request', true ) ) {
-		return;
-	}
-
-	$args = array(
-		'tokens' => array(
-			'friend-requests.url' => esc_url( bp_core_get_user_domain( $friend_id ) . bp_get_friends_slug() . '/requests/' ),
-			'friend.id'           => $friend_id,
-			'friendship.id'       => $friendship_id,
-			'initiator.id'        => $initiator_id,
-			'initiator.url'       => esc_url( bp_core_get_user_domain( $initiator_id ) ),
-			'initiator.name'      => bp_core_get_user_displayname( $initiator_id ),
-		),
-	);
-	bp_send_email( 'friends-request', $friend_id, $args );
-}
-add_action( 'friends_friendship_requested', 'friends_notification_new_request', 10, 3 );
-
-/**
- * Send notifications related to the acceptance of a friendship request.
- *
- * When a friendship request is accepted, an email and a BP notification are
- * sent to the user who requested the friendship ($initiator_id).
- *
- * @since 1.0.0
- *
- * @param int $friendship_id ID of the friendship object.
- * @param int $initiator_id  ID of the user who initiated the request.
- * @param int $friend_id     ID of the request recipient.
- */
-function friends_notification_accepted_request( $friendship_id, $initiator_id, $friend_id ) {
-	$initiator_id = (int) $initiator_id;
-
-	if ( 'no' == bp_get_user_meta( $initiator_id, 'notification_friends_friendship_accepted', true ) ) {
-		return;
-	}
-
-	$args = array(
-		'tokens' => array(
-			'friend.id'      => $friend_id,
-			'friendship.url' => esc_url( bp_core_get_user_domain( $friend_id ) ),
-			'friend.name'    => bp_core_get_user_displayname( $friend_id ),
-			'friendship.id'  => $friendship_id,
-			'initiator.id'   => $initiator_id,
-		),
-	);
-	bp_send_email( 'friends-request-accepted', $initiator_id, $args );
-}
-add_action( 'friends_friendship_accepted', 'friends_notification_accepted_request', 10, 3 );
-
-/** Notifications *************************************************************/
-
 /**
  * Notification formatting callback for bp-friends notifications.
  *
@@ -184,7 +117,7 @@ function friends_format_notifications( $action, $item_id, $secondary_item_id, $t
  * @since 1.2.0
  */
 function friends_clear_friend_notifications() {
-	if ( isset( $_GET['new'] ) && bp_is_active( 'notifications' ) ) {
+	if ( isset( $_GET['new'] ) ) {
 		bp_notifications_mark_notifications_by_type( bp_loggedin_user_id(), buddypress()->friends->id, 'friendship_accepted' );
 	}
 }
@@ -196,7 +129,7 @@ add_action( 'bp_activity_screen_my_activity', 'friends_clear_friend_notification
  * @since 1.9.0
  */
 function bp_friends_mark_friendship_request_notifications_by_type() {
-	if ( isset( $_GET['new'] ) && bp_is_active( 'notifications' ) ) {
+	if ( isset( $_GET['new'] ) ) {
 		bp_notifications_mark_notifications_by_type( bp_loggedin_user_id(), buddypress()->friends->id, 'friendship_request' );
 	}
 }
@@ -208,9 +141,7 @@ add_action( 'friends_screen_requests', 'bp_friends_mark_friendship_request_notif
  * @since 1.9.0
  */
 function bp_friends_mark_friendship_accepted_notifications_by_type() {
-	if ( bp_is_active( 'notifications' ) ) {
-		bp_notifications_mark_notifications_by_type( bp_loggedin_user_id(), buddypress()->friends->id, 'friendship_accepted' );
-	}
+	bp_notifications_mark_notifications_by_type( bp_loggedin_user_id(), buddypress()->friends->id, 'friendship_accepted' );
 }
 add_action( 'friends_screen_my_friends', 'bp_friends_mark_friendship_accepted_notifications_by_type' );
 
@@ -224,17 +155,15 @@ add_action( 'friends_screen_my_friends', 'bp_friends_mark_friendship_accepted_no
  * @param int $friend_user_id    The friendship request receiver user ID.
  */
 function bp_friends_friendship_requested_notification( $friendship_id, $initiator_user_id, $friend_user_id ) {
-	if ( bp_is_active( 'notifications' ) ) {
-		bp_notifications_add_notification( array(
-			'user_id'           => $friend_user_id,
-			'item_id'           => $initiator_user_id,
-			'secondary_item_id' => $friendship_id,
-			'component_name'    => buddypress()->friends->id,
-			'component_action'  => 'friendship_request',
-			'date_notified'     => bp_core_current_time(),
-			'is_new'            => 1,
-		) );
-	}
+	bp_notifications_add_notification( array(
+		'user_id'           => $friend_user_id,
+		'item_id'           => $initiator_user_id,
+		'secondary_item_id' => $friendship_id,
+		'component_name'    => buddypress()->friends->id,
+		'component_action'  => 'friendship_request',
+		'date_notified'     => bp_core_current_time(),
+		'is_new'            => 1,
+	) );
 }
 add_action( 'friends_friendship_requested', 'bp_friends_friendship_requested_notification', 10, 3 );
 
@@ -247,9 +176,7 @@ add_action( 'friends_friendship_requested', 'bp_friends_friendship_requested_not
  * @param object $friendship    Friendship object.
  */
 function bp_friends_mark_friendship_rejected_notifications_by_item_id( $friendship_id, $friendship ) {
-	if ( bp_is_active( 'notifications' ) ) {
-		bp_notifications_mark_notifications_by_item_id( $friendship->friend_user_id, $friendship->initiator_user_id, buddypress()->friends->id, 'friendship_request' );
-	}
+	bp_notifications_mark_notifications_by_item_id( $friendship->friend_user_id, $friendship->initiator_user_id, buddypress()->friends->id, 'friendship_request' );
 }
 add_action( 'friends_friendship_rejected', 'bp_friends_mark_friendship_rejected_notifications_by_item_id', 10, 2 );
 
@@ -263,12 +190,6 @@ add_action( 'friends_friendship_rejected', 'bp_friends_mark_friendship_rejected_
  * @param int $friend_user_id    The friendship request receiver user ID.
  */
 function bp_friends_add_friendship_accepted_notification( $friendship_id, $initiator_user_id, $friend_user_id ) {
-
-	// Bail if notifications is not active.
-	if ( ! bp_is_active( 'notifications' ) ) {
-		return;
-	}
-
 	// Remove the friend request notice.
 	bp_notifications_mark_notifications_by_item_id( $friend_user_id, $initiator_user_id, buddypress()->friends->id, 'friendship_request' );
 
@@ -294,9 +215,7 @@ add_action( 'friends_friendship_accepted', 'bp_friends_add_friendship_accepted_n
  * @param object $friendship    Friendship Object.
  */
 function bp_friends_mark_friendship_withdrawn_notifications_by_item_id( $friendship_id, $friendship ) {
-	if ( bp_is_active( 'notifications' ) ) {
-		bp_notifications_delete_notifications_by_item_id( $friendship->friend_user_id, $friendship->initiator_user_id, buddypress()->friends->id, 'friendship_request' );
-	}
+	bp_notifications_delete_notifications_by_item_id( $friendship->friend_user_id, $friendship->initiator_user_id, buddypress()->friends->id, 'friendship_request' );
 }
 add_action( 'friends_friendship_withdrawn', 'bp_friends_mark_friendship_withdrawn_notifications_by_item_id', 10, 2 );
 
@@ -308,8 +227,71 @@ add_action( 'friends_friendship_withdrawn', 'bp_friends_mark_friendship_withdraw
  * @param int $user_id ID of the user whose notifications are removed.
  */
 function bp_friends_remove_notifications_data( $user_id = 0 ) {
-	if ( bp_is_active( 'notifications' ) ) {
-		bp_notifications_delete_notifications_from_user( $user_id, buddypress()->friends->id, 'friendship_request' );
-	}
+	bp_notifications_delete_notifications_from_user( $user_id, buddypress()->friends->id, 'friendship_request' );
 }
 add_action( 'friends_remove_data', 'bp_friends_remove_notifications_data', 10, 1 );
+
+/**
+ * Add Friends-related settings to the Settings > Notifications page.
+ *
+ * @since 1.0.0
+ */
+function friends_screen_notification_settings() {
+
+	if ( !$send_requests = bp_get_user_meta( bp_displayed_user_id(), 'notification_friends_friendship_request', true ) )
+		$send_requests   = 'yes';
+
+	if ( !$accept_requests = bp_get_user_meta( bp_displayed_user_id(), 'notification_friends_friendship_accepted', true ) )
+		$accept_requests = 'yes'; ?>
+
+	<table class="notification-settings" id="friends-notification-settings">
+		<thead>
+			<tr>
+				<th class="icon"></th>
+				<th class="title"><?php _ex( 'Friends', 'Friend settings on notification settings page', 'buddypress' ) ?></th>
+				<th class="yes"><?php _e( 'Yes', 'buddypress' ) ?></th>
+				<th class="no"><?php _e( 'No', 'buddypress' )?></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr id="friends-notification-settings-request">
+				<td></td>
+				<td><?php _ex( 'A member sends you a friendship request', 'Friend settings on notification settings page', 'buddypress' ) ?></td>
+				<td class="yes"><input type="radio" name="notifications[notification_friends_friendship_request]" id="notification-friends-friendship-request-yes" value="yes" <?php checked( $send_requests, 'yes', true ) ?>/><label for="notification-friends-friendship-request-yes" class="bp-screen-reader-text"><?php
+					/* translators: accessibility text */
+					_e( 'Yes, send email', 'buddypress' );
+				?></label></td>
+				<td class="no"><input type="radio" name="notifications[notification_friends_friendship_request]" id="notification-friends-friendship-request-no" value="no" <?php checked( $send_requests, 'no', true ) ?>/><label for="notification-friends-friendship-request-no" class="bp-screen-reader-text"><?php
+					/* translators: accessibility text */
+					_e( 'No, do not send email', 'buddypress' );
+				?></label></td>
+			</tr>
+			<tr id="friends-notification-settings-accepted">
+				<td></td>
+				<td><?php _ex( 'A member accepts your friendship request', 'Friend settings on notification settings page', 'buddypress' ) ?></td>
+				<td class="yes"><input type="radio" name="notifications[notification_friends_friendship_accepted]" id="notification-friends-friendship-accepted-yes" value="yes" <?php checked( $accept_requests, 'yes', true ) ?>/><label for="notification-friends-friendship-accepted-yes" class="bp-screen-reader-text"><?php
+					/* translators: accessibility text */
+					_e( 'Yes, send email', 'buddypress' );
+				?></label></td>
+				<td class="no"><input type="radio" name="notifications[notification_friends_friendship_accepted]" id="notification-friends-friendship-accepted-no" value="no" <?php checked( $accept_requests, 'no', true ) ?>/><label for="notification-friends-friendship-accepted-no" class="bp-screen-reader-text"><?php
+					/* translators: accessibility text */
+					_e( 'No, do not send email', 'buddypress' );
+				?></label></td>
+			</tr>
+
+			<?php
+
+			/**
+			 * Fires after the last table row on the friends notification screen.
+			 *
+			 * @since 1.0.0
+			 */
+			do_action( 'friends_screen_notification_settings' ); ?>
+
+		</tbody>
+	</table>
+
+<?php
+}
+add_action( 'bp_notification_settings', 'friends_screen_notification_settings' );

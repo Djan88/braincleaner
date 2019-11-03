@@ -45,11 +45,6 @@ class BP_Embed extends WP_Embed {
 			add_filter( 'bp_get_activity_content', array( &$this, 'run_shortcode' ), 7 );
 		}
 
-		if ( bp_use_embed_in_forum_posts() ) {
-			add_filter( 'bp_get_the_topic_post_content', array( &$this, 'autoembed' ), 8 );
-			add_filter( 'bp_get_the_topic_post_content', array( &$this, 'run_shortcode' ), 7 );
-		}
-
 		if ( bp_use_embed_in_private_messages() ) {
 			add_filter( 'bp_get_the_thread_message_content', array( &$this, 'autoembed' ), 8 );
 			add_filter( 'bp_get_the_thread_message_content', array( &$this, 'run_shortcode' ), 7 );
@@ -75,11 +70,6 @@ class BP_Embed extends WP_Embed {
 	 * enabled, then the URL will be passed to {@link BP_Embed::parse_oembed()}
 	 * for oEmbed parsing.
 	 *
-	 * @uses wp_parse_args()
-	 * @uses wp_embed_defaults()
-	 * @uses current_user_can()
-	 * @uses _wp_oembed_get_object()
-	 * @uses WP_Embed::maybe_make_link()
 	 *
 	 * @param array  $attr Shortcode attributes.
 	 * @param string $url  The URL attempting to be embeded.
@@ -174,11 +164,7 @@ class BP_Embed extends WP_Embed {
 	 *
 	 * View an example to add support in {@link bp_activity_embed()}.
 	 *
-	 * @uses apply_filters() Filters cache.
-	 * @uses do_action() To save cache.
-	 * @uses wp_oembed_get() Connects to oEmbed provider and returns HTML
 	 *       on success.
-	 * @uses WP_Embed::maybe_make_link() Process URL for hyperlinking on
 	 *       oEmbed failure.
 	 *
 	 * @param int    $id      ID to do the caching for.

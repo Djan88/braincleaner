@@ -47,18 +47,51 @@ class BP_Friends_Component extends BP_Component {
 	public function includes( $includes = array() ) {
 		$includes = array(
 			'cache',
-			'actions',
-			'screens',
 			'filters',
-			'classes',
-			'activity',
 			'template',
 			'functions',
-			'notifications',
 			'widgets',
 		);
 
+		// Conditional includes.
+		if ( bp_is_active( 'activity' ) ) {
+			$includes[] = 'activity';
+		}
+		if ( bp_is_active( 'notifications' ) ) {
+			$includes[] = 'notifications';
+		}
+
 		parent::includes( $includes );
+	}
+
+	/**
+	 * Late includes method.
+	 *
+	 * Only load up certain code when on specific pages.
+	 *
+	 * @since 3.0.0
+	 */
+	public function late_includes() {
+		// Bail if PHPUnit is running.
+		if ( defined( 'BP_TESTS_DIR' ) ) {
+			return;
+		}
+
+		// Friends.
+		if ( bp_is_user_friends() ) {
+			// Authenticated actions.
+			if ( is_user_logged_in() &&
+				in_array( bp_current_action(), array( 'add-friend', 'remove-friend' ), true )
+			) {
+				require $this->path . 'bp-friends/actions/' . bp_current_action() . '.php';
+			}
+
+			// User nav.
+			require $this->path . 'bp-friends/screens/my-friends.php';
+			if ( is_user_logged_in() && bp_is_user_friend_requests() ) {
+				require $this->path . 'bp-friends/screens/requests.php';
+			}
+		}
 	}
 
 	/**
@@ -134,10 +167,21 @@ class BP_Friends_Component extends BP_Component {
 		$friends_link = trailingslashit( $user_domain . $slug );
 
 		// Add 'Friends' to the main navigation.
-		$count    = friends_get_total_friend_count();
-		$class    = ( 0 === $count ) ? 'no-count' : 'count';
+		$count = friends_get_total_friend_count();
+		$class = ( 0 === $count ) ? 'no-count' : 'count';
+
+		$main_nav_name = sprintf(
+			/* translators: %s: Friend count for the current user */
+			__( 'Friends %s', 'buddypress' ),
+			sprintf(
+				'<span class="%s">%s</span>',
+				esc_attr( $class ),
+				bp_core_number_format( $count )
+			)
+		);
+
 		$main_nav = array(
-			'name'                => sprintf( __( 'Friends <span class="%s">%s</span>', 'buddypress' ), esc_attr( $class ), bp_core_number_format( $count ) ),
+			'name'                => $main_nav_name,
 			'slug'                => $slug,
 			'position'            => 60,
 			'screen_function'     => 'friends_screen_my_friends',
@@ -190,8 +234,16 @@ class BP_Friends_Component extends BP_Component {
 			// Pending friend requests.
 			$count = count( friends_get_friendship_request_user_ids( bp_loggedin_user_id() ) );
 			if ( !empty( $count ) ) {
-				$title   = sprintf( _x( 'Friends <span class="count">%s</span>',          'My Account Friends menu',         'buddypress' ), bp_core_number_format( $count ) );
-				$pending = sprintf( _x( 'Pending Requests <span class="count">%s</span>', 'My Account Friends menu sub nav', 'buddypress' ), bp_core_number_format( $count ) );
+				$title = sprintf(
+					/* translators: %s: Pending friend request count for the current user */
+					_x( 'Friends %s', 'My Account Friends menu', 'buddypress' ),
+					'<span class="count">' . bp_core_number_format( $count ) . '</span>'
+				);
+				$pending = sprintf(
+					/* translators: %s: Pending friend request count for the current user */
+					_x( 'Pending Requests %s', 'My Account Friends menu sub nav', 'buddypress' ),
+					'<span class="count">' . bp_core_number_format( $count ) . '</span>'
+				);
 			} else {
 				$title   = _x( 'Friends',            'My Account Friends menu',         'buddypress' );
 				$pending = _x( 'No Pending Requests','My Account Friends menu sub nav', 'buddypress' );
@@ -262,7 +314,9 @@ class BP_Friends_Component extends BP_Component {
 
 		// Global groups.
 		wp_cache_add_global_groups( array(
-			'bp_friends_requests'
+			'bp_friends_requests',
+			'bp_friends_friendships', // Individual friendship objects are cached here by ID.
+			'bp_friends_friendships_for_user' // All friendship IDs for a single user.
 		) );
 
 		parent::setup_cache_groups();

@@ -4,6 +4,7 @@
  *
  * @package BuddyPress
  * @subpackage bp-legacy
+ * @version 3.0.0
  */
 
 ?>
@@ -21,10 +22,13 @@
 
 	<div class="page" id="activate-page">
 
-		<?php
+		<div id="template-notices" role="alert" aria-atomic="true">
+			<?php
 
-		/** This action is documented in bp-templates/bp-legacy/buddypress/activity/index.php */
-		do_action( 'template_notices' ); ?>
+			/** This action is documented in bp-templates/bp-legacy/buddypress/activity/index.php */
+			do_action( 'template_notices' ); ?>
+
+		</div>
 
 		<?php
 
@@ -47,10 +51,10 @@
 
 			<p><?php _e( 'Please provide a valid activation key.', 'buddypress' ); ?></p>
 
-			<form action="" method="get" class="standard-form" id="activation-form">
+			<form action="" method="post" class="standard-form" id="activation-form">
 
 				<label for="key"><?php _e( 'Activation Key:', 'buddypress' ); ?></label>
-				<input type="text" name="key" id="key" value="" />
+				<input type="text" name="key" id="key" value="<?php echo esc_attr( bp_get_current_activation_key() ); ?>" />
 
 				<p class="submit">
 					<input type="submit" name="submit" value="<?php esc_attr_e( 'Activate', 'buddypress' ); ?>" />

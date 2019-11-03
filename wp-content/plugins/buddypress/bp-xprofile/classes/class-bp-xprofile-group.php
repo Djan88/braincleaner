@@ -12,6 +12,8 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Class to help set up XProfile Groups.
+ *
+ * @since 1.0.0
  */
 class BP_XProfile_Group {
 
@@ -19,7 +21,7 @@ class BP_XProfile_Group {
 	 * Field group ID.
 	 *
 	 * @since 1.1.0
-	 * @var int ID of field group
+	 * @var int ID of field group.
 	 */
 	public $id = null;
 
@@ -27,7 +29,7 @@ class BP_XProfile_Group {
 	 * Field group name.
 	 *
 	 * @since 1.1.0
-	 * @var string Name of field group
+	 * @var string Name of field group.
 	 */
 	public $name;
 
@@ -35,7 +37,7 @@ class BP_XProfile_Group {
 	 * Field group Description.
 	 *
 	 * @since 1.1.0
-	 * @var string Description of field group
+	 * @var string Description of field group.
 	 */
 	public $description;
 
@@ -51,7 +53,7 @@ class BP_XProfile_Group {
 	 * Group order.
 	 *
 	 * @since 1.1.0
-	 * @var int Group order relative to other groups
+	 * @var int Group order relative to other groups.
 	 */
 	public $group_order;
 
@@ -59,7 +61,7 @@ class BP_XProfile_Group {
 	 * Group fields.
 	 *
 	 * @since 1.1.0
-	 * @var array Fields of group
+	 * @var array Fields of group.
 	 */
 	public $fields;
 
@@ -84,7 +86,6 @@ class BP_XProfile_Group {
 	 * @global $wpdb $wpdb
 	 *
 	 * @param int $id Field group ID.
-	 *
 	 * @return boolean
 	 */
 	public function populate( $id ) {
@@ -210,8 +211,10 @@ class BP_XProfile_Group {
 		if ( BP_XProfile_Field::delete_for_group( $this->id ) ) {
 
 			// Remove profile data for the groups fields.
-			for ( $i = 0, $count = count( $this->fields ); $i < $count; ++$i ) {
-				BP_XProfile_ProfileData::delete_for_field( $this->fields[$i]->id );
+			if ( ! empty( $this->fields ) ) {
+				for ( $i = 0, $count = count( $this->fields ); $i < $count; ++$i ) {
+					BP_XProfile_ProfileData::delete_for_field( $this->fields[$i]->id );
+				}
 			}
 		}
 
@@ -231,7 +234,9 @@ class BP_XProfile_Group {
 
 	/**
 	 * Populates the BP_XProfile_Group object with profile field groups, fields,
-	 * and field data
+	 * and field data.
+	 *
+	 * @since 1.2.0
 	 *
 	 * @global object $wpdb WordPress DB access object.
 	 *
@@ -368,6 +373,10 @@ class BP_XProfile_Group {
 		// Fetch the fields.
 		$field_ids = $wpdb->get_col( "SELECT id FROM {$bp->profile->table_name_fields} WHERE group_id IN ( {$group_ids_in} ) AND parent_id = 0 {$exclude_fields_sql} {$in_sql} ORDER BY field_order" );
 
+		foreach( $groups as $group ) {
+			$group->fields = array();
+		}
+
 		// Bail if no fields.
 		if ( empty( $field_ids ) ) {
 			return $groups;
@@ -389,7 +398,7 @@ class BP_XProfile_Group {
 		// Pull field objects from the cache.
 		$fields = array();
 		foreach ( $field_ids as $field_id ) {
-			$fields[] = xprofile_get_field( $field_id );
+			$fields[] = xprofile_get_field( $field_id, null, false );
 		}
 
 		// Store field IDs for meta cache priming.
@@ -466,7 +475,6 @@ class BP_XProfile_Group {
 
 		// Merge the field array back in with the group array.
 		foreach( (array) $groups as $group ) {
-
 			// Indexes may have been shifted after previous deletions, so we get a
 			// fresh one each time through the loop.
 			$index = array_search( $group, $groups );
@@ -553,6 +561,13 @@ class BP_XProfile_Group {
 					wp_cache_set( $gdata->id, $gdata, 'bp_xprofile_groups' );
 				}
 			}
+		}
+
+		// Integer casting.
+		foreach ( (array) $groups as $key => $data ) {
+			$groups[ $key ]->id          = (int) $groups[ $key ]->id;
+			$groups[ $key ]->group_order = (int) $groups[ $key ]->group_order;
+			$groups[ $key ]->can_delete  = (int) $groups[ $key ]->can_delete;
 		}
 
 		// Reset indexes & return.
@@ -703,17 +718,32 @@ class BP_XProfile_Group {
 	public function render_admin_form() {
 		global $message;
 
+		// Users Admin URL
+		$users_url = bp_get_admin_url( 'users.php' );
+
+		// URL to cancel to
+		$cancel_url = add_query_arg( array(
+			'page' => 'bp-profile-setup'
+		), $users_url );
+
 		// New field group.
 		if ( empty( $this->id ) ) {
 			$title	= __( 'Add New Field Group', 'buddypress' );
-			$action	= add_query_arg( array( 'page' => 'bp-profile-setup', 'mode' => 'add_group' ), 'users.php' );
-			$button	= __( 'Save', 'buddypress' );
+			$button	= __( 'Save',                'buddypress' );
+			$action	= add_query_arg( array(
+				'page' => 'bp-profile-setup',
+				'mode' => 'add_group'
+			), $users_url );
 
 		// Existing field group.
 		} else {
 			$title  = __( 'Edit Field Group', 'buddypress' );
-			$action	= add_query_arg( array( 'page' => 'bp-profile-setup', 'mode' => 'edit_group', 'group_id' => $this->id ), 'users.php' );
-			$button	= __( 'Update', 'buddypress' );
+			$button	= __( 'Update',           'buddypress' );
+			$action	= add_query_arg( array(
+				'page'     => 'bp-profile-setup',
+				'mode'     => 'edit_group',
+				'group_id' => (int) $this->id
+			), $users_url );
 		} ?>
 
 		<div class="wrap">
@@ -734,17 +764,32 @@ class BP_XProfile_Group {
 						<div id="post-body-content">
 							<div id="titlediv">
 								<div class="titlewrap">
-									<label id="title-prompt-text" for="title"><?php esc_html_e( 'Field Group Name', 'buddypress') ?></label>
+									<label id="title-prompt-text" for="title"><?php esc_html_e( 'Field Group Name (required)', 'buddypress') ?></label>
 									<input type="text" name="group_name" id="title" value="<?php echo esc_attr( $this->name ); ?>" autocomplete="off" />
 								</div>
 							</div>
 							<div class="postbox">
 								<h2><?php esc_html_e( 'Field Group Description', 'buddypress' ); ?></h2>
 								<div class="inside">
-									<label for="group_description" class="screen-reader-text"><?php esc_html_e( 'Add description', 'buddypress' ); ?></label>
+									<label for="group_description" class="screen-reader-text"><?php
+										/* translators: accessibility text */
+										esc_html_e( 'Add description', 'buddypress' );
+									?></label>
 									<textarea name="group_description" id="group_description" rows="8" cols="60"><?php echo esc_textarea( $this->description ); ?></textarea>
 								</div>
 							</div>
+
+							<?php
+
+							/**
+							 * Fires after the XProfile group description field is rendered in wp-admin.
+							 *
+							 * @since 2.6.0
+							 *
+							 * @param BP_XProfile_Group $this Current XProfile group.
+							 */
+							do_action( 'xprofile_group_admin_after_description', $this ); ?>
+
 						</div><!-- #post-body-content -->
 
 						<div id="postbox-container-1" class="postbox-container">
@@ -768,6 +813,9 @@ class BP_XProfile_Group {
 
 											<?php
 
+											// Nonce fields
+											wp_nonce_field( 'bp_xprofile_admin_group', 'bp_xprofile_admin_group' );
+
 											/**
 											 * Fires at the beginning of the XProfile Group publishing actions section.
 											 *
@@ -782,7 +830,7 @@ class BP_XProfile_Group {
 												<input type="submit" name="save_group" value="<?php echo esc_attr( $button ); ?>" class="button-primary"/>
 											</div>
 											<div id="delete-action">
-												<a href="users.php?page=bp-profile-setup" class="deletion"><?php _e( 'Cancel', 'buddypress' ); ?></a>
+												<a href="<?php echo esc_url( $cancel_url ); ?>" class="deletion"><?php _e( 'Cancel', 'buddypress' ); ?></a>
 											</div>
 											<div class="clear"></div>
 										</div>

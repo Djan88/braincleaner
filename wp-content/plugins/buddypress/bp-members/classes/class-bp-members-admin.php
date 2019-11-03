@@ -65,7 +65,7 @@ class BP_Members_Admin {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @uses buddypress() to get BuddyPress main instance.
+	 * @return BP_Members_Admin
 	 */
 	public static function register_members_admin() {
 		if ( ! is_admin() ) {
@@ -215,6 +215,62 @@ class BP_Members_Admin {
 				add_filter( "views_{$user_screen}", array( $this, 'signup_filter_view'    ), 10, 1 );
 				add_filter( 'set-screen-option',    array( $this, 'signup_screen_options' ), 10, 3 );
 			}
+
+			// Registration is turned on.
+			add_action( 'update_site_option_registration',  array( $this, 'multisite_registration_on' ),   10, 2 );
+			add_action( 'update_option_users_can_register', array( $this, 'single_site_registration_on' ), 10, 2 );
+		}
+
+		/** Users List - Members Types ***************************************
+		 */
+
+		if ( is_admin() && bp_get_member_types() ) {
+
+			// Add "Change type" <select> to WP admin users list table and process bulk members type changes.
+			add_action( 'restrict_manage_users', array( $this, 'users_table_output_type_change_select' ) );
+			add_action( 'load-users.php',        array( $this, 'users_table_process_bulk_type_change'  ) );
+
+			// Add the member type column to the WP admin users list table.
+			add_filter( 'manage_users_columns',       array( $this, 'users_table_add_type_column'    )        );
+			add_filter( 'manage_users_custom_column', array( $this, 'users_table_populate_type_cell' ), 10, 3 );
+
+			// Filter WP admin users list table to include users of the specified type.
+			add_filter( 'pre_get_users', array( $this, 'users_table_filter_by_type' ) );
+		}
+	}
+
+	/**
+	 * Create registration pages when multisite user registration is turned on.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param string $option_name Current option name; value is always 'registration'.
+	 * @param string $value
+	 */
+	public function multisite_registration_on( $option_name, $value ) {
+		if ( 'user' === $value || 'all' === $value ) {
+			bp_core_add_page_mappings( array(
+				'register' => 1,
+				'activate' => 1
+			) );
+		}
+	}
+
+	/**
+	 * Create registration pages when single site registration is turned on.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param string $old_value
+	 * @param string $value
+	 */
+	public function single_site_registration_on( $old_value, $value ) {
+		// Single site.
+		if ( ! is_multisite() && ! empty( $value ) ) {
+			bp_core_add_page_mappings( array(
+				'register' => 1,
+				'activate' => 1
+			) );
 		}
 	}
 
@@ -348,7 +404,7 @@ class BP_Members_Admin {
 			case 2:
 				$notice = array(
 					'class'   => 'error',
-					'message' => __( 'Please make sure you fill in all required fields in this profile field group before saving.', 'buddypress' )
+					'message' => __( 'Your changes have not been saved. Please fill in all required fields, and save your changes again.', 'buddypress' )
 				);
 				break;
 			case 3:
@@ -368,7 +424,6 @@ class BP_Members_Admin {
 	 *
 	 * @since 2.1.0
 	 *
-	 * @uses add_submenu_page() To add the Edit Profile page in Profile section.
 	 */
 	public function user_profile_menu() {
 
@@ -406,7 +461,6 @@ class BP_Members_Admin {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @uses add_submenu_page() To add the Edit Profile page in Users/Profile section.
 	 */
 	public function admin_menus() {
 
@@ -608,7 +662,7 @@ class BP_Members_Admin {
 	 *
 	 * @param object|null $user   User to create profile navigation for.
 	 * @param string      $active Which profile to highlight.
-	 * @return string
+	 * @return string|null
 	 */
 	public function profile_nav( $user = null, $active = 'WordPress' ) {
 
@@ -626,7 +680,9 @@ class BP_Members_Admin {
 
 		// Conditionally add a referer if it exists in the existing request.
 		if ( ! empty( $_REQUEST['wp_http_referer'] ) ) {
-			$query_args['wp_http_referer'] = urlencode( stripslashes_deep( $_REQUEST['wp_http_referer'] ) );
+			$wp_http_referer = wp_unslash( $_REQUEST['wp_http_referer'] );
+			$wp_http_referer = wp_validate_redirect( esc_url_raw( $wp_http_referer ) );
+			$query_args['wp_http_referer'] = urlencode( $wp_http_referer );
 		}
 
 		// Setup the two distinct "edit" URL's.
@@ -865,7 +921,9 @@ class BP_Members_Admin {
 		$form_action_url = add_query_arg( 'action', 'update', $request_url );
 		$wp_http_referer = false;
 		if ( ! empty( $_REQUEST['wp_http_referer'] ) ) {
-			$wp_http_referer = remove_query_arg( array( 'action', 'updated' ), $_REQUEST['wp_http_referer'] );
+			$wp_http_referer = wp_unslash( $_REQUEST['wp_http_referer'] );
+			$wp_http_referer = remove_query_arg( array( 'action', 'updated' ), $wp_http_referer );
+			$wp_http_referer = wp_validate_redirect( esc_url_raw( $wp_http_referer ) );
 		}
 
 		// Prepare notice for admin.
@@ -888,22 +946,46 @@ class BP_Members_Admin {
 		<?php endif; ?>
 
 		<div class="wrap" id="community-profile-page">
-			<h1><?php echo esc_html( $title ); ?>
+			<?php if ( version_compare( $GLOBALS['wp_version'], '4.8', '>=' ) ) : ?>
+
+				<h1 class="wp-heading-inline"><?php echo esc_html( $title ); ?></h1>
 
 				<?php if ( empty( $this->is_self_profile ) ) : ?>
 
 					<?php if ( current_user_can( 'create_users' ) ) : ?>
 
-						<a href="user-new.php" class="add-new-h2"><?php echo esc_html_x( 'Add New', 'user', 'buddypress' ); ?></a>
+						<a href="user-new.php" class="page-title-action"><?php echo esc_html_x( 'Add New', 'user', 'buddypress' ); ?></a>
 
 					<?php elseif ( is_multisite() && current_user_can( 'promote_users' ) ) : ?>
 
-						<a href="user-new.php" class="add-new-h2"><?php echo esc_html_x( 'Add Existing', 'user', 'buddypress' ); ?></a>
+						<a href="user-new.php" class="page-title-action"><?php echo esc_html_x( 'Add Existing', 'user', 'buddypress' ); ?></a>
 
 					<?php endif; ?>
 
 				<?php endif; ?>
-			</h1>
+
+				<hr class="wp-header-end">
+
+			<?php else : ?>
+
+				<h1><?php echo esc_html( $title ); ?>
+
+					<?php if ( empty( $this->is_self_profile ) ) : ?>
+
+						<?php if ( current_user_can( 'create_users' ) ) : ?>
+
+							<a href="user-new.php" class="add-new-h2"><?php echo esc_html_x( 'Add New', 'user', 'buddypress' ); ?></a>
+
+						<?php elseif ( is_multisite() && current_user_can( 'promote_users' ) ) : ?>
+
+							<a href="user-new.php" class="add-new-h2"><?php echo esc_html_x( 'Add Existing', 'user', 'buddypress' ); ?></a>
+
+						<?php endif; ?>
+
+					<?php endif; ?>
+				</h1>
+
+			<?php endif; ?>
 
 			<?php if ( ! empty( $user ) ) :
 
@@ -934,7 +1016,14 @@ class BP_Members_Admin {
 
 			<?php else : ?>
 
-				<p><?php printf( __( 'No user found with this ID. <a href="%s">Go back and try again</a>.', 'buddypress' ), esc_url( bp_get_admin_url( 'users.php' ) ) ); ?></p>
+				<p><?php
+					printf(
+						'%1$s <a href="%2$s">%3$s</a>',
+						__( 'No user found with this ID.', 'buddypress' ),
+						esc_url( bp_get_admin_url( 'users.php' ) ),
+						__( 'Go back and try again.', 'buddypress' )
+					);
+				?></p>
 
 			<?php endif; ?>
 
@@ -980,7 +1069,7 @@ class BP_Members_Admin {
 					/**
 					 * In configs where BuddyPress is not network activated,
 					 * regular admins cannot mark a user as a spammer on front
-					 * end. This prevent them to do it in backend.
+					 * end. This prevent them to do it in the back end.
 					 *
 					 * Also prevent admins from marking themselves or other
 					 * admins as spammers.
@@ -1102,9 +1191,15 @@ class BP_Members_Admin {
 		$current_type = bp_get_member_type( $user->ID );
 		?>
 
-		<label for="bp-members-profile-member-type" class="screen-reader-text"><?php esc_html_e( 'Select member type', 'buddypress' ); ?></label>
+		<label for="bp-members-profile-member-type" class="screen-reader-text"><?php
+			/* translators: accessibility text */
+			esc_html_e( 'Select member type', 'buddypress' );
+		?></label>
 		<select name="bp-members-profile-member-type" id="bp-members-profile-member-type">
-			<option value="" <?php selected( '', $current_type ); ?>><?php /* translators: no option picked in select box */ esc_attr_e( '----', 'buddypress' ) ?></option>
+			<option value="" <?php selected( '', $current_type ); ?>><?php
+				/* translators: no option picked in select box */
+				esc_attr_e( '----', 'buddypress' );
+			?></option>
 			<?php foreach ( $types as $type ) : ?>
 				<option value="<?php echo esc_attr( $type->name ) ?>" <?php selected( $type->name, $current_type ) ?>><?php echo esc_html( $type->labels['singular_name'] ) ?></option>
 			<?php endforeach; ?>
@@ -1130,7 +1225,7 @@ class BP_Members_Admin {
 		check_admin_referer( 'bp-member-type-change-' . $user_id, 'bp-member-type-nonce' );
 
 		// Permission check.
-		if ( ! current_user_can( 'bp_moderate' ) && $user_id != bp_loggedin_user_id() ) {
+		if ( ! bp_current_user_can( 'bp_moderate' ) && $user_id != bp_loggedin_user_id() ) {
 			return;
 		}
 
@@ -1156,7 +1251,7 @@ class BP_Members_Admin {
 	 *
 	 * @param array|string $actions WordPress row actions (edit, delete).
 	 * @param object|null  $user    The object for the user row.
-	 * @return array Merged actions.
+	 * @return null|string|array Merged actions.
 	 */
 	public function row_actions( $actions = '', $user = null ) {
 
@@ -1174,7 +1269,9 @@ class BP_Members_Admin {
 		}
 
 		// Add the referer.
-		$args['wp_http_referer'] = urlencode( wp_unslash( $_SERVER['REQUEST_URI'] ) );
+		$wp_http_referer = wp_unslash( $_SERVER['REQUEST_URI'] );
+		$wp_http_referer = wp_validate_redirect( esc_url_raw( $wp_http_referer ) );
+		$args['wp_http_referer'] = urlencode( $wp_http_referer );
 
 		// Add the "Extended" link if the current user can edit this user.
 		if ( current_user_can( 'edit_user', $user->ID ) || bp_current_user_can( 'bp_moderate' ) ) {
@@ -1221,7 +1318,6 @@ class BP_Members_Admin {
 	 *
 	 * @since 2.1.0
 	 *
-	 * @uses  user_admin_url()
 	 *
 	 * @param string $profile_link Profile Link for admin bar.
 	 * @param string $url          Profile URL.
@@ -1241,7 +1337,7 @@ class BP_Members_Admin {
 	 * @since 2.1.0
 	 */
 	public function remove_edit_profile_url_filter() {
-		remove_filter( 'bp_members_edit_profile_url', array( $this, 'filter_adminbar_profile_link' ), 10, 3 );
+		remove_filter( 'bp_members_edit_profile_url', array( $this, 'filter_adminbar_profile_link' ), 10 );
 	}
 
 	/** Signups Management ****************************************************/
@@ -1279,7 +1375,7 @@ class BP_Members_Admin {
 	 * @since 2.0.0
 	 *
 	 * @param WP_User_Query|null $query The users query.
-	 * @return WP_User_Query The users query without the signups.
+	 * @return WP_User_Query|null The users query without the signups.
 	 */
 	public function remove_signups_from_user_query( $query = null ) {
 		global $wpdb;
@@ -1357,7 +1453,7 @@ class BP_Members_Admin {
 	 *
 	 * @param string $class    The name of the class to use.
 	 * @param string $required The parent class.
-	 * @return WP_List_Table The List table.
+	 * @return WP_List_Table|null The List table.
 	 */
 	public static function get_list_table_class( $class = '', $required = '' ) {
 		if ( empty( $class ) ) {
@@ -1366,7 +1462,6 @@ class BP_Members_Admin {
 
 		if ( ! empty( $required ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/class-wp-' . $required . '-list-table.php' );
-			require_once( buddypress()->members->admin->admin_dir . 'bp-members-admin-classes.php' );
 		}
 
 		return new $class();
@@ -1449,13 +1544,14 @@ class BP_Members_Admin {
 			);
 
 			// Add accessible hidden headings and text for the Pending Users screen.
-			if ( bp_get_major_wp_version() >= 4.4 ) {
-				get_current_screen()->set_screen_reader_content( array(
-					'heading_views'      => __( 'Filter users list', 'buddypress' ),
-					'heading_pagination' => __( 'Pending users list navigation', 'buddypress' ),
-					'heading_list'       => __( 'Pending users list', 'buddypress' ),
-				) );
-			}
+			get_current_screen()->set_screen_reader_content( array(
+				/* translators: accessibility text */
+				'heading_views'      => __( 'Filter users list', 'buddypress' ),
+				/* translators: accessibility text */
+				'heading_pagination' => __( 'Pending users list navigation', 'buddypress' ),
+				/* translators: accessibility text */
+				'heading_list'       => __( 'Pending users list', 'buddypress' ),
+			) );
 
 		} else {
 			if ( ! empty( $_REQUEST['signup_ids' ] ) ) {
@@ -1850,24 +1946,49 @@ class BP_Members_Admin {
 		?>
 
 		<div class="wrap">
-			<h1><?php _e( 'Users', 'buddypress' ); ?>
+			<?php if ( version_compare( $GLOBALS['wp_version'], '4.8', '>=' ) ) : ?>
+
+				<h1 class="wp-heading-inline"><?php _e( 'Users', 'buddypress' ); ?></h1>
 
 				<?php if ( current_user_can( 'create_users' ) ) : ?>
 
-					<a href="user-new.php" class="add-new-h2"><?php echo esc_html_x( 'Add New', 'user', 'buddypress' ); ?></a>
+					<a href="user-new.php" class="page-title-action"><?php echo esc_html_x( 'Add New', 'user', 'buddypress' ); ?></a>
 
 				<?php elseif ( is_multisite() && current_user_can( 'promote_users' ) ) : ?>
 
-					<a href="user-new.php" class="add-new-h2"><?php echo esc_html_x( 'Add Existing', 'user', 'buddypress' ); ?></a>
+					<a href="user-new.php" class="page-title-action"><?php echo esc_html_x( 'Add Existing', 'user', 'buddypress' ); ?></a>
 
 				<?php endif;
 
 				if ( $usersearch ) {
 					printf( '<span class="subtitle">' . __( 'Search results for &#8220;%s&#8221;', 'buddypress' ) . '</span>', esc_html( $usersearch ) );
 				}
-
 				?>
-			</h1>
+
+				<hr class="wp-header-end">
+
+			<?php else : ?>
+
+				<h1><?php _e( 'Users', 'buddypress' ); ?>
+
+					<?php if ( current_user_can( 'create_users' ) ) : ?>
+
+						<a href="user-new.php" class="add-new-h2"><?php echo esc_html_x( 'Add New', 'user', 'buddypress' ); ?></a>
+
+					<?php elseif ( is_multisite() && current_user_can( 'promote_users' ) ) : ?>
+
+						<a href="user-new.php" class="add-new-h2"><?php echo esc_html_x( 'Add Existing', 'user', 'buddypress' ); ?></a>
+
+					<?php endif;
+
+					if ( $usersearch ) {
+						printf( '<span class="subtitle">' . __( 'Search results for &#8220;%s&#8221;', 'buddypress' ) . '</span>', esc_html( $usersearch ) );
+					}
+
+					?>
+				</h1>
+
+			<?php endif; ?>
 
 			<?php // Display each signups on its own row. ?>
 			<?php $bp_members_signup_list_table->views(); ?>
@@ -1890,7 +2011,8 @@ class BP_Members_Admin {
 	 * @since 2.0.0
 	 *
 	 * @param string $action Delete, activate, or resend activation link.
-	 * @return string
+	 *
+	 * @return null|false
 	 */
 	public function signups_admin_manage( $action = '' ) {
 		if ( ! current_user_can( $this->capability ) || empty( $action ) ) {
@@ -1972,6 +2094,22 @@ class BP_Members_Admin {
 			'signups_' . $action
 		);
 
+		// Prefetch registration field data.
+		$fdata = array();
+		if ( 'activate' === $action && bp_is_active( 'xprofile' ) ) {
+			$field_groups = bp_xprofile_get_groups( array(
+				'exclude_fields'    => 1,
+				'update_meta_cache' => false,
+				'fetch_fields'      => true,
+			) );
+
+			foreach( $field_groups as $fg ) {
+				foreach( $fg->fields as $f ) {
+					$fdata[ $f->id ] = $f->name;
+				}
+			}
+		}
+
 		?>
 
 		<div class="wrap">
@@ -1980,11 +2118,46 @@ class BP_Members_Admin {
 
 			<ol class="bp-signups-list">
 			<?php foreach ( $signups as $signup ) :
+				$last_notified = mysql2date( 'Y/m/d g:i:s a', $signup->date_sent );
+				$profile_field_ids = array();
 
-				$last_notified = mysql2date( 'Y/m/d g:i:s a', $signup->date_sent ); ?>
+				// Get all xprofile field IDs except field 1.
+				if ( ! empty( $signup->meta['profile_field_ids'] ) ) {
+					$profile_field_ids = array_flip( explode( ',', $signup->meta['profile_field_ids'] ) );
+					unset( $profile_field_ids[1] );
+				} ?>
 
 				<li>
-					<?php echo esc_html( $signup->user_name ) ?> - <?php echo sanitize_email( $signup->user_email );?>
+					<strong><?php echo esc_html( $signup->user_login ) ?></strong>
+
+					<?php if ( 'activate' == $action ) : ?>
+						<table class="wp-list-table widefat fixed striped">
+							<tbody>
+								<tr>
+									<td class="column-fields"><?php esc_html_e( 'Display Name', 'buddypress' ); ?></td>
+									<td><?php echo esc_html( $signup->user_name ); ?></td>
+								</tr>
+
+								<tr>
+									<td class="column-fields"><?php esc_html_e( 'Email', 'buddypress' ); ?></td>
+									<td><?php echo sanitize_email( $signup->user_email ); ?></td>
+								</tr>
+
+								<?php if ( bp_is_active( 'xprofile' ) && ! empty( $profile_field_ids ) ) : ?>
+									<?php foreach ( $profile_field_ids as $pid => $noop ) :
+										$field_value = isset( $signup->meta[ "field_{$pid}" ] ) ? $signup->meta[ "field_{$pid}" ] : ''; ?>
+										<tr>
+											<td class="column-fields"><?php echo esc_html( $fdata[ $pid ] ); ?></td>
+											<td><?php echo $this->format_xprofile_field_for_display( $field_value ); ?></td>
+										</tr>
+
+									<?php endforeach;  ?>
+
+								<?php endif; ?>
+
+							</tbody>
+						</table>
+					<?php endif; ?>
 
 					<?php if ( 'resend' == $action ) : ?>
 
@@ -2016,6 +2189,248 @@ class BP_Members_Admin {
 		</div>
 
 		<?php
+	}
+
+	/** Users List Management ****************************************************/
+
+	/**
+	 * Display a dropdown to bulk change the member type of selected user(s).
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param string $which Where this dropdown is displayed - top or bottom.
+	 */
+	public function users_table_output_type_change_select( $which = 'top' ) {
+
+		// Bail if current user cannot promote users.
+		if ( ! bp_current_user_can( 'promote_users' ) ) {
+			return;
+		}
+
+		// `$which` is only passed in WordPress 4.6+. Avoid duplicating controls in earlier versions.
+		static $displayed = false;
+		if ( version_compare( bp_get_major_wp_version(), '4.6', '<' ) && $displayed ) {
+			return;
+		}
+		$displayed = true;
+
+		$id_name = 'bottom' === $which ? 'bp_change_type2' : 'bp_change_type';
+
+		$types = bp_get_member_types( array(), 'objects' ); ?>
+
+		<label class="screen-reader-text" for="<?php echo $id_name; ?>"><?php _e( 'Change member type to&hellip;', 'buddypress' ) ?></label>
+		<select name="<?php echo $id_name; ?>" id="<?php echo $id_name; ?>" style="display:inline-block;float:none;">
+			<option value=""><?php _e( 'Change member type to&hellip;', 'buddypress' ) ?></option>
+
+			<?php foreach( $types as $type ) : ?>
+
+				<option value="<?php echo esc_attr( $type->name ); ?>"><?php echo esc_html( $type->labels['singular_name'] ); ?></option>
+
+			<?php endforeach; ?>
+
+			<option value="remove_member_type"><?php _e( 'No Member Type', 'buddypress' ) ?></option>
+
+		</select>
+		<?php
+		wp_nonce_field( 'bp-bulk-users-change-type-' . bp_loggedin_user_id(), 'bp-bulk-users-change-type-nonce' );
+		submit_button( __( 'Change', 'buddypress' ), 'button', 'bp_change_member_type', false );
+	}
+
+	/**
+	 * Process bulk member type change submission from the WP admin users list table.
+	 *
+	 * @since 2.7.0
+	 */
+	public function users_table_process_bulk_type_change() {
+		// Output the admin notice.
+		$this->users_type_change_notice();
+
+		// Bail if no users are specified or if this isn't a BuddyPress action.
+		if ( empty( $_REQUEST['users'] )
+			|| ( empty( $_REQUEST['bp_change_type'] ) && empty( $_REQUEST['bp_change_type2'] ) )
+			|| empty( $_REQUEST['bp_change_member_type'] )
+		) {
+			return;
+		}
+
+		// Bail if nonce check fails.
+		check_admin_referer( 'bp-bulk-users-change-type-' . bp_loggedin_user_id(), 'bp-bulk-users-change-type-nonce' );
+
+		// Bail if current user cannot promote users.
+		if ( ! bp_current_user_can( 'promote_users' ) ) {
+			return;
+		}
+
+		$new_type = '';
+		if ( ! empty( $_REQUEST['bp_change_type2'] ) ) {
+			$new_type = sanitize_text_field( $_REQUEST['bp_change_type2'] );
+		} elseif ( ! empty( $_REQUEST['bp_change_type'] ) ) {
+			$new_type = sanitize_text_field( $_REQUEST['bp_change_type'] );
+		}
+
+		// Check that the selected type actually exists.
+		if ( 'remove_member_type' != $new_type && null === bp_get_member_type_object( $new_type ) ) {
+			$error = true;
+		} else {
+			// Run through user ids.
+			$error = false;
+			foreach ( (array) $_REQUEST['users'] as $user_id ) {
+				$user_id = (int) $user_id;
+
+				// Get the old member type to check against.
+				$member_type = bp_get_member_type( $user_id );
+
+				if ( 'remove_member_type' === $new_type ) {
+					// Remove the current member type, if there's one to remove.
+					if ( $member_type ) {
+						$removed = bp_remove_member_type( $user_id, $member_type );
+						if ( false === $removed || is_wp_error( $removed ) ) {
+							$error = true;
+						}
+					}
+				} else {
+					// Set the new member type.
+					if ( $new_type !== $member_type ) {
+						$set = bp_set_member_type( $user_id, $new_type );
+						if ( false === $set || is_wp_error( $set ) ) {
+							$error = true;
+						}
+					}
+				}
+			}
+		}
+
+		// If there were any errors, show the error message.
+		if ( $error ) {
+			$redirect = add_query_arg( array( 'updated' => 'member-type-change-error' ), wp_get_referer() );
+		} else {
+			$redirect = add_query_arg( array( 'updated' => 'member-type-change-success' ), wp_get_referer() );
+		}
+
+		wp_redirect( $redirect );
+		exit();
+	}
+
+	/**
+	 * Display an admin notice upon member type bulk update.
+	 *
+	 * @since 2.7.0
+	 */
+	public function users_type_change_notice() {
+		$updated = isset( $_REQUEST['updated'] ) ? $_REQUEST['updated'] : false;
+
+		// Display feedback.
+		if ( $updated && in_array( $updated, array( 'member-type-change-error', 'member-type-change-success' ), true ) ) {
+
+			if ( 'member-type-change-error' === $updated ) {
+				$notice = __( 'There was an error while changing member type. Please try again.', 'buddypress' );
+				$type   = 'error';
+			} else {
+				$notice = __( 'Member type was changed successfully.', 'buddypress' );
+				$type   = 'updated';
+			}
+
+			bp_core_add_admin_notice( $notice, $type );
+		}
+	}
+
+	/**
+	 * Add member type column to the WordPress admin users list table.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param array $columns Users table columns.
+	 *
+	 * @return array $columns
+	 */
+	public function users_table_add_type_column( $columns = array() ) {
+		$columns[ bp_get_member_type_tax_name() ] = _x( 'Member Type', 'Label for the WP users table member type column', 'buddypress' );
+
+		return $columns;
+	}
+
+	/**
+	 * Return member's type for display in the WP admin users list table.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param string $retval
+	 * @param string $column_name
+	 * @param int $user_id
+	 *
+	 * @return string Member type as a link to filter all users.
+	 */
+	public function users_table_populate_type_cell( $retval = '', $column_name = '', $user_id = 0 ) {
+		// Only looking for member type column.
+		if ( bp_get_member_type_tax_name() !== $column_name ) {
+			return $retval;
+		}
+
+		// Get the member type.
+		$type = bp_get_member_type( $user_id );
+
+		// Output the
+		if ( $type_obj = bp_get_member_type_object( $type ) ) {
+			$url = add_query_arg( array( 'bp-member-type' => urlencode( $type ) ) );
+			$retval = '<a href="' . esc_url( $url ) . '">' . esc_html( $type_obj->labels['singular_name'] ) . '</a>';
+		}
+
+		return $retval;
+	}
+
+	/**
+	 * Filter WP Admin users list table to include users of the specified type.
+	 *
+	 * @param WP_Query $query
+	 *
+	 * @since 2.7.0
+	 */
+	public function users_table_filter_by_type( $query ) {
+		global $pagenow;
+
+		if ( is_admin() && 'users.php' === $pagenow && ! empty( $_REQUEST['bp-member-type'] ) ) {
+			$type_slug = sanitize_text_field( $_REQUEST['bp-member-type'] );
+
+			// Check that the type is registered.
+			if ( null == bp_get_member_type_object( $type_slug ) ) {
+				return;
+			}
+
+			// Get the list of users that are assigned to this member type.
+			$type = bp_get_term_by( 'slug', $type_slug, bp_get_member_type_tax_name() );
+
+			if ( empty( $type->term_id ) ) {
+				return;
+			}
+
+			$user_ids = bp_get_objects_in_term( $type->term_id, bp_get_member_type_tax_name() );
+
+			if ( $user_ids && ! is_wp_error( $user_ids ) ) {
+				$query->set( 'include', (array) $user_ids );
+			}
+		}
+	}
+
+	/**
+	 * Formats a signup's xprofile field data for display.
+	 *
+	 * Operates recursively on arrays, which are then imploded with commas.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @param string|array $value Field value.
+	 * @return string
+	 */
+	protected function format_xprofile_field_for_display( $value ) {
+		if ( is_array( $value ) ) {
+			$value = array_map( array( $this, 'format_xprofile_field_for_display' ), $value );
+			$value = implode( ', ', $value );
+		} else {
+			$value = stripslashes( $value );
+			$value = esc_html( $value );
+		}
+
+		return $value;
 	}
 }
 endif; // End class_exists check.

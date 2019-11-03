@@ -25,7 +25,6 @@ add_filter( 'bp_blog_latest_post_content', 'prepend_attachment' );
  *
  * @since 1.6.0
  *
- * @uses apply_filters() Filter 'bp_blogs_creation_location' to alter the
  *       returned value.
  *
  * @param string $url The original URL (points to wp-signup.php by default).
@@ -122,3 +121,43 @@ function bp_blogs_post_pre_publish( $return = true, $blog_id = 0, $post_id = 0, 
 }
 add_filter( 'bp_activity_post_pre_publish', 'bp_blogs_post_pre_publish', 10, 4 );
 add_filter( 'bp_activity_post_pre_comment', 'bp_blogs_post_pre_publish', 10, 4 );
+
+/**
+ * Registers our custom thumb size with WP's Site Icon feature.
+ *
+ * @since 2.7.0
+ *
+ * @param  array $sizes Current array of custom site icon sizes.
+ * @return array
+ */
+function bp_blogs_register_custom_site_icon_size( $sizes ) {
+	$sizes[] = bp_core_avatar_thumb_width();
+	return $sizes;
+}
+add_filter( 'site_icon_image_sizes', 'bp_blogs_register_custom_site_icon_size' );
+
+/**
+ * Filters the column name during blog metadata queries.
+ *
+ * This filters 'sanitize_key', which is used during various core metadata
+ * API functions: {@link https://core.trac.wordpress.org/browser/branches/4.9/src/wp-includes/meta.php?lines=47,160,324}.
+ * Due to how we are passing our meta type, we need to ensure that the correct
+ * DB column is referenced during blogmeta queries.
+ *
+ * @since 4.0.0
+ *
+ * @see bp_blogs_delete_blogmeta()
+ * @see bp_blogs_get_blogmeta()
+ * @see bp_blogs_update_blogmeta()
+ * @see bp_blogs_add_blogmeta()
+ *
+ * @param string $retval
+ *
+ * @return string
+ */
+function bp_blogs_filter_meta_column_name( $retval ) {
+	if ( 'bp_blog_id' === $retval ) {
+		$retval = 'blog_id';
+	}
+	return $retval;
+}

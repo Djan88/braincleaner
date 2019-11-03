@@ -6,6 +6,7 @@
  *
  * @package BuddyPress
  * @subpackage BP_Theme_Compat
+ * @version 3.1.0
  */
 
 // Exit if accessed directly.
@@ -41,8 +42,6 @@ class BP_Legacy extends BP_Theme_Compat {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @uses BP_Legacy::setup_globals()
-	 * @uses BP_Legacy::setup_actions()
 	 */
 	public function __construct() {
 		parent::start();
@@ -70,8 +69,6 @@ class BP_Legacy extends BP_Theme_Compat {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @uses add_filter() To add various filters
-	 * @uses add_action() To add various actions
 	 */
 	protected function setup_actions() {
 
@@ -86,7 +83,6 @@ class BP_Legacy extends BP_Theme_Compat {
 		add_action( 'bp_enqueue_scripts', array( $this, 'enqueue_styles'   ) ); // Enqueue theme CSS
 		add_action( 'bp_enqueue_scripts', array( $this, 'enqueue_scripts'  ) ); // Enqueue theme JS
 		add_filter( 'bp_enqueue_scripts', array( $this, 'localize_scripts' ) ); // Enqueue theme script localization
-		add_action( 'bp_head',            array( $this, 'head_scripts'     ) ); // Output some extra JS in the <head>.
 
 		/** Body no-js Class **************************************************/
 
@@ -110,10 +106,11 @@ class BP_Legacy extends BP_Theme_Compat {
 
 			// Group buttons.
 			if ( bp_is_active( 'groups' ) ) {
-				add_action( 'bp_group_header_actions',          'bp_group_join_button',               5 );
-				add_action( 'bp_group_header_actions',          'bp_group_new_topic_button',         20 );
-				add_action( 'bp_directory_groups_actions',      'bp_group_join_button'                  );
-				add_action( 'bp_groups_directory_group_filter', 'bp_legacy_theme_group_create_nav', 999 );
+				add_action( 'bp_group_header_actions',          'bp_group_join_button',               5           );
+				add_action( 'bp_directory_groups_actions',      'bp_group_join_button'                            );
+				add_action( 'bp_groups_directory_group_filter', 'bp_legacy_theme_group_create_nav', 999           );
+				add_action( 'bp_after_group_admin_content',     'bp_legacy_groups_admin_screen_hidden_input'      );
+				add_action( 'bp_before_group_admin_form',       'bp_legacy_theme_group_manage_members_add_search' );
 			}
 
 			// Blog button.
@@ -211,7 +208,6 @@ class BP_Legacy extends BP_Theme_Compat {
 	 * @since 1.7.0
 	 * @since 2.3.0 Support custom CSS file named after the current theme or parent theme.
 	 *
-	 * @uses wp_enqueue_style() To enqueue the styles
 	 */
 	public function enqueue_styles() {
 		$min = bp_core_get_minified_asset_suffix();
@@ -287,6 +283,15 @@ class BP_Legacy extends BP_Theme_Compat {
 		}
 
 		/**
+		 * Filters whether directory filter settings ('scope', etc) should be stored in a persistent cookie.
+		 *
+		 * @since 4.0.0
+		 *
+		 * @param bool $store_filter_settings Whether to store settings. Defaults to true for logged-in users.
+		 */
+		$store_filter_settings = apply_filters( 'bp_legacy_store_filter_settings', is_user_logged_in() );
+
+		/**
 		 * Filters core JavaScript strings for internationalization before AJAX usage.
 		 *
 		 * @since 2.0.0
@@ -294,6 +299,7 @@ class BP_Legacy extends BP_Theme_Compat {
 		 * @param array $value Array of key/value pairs for AJAX usage.
 		 */
 		$params = apply_filters( 'bp_core_get_js_strings', array(
+			// Strings for display.
 			'accepted'            => __( 'Accepted', 'buddypress' ),
 			'close'               => __( 'Close', 'buddypress' ),
 			'comments'            => __( 'comments', 'buddypress' ),
@@ -304,9 +310,12 @@ class BP_Legacy extends BP_Theme_Compat {
 			'remove_fav'	      => __( 'Remove Favorite', 'buddypress' ),
 			'show_all'            => __( 'Show all', 'buddypress' ),
 			'show_all_comments'   => __( 'Show all comments for this thread', 'buddypress' ),
-			'show_x_comments'     => __( 'Show all %d comments', 'buddypress' ),
+			'show_x_comments'     => __( 'Show all comments (%d)', 'buddypress' ),
 			'unsaved_changes'     => __( 'Your profile has unsaved changes. If you leave the page, the changes will be lost.', 'buddypress' ),
 			'view'                => __( 'View', 'buddypress' ),
+
+			// Settings.
+			'store_filter_settings' => $store_filter_settings,
 		) );
 		wp_localize_script( $asset['handle'], 'BP_DTheme', $params );
 
@@ -387,20 +396,30 @@ class BP_Legacy extends BP_Theme_Compat {
 
 		// No need to check child if template == stylesheet.
 		if ( is_child_theme() ) {
-			$locations['bp-child'] = array(
+			$locations[] = array(
+				'type' => 'bp-child',
+				'dir'  => get_stylesheet_directory(),
+				'uri'  => get_stylesheet_directory_uri(),
+				'file' => $file,
+			);
+
+			$locations[] = array(
+				'type' => 'bp-child',
 				'dir'  => get_stylesheet_directory(),
 				'uri'  => get_stylesheet_directory_uri(),
 				'file' => str_replace( '.min', '', $file ),
 			);
 		}
 
-		$locations['bp-parent'] = array(
+		$locations[] = array(
+			'type' => 'bp-parent',
 			'dir'  => get_template_directory(),
 			'uri'  => get_template_directory_uri(),
 			'file' => str_replace( '.min', '', $file ),
 		);
 
-		$locations['bp-legacy'] = array(
+		$locations[] = array(
+			'type' => 'bp-legacy',
 			'dir'  => bp_get_theme_compat_dir(),
 			'uri'  => bp_get_theme_compat_url(),
 			'file' => $file,
@@ -415,11 +434,11 @@ class BP_Legacy extends BP_Theme_Compat {
 
 		$retval = array();
 
-		foreach ( $locations as $location_type => $location ) {
+		foreach ( $locations as $location ) {
 			foreach ( $subdirs as $subdir ) {
 				if ( file_exists( trailingslashit( $location['dir'] ) . trailingslashit( $subdir ) . $location['file'] ) ) {
 					$retval['location'] = trailingslashit( $location['uri'] ) . trailingslashit( $subdir ) . $location['file'];
-					$retval['handle']   = ( $script_handle ) ? $script_handle : "{$location_type}-{$type}";
+					$retval['handle']   = ( $script_handle ) ? $script_handle : "{$location['type']}-{$type}";
 
 					break 2;
 				}
@@ -427,23 +446,6 @@ class BP_Legacy extends BP_Theme_Compat {
 		}
 
 		return $retval;
-	}
-
-	/**
-	 * Put some scripts in the header, like AJAX url for wp-lists.
-	 *
-	 * @since 1.7.0
-	 */
-	public function head_scripts() {
-	?>
-
-		<script type="text/javascript">
-			/* <![CDATA[ */
-			var ajaxurl = '<?php echo bp_core_ajax_url(); ?>';
-			/* ]]> */
-		</script>
-
-	<?php
 	}
 
 	/**
@@ -531,7 +533,6 @@ class BP_Legacy extends BP_Theme_Compat {
 	 * @since 2.2.0
 	 *
 	 * @param  array $templates Array of templates.
-	 * @uses   apply_filters() call 'bp_legacy_theme_compat_page_templates_directory_only' and return false
 	 *                         to use the defined page template for component's directory and its single items
 	 * @return array
 	 */
@@ -624,10 +625,22 @@ function bp_legacy_theme_group_create_button( $title ) {
  *
  * @since 2.2.0
  *
- * @uses   bp_group_create_nav_item() to output the create a Group nav item.
  */
 function bp_legacy_theme_group_create_nav() {
 	bp_group_create_nav_item();
+}
+
+/**
+ * Renders the group ID hidden input on group admin screens.
+ *
+ * @since 2.7.0
+ *
+ * @return string|null html
+ */
+function bp_legacy_groups_admin_screen_hidden_input() {
+	?>
+ 	<input type="hidden" name="group-id" id="group-id" value="<?php bp_group_id(); ?>" />
+	<?php
 }
 
 /**
@@ -654,7 +667,6 @@ function bp_legacy_theme_blog_create_button( $title ) {
  *
  * @since 2.2.0
  *
- * @uses   bp_blog_create_nav_item() to output the Create a Site nav item
  */
 function bp_legacy_theme_blog_create_nav() {
 	bp_blog_create_nav_item();
@@ -673,10 +685,11 @@ function bp_legacy_theme_blog_create_nav() {
  * By using cookies we can also make sure that user settings are retained
  * across page loads.
  *
+ * @since 1.2.0
+ *
  * @param string $query_string Query string for the current request.
  * @param string $object       Object for cookie.
- * @return string Query string for the component loops
- * @since 1.2.0
+ * @return string Query string for the component loops.
  */
 function bp_legacy_theme_ajax_querystring( $query_string, $object ) {
 	if ( empty( $object ) )
@@ -698,8 +711,19 @@ function bp_legacy_theme_ajax_querystring( $query_string, $object ) {
 
 	// Activity stream filtering on action.
 	if ( ! empty( $_BP_COOKIE['bp-' . $object . '-filter'] ) && '-1' != $_BP_COOKIE['bp-' . $object . '-filter'] ) {
-		$qs[] = 'type='   . $_BP_COOKIE['bp-' . $object . '-filter'];
-		$qs[] = 'action=' . $_BP_COOKIE['bp-' . $object . '-filter'];
+		$qs[] = 'type=' . urlencode( $_BP_COOKIE['bp-' . $object . '-filter'] );
+
+		if ( bp_is_active( 'activity' ) ) {
+			$actions = bp_activity_get_actions_for_context();
+
+			// Handle multiple actions (eg. 'friendship_accepted,friendship_created')
+			$action_filter = explode( ',', $_BP_COOKIE['bp-' . $object . '-filter'] );
+
+			// See if action filter matches registered actions. If so, add it to qs.
+			if ( ! array_diff( $action_filter, wp_list_pluck( $actions, 'key' ) ) ) {
+				$qs[] = 'action=' . join( ',', $action_filter );
+			}
+		}
 	}
 
 	if ( ! empty( $_BP_COOKIE['bp-' . $object . '-scope'] ) ) {
@@ -710,7 +734,7 @@ function bp_legacy_theme_ajax_querystring( $query_string, $object ) {
 
 		// Activity stream scope only on activity directory.
 		if ( 'all' != $_BP_COOKIE['bp-' . $object . '-scope'] && ! bp_displayed_user_id() && ! bp_is_single_item() )
-			$qs[] = 'scope=' . $_BP_COOKIE['bp-' . $object . '-scope'];
+			$qs[] = 'scope=' . urlencode( $_BP_COOKIE['bp-' . $object . '-scope'] );
 	}
 
 	// If page and search_terms have been passed via the AJAX post request, use those.
@@ -729,7 +753,7 @@ function bp_legacy_theme_ajax_querystring( $query_string, $object ) {
 	}
 
 	$object_search_text = bp_get_search_default_text( $object );
-	if ( ! empty( $_POST['search_terms'] ) && $object_search_text != $_POST['search_terms'] && 'false' != $_POST['search_terms'] && 'undefined' != $_POST['search_terms'] )
+	if ( ! empty( $_POST['search_terms'] ) && is_string( $_POST['search_terms'] ) && $object_search_text != $_POST['search_terms'] && 'false' != $_POST['search_terms'] && 'undefined' != $_POST['search_terms'] )
 		$qs[] = 'search_terms=' . urlencode( $_POST['search_terms'] );
 
 	// Now pass the querystring to override default values.
@@ -774,24 +798,27 @@ function bp_legacy_theme_ajax_querystring( $query_string, $object ) {
 /**
  * Load the template loop for the current object.
  *
- * @return string Prints template loop for the specified object
  * @since 1.2.0
+ *
+ * @return string|null Prints template loop for the specified object
  */
 function bp_legacy_theme_object_template_loader() {
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! bp_is_post_request() ) {
 		return;
+	}
 
 	// Bail if no object passed.
-	if ( empty( $_POST['object'] ) )
+	if ( empty( $_POST['object'] ) ) {
 		return;
+	}
 
 	// Sanitize the object.
 	$object = sanitize_title( $_POST['object'] );
 
 	// Bail if object is not an active component to prevent arbitrary file inclusion.
-	if ( ! bp_is_active( $object ) )
+	if ( ! bp_is_active( $object ) ) {
 		return;
+	}
 
 	/**
 	 * AJAX requests happen too early to be seen by bp_update_is_directory()
@@ -802,15 +829,18 @@ function bp_legacy_theme_object_template_loader() {
 	if ( ! bp_current_action() )
 		bp_update_is_directory( true, bp_current_component() );
 
-	$template_part = $object . '/' . $object . '-loop';
-
 	// The template part can be overridden by the calling JS function.
-	if ( ! empty( $_POST['template'] ) ) {
-		$template_part = sanitize_option( 'upload_path', $_POST['template'] );
+	if ( ! empty( $_POST['template'] ) && 'groups/single/members' === $_POST['template'] ) {
+		$template_part = 'groups/single/members.php';
+	} else {
+		$template_part = $object . '/' . $object . '-loop.php';
 	}
 
-	// Locate the object template.
-	bp_get_template_part( $template_part );
+	$template_path = bp_locate_template( array( $template_part ), false );
+
+	$template_path = apply_filters( 'bp_legacy_object_template_path', $template_path );
+
+	load_template( $template_path );
 	exit();
 }
 
@@ -819,7 +849,7 @@ function bp_legacy_theme_object_template_loader() {
  *
  * @since 1.6.0
  *
- * @return string Prints template loop for the Messages component.
+ * @return string|null Prints template loop for the Messages component.
  */
 function bp_legacy_theme_messages_template_loader() {
 	bp_get_template_part( 'members/single/messages/messages-loop' );
@@ -849,15 +879,15 @@ function bp_legacy_theme_requests_template_loader() {
 /**
  * Load the activity loop template when activity is requested via AJAX.
  *
- * @return string JSON object containing 'contents' (output of the template loop
- * for the Activity component) and 'feed_url' (URL to the relevant RSS feed).
- *
  * @since 1.2.0
+ *
+ * @return string|null JSON object containing 'contents' (output of the template loop
+ *                     for the Activity component) and 'feed_url' (URL to the relevant RSS feed).
  */
 function bp_legacy_theme_activity_template_loader() {
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! bp_is_post_request() ) {
 		return;
+	}
 
 	$scope = '';
 	if ( ! empty( $_POST['scope'] ) )
@@ -876,7 +906,11 @@ function bp_legacy_theme_activity_template_loader() {
 			break;
 		case 'mentions':
 			$feed_url = bp_loggedin_user_domain() . bp_get_activity_slug() . '/mentions/feed/';
-			bp_activity_clear_new_mentions( bp_loggedin_user_id() );
+
+			if ( isset( $_POST['_wpnonce_activity_filter'] ) && wp_verify_nonce( wp_unslash( $_POST['_wpnonce_activity_filter'] ), 'activity_filter' ) ) {
+				bp_activity_clear_new_mentions( bp_loggedin_user_id() );
+			}
+
 			break;
 		default:
 			$feed_url = home_url( bp_get_activity_root_slug() . '/feed/' );
@@ -905,15 +939,16 @@ function bp_legacy_theme_activity_template_loader() {
 /**
  * Processes Activity updates received via a POST request.
  *
- * @return string HTML
  * @since 1.2.0
+ *
+ * @return string|null HTML
  */
 function bp_legacy_theme_post_update() {
 	$bp = buddypress();
 
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! bp_is_post_request() ) {
 		return;
+	}
 
 	// Check the nonce.
 	check_admin_referer( 'post_update', '_wpnonce_post_update' );
@@ -945,11 +980,11 @@ function bp_legacy_theme_post_update() {
 	}
 
 	if ( ! $object && bp_is_active( 'activity' ) ) {
-		$activity_id = bp_activity_post_update( array( 'content' => $_POST['content'] ) );
+		$activity_id = bp_activity_post_update( array( 'content' => $_POST['content'], 'error_type' => 'wp_error' ) );
 
 	} elseif ( 'groups' === $object ) {
 		if ( $item_id && bp_is_active( 'groups' ) )
-			$activity_id = groups_post_update( array( 'content' => $_POST['content'], 'group_id' => $item_id ) );
+			$activity_id = groups_post_update( array( 'content' => $_POST['content'], 'group_id' => $item_id, 'error_type' => 'wp_error' ) );
 
 	} else {
 
@@ -957,8 +992,11 @@ function bp_legacy_theme_post_update() {
 		$activity_id = apply_filters( 'bp_activity_custom_update', false, $object, $item_id, $_POST['content'] );
 	}
 
-	if ( empty( $activity_id ) )
+	if ( false === $activity_id ) {
 		exit( '-1<div id="message" class="error bp-ajax-message"><p>' . __( 'There was a problem posting your update. Please try again.', 'buddypress' ) . '</p></div>' );
+	} elseif ( is_wp_error( $activity_id ) && $activity_id->get_error_code() ) {
+		exit( '-1<div id="message" class="error bp-ajax-message"><p>' . $activity_id->get_error_message() . '</p></div>' );
+	}
 
 	$last_recorded = ! empty( $_POST['since'] ) ? date( 'Y-m-d H:i:s', intval( $_POST['since'] ) ) : 0;
 	if ( $last_recorded ) {
@@ -977,7 +1015,7 @@ function bp_legacy_theme_post_update() {
 	}
 
 	if ( ! empty( $last_recorded ) ) {
-		remove_filter( 'bp_get_activity_css_class', 'bp_activity_newest_class', 10, 1 );
+		remove_filter( 'bp_get_activity_css_class', 'bp_activity_newest_class', 10 );
 	}
 
 	exit;
@@ -990,15 +1028,14 @@ function bp_legacy_theme_post_update() {
  *
  * @global BP_Activity_Template $activities_template
  *
- * @return string HTML
+ * @return string|null HTML
  */
 function bp_legacy_theme_new_activity_comment() {
 	global $activities_template;
 
 	$bp = buddypress();
 
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) ) {
+	if ( ! bp_is_post_request() ) {
 		return;
 	}
 
@@ -1019,19 +1056,21 @@ function bp_legacy_theme_new_activity_comment() {
 		exit( '-1<div id="message" class="error bp-ajax-message"><p>' . esc_html( $feedback ) . '</p></div>' );
 	}
 
+	$activity_id   = (int) $_POST['form_id'];
+	$activity_item = new BP_Activity_Activity( $activity_id );
+	if ( ! bp_activity_user_can_read( $activity_item ) ) {
+		exit( '-1<div id="message" class="error bp-ajax-message"><p>' . esc_html( $feedback ) . '</p></div>' );
+	}
+
 	$comment_id = bp_activity_new_comment( array(
-		'activity_id' => $_POST['form_id'],
+		'activity_id' => $activity_id,
 		'content'     => $_POST['content'],
 		'parent_id'   => $_POST['comment_id'],
+		'error_type'  => 'wp_error'
 	) );
 
-	if ( ! $comment_id ) {
-		if ( ! empty( $bp->activity->errors['new_comment'] ) && is_wp_error( $bp->activity->errors['new_comment'] ) ) {
-			$feedback = $bp->activity->errors['new_comment']->get_error_message();
-			unset( $bp->activity->errors['new_comment'] );
-		}
-
-		exit( '-1<div id="message" class="error bp-ajax-message"><p>' . esc_html( $feedback ) . '</p></div>' );
+	if ( is_wp_error( $comment_id ) ) {
+		exit( '-1<div id="message" class="error bp-ajax-message"><p>' . esc_html( $comment_id->get_error_message() ) . '</p></div>' );
 	}
 
 	// Load the new activity item into the $activities_template global.
@@ -1070,9 +1109,9 @@ function bp_legacy_theme_new_activity_comment() {
  * @return mixed String on error, void on success.
  */
 function bp_legacy_theme_delete_activity() {
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! bp_is_post_request() ) {
 		return;
+	}
 
 	// Check the nonce.
 	check_admin_referer( 'bp_activity_delete_link' );
@@ -1108,23 +1147,25 @@ function bp_legacy_theme_delete_activity() {
  * @return mixed String on error, void on success.
  */
 function bp_legacy_theme_delete_activity_comment() {
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! bp_is_post_request() ) {
 		return;
+	}
 
 	// Check the nonce.
 	check_admin_referer( 'bp_activity_delete_link' );
 
-	if ( ! is_user_logged_in() )
+	if ( empty( $_POST['id'] ) || ! is_numeric( $_POST['id'] ) ) {
 		exit( '-1' );
+	}
+
+	if ( ! is_user_logged_in() ) {
+		exit( '-1' );
+	}
 
 	$comment = new BP_Activity_Activity( $_POST['id'] );
 
 	// Check access.
 	if ( ! bp_current_user_can( 'bp_moderate' ) && $comment->user_id != bp_loggedin_user_id() )
-		exit( '-1' );
-
-	if ( empty( $_POST['id'] ) || ! is_numeric( $_POST['id'] ) )
 		exit( '-1' );
 
 	/** This action is documented in bp-activity/bp-activity-actions.php */
@@ -1148,9 +1189,9 @@ function bp_legacy_theme_delete_activity_comment() {
 function bp_legacy_theme_spam_activity() {
 	$bp = buddypress();
 
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! bp_is_post_request() ) {
 		return;
+	}
 
 	// Check that user is logged in, Activity Streams are enabled, and Akismet is present.
 	if ( ! is_user_logged_in() || ! bp_is_active( 'activity' ) || empty( $bp->activity->akismet ) )
@@ -1189,12 +1230,29 @@ function bp_legacy_theme_spam_activity() {
  *
  * @since 1.2.0
  *
- * @return string HTML
+ * @return string|null HTML
  */
 function bp_legacy_theme_mark_activity_favorite() {
 	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! bp_is_post_request() ) {
 		return;
+	}
+
+	if ( ! isset( $_POST['nonce'] ) ) {
+		return;
+	}
+
+	// Either the 'mark' or 'unmark' nonce is accepted, for backward compatibility.
+	$nonce = wp_unslash( $_POST['nonce'] );
+	if ( ! wp_verify_nonce( $nonce, 'mark_favorite' ) && ! wp_verify_nonce( $nonce, 'unmark_favorite' ) ) {
+		return;
+	}
+
+	$activity_id   = (int) $_POST['id'];
+	$activity_item = new BP_Activity_Activity( $activity_id );
+	if ( ! bp_activity_user_can_read( $activity_item, bp_loggedin_user_id() ) ) {
+		return;
+	}
 
 	if ( bp_activity_add_user_favorite( $_POST['id'] ) )
 		_e( 'Remove Favorite', 'buddypress' );
@@ -1209,12 +1267,22 @@ function bp_legacy_theme_mark_activity_favorite() {
  *
  * @since 1.2.0
  *
- * @return string HTML
+ * @return string|null HTML
  */
 function bp_legacy_theme_unmark_activity_favorite() {
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! bp_is_post_request() ) {
 		return;
+	}
+
+	if ( ! isset( $_POST['nonce'] ) ) {
+		return;
+	}
+
+	// Either the 'mark' or 'unmark' nonce is accepted, for backward compatibility.
+	$nonce = wp_unslash( $_POST['nonce'] );
+	if ( ! wp_verify_nonce( $nonce, 'mark_favorite' ) && ! wp_verify_nonce( $nonce, 'unmark_favorite' ) ) {
+		return;
+	}
 
 	if ( bp_activity_remove_user_favorite( $_POST['id'] ) )
 		_e( 'Favorite', 'buddypress' );
@@ -1230,12 +1298,12 @@ function bp_legacy_theme_unmark_activity_favorite() {
  *
  * @since 1.5.0
  *
- * @return string HTML
+ * @return string|null HTML
  */
 function bp_legacy_theme_get_single_activity_content() {
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! bp_is_post_request() ) {
 		return;
+	}
 
 	$activity_array = bp_activity_get_specific( array(
 		'activity_ids'     => $_POST['activity_id'],
@@ -1260,7 +1328,7 @@ function bp_legacy_theme_get_single_activity_content() {
 	remove_filter( 'bp_get_activity_content_body', 'bp_activity_truncate_entry', 5 );
 
 	/** This filter is documented in bp-activity/bp-activity-template.php */
-	$content = apply_filters( 'bp_get_activity_content_body', $activity->content );
+	$content = apply_filters_ref_array( 'bp_get_activity_content_body', array( $activity->content, &$activity ) );
 
 	exit( $content );
 }
@@ -1273,9 +1341,9 @@ function bp_legacy_theme_get_single_activity_content() {
  * @todo Audit return types
  */
 function bp_legacy_theme_ajax_invite_user() {
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! bp_is_post_request() ) {
 		return;
+	}
 
 	check_ajax_referer( 'groups_invite_uninvite_user' );
 
@@ -1285,18 +1353,19 @@ function bp_legacy_theme_ajax_invite_user() {
 	if ( ! bp_groups_user_can_send_invites( $_POST['group_id'] ) )
 		return;
 
-	if ( ! friends_check_friendship( bp_loggedin_user_id(), $_POST['friend_id'] ) )
-		return;
-
 	$group_id = (int) $_POST['group_id'];
 	$friend_id = (int) $_POST['friend_id'];
 
 	if ( 'invite' == $_POST['friend_action'] ) {
+		if ( ! friends_check_friendship( bp_loggedin_user_id(), $_POST['friend_id'] ) ) {
+			return;
+		}
+
 		$group = groups_get_group( $group_id );
 
 		// Users who have previously requested membership do not need
 		// another invitation created for them.
-		if ( BP_Groups_Member::check_for_membership_request( $friend_id, $group_id ) ) {
+		if ( groups_check_for_membership_request( $friend_id, $group_id ) ) {
 			$user_status = 'is_pending';
 
 		// Create the user invitation.
@@ -1353,16 +1422,20 @@ function bp_legacy_theme_ajax_invite_user() {
  *
  * @since 1.2.0
  *
- * @return string HTML
+ * @return string|null HTML
  */
 function bp_legacy_theme_ajax_addremove_friend() {
-
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! bp_is_post_request() ) {
 		return;
+	}
 
 	// Cast fid as an integer.
 	$friend_id = (int) $_POST['fid'];
+
+	$user = get_user_by( 'id', $friend_id );
+	if ( ! $user ) {
+		die( __( 'No member found by that ID.', 'buddypress' ) );
+	}
 
 	// Trying to cancel friendship.
 	if ( 'is_friend' == BP_Friends_Friendship::check_is_friend( bp_loggedin_user_id(), $friend_id ) ) {
@@ -1371,7 +1444,7 @@ function bp_legacy_theme_ajax_addremove_friend() {
 		if ( ! friends_remove_friend( bp_loggedin_user_id(), $friend_id ) ) {
 			echo __( 'Friendship could not be canceled.', 'buddypress' );
 		} else {
-			echo '<a id="friend-' . esc_attr( $friend_id ) . '" class="add" rel="add" title="' . __( 'Add Friend', 'buddypress' ) . '" href="' . wp_nonce_url( bp_loggedin_user_domain() . bp_get_friends_slug() . '/add-friend/' . $friend_id, 'friends_add_friend' ) . '">' . __( 'Add Friend', 'buddypress' ) . '</a>';
+			echo '<a id="friend-' . esc_attr( $friend_id ) . '" class="friendship-button not_friends add" rel="add" href="' . wp_nonce_url( bp_loggedin_user_domain() . bp_get_friends_slug() . '/add-friend/' . $friend_id, 'friends_add_friend' ) . '">' . __( 'Add Friend', 'buddypress' ) . '</a>';
 		}
 
 	// Trying to request friendship.
@@ -1381,7 +1454,7 @@ function bp_legacy_theme_ajax_addremove_friend() {
 		if ( ! friends_add_friend( bp_loggedin_user_id(), $friend_id ) ) {
 			echo __(' Friendship could not be requested.', 'buddypress' );
 		} else {
-			echo '<a id="friend-' . esc_attr( $friend_id ) . '" class="remove" rel="remove" title="' . __( 'Cancel Friendship Request', 'buddypress' ) . '" href="' . wp_nonce_url( bp_loggedin_user_domain() . bp_get_friends_slug() . '/requests/cancel/' . $friend_id . '/', 'friends_withdraw_friendship' ) . '" class="requested">' . __( 'Cancel Friendship Request', 'buddypress' ) . '</a>';
+			echo '<a id="friend-' . esc_attr( $friend_id ) . '" class="remove friendship-button pending_friend requested" rel="remove" href="' . wp_nonce_url( bp_loggedin_user_domain() . bp_get_friends_slug() . '/requests/cancel/' . $friend_id . '/', 'friends_withdraw_friendship' ) . '" class="requested">' . __( 'Cancel Friendship Request', 'buddypress' ) . '</a>';
 		}
 
 	// Trying to cancel pending request.
@@ -1389,7 +1462,7 @@ function bp_legacy_theme_ajax_addremove_friend() {
 		check_ajax_referer( 'friends_withdraw_friendship' );
 
 		if ( friends_withdraw_friendship( bp_loggedin_user_id(), $friend_id ) ) {
-			echo '<a id="friend-' . esc_attr( $friend_id ) . '" class="add" rel="add" title="' . __( 'Add Friend', 'buddypress' ) . '" href="' . wp_nonce_url( bp_loggedin_user_domain() . bp_get_friends_slug() . '/add-friend/' . $friend_id, 'friends_add_friend' ) . '">' . __( 'Add Friend', 'buddypress' ) . '</a>';
+			echo '<a id="friend-' . esc_attr( $friend_id ) . '" class="friendship-button not_friends add" rel="add" href="' . wp_nonce_url( bp_loggedin_user_domain() . bp_get_friends_slug() . '/add-friend/' . $friend_id, 'friends_add_friend' ) . '">' . __( 'Add Friend', 'buddypress' ) . '</a>';
 		} else {
 			echo __("Friendship request could not be cancelled.", 'buddypress');
 		}
@@ -1410,9 +1483,9 @@ function bp_legacy_theme_ajax_addremove_friend() {
  * @return mixed String on error, void on success.
  */
 function bp_legacy_theme_ajax_accept_friendship() {
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! bp_is_post_request() ) {
 		return;
+	}
 
 	check_admin_referer( 'friends_accept_friendship' );
 
@@ -1430,9 +1503,9 @@ function bp_legacy_theme_ajax_accept_friendship() {
  * @return mixed String on error, void on success.
  */
 function bp_legacy_theme_ajax_reject_friendship() {
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! bp_is_post_request() ) {
 		return;
+	}
 
 	check_admin_referer( 'friends_reject_friendship' );
 
@@ -1447,12 +1520,12 @@ function bp_legacy_theme_ajax_reject_friendship() {
  *
  * @since 1.2.0
  *
- * @return string HTML
+ * @return string|null HTML
  */
 function bp_legacy_theme_ajax_joinleave_group() {
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! bp_is_post_request() ) {
 		return;
+	}
 
 	// Cast gid as integer.
 	$group_id = (int) $_POST['gid'];
@@ -1460,54 +1533,70 @@ function bp_legacy_theme_ajax_joinleave_group() {
 	if ( groups_is_user_banned( bp_loggedin_user_id(), $group_id ) )
 		return;
 
-	if ( ! $group = groups_get_group( array( 'group_id' => $group_id ) ) )
+	if ( ! $group = groups_get_group( $group_id ) )
 		return;
 
-	if ( ! groups_is_user_member( bp_loggedin_user_id(), $group->id ) ) {
-		if ( 'public' == $group->status ) {
+	// Client doesn't distinguish between different request types, so we infer from user status.
+	if ( groups_is_user_member( bp_loggedin_user_id(), $group->id ) ) {
+		$request_type = 'leave_group';
+	} elseif ( groups_check_user_has_invite( bp_loggedin_user_id(), $group->id ) ) {
+		$request_type = 'accept_invite';
+	} elseif ( 'private' === $group->status ) {
+		$request_type = 'request_membership';
+	} else {
+		$request_type = 'join_group';
+	}
+
+	switch ( $request_type ) {
+		case 'join_group' :
+			if ( ! bp_current_user_can( 'groups_join_group', array( 'group_id' => $group->id ) ) ) {
+				esc_html_e( 'Error joining group', 'buddypress' );
+			}
+
 			check_ajax_referer( 'groups_join_group' );
 
 			if ( ! groups_join_group( $group->id ) ) {
 				_e( 'Error joining group', 'buddypress' );
 			} else {
-				echo '<a id="group-' . esc_attr( $group->id ) . '" class="leave-group" rel="leave" title="' . __( 'Leave Group', 'buddypress' ) . '" href="' . wp_nonce_url( bp_get_group_permalink( $group ) . 'leave-group', 'groups_leave_group' ) . '">' . __( 'Leave Group', 'buddypress' ) . '</a>';
+				echo '<a id="group-' . esc_attr( $group->id ) . '" class="group-button leave-group" rel="leave" href="' . wp_nonce_url( bp_get_group_permalink( $group ) . 'leave-group', 'groups_leave_group' ) . '">' . __( 'Leave Group', 'buddypress' ) . '</a>';
+			}
+		break;
+
+		case 'accept_invite' :
+			if ( ! bp_current_user_can( 'groups_request_membership', array( 'group_id' => $group->id ) ) ) {
+				esc_html_e( 'Error accepting invitation', 'buddypress' );
 			}
 
-		} elseif ( 'private' == $group->status ) {
+			check_ajax_referer( 'groups_accept_invite' );
 
-			// If the user has already been invited, then this is
-			// an Accept Invitation button.
-			if ( groups_check_user_has_invite( bp_loggedin_user_id(), $group->id ) ) {
-				check_ajax_referer( 'groups_accept_invite' );
-
-				if ( ! groups_accept_invite( bp_loggedin_user_id(), $group->id ) ) {
-					_e( 'Error requesting membership', 'buddypress' );
-				} else {
-					echo '<a id="group-' . esc_attr( $group->id ) . '" class="leave-group" rel="leave" title="' . __( 'Leave Group', 'buddypress' ) . '" href="' . wp_nonce_url( bp_get_group_permalink( $group ) . 'leave-group', 'groups_leave_group' ) . '">' . __( 'Leave Group', 'buddypress' ) . '</a>';
-				}
-
-			// Otherwise, it's a Request Membership button.
+			if ( ! groups_accept_invite( bp_loggedin_user_id(), $group->id ) ) {
+				_e( 'Error requesting membership', 'buddypress' );
 			} else {
-				check_ajax_referer( 'groups_request_membership' );
-
-				if ( ! groups_send_membership_request( bp_loggedin_user_id(), $group->id ) ) {
-					_e( 'Error requesting membership', 'buddypress' );
-				} else {
-					echo '<a id="group-' . esc_attr( $group->id ) . '" class="group-button disabled pending membership-requested" rel="membership-requested" title="' . __( 'Request Sent', 'buddypress' ) . '" href="' . bp_get_group_permalink( $group ) . '">' . __( 'Request Sent', 'buddypress' ) . '</a>';
-				}
+				echo '<a id="group-' . esc_attr( $group->id ) . '" class="group-button leave-group" rel="leave" href="' . wp_nonce_url( bp_get_group_permalink( $group ) . 'leave-group', 'groups_leave_group' ) . '">' . __( 'Leave Group', 'buddypress' ) . '</a>';
 			}
-		}
+		break;
 
-	} else {
-		check_ajax_referer( 'groups_leave_group' );
+		case 'request_membership' :
+			check_ajax_referer( 'groups_request_membership' );
 
-		if ( ! groups_leave_group( $group->id ) ) {
-			_e( 'Error leaving group', 'buddypress' );
-		} elseif ( 'public' == $group->status ) {
-			echo '<a id="group-' . esc_attr( $group->id ) . '" class="join-group" rel="join" title="' . __( 'Join Group', 'buddypress' ) . '" href="' . wp_nonce_url( bp_get_group_permalink( $group ) . 'join', 'groups_join_group' ) . '">' . __( 'Join Group', 'buddypress' ) . '</a>';
-		} elseif ( 'private' == $group->status ) {
-			echo '<a id="group-' . esc_attr( $group->id ) . '" class="request-membership" rel="join" title="' . __( 'Request Membership', 'buddypress' ) . '" href="' . wp_nonce_url( bp_get_group_permalink( $group ) . 'request-membership', 'groups_request_membership' ) . '">' . __( 'Request Membership', 'buddypress' ) . '</a>';
-		}
+			if ( ! groups_send_membership_request( bp_loggedin_user_id(), $group->id ) ) {
+				_e( 'Error requesting membership', 'buddypress' );
+			} else {
+				echo '<a id="group-' . esc_attr( $group->id ) . '" class="group-button disabled pending membership-requested" rel="membership-requested" href="' . bp_get_group_permalink( $group ) . '">' . __( 'Request Sent', 'buddypress' ) . '</a>';
+			}
+		break;
+
+		case 'leave_group' :
+			check_ajax_referer( 'groups_leave_group' );
+
+			if ( ! groups_leave_group( $group->id ) ) {
+				_e( 'Error leaving group', 'buddypress' );
+			} elseif ( 'public' === $group->status ) {
+				echo '<a id="group-' . esc_attr( $group->id ) . '" class="group-button join-group" rel="join" href="' . wp_nonce_url( bp_get_group_permalink( $group ) . 'join', 'groups_join_group' ) . '">' . __( 'Join Group', 'buddypress' ) . '</a>';
+			} else {
+				echo '<a id="group-' . esc_attr( $group->id ) . '" class="group-button request-membership" rel="join" href="' . wp_nonce_url( bp_get_group_permalink( $group ) . 'request-membership', 'groups_request_membership' ) . '">' . __( 'Request Membership', 'buddypress' ) . '</a>';
+			}
+		break;
 	}
 
 	exit;
@@ -1521,16 +1610,22 @@ function bp_legacy_theme_ajax_joinleave_group() {
  * @return mixed String on error, void on success.
  */
 function bp_legacy_theme_ajax_close_notice() {
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! bp_is_post_request() ) {
 		return;
+	}
 
-	if ( ! isset( $_POST['notice_id'] ) ) {
+	$nonce_check = isset( $_POST['nonce'] ) && wp_verify_nonce( wp_unslash( $_POST['nonce'] ), 'bp_messages_close_notice' );
+
+	if ( ! $nonce_check || ! isset( $_POST['notice_id'] ) ) {
 		echo "-1<div id='message' class='error'><p>" . __( 'There was a problem closing the notice.', 'buddypress' ) . '</p></div>';
 
 	} else {
-		$user_id      = get_current_user_id();
-		$notice_ids   = bp_get_user_meta( $user_id, 'closed_notices', true );
+		$user_id    = get_current_user_id();
+		$notice_ids = bp_get_user_meta( $user_id, 'closed_notices', true );
+		if ( ! is_array( $notice_ids ) ) {
+			$notice_ids = array();
+		}
+
 		$notice_ids[] = (int) $_POST['notice_id'];
 
 		bp_update_user_meta( $user_id, 'closed_notices', $notice_ids );
@@ -1544,23 +1639,31 @@ function bp_legacy_theme_ajax_close_notice() {
  *
  * @since 1.2.0
  *
- * @return string HTML
+ * @return string|null HTML
  */
 function bp_legacy_theme_ajax_messages_send_reply() {
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+	if ( ! bp_is_post_request() ) {
 		return;
+	}
 
 	check_ajax_referer( 'messages_send_message' );
 
-	$result = messages_new_message( array( 'thread_id' => (int) $_REQUEST['thread_id'], 'content' => $_REQUEST['content'] ) );
+	$thread_id = (int) $_POST['thread_id'];
+
+	// Cannot respond to a thread you're not already a recipient on.
+	if ( ! bp_current_user_can( 'bp_moderate' ) && ( ! messages_is_valid_thread( $thread_id ) || ! messages_check_thread_access( $thread_id ) ) ) {
+		echo "-1<div id='message' class='error'><p>" . __( 'There was a problem sending that reply. Please try again.', 'buddypress' ) . '</p></div>';
+		die;
+	}
+
+	$result = messages_new_message( array( 'thread_id' => $thread_id, 'content' => $_REQUEST['content'] ) );
 
 	if ( !empty( $result ) ) {
 
 		// Pretend we're in the message loop.
 		global $thread_template;
 
-		bp_thread_has_messages( array( 'thread_id' => (int) $_REQUEST['thread_id'] ) );
+		bp_thread_has_messages( array( 'thread_id' => $thread_id ) );
 
 		// Set the current message to the 2nd last.
 		$thread_template->message = end( $thread_template->thread->messages );
@@ -1577,10 +1680,10 @@ function bp_legacy_theme_ajax_messages_send_reply() {
 		bp_messages_embed();
 
 		// Add new-message css class.
-		add_filter( 'bp_get_the_thread_message_css_class', create_function( '$retval', '
-			$retval[] = "new-message";
+		add_filter( 'bp_get_the_thread_message_css_class', function( $retval ) {
+			$retval[] = 'new-message';
 			return $retval;
-		' ) );
+		} );
 
 		// Output single message template part.
 		bp_get_template_part( 'members/single/messages/message' );
@@ -1598,78 +1701,43 @@ function bp_legacy_theme_ajax_messages_send_reply() {
 /**
  * Mark a private message as unread in your inbox via a POST request.
  *
+ * No longer used.
+ *
  * @since 1.2.0
+ * @deprecated 2.2.0
  *
  * @return mixed String on error, void on success.
  */
 function bp_legacy_theme_ajax_message_markunread() {
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
-		return;
-
-	if ( ! isset($_POST['thread_ids']) ) {
-		echo "-1<div id='message' class='error'><p>" . __( 'There was a problem marking messages as unread.', 'buddypress' ) . '</p></div>';
-
-	} else {
-		$thread_ids = explode( ',', $_POST['thread_ids'] );
-
-		for ( $i = 0, $count = count( $thread_ids ); $i < $count; ++$i ) {
-			BP_Messages_Thread::mark_as_unread( (int) $thread_ids[$i] );
-		}
-	}
-
-	exit;
+	die( '-1' );
 }
 
 /**
  * Mark a private message as read in your inbox via a POST request.
  *
+ * No longer used.
+ *
  * @since 1.2.0
+ * @deprecated 2.2.0
  *
  * @return mixed String on error, void on success.
  */
 function bp_legacy_theme_ajax_message_markread() {
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
-		return;
-
-	if ( ! isset($_POST['thread_ids']) ) {
-		echo "-1<div id='message' class='error'><p>" . __('There was a problem marking messages as read.', 'buddypress' ) . '</p></div>';
-
-	} else {
-		$thread_ids = explode( ',', $_POST['thread_ids'] );
-
-		for ( $i = 0, $count = count( $thread_ids ); $i < $count; ++$i ) {
-			BP_Messages_Thread::mark_as_read( (int) $thread_ids[$i] );
-		}
-	}
-
-	exit;
+	die( '-1' );
 }
 
 /**
  * Delete a private message(s) in your inbox via a POST request.
  *
- * @since 1.2.0
+ * No longer used.
  *
- * @return string HTML
+ * @since 1.2.0
+ * @deprecated 2.2.0
+ *
+ * @return string|null HTML
  */
 function bp_legacy_theme_ajax_messages_delete() {
-	// Bail if not a POST action.
-	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
-		return;
-
-	if ( ! isset($_POST['thread_ids']) ) {
-		echo "-1<div id='message' class='error'><p>" . __( 'There was a problem deleting messages.', 'buddypress' ) . '</p></div>';
-
-	} else {
-		$thread_ids = wp_parse_id_list( $_POST['thread_ids'] );
-		messages_delete_thread( $thread_ids );
-
-		_e( 'Messages deleted.', 'buddypress' );
-	}
-
-	exit;
+	die( '-1' );
 }
 
 /**
@@ -1759,7 +1827,7 @@ function bp_legacy_theme_ajax_messages_star_handler() {
  * @since  2.4.0
  *
  * @param  array $params the current component's feature parameters.
- * @return array          an array to inform about the css handle to attach the css rules to
+ * @return null|string An array to inform about the css handle to attach the css rules to
  */
 function bp_legacy_theme_cover_image( $params = array() ) {
 	if ( empty( $params ) ) {
@@ -1773,7 +1841,7 @@ function bp_legacy_theme_cover_image( $params = array() ) {
 	$top_offset  = bp_core_avatar_full_height() - 10;
 	$left_offset = bp_core_avatar_full_width() + 20;
 
-	$cover_image = isset( $params['cover_image'] ) ? 'background-image: url(' . $params['cover_image'] . ');' : '';
+	$cover_image = ( !empty( $params['cover_image'] ) ) ? 'background-image: url(' . $params['cover_image'] . ');' : '';
 
 	$hide_avatar_style = '';
 
@@ -1794,7 +1862,7 @@ function bp_legacy_theme_cover_image( $params = array() ) {
 				}
 
 				#buddypress div#item-header #item-header-cover-image #item-header-content {
-					margin-left:auto;
+					margin-left: auto;
 				}
 			';
 		}
@@ -1808,8 +1876,8 @@ function bp_legacy_theme_cover_image( $params = array() ) {
 		}
 
 		#buddypress #create-group-form #header-cover-image {
-			position: relative;
 			margin: 1em 0;
+			position: relative;
 		}
 
 		.bp-user #buddypress #item-header {
@@ -1820,7 +1888,7 @@ function bp_legacy_theme_cover_image( $params = array() ) {
 			margin-top: '. $avatar_offset .'px;
 			float: left;
 			overflow: visible;
-			width:auto;
+			width: auto;
 		}
 
 		#buddypress div#item-header #item-header-cover-image #item-header-content {
@@ -1828,40 +1896,40 @@ function bp_legacy_theme_cover_image( $params = array() ) {
 			float: left;
 			margin-left: ' . $left_offset . 'px;
 			margin-top: -' . $top_offset . 'px;
-			width:auto;
+			width: auto;
 		}
 
 		body.single-item.groups #buddypress div#item-header #item-header-cover-image #item-header-content,
 		body.single-item.groups #buddypress div#item-header #item-header-cover-image #item-actions {
+			clear: none;
 			margin-top: ' . $params["height"] . 'px;
 			margin-left: 0;
-			clear: none;
 			max-width: 50%;
 		}
 
 		body.single-item.groups #buddypress div#item-header #item-header-cover-image #item-actions {
-			padding-top: 20px;
 			max-width: 20%;
+			padding-top: 20px;
 		}
 
 		' . $hide_avatar_style . '
 
-		#buddypress div#item-header-cover-image h2 a,
-		#buddypress div#item-header-cover-image h2 {
-			color: #FFF;
+		#buddypress div#item-header-cover-image .user-nicename a,
+		#buddypress div#item-header-cover-image .user-nicename {
+			font-size: 200%;
+			color: #fff;
+			margin: 0 0 0.6em;
 			text-rendering: optimizelegibility;
-			text-shadow: 0px 0px 3px rgba( 0, 0, 0, 0.8 );
-			margin: 0 0 .6em;
-			font-size:200%;
+			text-shadow: 0 0 3px rgba( 0, 0, 0, 0.8 );
 		}
 
 		#buddypress #item-header-cover-image #item-header-avatar img.avatar {
-			border: solid 2px #FFF;
 			background: rgba( 255, 255, 255, 0.8 );
+			border: solid 2px #fff;
 		}
 
 		#buddypress #item-header-cover-image #item-header-avatar a {
-			border: none;
+			border: 0;
 			text-decoration: none;
 		}
 
@@ -1880,22 +1948,22 @@ function bp_legacy_theme_cover_image( $params = array() ) {
 			#buddypress #item-header-cover-image #item-header-avatar,
 			.bp-user #buddypress #item-header #item-header-cover-image #item-header-avatar,
 			#buddypress div#item-header #item-header-cover-image #item-header-content {
-				width:100%;
-				text-align:center;
+				width: 100%;
+				text-align: center;
 			}
 
 			#buddypress #item-header-cover-image #item-header-avatar a {
-				display:inline-block;
+				display: inline-block;
 			}
 
 			#buddypress #item-header-cover-image #item-header-avatar img {
-				margin:0;
+				margin: 0;
 			}
 
 			#buddypress div#item-header #item-header-cover-image #item-header-content,
 			body.single-item.groups #buddypress div#item-header #item-header-cover-image #item-header-content,
 			body.single-item.groups #buddypress div#item-header #item-header-cover-image #item-actions {
-				margin:0;
+				margin: 0;
 			}
 
 			body.single-item.groups #buddypress div#item-header #item-header-cover-image #item-header-content,
@@ -1907,17 +1975,17 @@ function bp_legacy_theme_cover_image( $params = array() ) {
 			#buddypress div#item-header-cover-image h2 {
 				color: inherit;
 				text-shadow: none;
-				margin:25px 0 0;
-				font-size:200%;
+				margin: 25px 0 0;
+				font-size: 200%;
 			}
 
 			#buddypress #item-header-cover-image #item-buttons div {
-				float:none;
-				display:inline-block;
+				float: none;
+				display: inline-block;
 			}
 
 			#buddypress #item-header-cover-image #item-buttons:before {
-				content:"";
+				content: "";
 			}
 
 			#buddypress #item-header-cover-image #item-buttons {
@@ -1925,4 +1993,21 @@ function bp_legacy_theme_cover_image( $params = array() ) {
 			}
 		}
 	';
+}
+
+/**
+ * Add a search box to a single group's manage members screen.
+ *
+ * @since 2.7.0
+ *
+ * @return string|null HTML for the search form.
+ */
+function bp_legacy_theme_group_manage_members_add_search() {
+	if ( bp_is_action_variable( 'manage-members' ) ) :
+		?>
+		<div id="members-dir-search" class="dir-search no-ajax" role="search">
+			<?php bp_directory_members_search_form(); ?>
+		</div>
+		<?php
+	endif;
 }

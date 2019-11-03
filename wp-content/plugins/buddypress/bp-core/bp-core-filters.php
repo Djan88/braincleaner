@@ -59,7 +59,6 @@ add_filter( 'bp_email_set_content_html', 'stripslashes', 8 );
 add_filter( 'bp_email_set_content_plaintext', 'wp_strip_all_tags', 6 );
 add_filter( 'bp_email_set_subject', 'sanitize_text_field', 6 );
 
-
 /**
  * Template Compatibility.
  *
@@ -76,12 +75,13 @@ add_filter( 'bp_get_template_stack', 'bp_add_template_stack_locations' );
 // Turn comments off for BuddyPress pages.
 add_filter( 'comments_open', 'bp_comments_open', 10, 2 );
 
+// Prevent DB query for WP's main loop.
+add_filter( 'posts_pre_query', 'bp_core_filter_wp_query', 10, 2 );
+
 /**
  * Prevent specific pages (eg 'Activate') from showing on page listings.
  *
  * @since 1.5.0
- *
- * @uses bp_is_active() checks if a BuddyPress component is active.
  *
  * @param array $pages List of excluded page IDs, as passed to the
  *                     'wp_list_pages_excludes' filter.
@@ -101,9 +101,6 @@ function bp_core_exclude_pages( $pages = array() ) {
 	if ( !empty( $bp->pages->register ) )
 		$pages[] = $bp->pages->register->id;
 
-	if ( !empty( $bp->pages->forums ) && ( !bp_is_active( 'forums' ) || ( bp_is_active( 'forums' ) && bp_forums_has_directory() && !bp_forums_is_installed_correctly() ) ) )
-		$pages[] = $bp->pages->forums->id;
-
 	/**
 	 * Filters specific pages that shouldn't show up on page listings.
 	 *
@@ -119,9 +116,6 @@ add_filter( 'wp_list_pages_excludes', 'bp_core_exclude_pages' );
  * Prevent specific pages (eg 'Activate') from showing in the Pages meta box of the Menu Administration screen.
  *
  * @since 2.0.0
- *
- * @uses bp_is_root_blog() checks if current blog is root blog.
- * @uses buddypress() gets BuddyPress main instance
  *
  * @param object|null $object The post type object used in the meta box.
  * @return object|null The $object, with a query argument to remove register and activate pages id.
@@ -181,7 +175,7 @@ function bp_core_menu_highlight_parent_page( $retval, $page ) {
 	foreach ( (array) buddypress()->pages as $component => $bp_page ) {
 		// Handles the majority of components.
 		if ( bp_is_current_component( $component ) ) {
-	                $page_id = (int) $bp_page->id;
+			$page_id = (int) $bp_page->id;
 		}
 
 		// Stop if not on a user page.
@@ -287,7 +281,6 @@ add_filter( 'comments_array', 'bp_core_filter_comments', 10, 2 );
  *
  * @since 1.2.0
  *
- * @uses apply_filters() Filter 'bp_core_login_redirect' to modify where users
  *       are redirected to on login.
  *
  * @param string  $redirect_to     The URL to be redirected to, sanitized in wp-login.php.
@@ -315,7 +308,7 @@ function bp_core_login_redirect( $redirect_to, $redirect_to_raw, $user ) {
 	 *
 	 * @since 1.6.0
 	 *
-  * @param bool    $value           Whether or not to redirect.
+	 * @param bool    $value           Whether or not to redirect.
 	 * @param string  $redirect_to     Sanitized URL to be redirected to.
 	 * @param string  $redirect_to_raw Unsanitized URL to be redirected to.
 	 * @param WP_User $user            The WP_User object corresponding to a
@@ -353,17 +346,29 @@ add_filter( 'bp_login_redirect', 'bp_core_login_redirect', 10, 3 );
  *
  * @since 2.5.0
  *
- * @param string $retval Current email content.
- * @param string $prop   Email property to check against.
+ * @param string $retval    Current email content.
+ * @param string $prop      Email property to check against.
+ * @param string $transform Either 'raw' or 'replace-tokens'.
+ * @return string|null $retval Modified email content.
  */
-function bp_email_plaintext_entity_decode( $retval, $prop ) {
-	if ( 'content_plaintext' !== $prop ) {
-		return $retval;
-	}
+function bp_email_plaintext_entity_decode( $retval, $prop, $transform ) {
+	switch ( $prop ) {
+		case 'content_plaintext' :
+		case 'subject' :
+			// Only decode if 'replace-tokens' is the current type.
+			if ( 'replace-tokens' === $transform ) {
+				return html_entity_decode( $retval, ENT_QUOTES );
+			} else {
+				return $retval;
+			}
+			break;
 
-	return html_entity_decode( $retval, ENT_QUOTES );
+		default :
+			return $retval;
+			break;
+	}
 }
-add_filter( 'bp_email_get_property', 'bp_email_plaintext_entity_decode', 10, 2 );
+add_filter( 'bp_email_get_property', 'bp_email_plaintext_entity_decode', 10, 3 );
 
 /**
  * Replace the generated password in the welcome email with '[User Set]'.
@@ -459,7 +464,7 @@ function bp_core_activation_signup_blog_notification( $domain, $path, $title, $u
 			'domain'            => $domain,
 			'key_blog'          => $key,
 			'path'              => $path,
-			'user-site.url'     => esc_url( "http://{$domain}{$path}" ),
+			'user-site.url'     => esc_url( set_url_scheme( "http://{$domain}{$path}" ) ),
 			'title'             => $title,
 			'user.email'        => $user_email,
 		),
@@ -482,7 +487,7 @@ add_filter( 'wpmu_signup_blog_notification', 'bp_core_activation_signup_blog_not
  * @param string $user_email The user's email address.
  * @param string $key        The activation key created in wpmu_signup_user().
  * @param array  $meta       By default, an empty array.
- * @return bool|string       Returns false to stop original WPMU function from continuing.
+ * @return false|string Returns false to stop original WPMU function from continuing.
  */
 function bp_core_activation_signup_user_notification( $user, $user_email, $key, $meta ) {
 	if ( is_admin() ) {
@@ -541,9 +546,9 @@ add_filter( 'wpmu_signup_user_notification', 'bp_core_activation_signup_user_not
  * @see wp_title()
  * @global object $bp BuddyPress global settings.
  *
- * @param  string $title       Original page title.
- * @param  string $sep         How to separate the various items within the page title.
- * @param  string $seplocation Direction to display title.
+ * @param string $title       Original page title.
+ * @param string $sep         How to separate the various items within the page title.
+ * @param string $seplocation Direction to display title.
  * @return string              New page title.
  */
 function bp_modify_page_title( $title = '', $sep = '&raquo;', $seplocation = 'right' ) {
@@ -566,7 +571,7 @@ function bp_modify_page_title( $title = '', $sep = '&raquo;', $seplocation = 'ri
 	 * @link https://buddypress.trac.wordpress.org/ticket/6107
 	 * @see wp_title()
 	 */
-	$title_tag_compatibility = (bool) ( ! empty( $_wp_theme_features['title-tag'] ) || strstr( $title, $blogname ) );
+	$title_tag_compatibility = (bool) ( ! empty( $_wp_theme_features['title-tag'] ) || ( $blogname && strstr( $title, $blogname ) ) );
 
 	// Append the site title to title parts if theme supports title tag.
 	if ( true === $title_tag_compatibility ) {
@@ -591,12 +596,12 @@ function bp_modify_page_title( $title = '', $sep = '&raquo;', $seplocation = 'ri
 	/**
 	 * Filters the older 'wp_title' page title for BuddyPress pages.
 	 *
-	 * @since  1.5.0
+	 * @since 1.5.0
 	 *
-	 * @param  string $new_title   The BuddyPress page title.
-	 * @param  string $title       The original WordPress page title.
-	 * @param  string $sep         The title parts separator.
-	 * @param  string $seplocation Location of the separator (left or right).
+	 * @param string $new_title   The BuddyPress page title.
+	 * @param string $title       The original WordPress page title.
+	 * @param string $sep         The title parts separator.
+	 * @param string $seplocation Location of the separator (left or right).
 	 */
 	return apply_filters( 'bp_modify_page_title', $new_title, $title, $sep, $seplocation );
 }
@@ -644,10 +649,10 @@ function bp_modify_document_title_parts( $title = array() ) {
 	/**
 	 * Filters BuddyPress title parts that will be used into the document title.
 	 *
-	 * @since  2.4.3
+	 * @since 2.4.3
 	 *
-	 * @param  array $bp_title   The BuddyPress page title parts.
-	 * @param  array $title      The original WordPress title parts.
+	 * @param array $bp_title The BuddyPress page title parts.
+	 * @param array $title    The original WordPress title parts.
 	 */
 	return apply_filters( 'bp_modify_document_title_parts', $bp_title, $title );
 }
@@ -745,13 +750,13 @@ add_filter( 'wp_setup_nav_menu_item', 'bp_setup_nav_menu_item', 10, 1 );
 /**
  * Populate BuddyPress user nav items for the customizer.
  *
- * @since  2.3.3
+ * @since 2.3.3
  *
- * @param  array   $items  The array of menu items.
- * @param  string  $type   The requested type.
- * @param  string  $object The requested object name.
- * @param  integer $page   The page num being requested.
- * @return array           The paginated BuddyPress user nav items.
+ * @param array   $items  The array of menu items.
+ * @param string  $type   The requested type.
+ * @param string  $object The requested object name.
+ * @param integer $page   The page num being requested.
+ * @return array The paginated BuddyPress user nav items.
  */
 function bp_customizer_nav_menus_get_items( $items = array(), $type = '', $object = '', $page = 0 ) {
 	if ( 'bp_loggedin_nav' === $object ) {
@@ -782,9 +787,9 @@ add_filter( 'customize_nav_menu_available_items', 'bp_customizer_nav_menus_get_i
 /**
  * Set BuddyPress item navs for the customizer.
  *
- * @since  2.3.3
+ * @since 2.3.3
  *
- * @param  array $item_types An associative array structured for the customizer.
+ * @param array $item_types An associative array structured for the customizer.
  * @return array $item_types An associative array structured for the customizer.
  */
 function bp_customizer_nav_menus_set_item_types( $item_types = array() ) {
@@ -848,10 +853,10 @@ function bp_filter_metaid_column_name( $q ) {
  *
  * @since 2.1.0
  *
- * @param  string $edit_link The edit link.
- * @param  int    $post_id   Post ID.
- * @return bool|string Will be a boolean (false) if $post_id is 0. Will be a string (the unchanged edit link)
- *                     otherwise
+ * @param string $edit_link The edit link.
+ * @param int    $post_id   Post ID.
+ * @return false|string Will be a boolean (false) if $post_id is 0. Will be a string (the unchanged edit link)
+ *                      otherwise
  */
 function bp_core_filter_edit_post_link( $edit_link = '', $post_id = 0 ) {
 	if ( 0 === $post_id ) {
@@ -895,7 +900,8 @@ add_filter( 'bp_activity_maybe_load_mentions_scripts', 'bp_maybe_load_mentions_s
  * @access private
  *
  * @global array $wp_registered_widgets Current registered widgets.
- * @param  array $params                Current sidebar params.
+ *
+ * @param array $params Current sidebar params.
  * @return array
  */
 function _bp_core_inject_bp_widget_css_class( $params ) {
@@ -947,9 +953,9 @@ add_filter( 'dynamic_sidebar_params', '_bp_core_inject_bp_widget_css_class' );
  *
  * @since 2.5.0
  *
- * @param string $value Property value.
- * @param string $property_name
- * @param string $transform How the return value was transformed.
+ * @param string $value         Property value.
+ * @param string $property_name Email template property name.
+ * @param string $transform     How the return value was transformed.
  * @return string Updated value.
  */
 function bp_email_add_link_color_to_template( $value, $property_name, $transform ) {
@@ -958,7 +964,7 @@ function bp_email_add_link_color_to_template( $value, $property_name, $transform
 	}
 
 	$settings    = bp_email_get_appearance_settings();
-	$replacement = 'style="color: ' . esc_attr( $settings['highlight_color'] ) . ';';
+	$replacement = 'style="color: ' . esc_attr( $settings['link_text_color'] ) . ';';
 
 	// Find all links.
 	preg_match_all( '#<a[^>]+>#i', $value, $links, PREG_SET_ORDER );
@@ -986,15 +992,31 @@ add_filter( 'bp_email_get_property', 'bp_email_add_link_color_to_template', 6, 3
  *
  * @since 2.5.0
  *
- * @param array $headers
- * @param string $property Name of property. Unused.
- * @param string $transform Return value transformation. Unused.
- * @param BP_Email $email Email object reference.
+ * @param array    $headers   Array of email headers.
+ * @param string   $property  Name of property. Unused.
+ * @param string   $transform Return value transformation. Unused.
+ * @param BP_Email $email     Email object reference.
  * @return array
  */
 function bp_email_set_default_headers( $headers, $property, $transform, $email ) {
 	$headers['X-BuddyPress']      = bp_get_version();
 	$headers['X-BuddyPress-Type'] = $email->get( 'type' );
+
+	$tokens = $email->get_tokens();
+
+	// Add 'List-Unsubscribe' header if applicable.
+	if ( ! empty( $tokens['unsubscribe'] ) && $tokens['unsubscribe'] !== wp_login_url() ) {
+		$user = get_user_by( 'email', $tokens['recipient.email'] );
+
+		$link = bp_email_get_unsubscribe_link( array(
+			'user_id'           => $user->ID,
+			'notification_type' => $email->get( 'type' ),
+		) );
+
+		if ( ! empty( $link ) ) {
+			$headers['List-Unsubscribe'] = sprintf( '<%s>', esc_url_raw( $link ) );
+		}
+	}
 
 	return $headers;
 }
@@ -1005,15 +1027,16 @@ add_filter( 'bp_email_get_headers', 'bp_email_set_default_headers', 6, 4 );
  *
  * @since 2.5.0
  *
- * @param array $tokens Email tokens.
- * @param string $property_name Unused.
- * @param string $transform Unused.
- * @param BP_Email $email Email being sent.
+ * @param array    $tokens        Email tokens.
+ * @param string   $property_name Unused.
+ * @param string   $transform     Unused.
+ * @param BP_Email $email         Email being sent.
  * @return array
  */
 function bp_email_set_default_tokens( $tokens, $property_name, $transform, $email ) {
 	$tokens['site.admin-email'] = bp_get_option( 'admin_email' );
-	$tokens['site.url']         = home_url();
+	$tokens['site.url']         = bp_get_root_domain();
+	$tokens['email.subject']    = $email->get_subject();
 
 	// These options are escaped with esc_html on the way into the database in sanitize_option().
 	$tokens['site.description'] = wp_specialchars_decode( bp_get_option( 'blogdescription' ), ENT_QUOTES );
@@ -1024,8 +1047,6 @@ function bp_email_set_default_tokens( $tokens, $property_name, $transform, $emai
 	$tokens['recipient.email']     = '';
 	$tokens['recipient.name']      = '';
 	$tokens['recipient.username']  = '';
-	$tokens['unsubscribe']         = site_url( 'wp-login.php' );
-
 
 	// Who is the email going to?
 	$recipient = $email->get( 'to' );
@@ -1041,20 +1062,27 @@ function bp_email_set_default_tokens( $tokens, $property_name, $transform, $emai
 		}
 
 		if ( $user_obj ) {
-			// Unsubscribe link.
-			$tokens['unsubscribe'] = esc_url( sprintf(
-				'%s%s/notifications/',
-				bp_core_get_user_domain( $user_obj->ID ),
-				function_exists( 'bp_get_settings_slug' ) ? bp_get_settings_slug() : 'settings'
-			) );
 			$tokens['recipient.username'] = $user_obj->user_login;
+
+			if ( bp_is_active( 'settings' ) && empty( $tokens['unsubscribe'] ) ) {
+				$tokens['unsubscribe'] = esc_url( sprintf(
+					'%s%s/notifications/',
+					bp_core_get_user_domain( $user_obj->ID ),
+					bp_get_settings_slug()
+				) );
+			}
 		}
 	}
 
+	// Set default unsubscribe link if not passed.
+	if ( empty( $tokens['unsubscribe'] ) ) {
+		$tokens['unsubscribe'] = wp_login_url();
+	}
+
 	// Email preheader.
-	$post = $email->get_post_object();
-	if ( $post ) {
-		$tokens['email.preheader'] = sanitize_text_field( get_post_meta( $post->ID, 'bp_email_preheader', true ) );
+	$preheader = $email->get_preheader();
+	if ( $preheader ) {
+		$tokens['email.preheader'] = $preheader;
 	}
 
 	return $tokens;
@@ -1103,7 +1131,7 @@ function bp_core_render_email_template( $template ) {
 
 	// Make sure we add a <title> tag so WP Customizer picks it up.
 	$template = str_replace( '<head>', '<head><title>' . esc_html_x( 'BuddyPress Emails', 'screen heading', 'buddypress' ) . '</title>', $template );
-	echo str_replace( '{{{content}}}', nl2br( get_post()->post_content ), $template );
+	echo str_replace( '{{{content}}}', wpautop( get_post()->post_content ), $template );
 
 	/*
 	 * Link colours are applied directly in the email template before sending, so we

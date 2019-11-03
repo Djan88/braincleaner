@@ -9,12 +9,15 @@
 
 /**
  * Class used to handle Signups.
+ *
+ * @since 2.0.0
  */
 class BP_Signup {
 
 	/**
 	 * ID of the signup which the object relates to.
 	 *
+	 * @since 2.0.0
 	 * @var integer
 	 */
 	public $id;
@@ -22,6 +25,7 @@ class BP_Signup {
 	/**
 	 * The URL to the full size of the avatar for the user.
 	 *
+	 * @since 2.0.0
 	 * @var string
 	 */
 	public $avatar;
@@ -29,6 +33,7 @@ class BP_Signup {
 	/**
 	 * The username for the user.
 	 *
+	 * @since 2.0.0
 	 * @var string
 	 */
 	public $user_login;
@@ -36,6 +41,7 @@ class BP_Signup {
 	/**
 	 * The email for the user.
 	 *
+	 * @since 2.0.0
 	 * @var string
 	 */
 	public $user_email;
@@ -43,6 +49,7 @@ class BP_Signup {
 	/**
 	 * The full name of the user.
 	 *
+	 * @since 2.0.0
 	 * @var string
 	 */
 	public $user_name;
@@ -50,6 +57,7 @@ class BP_Signup {
 	/**
 	 * Metadata associated with the signup.
 	 *
+	 * @since 2.0.0
 	 * @var array
 	 */
 	public $meta;
@@ -57,6 +65,7 @@ class BP_Signup {
 	/**
 	 * The registered date for the user.
 	 *
+	 * @since 2.0.0
 	 * @var string
 	 */
 	public $registered;
@@ -64,6 +73,7 @@ class BP_Signup {
 	/**
 	 * The activation key for the user.
 	 *
+	 * @since 2.0.0
 	 * @var string
 	 */
 	public $activation_key;
@@ -112,9 +122,21 @@ class BP_Signup {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param array $args the argument to retrieve desired signups.
+	 * @param array $args {
+	 *     The argument to retrieve desired signups.
+	 *     @type int         $offset         Offset amount. Default 0.
+	 *     @type int         $number         How many to fetch. Default 1.
+	 *     @type bool|string $usersearch     Whether or not to search for a username. Default false.
+	 *     @type string      $orderby        Order By parameter. Default 'signup_id'.
+	 *     @type string      $order          Order direction. Default 'DESC'.
+	 *     @type bool        $include        Whether or not to include more specific query params.
+	 *     @type string      $activation_key Activation key to search for.
+	 *     @type string      $user_login     Specific user login to return.
+	 *     @type string      $fields         Which fields to return. Specify 'ids' to fetch a list of signups IDs.
+	 *                                       Default: 'all' (return BP_Signup objects).
+	 * }
 	 * @return array {
-	 *     @type array $signups Located signups.
+	 *     @type array $signups Located signups. (IDs only if `fields` is set to `ids`.)
 	 *     @type int   $total   Total number of signups matching params.
 	 * }
 	 */
@@ -131,6 +153,7 @@ class BP_Signup {
 				'include'        => false,
 				'activation_key' => '',
 				'user_login'     => '',
+				'fields'         => 'all',
 			),
 			'bp_core_signups_get_args'
 		);
@@ -193,46 +216,52 @@ class BP_Signup {
 			return array( 'signups' => false, 'total' => false );
 		}
 
-		// Used to calculate a diff between now & last
-		// time an activation link has been resent.
-		$now = current_time( 'timestamp', true );
+		// We only want the IDs.
+		if ( 'ids' === $r['fields'] ) {
+			$paged_signups = wp_list_pluck( $paged_signups, 'signup_id' );
+		} else {
 
-		foreach ( (array) $paged_signups as $key => $signup ) {
+			// Used to calculate a diff between now & last
+			// time an activation link has been resent.
+			$now = current_time( 'timestamp', true );
 
-			$signup->id   = intval( $signup->signup_id );
+			foreach ( (array) $paged_signups as $key => $signup ) {
 
-			$signup->meta = ! empty( $signup->meta ) ? maybe_unserialize( $signup->meta ) : false;
+				$signup->id   = intval( $signup->signup_id );
 
-			$signup->user_name = '';
-			if ( ! empty( $signup->meta['field_1'] ) ) {
-				$signup->user_name = wp_unslash( $signup->meta['field_1'] );
+				$signup->meta = ! empty( $signup->meta ) ? maybe_unserialize( $signup->meta ) : false;
+
+				$signup->user_name = '';
+				if ( ! empty( $signup->meta['field_1'] ) ) {
+					$signup->user_name = wp_unslash( $signup->meta['field_1'] );
+				}
+
+				// Sent date defaults to date of registration.
+				if ( ! empty( $signup->meta['sent_date'] ) ) {
+					$signup->date_sent = $signup->meta['sent_date'];
+				} else {
+					$signup->date_sent = $signup->registered;
+				}
+
+				$sent_at = mysql2date('U', $signup->date_sent );
+				$diff    = $now - $sent_at;
+
+				/**
+				 * Add a boolean in case the last time an activation link
+				 * has been sent happened less than a day ago.
+				 */
+				if ( $diff < 1 * DAY_IN_SECONDS ) {
+					$signup->recently_sent = true;
+				}
+
+				if ( ! empty( $signup->meta['count_sent'] ) ) {
+					$signup->count_sent = absint( $signup->meta['count_sent'] );
+				} else {
+					$signup->count_sent = 1;
+				}
+
+				$paged_signups[ $key ] = $signup;
 			}
-
-			// Sent date defaults to date of registration.
-			if ( ! empty( $signup->meta['sent_date'] ) ) {
-				$signup->date_sent = $signup->meta['sent_date'];
-			} else {
-				$signup->date_sent = $signup->registered;
-			}
-
-			$sent_at = mysql2date('U', $signup->date_sent );
-			$diff    = $now - $sent_at;
-
-			/**
-			 * Add a boolean in case the last time an activation link
-			 * has been sent happened less than a day ago.
-			 */
-			if ( $diff < 1 * DAY_IN_SECONDS ) {
-				$signup->recently_sent = true;
-			}
-
-			if ( ! empty( $signup->meta['count_sent'] ) ) {
-				$signup->count_sent = absint( $signup->meta['count_sent'] );
-			} else {
-				$signup->count_sent = 1;
-			}
-
-			$paged_signups[ $key ] = $signup;
 		}
 
 		unset( $sql['limit'] );
@@ -258,9 +287,18 @@ class BP_Signup {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param array $args Array of arguments for signup addition.
-	 * @return int|bool ID of newly created signup on success, false on
-	 *                  failure.
+	 * @param array $args {
+	 *     Array of arguments for signup addition.
+	 *     @type string     $domain         New user's domain.
+	 *     @type string     $path           New user's path.
+	 *     @type string     $title          New user's title.
+	 *     @type string     $user_login     New user's user_login.
+	 *     @type string     $user_email     New user's email address.
+	 *     @type int|string $registered     Time the user registered.
+	 *     @type string     $activation_key New user's activation key.
+	 *     @type string     $meta           New user's user meta.
+	 * }
+	 * @return int|bool ID of newly created signup on success, false on failure.
 	 */
 	public static function add( $args = array() ) {
 		global $wpdb;
@@ -358,8 +396,19 @@ class BP_Signup {
 					$current_field = $usermeta["field_{$field_id}"];
 					xprofile_set_field_data( $field_id, $user_id, $current_field );
 
-					// Save the visibility level.
-					$visibility_level = ! empty( $usermeta['field_' . $field_id . '_visibility'] ) ? $usermeta['field_' . $field_id . '_visibility'] : 'public';
+					/*
+					 * Save the visibility level.
+					 *
+					 * Use the field's default visibility if not present, and 'public' if a
+					 * default visibility is not defined.
+					 */
+					$key = "field_{$field_id}_visibility";
+					if ( isset( $usermeta[ $key ] ) ) {
+						$visibility_level = $usermeta[ $key ];
+					} else {
+						$vfield           = xprofile_get_field( $field_id );
+						$visibility_level = isset( $vfield->default_visibility ) ? $vfield->default_visibility : 'public';
+					}
 					xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
 				}
 			}
@@ -479,7 +528,11 @@ class BP_Signup {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param array $args Array of arguments for the signup update.
+	 * @param array $args {
+	 *     Array of arguments for the signup update.
+	 *     @type int $signup_id User signup ID.
+	 *     @type array $meta Meta to update.
+	 * }
 	 * @return int The signup id.
 	 */
 	public static function update( $args = array() ) {
@@ -736,7 +789,7 @@ class BP_Signup {
 		foreach ( $signups as $signup ) {
 			$user_id = username_exists( $signup->user_login );
 
-			if ( ! empty( $user_id ) && $signup->activation_key == wp_hash( $user_id ) ) {
+			if ( ! empty( $user_id ) && $signup->activation_key === bp_get_user_meta( $user_id, 'activation_key', true ) ) {
 
 				if ( 2 != self::check_user_status( $user_id ) ) {
 

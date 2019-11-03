@@ -70,6 +70,15 @@ class BP_Email {
 	protected $from = null;
 
 	/**
+	 * Email preheader.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @var string
+	 */
+	protected $preheader = null;
+
+	/**
 	 * Email headers.
 	 *
 	 * @since 2.5.0
@@ -172,10 +181,17 @@ class BP_Email {
 		}
 
 		// This was escaped with esc_html on the way into the database in sanitize_option().
-		$site_name = wp_specialchars_decode( bp_get_option( 'blogname' ), ENT_QUOTES );
+		$from_name    = wp_specialchars_decode( bp_get_option( 'blogname' ), ENT_QUOTES );
+		$from_address = "wordpress@$domain";
 
-		$this->set_from( "wordpress@$domain", $site_name );
-		$this->set_reply_to( bp_get_option( 'admin_email' ), $site_name );
+		/** This filter is documented in wp-includes/pluggable.php */
+		$from_address = apply_filters( 'wp_mail_from', $from_address );
+
+		/** This filter is documented in wp-includes/pluggable.php */
+		$from_name = apply_filters( 'wp_mail_from_name', $from_name );
+
+		$this->set_from( $from_address, $from_name );
+		$this->set_reply_to( bp_get_option( 'admin_email' ), $from_name );
 
 		/**
 		 * Fires inside __construct() method for BP_Email class.
@@ -239,7 +255,7 @@ class BP_Email {
 		switch ( $transform ) {
 			// Special-case to fill the $template with the email $content.
 			case 'add-content':
-				$retval = str_replace( '{{{content}}}', nl2br( $this->get_content( 'replace-tokens' ) ), $retval );
+				$retval = str_replace( '{{{content}}}', wpautop( $this->get_content( 'replace-tokens' ) ), $retval );
 				// Fall through.
 
 			case 'replace-tokens':
@@ -263,6 +279,40 @@ class BP_Email {
 		 * @param BP_Email $this Current instance of the email type class.
 		 */
 		return apply_filters( 'bp_email_get_property', $retval, $property_name, $transform, $this );
+	}
+
+	/**
+	 * Get email preheader.
+	 *
+	 * @since 4.0.0
+	 */
+	public function get_preheader() {
+		if ( null !== $this->preheader ) {
+			return $this->preheader;
+		}
+
+		$preheader = '';
+
+		$post = $this->get_post_object();
+		if ( $post ) {
+			$switched = false;
+
+			// Switch to the root blog, where the email post lives.
+			if ( ! bp_is_root_blog() ) {
+				switch_to_blog( bp_get_root_blog_id() );
+				$switched = true;
+			}
+
+			$preheader = sanitize_text_field( get_post_meta( $post->ID, 'bp_email_preheader', true ) );
+
+			if ( $switched ) {
+				restore_current_blog();
+			}
+		}
+
+		$this->preheader = $preheader;
+
+		return $this->preheader;
 	}
 
 	/**

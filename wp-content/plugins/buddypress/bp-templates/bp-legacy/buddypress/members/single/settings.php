@@ -4,11 +4,12 @@
  *
  * @package BuddyPress
  * @subpackage bp-legacy
+ * @version 3.0.0
  */
 
 ?>
 
-<div class="item-list-tabs no-ajax" id="subnav" role="navigation">
+<div class="item-list-tabs no-ajax" id="subnav" aria-label="<?php esc_attr_e( 'Member secondary navigation', 'buddypress' ); ?>" role="navigation">
 	<ul>
 		<?php if ( bp_core_can_edit_settings() ) : ?>
 
@@ -35,6 +36,9 @@ switch ( bp_current_action() ) :
 		break;
 	case 'profile'        :
 		bp_get_template_part( 'members/single/settings/profile'        );
+		break;
+	case 'data'           :
+		bp_get_template_part( 'members/single/settings/data'           );
 		break;
 	default:
 		bp_get_template_part( 'members/single/plugins'                 );

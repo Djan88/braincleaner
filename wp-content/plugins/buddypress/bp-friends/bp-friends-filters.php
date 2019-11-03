@@ -28,46 +28,50 @@ function bp_friends_filter_user_query_populate_extras( BP_User_Query $user_query
 	global $wpdb;
 
 	// Stop if user isn't logged in.
-	if ( ! is_user_logged_in() ) {
+	if ( ! $user_id = bp_loggedin_user_id() ) {
 		return;
 	}
 
-	$bp = buddypress();
+	$maybe_friend_ids = wp_parse_id_list( $user_ids_sql );
 
-	// Fetch whether or not the user is a friend of the current user.
-	$friend_status = $wpdb->get_results( $wpdb->prepare( "SELECT initiator_user_id, friend_user_id, is_confirmed FROM {$bp->friends->table_name} WHERE (initiator_user_id = %d AND friend_user_id IN ( {$user_ids_sql} ) ) OR (initiator_user_id IN ( {$user_ids_sql} ) AND friend_user_id = %d )", bp_loggedin_user_id(), bp_loggedin_user_id() ) );
+	// Bulk prepare the friendship cache.
+	BP_Friends_Friendship::update_bp_friends_cache( $user_id, $maybe_friend_ids );
 
-	// Keep track of members that have a friendship status with the current user.
-	$friend_user_ids = array();
-
-	// The "friend" is the user ID in the pair who is *not* the logged in user.
-	foreach ( (array) $friend_status as $fs ) {
-		$friend_id = bp_loggedin_user_id() == $fs->initiator_user_id ? $fs->friend_user_id : $fs->initiator_user_id;
-		$friend_user_ids[] = $friend_id;
-
-		if ( isset( $user_query->results[ $friend_id ] ) ) {
-			if ( 0 == $fs->is_confirmed ) {
-				$status = $fs->initiator_user_id == bp_loggedin_user_id() ? 'pending' : 'awaiting_response';
-			} else {
-				$status = 'is_friend';
-			}
-
-			$user_query->results[ $friend_id ]->is_friend         = $fs->is_confirmed;
-			$user_query->results[ $friend_id ]->friendship_status = $status;
-		}
-	}
-
-	// The rest are not friends with the current user, so set status accordingly.
-	$not_friends = array_diff( $user_query->user_ids, $friend_user_ids );
-	foreach ( (array) $not_friends as $nf ) {
-		if ( bp_loggedin_user_id() == $nf ) {
-			continue;
-		}
-
-		if ( isset( $user_query->results[ $nf ] ) ) {
-			$user_query->results[ $nf ]->friendship_status = 'not_friends';
+	foreach ( $maybe_friend_ids as $friend_id ) {
+		$status = BP_Friends_Friendship::check_is_friend( $user_id, $friend_id );
+		$user_query->results[ $friend_id ]->friendship_status = $status;
+		if ( 'is_friend' == $status ) {
+			$user_query->results[ $friend_id ]->is_friend = 1;
 		}
 	}
 
 }
 add_filter( 'bp_user_query_populate_extras', 'bp_friends_filter_user_query_populate_extras', 4, 2 );
+
+/**
+ * Registers Friends personal data exporter.
+ *
+ * @since 4.0.0
+ *
+ * @param array $exporters  An array of personal data exporters.
+ * @return array An array of personal data exporters.
+ */
+function bp_friends_register_personal_data_exporters( $exporters ) {
+	$exporters['buddypress-friends'] = array(
+		'exporter_friendly_name' => __( 'BuddyPress Friends', 'buddypress' ),
+		'callback'               => 'bp_friends_personal_data_exporter',
+	);
+
+	$exporters['buddypress-friends-pending-sent-requests'] = array(
+		'exporter_friendly_name' => __( 'BuddyPress Friend Requests (Sent)', 'buddypress' ),
+		'callback'               => 'bp_friends_pending_sent_requests_personal_data_exporter',
+	);
+
+	$exporters['buddypress-friends-pending-received-requests'] = array(
+		'exporter_friendly_name' => __( 'BuddyPress Friend Requests (Received)', 'buddypress' ),
+		'callback'               => 'bp_friends_pending_received_requests_personal_data_exporter',
+	);
+
+	return $exporters;
+}
+add_filter( 'wp_privacy_personal_data_exporters', 'bp_friends_register_personal_data_exporters' );

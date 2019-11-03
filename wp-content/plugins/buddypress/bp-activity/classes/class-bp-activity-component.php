@@ -32,6 +32,7 @@ class BP_Activity_Component extends BP_Component {
 			array(
 				'adminbar_myaccount_order' => 10,
 				'search_query_arg' => 'activity_search',
+				'features' => array( 'embeds' )
 			)
 		);
 	}
@@ -50,22 +51,29 @@ class BP_Activity_Component extends BP_Component {
 		// Files to include.
 		$includes = array(
 			'cssjs',
-			'actions',
-			'screens',
 			'filters',
-			'classes',
+			'adminbar',
 			'template',
 			'functions',
-			'notifications',
 			'cache'
 		);
+
+		// Notifications support.
+		if ( bp_is_active( 'notifications' ) ) {
+			$includes[] = 'notifications';
+		}
 
 		// Load Akismet support if Akismet is configured.
 		$akismet_key = bp_get_option( 'wordpress_api_key' );
 
-		/** This filter is documented in bp-activity/bp-activity-actions.php */
+		/** This filter is documented in bp-activity/bp-activity-akismet.php */
 		if ( defined( 'AKISMET_VERSION' ) && class_exists( 'Akismet' ) && ( ! empty( $akismet_key ) || defined( 'WPCOM_API_KEY' ) ) && apply_filters( 'bp_activity_use_akismet', bp_is_akismet_active() ) ) {
 			$includes[] = 'akismet';
+		}
+
+		// Embeds
+		if ( bp_is_active( $this->id, 'embeds' ) ) {
+			$includes[] = 'embeds';
 		}
 
 		if ( is_admin() ) {
@@ -73,6 +81,62 @@ class BP_Activity_Component extends BP_Component {
 		}
 
 		parent::includes( $includes );
+	}
+
+	/**
+	 * Late includes method.
+	 *
+	 * Only load up certain code when on specific pages.
+	 *
+	 * @since 3.0.0
+	 */
+	public function late_includes() {
+		// Bail if PHPUnit is running.
+		if ( defined( 'BP_TESTS_DIR' ) ) {
+			return;
+		}
+
+		/*
+		 * Load activity action and screen code if PHPUnit isn't running.
+		 *
+		 * For PHPUnit, we load these files in tests/phpunit/includes/install.php.
+		 */
+		if ( bp_is_current_component( 'activity' ) ) {
+			// Authenticated actions - Only fires when JS is disabled.
+			if ( is_user_logged_in() &&
+				in_array( bp_current_action(), array( 'delete', 'spam', 'post', 'reply', 'favorite', 'unfavorite' ), true )
+			) {
+				require $this->path . 'bp-activity/actions/' . bp_current_action() . '.php';
+			}
+
+			// RSS feeds.
+			if ( bp_is_current_action( 'feed' ) || bp_is_action_variable( 'feed', 0 ) ) {
+				require $this->path . 'bp-activity/actions/feeds.php';
+			}
+
+			// Screens - Directory.
+			if ( bp_is_activity_directory() ) {
+				require $this->path . 'bp-activity/screens/directory.php';
+			}
+
+			// Screens - User main nav.
+			if ( bp_is_user() ) {
+				require $this->path . 'bp-activity/screens/just-me.php';
+			}
+
+			// Screens - User secondary nav.
+			if ( bp_is_user() && in_array( bp_current_action(), array( 'friends', 'groups', 'favorites', 'mentions' ), true ) ) {
+				require $this->path . 'bp-activity/screens/' . bp_current_action() . '.php';
+			}
+
+			// Screens - Single permalink.
+			if ( bp_is_current_action( 'p' ) || is_numeric( bp_current_action() ) ) {
+				require $this->path . 'bp-activity/screens/permalink.php';
+			}
+
+			// Theme compatibility.
+			new BP_Activity_Theme_Compat();
+		}
 	}
 
 	/**
@@ -106,13 +170,17 @@ class BP_Activity_Component extends BP_Component {
 			'activity' => $bp->table_prefix . 'bp_activity_meta',
 		);
 
+		// Fetch the default directory title.
+		$default_directory_titles = bp_core_get_directory_page_default_titles();
+		$default_directory_title  = $default_directory_titles[$this->id];
+
 		// All globals for activity component.
 		// Note that global_tables is included in this array.
 		$args = array(
 			'slug'                  => BP_ACTIVITY_SLUG,
 			'root_slug'             => isset( $bp->pages->activity->slug ) ? $bp->pages->activity->slug : BP_ACTIVITY_SLUG,
 			'has_directory'         => true,
-			'directory_title'       => _x( 'Site-Wide Activity', 'component directory title', 'buddypress' ),
+			'directory_title'       => isset( $bp->pages->activity->title ) ? $bp->pages->activity->title : $default_directory_title,
 			'notification_callback' => 'bp_activity_format_notifications',
 			'search_string'         => __( 'Search Activity...', 'buddypress' ),
 			'global_tables'         => $global_tables,
@@ -128,10 +196,6 @@ class BP_Activity_Component extends BP_Component {
 	 * @since 1.5.0
 	 *
 	 * @see BP_Component::setup_nav() for a description of arguments.
-	 * @uses bp_is_active()
-	 * @uses is_user_logged_in()
-	 * @uses bp_get_friends_slug()
-	 * @uses bp_get_groups_slug()
 	 *
 	 * @param array $main_nav Optional. See BP_Component::setup_nav() for description.
 	 * @param array $sub_nav  Optional. See BP_Component::setup_nav() for description.
@@ -237,13 +301,6 @@ class BP_Activity_Component extends BP_Component {
 	 *
 	 * @see BP_Component::setup_nav() for a description of the $wp_admin_nav
 	 *      parameter array.
-	 * @uses is_user_logged_in()
-	 * @uses trailingslashit()
-	 * @uses bp_get_total_mention_count_for_user()
-	 * @uses bp_loggedin_user_id()
-	 * @uses bp_is_active()
-	 * @uses bp_get_friends_slug()
-	 * @uses bp_get_groups_slug()
 	 *
 	 * @param array $wp_admin_nav See BP_Component::setup_admin_bar() for a
 	 *                            description.
@@ -260,7 +317,11 @@ class BP_Activity_Component extends BP_Component {
 			if ( bp_activity_do_mentions() ) {
 				$count = bp_get_total_mention_count_for_user( bp_loggedin_user_id() );
 				if ( !empty( $count ) ) {
-					$title = sprintf( _x( 'Mentions <span class="count">%s</span>', 'Toolbar Mention logged in user', 'buddypress' ), bp_core_number_format( $count ) );
+					$title = sprintf(
+						/* translators: %s: Unread mention count for the current user */
+						_x( 'Mentions %s', 'Toolbar Mention logged in user', 'buddypress' ),
+						'<span class="count">' . bp_core_number_format( $count ) . '</span>'
+					);
 				} else {
 					$title = _x( 'Mentions', 'Toolbar Mention logged in user', 'buddypress' );
 				}
@@ -336,9 +397,6 @@ class BP_Activity_Component extends BP_Component {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @uses bp_is_activity_component()
-	 * @uses bp_is_my_profile()
-	 * @uses bp_core_fetch_avatar()
 	 */
 	public function setup_title() {
 
@@ -359,19 +417,6 @@ class BP_Activity_Component extends BP_Component {
 		}
 
 		parent::setup_title();
-	}
-
-	/**
-	 * Set up actions necessary for the component.
-	 *
-	 * @since 1.6.0
-	 */
-	public function setup_actions() {
-
-		// Spam prevention.
-		add_action( 'bp_include', 'bp_activity_setup_akismet' );
-
-		parent::setup_actions();
 	}
 
 	/**

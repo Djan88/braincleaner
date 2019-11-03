@@ -31,7 +31,7 @@ defined( 'ABSPATH' ) || exit;
  *     @type string $component Default: the id of your Friends component
  *                             (usually 'friends').
  * }
- * @return bool See {@link bp_activity_add()}.
+ * @return WP_Error|bool|int See {@link bp_activity_add()}.
  */
 function friends_record_activity( $args = '' ) {
 
@@ -409,3 +409,15 @@ function bp_friends_delete_activity_on_user_delete( $user_id = 0 ) {
 	) );
 }
 add_action( 'friends_remove_data', 'bp_friends_delete_activity_on_user_delete' );
+
+/**
+ * Remove friendship activity item when a friendship is deleted.
+ *
+ * @since 3.2.0
+ *
+ * @param int $friendship_id ID of the friendship.
+ */
+function bp_friends_delete_activity_on_friendship_delete( $friendship_id ) {
+	friends_delete_activity( array( 'item_id' => $friendship_id, 'type' => 'friendship_created', 'user_id' => 0 ) );
+}
+add_action( 'friends_friendship_deleted', 'bp_friends_delete_activity_on_friendship_delete' );

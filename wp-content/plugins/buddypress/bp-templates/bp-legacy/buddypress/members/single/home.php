@@ -4,6 +4,7 @@
  *
  * @package BuddyPress
  * @subpackage bp-legacy
+ * @version 3.0.0
  */
 
 ?>
@@ -35,7 +36,7 @@
 	</div><!-- #item-header -->
 
 	<div id="item-nav">
-		<div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
+		<div class="item-list-tabs no-ajax" id="object-nav" aria-label="<?php esc_attr_e( 'Member primary navigation', 'buddypress' ); ?>" role="navigation">
 			<ul>
 
 				<?php bp_get_displayed_user_nav(); ?>
@@ -64,7 +65,10 @@
 		 */
 		do_action( 'bp_before_member_body' );
 
-		if ( bp_is_user_activity() || !bp_current_component() ) :
+		if ( bp_is_user_front() ) :
+			bp_displayed_user_front_template_part();
+
+		elseif ( bp_is_user_activity() ) :
 			bp_get_template_part( 'members/single/activity' );
 
 		elseif ( bp_is_user_blogs() ) :
@@ -81,9 +85,6 @@
 
 		elseif ( bp_is_user_profile() ) :
 			bp_get_template_part( 'members/single/profile'  );
-
-		elseif ( bp_is_user_forums() ) :
-			bp_get_template_part( 'members/single/forums'   );
 
 		elseif ( bp_is_user_notifications() ) :
 			bp_get_template_part( 'members/single/notifications' );

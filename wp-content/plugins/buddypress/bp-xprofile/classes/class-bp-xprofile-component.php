@@ -15,6 +15,8 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Creates our XProfile component.
+ *
+ * @since 1.5.0
  */
 class BP_XProfile_Component extends BP_Component {
 
@@ -30,6 +32,7 @@ class BP_XProfile_Component extends BP_Component {
 	 * The acceptable visibility levels for xprofile fields.
 	 *
 	 * @see bp_xprofile_get_visibility_levels()
+	 *
 	 * @since 1.6.0
 	 * @var array
 	 */
@@ -56,29 +59,76 @@ class BP_XProfile_Component extends BP_Component {
 	/**
 	 * Include files.
 	 *
+	 * @since 1.5.0
+	 *
 	 * @param array $includes Array of files to include.
 	 */
 	public function includes( $includes = array() ) {
 		$includes = array(
 			'cssjs',
 			'cache',
-			'actions',
-			'activity',
-			'screens',
 			'caps',
-			'classes',
 			'filters',
-			'settings',
 			'template',
 			'functions',
-			'notifications',
 		);
 
+		// Conditional includes.
+		if ( bp_is_active( 'activity' ) ) {
+			$includes[] = 'activity';
+		}
+		if ( bp_is_active( 'notifications' ) ) {
+			$includes[] = 'notifications';
+		}
+		if ( bp_is_active( 'settings' ) ) {
+			$includes[] = 'settings';
+		}
 		if ( is_admin() ) {
 			$includes[] = 'admin';
 		}
 
 		parent::includes( $includes );
+	}
+
+	/**
+	 * Late includes method.
+	 *
+	 * Only load up certain code when on specific pages.
+	 *
+	 * @since 3.0.0
+	 */
+	public function late_includes() {
+		// Bail if PHPUnit is running.
+		if ( defined( 'BP_TESTS_DIR' ) ) {
+			return;
+		}
+
+		// Bail if not on a user page.
+		if ( ! bp_is_user() ) {
+			return;
+		}
+
+		// User nav.
+		if ( bp_is_profile_component() ) {
+			require $this->path . 'bp-xprofile/screens/public.php';
+
+			// Action - Delete avatar.
+			if ( is_user_logged_in()&& bp_is_user_change_avatar() && bp_is_action_variable( 'delete-avatar', 0 ) ) {
+				require $this->path . 'bp-xprofile/actions/delete-avatar.php';
+			}
+
+			// Sub-nav items.
+			if ( is_user_logged_in() &&
+				in_array( bp_current_action(), array( 'edit', 'change-avatar', 'change-cover-image' ), true )
+			) {
+				require $this->path . 'bp-xprofile/screens/' . bp_current_action() . '.php';
+			}
+		}
+
+		// Settings.
+		if ( is_user_logged_in() && bp_is_user_settings_profile() ) {
+			require $this->path . 'bp-xprofile/screens/settings-profile.php';
+		}
 	}
 
 	/**
@@ -174,6 +224,8 @@ class BP_XProfile_Component extends BP_Component {
 
 	/**
 	 * Set up navigation.
+	 *
+	 * @since 1.5.0
 	 *
 	 * @global BuddyPress $bp The one true BuddyPress instance
 	 *
@@ -292,11 +344,13 @@ class BP_XProfile_Component extends BP_Component {
 			'screen_function' => 'bp_xprofile_screen_settings',
 			'position'        => 30,
 			'user_has_access' => bp_core_can_edit_settings()
-		) );
+		), 'members' );
 	}
 
 	/**
 	 * Set up the Admin Bar.
+	 *
+	 * @since 1.5.0
 	 *
 	 * @param array $wp_admin_nav Admin Bar items.
 	 */
@@ -370,6 +424,8 @@ class BP_XProfile_Component extends BP_Component {
 
 	/**
 	 * Sets up the title for pages and <title>.
+	 *
+	 * @since 1.5.0
 	 */
 	public function setup_title() {
 
