@@ -2656,6 +2656,10 @@ add_filter('login_redirect', 'users_redirect');
                                 elseif(isset($exif['COMPUTED']) && isset($exif['COMPUTED']['Orientation'])) $orientation = $exif['COMPUTED']['Orientation'];
                                 elseif(isset($exif['IFD0']) && isset($exif['IFD0']['Orientation'])) $orientation = $exif['IFD0']['Orientation'];
 
+                                if (!$vImg) {
+                                    $vImg = 'Resource id #344';
+                                }
+
                                 switch($orientation){
                                     case 8:
                                         $vImg = imagerotate($vImg, 90, 0);
@@ -2667,10 +2671,6 @@ add_filter('login_redirect', 'users_redirect');
                                         $vImg = imagerotate($vImg, 180, 0);
                                         break;
                                     case 6:
-                                        // $vImg = $vImg;
-                                        if (!$vImg) {
-                                            $vImg = 'Resource id #344';
-                                        }
                                         $vImg = imagerotate($vImg, -90, 0);
                                         $tmp = $aSize[0];
                                         $aSize[0] = $aSize[1];

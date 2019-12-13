@@ -295,7 +295,7 @@
             <a class="logout" href="http://braincleaner.ru/"><span class="glyphicon glyphicon-log-in"></span> Вход</a>
           <?php } ?>
           <div class="pull-right">
-            <a href="mailto:wizardmachine@yandex.ru">wizardmachine@yandex.ru</a>
+            <a href="mailto:info@chikurov.com">info@chikurov.com</a>
           </div>
         </div>
       </div>
