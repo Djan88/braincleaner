@@ -503,8 +503,8 @@ jQuery(document).ready(function() {
         jQuery('.vspread_zone_arrow_s').removeClass('vspread_zone_0');
         jQuery('.vspread_zone_arrow_s').css({
             left: '141px',
-            top: '240px',
-            transform: 'rotate(2deg)'
+            top: '225px',
+            transform: 'rotate(55deg)'
         });;
     });
 
