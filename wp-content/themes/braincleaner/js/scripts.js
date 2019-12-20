@@ -452,7 +452,7 @@ jQuery(document).ready(function() {
 
     // S2
     jQuery('.vspread_zone_S2').on('click', function(event) {
-        jQuery('.vspread_zone_arrow_s').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone_arrow_s, vspread_zone_arrow_l').removeAttr('style').addClass('vspread_zone_0');
         jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50').removeAttr('style');
         jQuery('.vspread_zone_S2').removeClass('vspread_zone_50').addClass('vspread_zone_from');
         jQuery('.vspread_zone_V5').removeClass('vspread_zone_50').addClass('vspread_zone_to');
@@ -460,7 +460,7 @@ jQuery(document).ready(function() {
 
     // S2_up
     jQuery('.vspread_zone_S2_up').on('click', function(event) {
-        jQuery('.vspread_zone_arrow_s').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone_arrow_s, vspread_zone_arrow_l').removeAttr('style').addClass('vspread_zone_0');
         jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50').removeAttr('style');
         jQuery('.vspread_zone_S2_up').removeClass('vspread_zone_50').addClass('vspread_zone_from');
         jQuery('.vspread_zone_V5').removeClass('vspread_zone_50').addClass('vspread_zone_to');
@@ -468,7 +468,7 @@ jQuery(document).ready(function() {
 
     // S1
     jQuery('.vspread_zone_S1').on('click', function(event) {
-        jQuery('.vspread_zone_arrow_s').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone_arrow_s, vspread_zone_arrow_l').removeAttr('style').addClass('vspread_zone_0');
         jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50').removeAttr('style');
         jQuery('.vspread_zone_S1').removeClass('vspread_zone_50').addClass('vspread_zone_from');
         jQuery('.vspread_zone_S3').removeClass('vspread_zone_50').addClass('vspread_zone_to');
@@ -476,7 +476,7 @@ jQuery(document).ready(function() {
 
     // D5-D6-D7
     jQuery('.vspread_zone_D5, .vspread_zone_D6, .vspread_zone_D7').on('click', function(event) {
-        jQuery('.vspread_zone_arrow_s').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone_arrow_s, vspread_zone_arrow_l').removeAttr('style').addClass('vspread_zone_0');
         jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50').removeAttr('style');
         jQuery('.vspread_zone_D5, .vspread_zone_D6, .vspread_zone_D7').removeClass('vspread_zone_50').addClass('vspread_zone_from');
         jQuery('.vspread_zone_V5').removeClass('vspread_zone_50').addClass('vspread_zone_to');
@@ -484,7 +484,7 @@ jQuery(document).ready(function() {
 
     // D4
     jQuery('.vspread_zone_D4').on('click', function(event) {
-        jQuery('.vspread_zone_arrow_s').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone_arrow_s, vspread_zone_arrow_l').removeAttr('style').addClass('vspread_zone_0');
         jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50');
         jQuery('.vspread_zone_D4').removeClass('vspread_zone_50').addClass('vspread_zone_from').css('zIndex', '1000');
         jQuery('.vspread_zone_arrow_s').removeClass('vspread_zone_0');
@@ -497,7 +497,7 @@ jQuery(document).ready(function() {
 
     // D3
     jQuery('.vspread_zone_D3').on('click', function(event) {
-        jQuery('.vspread_zone_arrow_s').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone_arrow_s, vspread_zone_arrow_l').removeAttr('style').addClass('vspread_zone_0');
         jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50');
         jQuery('.vspread_zone_D3').removeClass('vspread_zone_50').addClass('vspread_zone_from').css('zIndex', '1000');
         jQuery('.vspread_zone_arrow_s').removeClass('vspread_zone_0');
@@ -510,7 +510,7 @@ jQuery(document).ready(function() {
 
     // D2
     jQuery('.vspread_zone_D2').on('click', function(event) {
-        jQuery('.vspread_zone_arrow_s').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone_arrow_s, vspread_zone_arrow_l').removeAttr('style').addClass('vspread_zone_0');
         jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50').removeAttr('style');
         jQuery('.vspread_zone_D2').removeClass('vspread_zone_50').addClass('vspread_zone_from');
         jQuery('.vspread_zone_V4').removeClass('vspread_zone_50').addClass('vspread_zone_to');
@@ -518,7 +518,7 @@ jQuery(document).ready(function() {
 
     // D2_up
     jQuery('.vspread_zone_D2_up').on('click', function(event) {
-        jQuery('.vspread_zone_arrow_s').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone_arrow_s, vspread_zone_arrow_l').removeAttr('style').addClass('vspread_zone_0');
         jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50').removeAttr('style');
         jQuery('.vspread_zone_D2_up').removeClass('vspread_zone_50').addClass('vspread_zone_from');
         jQuery('.vspread_zone_V5').removeClass('vspread_zone_50').addClass('vspread_zone_to');
@@ -526,7 +526,7 @@ jQuery(document).ready(function() {
 
     // D1
     jQuery('.vspread_zone_D1').on('click', function(event) {
-        jQuery('.vspread_zone_arrow_s').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone_arrow_s, vspread_zone_arrow_l').removeAttr('style').addClass('vspread_zone_0');
         jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50').removeAttr('style');
         jQuery('.vspread_zone_D1').removeClass('vspread_zone_50').addClass('vspread_zone_from');
         jQuery('.vspread_zone_D5, .vspread_zone_D6, .vspread_zone_D7').removeClass('vspread_zone_50').addClass('vspread_zone_to');
@@ -534,22 +534,27 @@ jQuery(document).ready(function() {
 
     // V5
     jQuery('.vspread_zone_V5').on('click', function(event) {
-        jQuery('.vspread_zone_arrow_s').removeAttr('style').addClass('vspread_zone_0');
-        jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50').removeAttr('style');
-        jQuery('.vspread_zone_V5').removeClass('vspread_zone_50').addClass('vspread_zone_from');
-        jQuery('.vspread_zone_V5').removeClass('vspread_zone_50').addClass('vspread_zone_to');
+        jQuery('.vspread_zone_arrow_s, vspread_zone_arrow_l').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50');
+        jQuery('.vspread_zone_V5').removeClass('vspread_zone_50').addClass('vspread_zone_from').css('zIndex', '1000');
+        jQuery('.vspread_zone_arrow_l').removeClass('vspread_zone_0');
+        jQuery('.vspread_zone_arrow_l').css({
+            left: '153px',
+            top: '230px',
+            transform: 'rotate(90deg)'
+        });;
     });
 
     // V4
     jQuery('.vspread_zone_V4').on('click', function(event) {
-        jQuery('.vspread_zone_arrow_s').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone_arrow_s, vspread_zone_arrow_l').removeAttr('style').addClass('vspread_zone_0');
         jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50');
         jQuery('.vspread_zone_V4').removeClass('vspread_zone_50').addClass('vspread_zone_from').css('zIndex', '1000');
         jQuery('.vspread_zone_arrow_s').removeClass('vspread_zone_0');
         jQuery('.vspread_zone_arrow_s').css({
-            left: '141px',
-            top: '225px',
-            transform: 'rotate(55deg)'
+            left: '153px',
+            top: '230px',
+            transform: 'rotate(90deg)'
         });;
     });
 
