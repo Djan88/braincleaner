@@ -446,7 +446,7 @@ jQuery(document).ready(function() {
         jQuery('.vspread_zone_arrow_s').css({
             left: '163px',
             top: '232px',
-            transform: 'rotate(123deg)';
+            transform: 'rotate(123deg)'
         });;
     });
 
