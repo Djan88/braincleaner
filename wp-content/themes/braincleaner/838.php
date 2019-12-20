@@ -20,6 +20,7 @@
             <div class="vspread_zone vspread_zone_D4">D4</div>
             <div class="vspread_zone vspread_zone_D5">D5</div>
             <div class="vspread_zone vspread_zone_D6">D6</div>
+            <div class="vspread_zone vspread_zone_D7">D7</div>
 
             <div class="vspread_zone vspread_zone_S2_up">S2</div>
             <div class="vspread_zone vspread_zone_S2">S2</div>
@@ -27,6 +28,7 @@
             <div class="vspread_zone vspread_zone_S4">S4</div>
             <div class="vspread_zone vspread_zone_S5">S5</div>
             <div class="vspread_zone vspread_zone_S6">S6</div>
+            <div class="vspread_zone vspread_zone_S7">S7</div>
           </div>
         </div>
     </div>
