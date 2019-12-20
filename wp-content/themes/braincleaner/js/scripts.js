@@ -447,7 +447,7 @@ jQuery(document).ready(function() {
             left: '163px',
             top: '232px',
             transform: 'rotate(123deg)'
-        });;
+        });
     });
 
     // S2
@@ -492,7 +492,7 @@ jQuery(document).ready(function() {
             left: '141px',
             top: '240px',
             transform: 'rotate(2deg)'
-        });;
+        });
     });
 
     // D3
@@ -505,7 +505,7 @@ jQuery(document).ready(function() {
             left: '141px',
             top: '225px',
             transform: 'rotate(55deg)'
-        });;
+        });
     });
 
     // D2
@@ -542,7 +542,7 @@ jQuery(document).ready(function() {
             left: '79px',
             top: '380px',
             transform: 'rotate(90deg)'
-        });;
+        });
     });
 
     // V4
@@ -555,7 +555,7 @@ jQuery(document).ready(function() {
             left: '153px',
             top: '230px',
             transform: 'rotate(90deg)'
-        });;
+        });
     });
 
     // V3
@@ -565,10 +565,23 @@ jQuery(document).ready(function() {
         jQuery('.vspread_zone_V3').removeClass('vspread_zone_50').addClass('vspread_zone_from').css('zIndex', '1000');
         jQuery('.vspread_zone_arrow_s').removeClass('vspread_zone_0');
         jQuery('.vspread_zone_arrow_s').css({
-            left: '153px',
-            top: '230px',
-            transform: 'rotate(90deg)'
-        });;
+            left: '175px',
+            top: '190px',
+            transform: 'rotate(45deg)'
+        });
+    });
+
+    // V2
+    jQuery('.vspread_zone_V2').on('click', function(event) {
+        jQuery('.vspread_zone_arrow_s, .vspread_zone_arrow_l').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50');
+        jQuery('.vspread_zone_V2').removeClass('vspread_zone_50').addClass('vspread_zone_from').css('zIndex', '1000');
+        jQuery('.vspread_zone_arrow_s').removeClass('vspread_zone_0');
+        jQuery('.vspread_zone_arrow_s').css({
+            left: '175px',
+            top: '190px',
+            transform: 'rotate(45deg)'
+        });
     });
 
 
