@@ -578,10 +578,18 @@ jQuery(document).ready(function() {
         jQuery('.vspread_zone_V2').removeClass('vspread_zone_50').addClass('vspread_zone_from').css('zIndex', '1000');
         jQuery('.vspread_zone_arrow_m').removeClass('vspread_zone_0');
         jQuery('.vspread_zone_arrow_m').css({
-            left: '154px',
-            top: '190px',
+            left: '104px',
+            top: '178px',
             transform: 'rotate(90deg)'
         });
+    });
+
+    // V1
+    jQuery('.vspread_zone_V1').on('click', function(event) {
+        jQuery('.vspread_zone_arrow_s, .vspread_zone_arrow_l, .vspread_zone_arrow_m').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50').removeAttr('style');
+        jQuery('.vspread_zone_V1').removeClass('vspread_zone_50').addClass('vspread_zone_from');
+        jQuery('.vspread_zone_V5, .vspread_zone_V-').removeClass('vspread_zone_50').addClass('vspread_zone_to');
     });
 
 
