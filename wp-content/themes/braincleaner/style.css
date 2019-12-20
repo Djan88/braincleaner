@@ -1031,6 +1031,7 @@ li
 .vspread_zone_arrow
 {
   position: absolute;
+  opacity: 1;
 }
 .vspread_zone_arrow_s
 {

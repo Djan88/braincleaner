@@ -412,6 +412,16 @@ jQuery(document).ready(function() {
         });
     };
 
+
+    // V-SPREAD
+    jQuery('.vspread_zone_S5, .vspread_zone_S6, .vspread_zone_S7').on('click', function(event) {
+        jQuery('.vspread_zone').removeClass('vspread_zone_from, vspread_zone_to').addClass('vspread_zone_30');
+        jQuery('.vspread_zone_S5, .vspread_zone_S6, .vspread_zone_S7').removeClass('vspread_zone_30').addClass('vspread_zone_from');
+        jQuery('.vspread_zone_V-').removeClass('vspread_zone_30').addClass('vspread_zone_to');
+    });
+
+
+
     //CROPPING SCRIPT
         // convert bytes into friendly format
         function bytesToSize(bytes) {
