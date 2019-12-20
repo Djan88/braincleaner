@@ -1005,3 +1005,11 @@ li
   text-align: center;
   margin-top: 25px;
 }
+.vspread
+{
+  position: relative;
+}
+.vspread_zone
+{
+  position: absolute;
+}
