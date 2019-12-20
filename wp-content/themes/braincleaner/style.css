@@ -1008,6 +1008,8 @@ li
 .vspread
 {
   position: relative;
+  display: inline-block;
+  padding-top: 30px;
 }
 .vspread_zone
 {
@@ -1018,11 +1020,40 @@ li
   border-radius: 50%;
   color: #413e66;
   text-align: center;
-  padding-top: 2px;
+  padding-top: 4px;
   border: 1px solid #413e66;
   z-index: 3;
   position: absolute!important;
   transition: transform 0.250s linear;
-  left: 165px;
+  font-weight: bold;
+}
+.vspread_zone_V0
+{
+  left: 164px;
   top: 5px;
+}
+.vspread_zone_V1
+{
+  left: 164px;
+  top: 45px;
+}
+.vspread_zone_V2
+{
+  left: 164px;
+  top: 110px;
+}
+.vspread_zone_V3
+{
+  left: 164px;
+  top: 145px;
+}
+.vspread_zone_V4
+{
+  left: 164px;
+  top: 195px;
+}
+.vspread_zone_V5
+{
+  left: 164px;
+  top: 265px;
 }
