@@ -1034,7 +1034,9 @@ li
 }
 .vspread_zone_arrow_s
 {
-  background: url(img/arrow_s.png);
+  left: 0;
+  top: 0;
+  width: 200px;
 }
 .vspread_zone_from
 {

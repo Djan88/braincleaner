@@ -3,9 +3,7 @@
         <div class="col-xs-12 vspread_wrap">
           <div class="vspread">
             <img src="<?php bloginfo('template_url'); ?>/img/template_.jpg" alt="template">
-            <div class="vspread_zone_arrow vspread_zone_arrow_s"></div>
-            <div class="vspread_zone_arrow vspread_zone_arrow_m"></div>
-            <div class="vspread_zone_arrow vspread_zone_arrow_l"></div>
+            <img src="<?php bloginfo('template_url'); ?>/img/arrow_s.png" alt="arrow_s" class="vspread_zone_arrow vspread_zone_arrow_s">
             <div class="vspread_zone vspread_zone_V0">V0</div>
             <div class="vspread_zone vspread_zone_V1">V1</div>
             <div class="vspread_zone vspread_zone_V2">V2</div>
