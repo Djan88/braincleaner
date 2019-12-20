@@ -1,7 +1,8 @@
 <?php if(is_user_logged_in()){ ?>
     <div class="row">
-        <div class="vspread col-xs-6 col-xs-offset-3">
+        <div class="vspread col-xs-12">
           <img src="<?php bloginfo('template_url'); ?>/img/template_.jpg" alt="template">
+          <div class="vspread_zone vspread_zone_v-">V-</div>
         </div>
     </div>
 <?php } else { ?>
