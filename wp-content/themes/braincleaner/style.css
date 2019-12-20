@@ -1020,12 +1020,13 @@ li
   border-radius: 50%;
   color: #413e66;
   text-align: center;
-  padding-top: 4px;
+  padding-top: 2px;
   border: 1px solid #413e66;
   z-index: 3;
   position: absolute!important;
   transition: all 0.250s linear;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 17px;
   opacity: 1;
 }
 .vspread_zone_arrow
@@ -1055,11 +1056,13 @@ li
 {
   color: #008000;
   border-color: #008000;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(2, 99, 41)
 }
 .vspread_zone_to
 {
   color: #c70303;
   border-color: #c70303;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(255, 0, 0);
 }
 .vspread_zone_50
 {
