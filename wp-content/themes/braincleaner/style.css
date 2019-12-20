@@ -1033,12 +1033,13 @@ li
 {
   position: absolute;
   opacity: 1;
+  z-index: 999;
 }
 .vspread_zone_arrow_s
 {
   left: 0;
   top: 0;
-  width: 100px;
+  width: 50px;
 }
 .vspread_zone_arrow_m
 {
@@ -1067,10 +1068,6 @@ li
 .vspread_zone_50
 {
   opacity: 0.5;
-}
-.vspread_zone_0
-{
-  opacity: 0;
 }
 .vspread_zone_V0
 {
