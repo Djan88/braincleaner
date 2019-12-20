@@ -1036,6 +1036,18 @@ li
 {
   left: 0;
   top: 0;
+  width: 100px;
+}
+.vspread_zone_arrow_m
+{
+  left: 0;
+  top: 0;
+  width: 150px;
+}
+.vspread_zone_arrow_l
+{
+  left: 0;
+  top: 0;
   width: 200px;
 }
 .vspread_zone_from
