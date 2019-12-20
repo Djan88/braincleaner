@@ -415,7 +415,7 @@ jQuery(document).ready(function() {
 
     // V-SPREAD
 
-    jQuery(document).on('click', function(e) {
+    jQuery(".vspread_wrap").on('click', function(e) {
         var div = jQuery(".vspread_wrap");
         if (!div.is(e.target) && div.has(e.target).length === 0) { 
             jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to vspread_zone_50');
