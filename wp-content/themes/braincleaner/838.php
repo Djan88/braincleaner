@@ -5,7 +5,8 @@
             <img src="<?php bloginfo('template_url'); ?>/img/template_.jpg" alt="template" class="template">
             <img src="<?php bloginfo('template_url'); ?>/img/v-spread.png" alt="arrow_s" class="vspread_zone_arrow vspread_zone_arrow_s vspread_zone_0">
             <img src="<?php bloginfo('template_url'); ?>/img/v-spread_l.png" alt="arrow_l" class="vspread_zone_arrow vspread_zone_arrow_l vspread_zone_0">
-            <!-- <img src="<?php //bloginfo('template_url'); ?>/img/arrow_l.png" alt="arrow_l" class="vspread_zone_arrow vspread_zone_arrow_l"> -->
+            <img src="<?php bloginfo('template_url'); ?>/img/v-spread_m.png" alt="arrow_m" class="vspread_zone_arrow vspread_zone_arrow_m vspread_zone_0">
+            
             <div class="vspread_zone vspread_zone_V0">V0</div>
             <div class="vspread_zone vspread_zone_V1">V1</div>
             <div class="vspread_zone vspread_zone_V2">V2</div>
