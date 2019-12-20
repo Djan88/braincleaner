@@ -414,10 +414,19 @@ jQuery(document).ready(function() {
 
 
     // V-SPREAD
+
+    // S5-S6-S7
     jQuery('.vspread_zone_S5, .vspread_zone_S6, .vspread_zone_S7').on('click', function(event) {
         jQuery('.vspread_zone').removeClass('vspread_zone_from, vspread_zone_to').addClass('vspread_zone_30');
         jQuery('.vspread_zone_S5, .vspread_zone_S6, .vspread_zone_S7').removeClass('vspread_zone_30').addClass('vspread_zone_from');
         jQuery('.vspread_zone_V-').removeClass('vspread_zone_30').addClass('vspread_zone_to');
+    });
+
+    // S4
+    jQuery('.vspread_zone_S4').on('click', function(event) {
+        jQuery('.vspread_zone').removeClass('vspread_zone_from, vspread_zone_to').addClass('vspread_zone_30');
+        jQuery('.vspread_zone_S4').removeClass('vspread_zone_30').addClass('vspread_zone_from');
+        jQuery('.vspread_zone_V5').removeClass('vspread_zone_30').addClass('vspread_zone_to');
     });
 
 
