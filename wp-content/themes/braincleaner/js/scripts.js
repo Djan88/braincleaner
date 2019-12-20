@@ -539,8 +539,8 @@ jQuery(document).ready(function() {
         jQuery('.vspread_zone_V5').removeClass('vspread_zone_50').addClass('vspread_zone_from').css('zIndex', '1000');
         jQuery('.vspread_zone_arrow_l').removeClass('vspread_zone_0');
         jQuery('.vspread_zone_arrow_l').css({
-            left: '153px',
-            top: '230px',
+            left: '79px',
+            top: '380px',
             transform: 'rotate(90deg)'
         });;
     });
