@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-xs-12 vspread_wrap">
           <div class="vspread">
-            <img src="<?php bloginfo('template_url'); ?>/img/template_.jpg" alt="template">
+            <img src="<?php bloginfo('template_url'); ?>/img/template_.jpg" alt="template" class="template">
             <img src="<?php bloginfo('template_url'); ?>/img/arrow_s.png" alt="arrow_s" class="vspread_zone_arrow vspread_zone_arrow_s">
             <img src="<?php bloginfo('template_url'); ?>/img/arrow_m.png" alt="arrow_m" class="vspread_zone_arrow vspread_zone_arrow_m">
             <img src="<?php bloginfo('template_url'); ?>/img/arrow_l.png" alt="arrow_l" class="vspread_zone_arrow vspread_zone_arrow_l">
