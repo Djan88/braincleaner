@@ -1024,8 +1024,35 @@ li
   border: 1px solid #413e66;
   z-index: 3;
   position: absolute!important;
-  transition: transform 0.250s linear;
+  transition: all 0.250s linear;
   font-weight: bold;
+  opacity: 1;
+}
+.vspread_zone_arrow
+{
+  position: absolute;
+}
+.vspread_zone_arrow_s
+{
+  background: url(img/arrow_s.png);
+}
+.vspread_zone_from
+{
+  color: #008000;
+  border-color: #008000;
+}
+.vspread_zone_to
+{
+  color: #c70303;
+  border-color: #c70303;
+}
+.vspread_zone_30
+{
+  opacity: 0.3;
+}
+.vspread_zone_0
+{
+  opacity: 0;
 }
 .vspread_zone_V0
 {
@@ -1059,8 +1086,8 @@ li
 }
 .vspread_zone_V-
 {
-  left: 164px;
-  top: 490px;
+  left: 163px;
+  top: 500px;
 }
 .vspread_zone_D2_up
 {
