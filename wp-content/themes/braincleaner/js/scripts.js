@@ -450,6 +450,51 @@ jQuery(document).ready(function() {
         });;
     });
 
+    // S2
+    jQuery('.vspread_zone_S2').on('click', function(event) {
+        jQuery('.vspread_zone_arrow_s').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50');
+        jQuery('.vspread_zone_S2').removeClass('vspread_zone_50').addClass('vspread_zone_from');
+        jQuery('.vspread_zone_V5').removeClass('vspread_zone_50').addClass('vspread_zone_to');
+    });
+
+    // S2_up
+    jQuery('.vspread_zone_S2_up').on('click', function(event) {
+        jQuery('.vspread_zone_arrow_s').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50');
+        jQuery('.vspread_zone_S2_up').removeClass('vspread_zone_50').addClass('vspread_zone_from');
+        jQuery('.vspread_zone_V5').removeClass('vspread_zone_50').addClass('vspread_zone_to');
+    });
+
+    // S1
+    jQuery('.vspread_zone_S1').on('click', function(event) {
+        jQuery('.vspread_zone_arrow_s').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50');
+        jQuery('.vspread_zone_S1').removeClass('vspread_zone_50').addClass('vspread_zone_from');
+        jQuery('.vspread_zone_S3').removeClass('vspread_zone_50').addClass('vspread_zone_to');
+    });
+
+    // D5-D6-D7
+    jQuery('.vspread_zone_D5, .vspread_zone_D6, .vspread_zone_D7').on('click', function(event) {
+        jQuery('.vspread_zone_arrow_s').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50');
+        jQuery('.vspread_zone_D5, .vspread_zone_D6, .vspread_zone_D7').removeClass('vspread_zone_50').addClass('vspread_zone_from');
+        jQuery('.vspread_zone_V5').removeClass('vspread_zone_50').addClass('vspread_zone_to');
+    });
+
+    // D4
+    jQuery('.vspread_zone_D4').on('click', function(event) {
+        jQuery('.vspread_zone_arrow_s').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50');
+        jQuery('.vspread_zone_D4').removeClass('vspread_zone_50').addClass('vspread_zone_from');
+        jQuery('.vspread_zone_arrow_s').removeClass('vspread_zone_0');
+        jQuery('.vspread_zone_arrow_s').css({
+            left: '163px',
+            top: '232px',
+            transform: 'rotate(123deg)'
+        });;
+    });
+
 
 
     //CROPPING SCRIPT

@@ -1081,7 +1081,7 @@ li
 .vspread_zone_V1
 {
   left: 164px;
-  top: 55px;
+  top: 44px;
 }
 .vspread_zone_V2
 {
@@ -1107,6 +1107,11 @@ li
 {
   left: 163px;
   top: 500px;
+}
+.vspread_zone_D1
+{
+  left: 150px;
+  top: 57px;
 }
 .vspread_zone_D2_up
 {
@@ -1142,6 +1147,11 @@ li
 {
   left: 138px;
   top: 460px;
+}
+.vspread_zone_S1
+{
+  left: 177px;
+  top: 57px;
 }
 .vspread_zone_S2_up
 {
