@@ -1011,5 +1011,18 @@ li
 }
 .vspread_zone
 {
-  position: absolute;
+  width: 30px!important;
+  height: 30px!important;
+  background: #fff;
+  cursor: pointer;
+  border-radius: 50%;
+  color: #413e66;
+  text-align: center;
+  padding-top: 2px;
+  border: 1px solid #413e66;
+  z-index: 3;
+  position: absolute!important;
+  transition: transform 0.250s linear;
+  left: 165px;
+  top: 5px;
 }
