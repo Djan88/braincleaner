@@ -21,6 +21,7 @@
             <div class="vspread_zone vspread_zone_D3">D3</div>
             <div class="vspread_zone vspread_zone_D4">D4</div>
             <div class="vspread_zone vspread_zone_D5">D5</div>
+            <div class="vspread_zone vspread_zone_X">XIV</div>
             <div class="vspread_zone vspread_zone_D6">D6</div>
             <div class="vspread_zone vspread_zone_D7">D7</div>
 

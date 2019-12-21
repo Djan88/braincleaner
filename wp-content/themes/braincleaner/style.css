@@ -1091,17 +1091,22 @@ li
 .vspread_zone_V3
 {
   left: 164px;
-  top: 165px;
+  top: 160px;
 }
 .vspread_zone_V4
 {
   left: 164px;
-  top: 205px;
+  top: 200px;
+}
+.vspread_zone_X
+{
+  left: 164px;
+  top: 235px;
 }
 .vspread_zone_V5
 {
   left: 164px;
-  top: 260px;
+  top: 270px;
 }
 .vspread_zone_V-
 {
