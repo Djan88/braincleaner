@@ -567,6 +567,14 @@ jQuery(document).ready(function() {
         jQuery('.vspread_zone_V5, .vspread_zone_V-').removeClass('vspread_zone_50').addClass('vspread_zone_to');
     });
 
+    // VX
+    jQuery('.vspread_zone_X').on('click', function(event) {
+        jQuery('.vspread_zone_arrow_s, .vspread_zone_arrow_l, .vspread_zone_arrow_m').removeAttr('style').addClass('vspread_zone_0');
+        jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50').removeAttr('style');
+        jQuery('.vspread_zone_X').removeClass('vspread_zone_50').addClass('vspread_zone_from');
+        jQuery('.vspread_zone_V4').removeClass('vspread_zone_50').addClass('vspread_zone_to');
+    });
+
 
 
     //CROPPING SCRIPT
