@@ -1057,9 +1057,10 @@ li
 }
 .vspread_zone_arrow_l
 {
-  left: 0;
-  top: 0;
+  left: 73px;
+  top: 380px;
   width: 200px;
+  transform: rotate(87deg);
 }
 .vspread_zone_from
 {

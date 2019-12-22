@@ -530,11 +530,6 @@ jQuery(document).ready(function() {
             zIndex: '1000'
         });
         jQuery('.vspread_zone_arrow_l').removeClass('vspread_zone_0');
-        jQuery('.vspread_zone_arrow_l').css({
-            left: '79px',
-            top: '380px',
-            transform: 'rotate(90deg)'
-        });
     });
 
     // V4
