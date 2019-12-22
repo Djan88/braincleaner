@@ -521,7 +521,14 @@ jQuery(document).ready(function() {
     jQuery('.vspread_zone_V5').on('click', function(event) {
         jQuery('.vspread_zone_arrow_s, .vspread_zone_arrow_l, .vspread_zone_arrow_m').removeAttr('style').addClass('vspread_zone_0');
         jQuery('.vspread_zone').removeClass('vspread_zone_from vspread_zone_to').addClass('vspread_zone_50');
-        jQuery('.vspread_zone_V5').removeClass('vspread_zone_50').addClass('vspread_zone_from').css('zIndex', '1000');
+        jQuery('.vspread_zone_V5').removeClass('vspread_zone_50').addClass('vspread_zone_from').css({
+            left: '154px',
+            zIndex: '1000'
+        });
+        jQuery('.vspread_zone_V5_alt').removeClass('vspread_zone_50').addClass('vspread_zone_from').css({
+            left: '174px',
+            zIndex: '1000'
+        });
         jQuery('.vspread_zone_arrow_l').removeClass('vspread_zone_0');
         jQuery('.vspread_zone_arrow_l').css({
             left: '79px',

@@ -1024,7 +1024,7 @@ li
   border: 1px solid #413e66;
   z-index: 3;
   position: absolute!important;
-  transition: all 0.250s linear;
+  transition: all 0.375s linear;
   font-weight: 600;
   font-size: 17px;
   opacity: 1;
@@ -1041,6 +1041,7 @@ li
   position: absolute;
   opacity: 1;
   z-index: 999;
+  transition: all 0.375s linear;
 }
 .vspread_zone_arrow_s
 {
@@ -1114,7 +1115,7 @@ li
   font-size: 15px;
   padding-top: 4px;
 }
-.vspread_zone_V5
+.vspread_zone_V5, .vspread_zone_V5_alt
 {
   left: 164px;
   top: 270px;
