@@ -525,7 +525,7 @@ jQuery(document).ready(function() {
             left: '154px',
             zIndex: '1000'
         });
-        jQuery('.vspread_zone_V5_alt').removeClass('vspread_zone_50').addClass('vspread_zone_from').css({
+        jQuery('.vspread_zone_V5_alt').removeClass('vspread_zone_50').addClass('vspread_zone_to').css({
             left: '174px',
             zIndex: '1000'
         });

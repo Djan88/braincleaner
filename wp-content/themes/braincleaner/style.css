@@ -1060,6 +1060,7 @@ li
   left: 73px;
   top: 380px;
   width: 200px;
+  z-index: 999;
   transform: rotate(87deg);
 }
 .vspread_zone_from
