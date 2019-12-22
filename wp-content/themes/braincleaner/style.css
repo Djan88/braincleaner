@@ -1045,9 +1045,10 @@ li
 }
 .vspread_zone_arrow_s
 {
-  left: 0;
-  top: 0;
+  left: 175px;
+  top: 190px;
   width: 50px;
+  transform: rotate(45deg);
 }
 .vspread_zone_arrow_m
 {
@@ -1060,7 +1061,6 @@ li
   left: 73px;
   top: 380px;
   width: 200px;
-  z-index: 999;
   transform: rotate(87deg);
 }
 .vspread_zone_from
