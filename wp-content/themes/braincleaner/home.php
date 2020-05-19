@@ -56,7 +56,7 @@
                   <div class="col-sm-offset-2 col-sm-10">
                     <!-- <button type="submit" class="btn btn-default">Войти</button> -->
                     <!-- <a href="inside.html" class="btn btn-default">Войти</a> -->
-                            <input type="submit" name="wp-submit" id="wp-submit" class="btn btn-default" value="<?php esc_attr_e('Log In'); ?>" />
+                            <input type="submit" name="wp-submit" id="wp-submit" class="btn btn-primary" value="<?php esc_attr_e('Log In'); ?>" />
                     <?php   if ( $interim_login ) { ?>
                             <input type="hidden" name="interim-login" value="1" />
                     <?php   } else { ?>
