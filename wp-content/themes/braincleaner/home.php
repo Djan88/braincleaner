@@ -14,7 +14,7 @@
         <!-- <div class="gear gear_6"></div> -->
       </div>
       <div class="row">
-        <div class="login-form">
+        <div class="login-form animated bounceInDown">
           <div class="panel panel-primary" style="width: 450px;padding: 10px;margin: auto;">
             <div class="panel-heading">
               <h3 class="panel-title">Вход на сайт</h3>
