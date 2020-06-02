@@ -41,15 +41,15 @@ function is_user_role( $role, $user_id = null ) {
 // }
 
 // Область виджетов на странице
-    register_sidebar(array(
-        'name' => __('Боковая панель'),
-        'id' => 'arhive-widget-area',
-        'description' => __('Виджеты в сайдбар'),
-        'before_widget' => '<div class="list-group-item">',
-        'after_widget' => '</div>',
-        'before_title' => '<h4 class="sidebar-heading list-group-item-heading">',
-        'after_title' => '</h4>',
-    ));
+register_sidebar(array(
+    'name' => __('Боковая панель'),
+    'id' => 'arhive-widget-area',
+    'description' => __('Виджеты в сайдбар'),
+    'before_widget' => '<div class="list-group-item">',
+    'after_widget' => '</div>',
+    'before_title' => '<h4 class="sidebar-heading list-group-item-heading">',
+    'after_title' => '</h4>',
+));
 
 
 
