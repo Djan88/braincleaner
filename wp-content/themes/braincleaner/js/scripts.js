@@ -414,6 +414,13 @@ jQuery(document).ready(function() {
 
     // REGRESS
 
+    var knife,
+        knifeDate,
+        knifeDateOld,
+        knifeDateDiff,
+        knife_rate_class,
+        knife_rate_class_dotted;
+
     jQuery('.reverce_clean_graph').on('click', function(event) {
       jQuery( "#slider" ).slider( "value", 0 );
       jQuery('.knife_rate').detach();
