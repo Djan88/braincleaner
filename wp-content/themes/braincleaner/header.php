@@ -11,6 +11,7 @@
     <link href="<?php bloginfo('template_url'); ?>/css/jcrop.css" rel="stylesheet">
     <!-- <link href="<?php //bloginfo('template_url'); ?>/css/sweet-alert.css" rel="stylesheet"> -->
     <link href="<?php bloginfo('template_url'); ?>/css/sweetalert.css" rel="stylesheet">
+    <link href="<?php bloginfo('template_url'); ?>/css/jquery-ui.min.css" rel="stylesheet">
     <link href="<?php bloginfo('template_url'); ?>/style.css" rel="stylesheet">
     <!-- animsition CSS -->
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/dist/css/animsition.min.css">

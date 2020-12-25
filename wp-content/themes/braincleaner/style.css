@@ -1207,3 +1207,51 @@ li
   left: 190px;
   top: 460px;
 }
+.reverce_age 
+{
+    padding-bottom: 20px;
+    padding-top: 10px;
+    font-size: 20px;
+}
+#slider div#custom-handle
+{
+    width: 30px;
+    height: 30px;
+    color: transparent;
+    top: -.7em;
+    background: #fda00c;
+    border: 1px solid #fff;
+    outline: none;
+    border-radius: 6px;
+}
+.reverce_age table
+{
+    width: 100%;
+}
+.reverce_age table td
+{
+    text-align: center;
+}
+.reverce_graph
+{
+    position: relative;
+}
+.reverce_graph 
+{
+    height: 250px;
+    margin-bottom: -10px;
+}
+.knife_rate 
+{
+    height: 0;
+    width: 3px;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    max-width: 200px;
+    background: #fda00c;
+    position: absolute;
+    bottom: 10px;
+    -webkit-transition: width 0.5s linear;
+    -moz-transition: width 0.5s linear;
+    transition: width 0.5s linear;
+}
