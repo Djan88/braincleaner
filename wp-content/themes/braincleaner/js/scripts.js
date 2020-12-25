@@ -455,7 +455,6 @@ jQuery(document).ready(function() {
         },
         stop: function( event, ui ) {
           console.log(handle_val);
-          jQuery('.reverce_acept').removeAttr('style');
           jQuery('.reverce_clean_graph').removeAttr('style')
           if (handle_val <= 55) {
             jQuery('.regress-result')text('2');
@@ -475,17 +474,6 @@ jQuery(document).ready(function() {
         }
       });
     });
-    
-    jQuery('.revece_bc').on('click', function(event) {
-      jQuery('.lovushka_speed').text(0);
-      cur_animation_val = 0;
-      count_animation = 0;
-      mode_speed = 0;
-      jQuery('.protocol').css('transform', 'rotate(0deg)');
-      clearInterval(phaseOne);
-      jQuery('.reverce_acept').css('display', 'none');
-    });
-
 
     // V-SPREAD
 
