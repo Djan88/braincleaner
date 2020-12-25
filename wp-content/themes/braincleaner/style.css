@@ -1207,6 +1207,10 @@ li
   left: 190px;
   top: 460px;
 }
+.regress_wrap 
+{
+  overflow: hidden;
+}
 .reverce_age 
 {
     padding-bottom: 20px;
