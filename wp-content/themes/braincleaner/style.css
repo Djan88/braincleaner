@@ -1260,3 +1260,7 @@ li
     -moz-transition: width 0.5s linear;
     transition: width 0.5s linear;
 }
+.reverce_clean_graph
+{
+  margin-top: 10px;
+}
