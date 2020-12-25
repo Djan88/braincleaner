@@ -47,6 +47,10 @@
                     <div class="clearfix">
                       <?php include(TEMPLATEPATH . '/838.php'); ?>
                     </div>
+                  <?php } else if (is_page(900)) { ?>
+                    <div class="clearfix">
+                      <?php include(TEMPLATEPATH . '/900.php'); ?>
+                    </div>
                   <?php } else { ?>
                     <div class="panel-body">
                     <?php if(in_category(3)) { ?>
@@ -291,7 +295,7 @@
       <div class="row footer-wrap">
         <div class="container">
           <div class="pull-left">
-            <a href="/">Braincleaner</a> 2019 v 1.3
+            <a href="/">Braincleaner</a> 2020 v 1.4
           </div>
           <?php if(is_user_logged_in()){ ?>
             <a class="logout" href="http://braincleaner.ru/wp-login.php?action=logout&_wpnonce=bc0c947e8d"><span class="glyphicon glyphicon-log-out"></span> Выход</a>
