@@ -424,6 +424,7 @@ jQuery(document).ready(function() {
     jQuery('.reverce_clean_graph').on('click', function(event) {
       jQuery( "#slider" ).slider( "value", 0 );
       jQuery('.knife_rate').detach();
+      jQuery('.regress-result').text('0');
       jQuery(this).css('display', 'none');
     });
 
