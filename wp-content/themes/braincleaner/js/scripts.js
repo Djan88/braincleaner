@@ -457,19 +457,19 @@ jQuery(document).ready(function() {
           console.log(handle_val);
           jQuery('.reverce_clean_graph').removeAttr('style')
           if (handle_val <= 55) {
-            jQuery('.regress-result')text('2');
+            jQuery('.regress-result').text('2');
           } else if (handle_val > 55 && handle_val <= 110) {
-            jQuery('.regress-result')text('3');
+            jQuery('.regress-result').text('3');
           } else if (handle_val > 110 && handle_val <= 165) {
-            jQuery('.regress-result')text('4');
+            jQuery('.regress-result').text('4');
           }  else if (handle_val > 165 && handle_val <= 225) {
-            jQuery('.regress-result')text('5');
+            jQuery('.regress-result').text('5');
           }  else if (handle_val > 225 && handle_val <= 275) {
-            jQuery('.regress-result')text('6');
+            jQuery('.regress-result').text('6');
           } else if (handle_val > 275 && handle_val <= 340) {
-            jQuery('.regress-result')text('7');
+            jQuery('.regress-result').text('7');
           } else if (handle_val > 340) {
-            jQuery('.regress-result')text('8');
+            jQuery('.regress-result').text('8');
           }
         }
       });
