@@ -14,16 +14,16 @@
           <div id="slider">
             <div id="custom-handle" class="ui-slider-handle"></div>
           </div>
-        </div>
-        <div class="col-xs-12 reverse-footer">
-            <div class="row">
-                <div class="pull-left">
-                    <button class="btn btn-primary reverce_clean_graph pull-left" style="display: none;"><span class="glyphicon glyphicon-trash"></span></button>
-                </div>
-                <div class="pull-right">
-                    <div class="regress-result">0</div>
-                </div>
-            </div>
+          <div class="col-xs-12 reverse-footer">
+              <div class="row">
+                  <div class="pull-left">
+                      <button class="btn btn-primary reverce_clean_graph pull-left" style="display: none;"><span class="glyphicon glyphicon-trash"></span></button>
+                  </div>
+                  <div class="pull-right">
+                      <div class="regress-result">0</div>
+                  </div>
+              </div>
+          </div>
         </div>
     </div>
 <?php } else { ?>
