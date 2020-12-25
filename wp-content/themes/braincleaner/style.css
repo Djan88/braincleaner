@@ -1210,6 +1210,7 @@ li
 .regress_wrap 
 {
   overflow: hidden;
+  padding-bottom: 30px;
 }
 .reverce_age 
 {
