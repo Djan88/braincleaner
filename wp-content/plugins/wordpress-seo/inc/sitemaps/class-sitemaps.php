@@ -395,6 +395,13 @@ class WPSEO_Sitemaps {
 			$links = array_merge( $links, $provider->get_index_links( $entries_per_page ) );
 		}
 
+		/**
+		 * Filter the sitemap links array before the index sitemap is built.
+		 *
+		 * @param array  $links Array of sitemap links
+		 */
+		$links = apply_filters( 'wpseo_sitemap_index_links', $links );
+
 		if ( empty( $links ) ) {
 			$this->bad_sitemap = true;
 			$this->sitemap     = '';
@@ -435,6 +442,7 @@ class WPSEO_Sitemaps {
 		header( 'Cache-Control: max-age=' . $expires );
 		header( 'Expires: ' . $this->date->format_timestamp( ( time() + $expires ), 'D, d M Y H:i:s' ) . ' GMT' );
 
+		// Don't use WP_Filesystem() here because that's not initialized yet. See https://yoast.atlassian.net/browse/QAK-2043.
 		readfile( WPSEO_PATH . 'css/main-sitemap.xsl' );
 	}
 
@@ -554,7 +562,7 @@ class WPSEO_Sitemaps {
 		}
 
 		if ( empty( $url ) ) {
-			$url = urlencode( WPSEO_Sitemaps_Router::get_base_url( 'sitemap_index.xml' ) );
+			$url = rawurlencode( WPSEO_Sitemaps_Router::get_base_url( 'sitemap_index.xml' ) );
 		}
 
 		// Ping Google and Bing.
