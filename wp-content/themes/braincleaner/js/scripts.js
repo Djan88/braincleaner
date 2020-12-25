@@ -432,7 +432,7 @@ jQuery(document).ready(function() {
       var handle_val;
       jQuery("#slider").slider({
         min: 0,
-        max: 300,
+        max: 400,
         create: function() {
           handle.text(jQuery(this).slider("value"));
         },
