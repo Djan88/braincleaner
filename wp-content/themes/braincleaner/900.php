@@ -14,7 +14,16 @@
           <div id="slider">
             <div id="custom-handle" class="ui-slider-handle"></div>
           </div>
-          <button class="btn btn-warning reverce_clean_graph pull-left" style="display: none;"><span class="glyphicon glyphicon-trash"></span></button>
+        </div>
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="pull-left">
+                    <button class="btn btn-warning reverce_clean_graph pull-left" style="display: none;"><span class="glyphicon glyphicon-trash"></span></button>
+                </div>
+                <div class="pull-right">
+                    <div class="regress-result">5</div>
+                </div>
+            </div>
         </div>
     </div>
 <?php } else { ?>
