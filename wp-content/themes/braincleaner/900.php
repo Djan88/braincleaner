@@ -20,7 +20,7 @@
                       <button class="btn btn-primary reverce_clean_graph pull-left" style="display: none;"><span class="glyphicon glyphicon-trash"></span></button>
                   </div>
                   <div class="pull-right">
-                      <div class="regress-result">0</div>
+                      <div class="regress-result">-</div>
                   </div>
               </div>
           </div>
