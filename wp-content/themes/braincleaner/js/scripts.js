@@ -440,25 +440,29 @@ jQuery(document).ready(function() {
         slide: function( event, ui ) {
           // handle.text( ui.value );
           handle_val = ui.value;
-          knife = jQuery('body').find('#custom-handle').css('left');
-          knife = parseFloat(knife.substr(0, knife.length - 2)).toFixed();
-          knifeDate = new Date();
-          knifeDateDiff = knifeDate - knifeDateOld;
-          // console.log('test '+knifeDateDiff);
-          knife_rate_class = 'knife_rate-'+knife;
-          knife_rate_class_dotted = '.knife_rate-'+knife;
-          jQuery('.reverce_graph').append('<div class='+knife_rate_class+'></div>');
-          jQuery(knife_rate_class_dotted).addClass('knife_rate').css({
-            left: +knife+10+'px',
-            height: knifeDateDiff+'px'
-          });
-          knifeDateOld = knifeDate;
+          if (handle_val > 30 && handle_val <= 365) {
+            knife = jQuery('body').find('#custom-handle').css('left');
+            knife = parseFloat(knife.substr(0, knife.length - 2)).toFixed();
+            knifeDate = new Date();
+            knifeDateDiff = knifeDate - knifeDateOld;
+            // console.log('test '+knifeDateDiff);
+            knife_rate_class = 'knife_rate-'+knife;
+            knife_rate_class_dotted = '.knife_rate-'+knife;
+            jQuery('.reverce_graph').append('<div class='+knife_rate_class+'></div>');
+            jQuery(knife_rate_class_dotted).addClass('knife_rate').css({
+              left: +knife+10+'px',
+              height: knifeDateDiff+'px'
+            });
+            knifeDateOld = knifeDate;
+          }
         },
         stop: function( event, ui ) {
           console.log(handle_val);
           jQuery('.reverce_clean_graph').removeAttr('style')
-          if (handle_val <= 55) {
-            jQuery('.regress-result').text('7');
+          if (handle_val <= 30) {
+            jQuery('.regress-result').text('-');
+          } else if (handle_val > 30 && handle_val <= 50) {
+            jQuery('.regress-result').text('6');
           } else if (handle_val > 55 && handle_val <= 110) {
             jQuery('.regress-result').text('6');
           } else if (handle_val > 110 && handle_val <= 165) {
@@ -469,8 +473,10 @@ jQuery(document).ready(function() {
             jQuery('.regress-result').text('3');
           } else if (handle_val > 275 && handle_val <= 340) {
             jQuery('.regress-result').text('2');
-          } else if (handle_val > 340) {
+          } else if (handle_val > 340 && handle_val <= 365) {
             jQuery('.regress-result').text('1');
+          } else if (handle_val > 365) {
+            jQuery('.regress-result').text('-');
           }
         }
       });
