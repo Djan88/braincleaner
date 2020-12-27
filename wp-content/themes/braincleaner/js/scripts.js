@@ -462,7 +462,7 @@ jQuery(document).ready(function() {
           if (handle_val <= 30) {
             jQuery('.regress-result').text('-');
           } else if (handle_val > 30 && handle_val <= 50) {
-            jQuery('.regress-result').text('6');
+            jQuery('.regress-result').text('7');
           } else if (handle_val > 55 && handle_val <= 110) {
             jQuery('.regress-result').text('6');
           } else if (handle_val > 110 && handle_val <= 165) {
