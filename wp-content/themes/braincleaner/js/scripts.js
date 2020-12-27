@@ -461,21 +461,21 @@ jQuery(document).ready(function() {
           jQuery('.reverce_clean_graph').removeAttr('style')
           if (handle_val <= 30) {
             jQuery('.regress-result').text('-');
-          } else if (handle_val > 30 && handle_val <= 50) {
+          } else if (handle_val > 30 && handle_val <= 75) {
             jQuery('.regress-result').text('7');
-          } else if (handle_val > 55 && handle_val <= 110) {
+          } else if (handle_val > 75 && handle_val <= 125) {
             jQuery('.regress-result').text('6');
-          } else if (handle_val > 110 && handle_val <= 165) {
+          } else if (handle_val > 125 && handle_val <= 170) {
             jQuery('.regress-result').text('5');
-          }  else if (handle_val > 165 && handle_val <= 225) {
+          }  else if (handle_val > 170 && handle_val <= 220) {
             jQuery('.regress-result').text('4');
-          }  else if (handle_val > 225 && handle_val <= 275) {
+          }  else if (handle_val > 220 && handle_val <= 270) {
             jQuery('.regress-result').text('3');
-          } else if (handle_val > 275 && handle_val <= 340) {
+          } else if (handle_val > 270 && handle_val <= 320) {
             jQuery('.regress-result').text('2');
-          } else if (handle_val > 340 && handle_val <= 365) {
+          } else if (handle_val > 320 && handle_val <= 360) {
             jQuery('.regress-result').text('1');
-          } else if (handle_val > 365) {
+          } else if (handle_val > 360) {
             jQuery('.regress-result').text('-');
           }
         }
